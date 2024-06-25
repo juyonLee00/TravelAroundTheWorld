@@ -24,3 +24,11 @@ public class SceneManagerEx
         CurrentScene.Clear();
     }
 }
+
+/*
+ SceneManagerEx 선언
+
+SceneManagerEx _scene = new SceneManagerEx();
+public static SceneManagerEx Scene { get { return Instance._scene; } }
+
+ */
