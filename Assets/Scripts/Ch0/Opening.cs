@@ -5,6 +5,8 @@ using TMPro;
 
 public class Opening : MonoBehaviour
 {
+    public TalkManager talkManager; // TalkManager 오브젝트
+
     private List<string> dialogues; // 대사들을 저장할 리스트
     public TextMeshProUGUI openingText; // TextMeshPro UI 텍스트 요소
 
@@ -44,8 +46,7 @@ public class Opening : MonoBehaviour
         else
         {
             this.gameObject.SetActive(false); // Opening 오브젝트 비활성화
-            invitation.SetActive(true); // Invitation 오브젝트 활성화
-            invitationText.gameObject.SetActive(false); // Invitation 오브젝트 활성화
+            talkManager.ActivateTalk();
             return;
         }
     }
