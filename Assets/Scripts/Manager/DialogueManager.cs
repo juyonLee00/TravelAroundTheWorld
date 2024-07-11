@@ -2,64 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager instance;
-    public string csvFileName; // Resources 폴더 내의 CSV 파일 이름
-
-    private Dictionary<string, List<string>> dialogues = new Dictionary<string, List<string>>();
+    public static DialogueManager Instance { get; private set; }
+    Dictionary<string, List<string[]>> talkData;
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 전환 시 오브젝트 유지
         }
         else
         {
             Destroy(gameObject);
         }
 
-        LoadDialoguesFromCSV(); // CSV 파일에서 대사 가져오기
+        talkData = new Dictionary<string, List<string[]>>();
+        LoadDataFromCSV("Travel Around The World - CH1");
     }
 
-    void LoadDialoguesFromCSV()
+    void LoadDataFromCSV(string fileName)
     {
-        var data = CSVReader.Read(csvFileName);
-        foreach (var row in data)
+        // Resources 폴더에서 CSV 파일 가져오기
+        TextAsset csvFile = Resources.Load<TextAsset>(fileName);
+        if (csvFile == null)
         {
-            if (!row.ContainsKey("npc_id") || !row.ContainsKey("dialogue"))
+            Debug.LogError($"CSV file not found: {fileName}");
+            return;
+        }
+
+        StringReader sr = new StringReader(csvFile.text);
+        bool isFirstLine = true;
+
+        while (sr.Peek() != -1)
+        {
+            string line = sr.ReadLine();
+            if (isFirstLine)
             {
-                Debug.LogWarning("에러");
+                isFirstLine = false;
                 continue;
             }
 
-            string npcID = row["npc_id"].ToString();
-            string dialogue = row["dialogue"].ToString();
+            string[] values = line.Split(',');
 
-            if (!dialogues.ContainsKey(npcID))
+            if (values.Length < 4)
             {
-                dialogues[npcID] = new List<string>();
+                Debug.LogError($"Invalid line format: {line}");
+                continue;
             }
-            dialogues[npcID].Add(dialogue);
+
+            string npcID = values[2];
+
+            if (string.IsNullOrEmpty(npcID) || npcID.Equals("인물"))
+            {
+                continue;
+            }
+
+            if (!talkData.ContainsKey(npcID))
+            {
+                talkData[npcID] = new List<string[]>();
+            }
+
+            talkData[npcID].Add(values);
         }
+
+        sr.Close();
     }
 
-    public void StartDialogue(string npcID)
+    public string GetTalk(string npcID, int talkIndex)
     {
-        if (dialogues.ContainsKey(npcID))
-        {
-            List<string> npcDialogues = dialogues[npcID];
-            // 대사 ui에 어떻게 할건지 여기에 추가하기
-            foreach (string dialogue in npcDialogues)
-            {
-                Debug.Log(dialogue); // 일단 콘솔에 대사 출력
-            }
-        }
-        else
-        {
-            Debug.LogWarning("대사 없음" + npcID); // 임시 확인용 나중에 삭제
-        }
+        if (!talkData.ContainsKey(npcID) || talkIndex >= talkData[npcID].Count)
+            return null;
+
+        return talkData[npcID][talkIndex][3];
     }
 }

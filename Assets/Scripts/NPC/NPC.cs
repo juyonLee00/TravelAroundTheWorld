@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        dialogueManager = DialogueManager.instance;
+        dialogueManager = DialogueManager.Instance;
     }
 
     void Update()
@@ -27,6 +27,22 @@ public class NPC : MonoBehaviour
     void StartDialogue()
     {
         // NPC 대사
-        dialogueManager.StartDialogue(npcID);
+        Managers.Instance.Dialogue(npcID, true);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("플레이어와 충돌!");
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("플레이어와 충돌!");
+        }
     }
 }
