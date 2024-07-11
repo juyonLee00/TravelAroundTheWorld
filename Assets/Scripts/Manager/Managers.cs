@@ -5,24 +5,14 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
-    public static Managers Instance
-    {
-        get
-        {
-            Init();
-            return s_instance;
-        }
-    }
+    public static Managers Instance { get { Init(); return s_instance; } }
+
 
     void Start()
     {
         Init();
     }
 
-    void Update()
-    {
-        
-    }
 
     static void Init()
     {
