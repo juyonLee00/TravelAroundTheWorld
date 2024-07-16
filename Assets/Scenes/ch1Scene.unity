@@ -520,8 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4aa952fac14a5418f9b863cfe514b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opening: {fileID: 0}
-  openingText: {fileID: 0}
   narration: {fileID: 0}
   narrationText: {fileID: 0}
   dialogue: {fileID: 0}
