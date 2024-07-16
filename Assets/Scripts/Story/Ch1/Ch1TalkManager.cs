@@ -7,6 +7,9 @@ public class TalkManagerCH1 : MonoBehaviour
 {
     private List<ProDialogue> proDialogue;
 
+    public GameObject opening;
+    public TextMeshProUGUI openingText;
+
     public GameObject narration;
     public TextMeshProUGUI narrationText;
 
@@ -19,7 +22,7 @@ public class TalkManagerCH1 : MonoBehaviour
     public GameObject letter;
     public TextMeshProUGUI letterText;
 
-    public GameObject guestRoom;
+    public GameObject trainRoom;
     public GameObject jazzBar;
     public GameObject garden;
 
@@ -52,7 +55,7 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1 (1)");
 
         foreach (var row in data_Dialog)
         {
@@ -60,7 +63,7 @@ public class TalkManagerCH1 : MonoBehaviour
             string location = row["장소"].ToString();
             string speaker = row["인물"].ToString();
             string line = row["대사"].ToString();
-            string screenEffect = row["화면"].ToString();
+            string screenEffect = row["화면 연출"].ToString();
             string backgroundMusic = row["배경음악"].ToString();
             string expression = row["표정"].ToString();
             string note = row["비고"].ToString();
@@ -82,10 +85,19 @@ public class TalkManagerCH1 : MonoBehaviour
 
         ProDialogue currentDialogue = proDialogue[index];
 
-        if (currentDialogue.speaker == "편지지")
+        if (index < 2)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
+            opening.SetActive(true);
+            openingText.text = currentDialogue.line;
+        }
+
+        else if (currentDialogue.speaker == "편지지")
+        {
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            opening.SetActive(false);
             if (!string.IsNullOrEmpty(letterText.text))
             {
                 letterText.text += "\n";
@@ -96,12 +108,14 @@ public class TalkManagerCH1 : MonoBehaviour
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
+            opening.SetActive(false);
             narrationText.text = currentDialogue.line;
         }
         else
         {
             narration.SetActive(false);
             dialogue.SetActive(true);
+            opening.SetActive(false);
             nameText.text = currentDialogue.speaker;
             descriptionText.text = currentDialogue.line;
         }
@@ -124,20 +138,34 @@ public class TalkManagerCH1 : MonoBehaviour
     void CheckTalk(string location)
     {
         letter.SetActive(false);
-        guestRoom.SetActive(false);
+        trainRoom.SetActive(false);
         jazzBar.SetActive(false);
         garden.SetActive(false);
 
         switch (location)
         {
             case "객실":
-                guestRoom.SetActive(true);
+                if (currentDialogueIndex >= 25 && currentDialogueIndex <= 33)
+                {
+                    letter.SetActive(true);
+                    if (currentDialogueIndex >= 26 && currentDialogueIndex <= 29)
+                    {
+                        letter.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        letter.gameObject.SetActive(false);
+                    }
+                }
                 break;
             case "재즈바":
                 jazzBar.SetActive(true);
                 break;
             case "정원":
                 garden.SetActive(true);
+                break;
+            case "카페":
+                opening.SetActive(true);
                 break;
         }
 
