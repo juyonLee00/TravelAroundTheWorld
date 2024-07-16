@@ -16,12 +16,17 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 nextVec = inputVec.normalized * speed * Time.deltaTime;
-        rigid.MovePosition(rigid.position + nextVec);
+        Move();
     }
     
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
+    }
+
+    void Move()
+    {
+        Vector2 nextVec = inputVec.normalized * speed * Time.deltaTime;
+        rigid.MovePosition(rigid.position + nextVec);
     }
 }
