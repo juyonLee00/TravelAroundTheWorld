@@ -5,36 +5,28 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     public string npcID;
-    public float interactionDistance = 3.0f; // ÇÃ·¹ÀÌ¾î¿Í »óÈ£ÀÛ¿ëÇÒ °Å¸®
+    public float interactionDistance = 3.0f; // í”Œë ˆì´ì–´ì™€ ìƒí˜¸ì‘ìš©í•  ê±°ë¦¬
 
-    private GameObject player; // ÀÓ½Ã
-    private DialogueManager dialogueManager;
+    private GameObject player; // ì„ì‹œ
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        dialogueManager = DialogueManager.Instance;
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < interactionDistance)
+        /*if (Vector3.Distance(transform.position, player.transform.position) < interactionDistance)
         {
             StartDialogue();
-        }
-    }
-
-    void StartDialogue()
-    {
-        // NPC ´ë»ç
-        Managers.Instance.Dialogue(npcID, true);
+        }*/
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹!");
+            Debug.Log("í”Œë ˆì´ì–´ì™€ ì¶©ëŒ!");
         }
     }
 
@@ -42,7 +34,7 @@ public class NPC : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹!");
+            Debug.Log("í”Œë ˆì´ì–´ì™€ ì¶©ëŒ!");
         }
     }
 }
