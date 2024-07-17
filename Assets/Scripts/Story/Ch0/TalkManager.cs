@@ -1,74 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // TextMeshPro ³×ÀÓ½ºÆäÀÌ½º Ãß°¡
+using TMPro; // TextMeshPro ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì¶”ê°€
 
-// ProDialogue Å¬·¡½º Á¤ÀÇ (ÇÁ·Ñ·Î±× ´ë»ç ÀúÀå)
-public class ProDialogue
-{
-    public int day; // ÀÏÀÚ
-    public string location; // Àå¼Ò
-    public string speaker; // ÀÎ¹°
-    public string line; // ´ë»ç
-    public string screenEffect; // È­¸é ¿¬Ãâ
-    public string backgroundMusic; // ¹è°æÀ½¾Ç
-    public string expression; // Ç¥Á¤
-    public string note; // ºñ°í
-    public string quest; // Äù½ºÆ®
-    public string questContent; // Äù½ºÆ® ³»¿ë
-
-    public ProDialogue(int day, string location, string speaker, string line, string screenEffect, string backgroundMusic, string expression, string note, string quest, string questContent)
-    {
-        this.day = day;
-        this.location = location;
-        this.speaker = speaker;
-        this.line = line;
-        this.screenEffect = screenEffect;
-        this.backgroundMusic = backgroundMusic;
-        this.expression = expression;
-        this.note = note;
-        this.quest = quest;
-        this.questContent = questContent;
-    }
-}
 
 public class TalkManager : MonoBehaviour
 {
-    // ´ë»çµéÀ» ÀúÀåÇÒ ¸®½ºÆ®
+    // ëŒ€ì‚¬ë“¤ì„ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
     private List<ProDialogue> proDialogue;
 
     public GameObject opening;
-    public TextMeshProUGUI openingText; // TextMeshPro UI ÅØ½ºÆ® ¿ä¼Ò
+    public TextMeshProUGUI openingText; // TextMeshPro UI í…ìŠ¤íŠ¸ ìš”ì†Œ
 
     public GameObject narration;
-    public TextMeshProUGUI narrationText; // TextMeshPro UI ÅØ½ºÆ® ¿ä¼Ò
+    public TextMeshProUGUI narrationText; // TextMeshPro UI í…ìŠ¤íŠ¸ ìš”ì†Œ
 
     public GameObject dialogue;
-    public GameObject imageObj; // ÃÊ»óÈ­ ÀÌ¹ÌÁö ¿ä¼Ò
-    public GameObject nameObj; // ÀÌ¸§ ¿ä¼Ò
-    public TextMeshProUGUI nameText; // TextMeshPro UI ÅØ½ºÆ® ¿ä¼Ò
-    public TextMeshProUGUI descriptionText; // TextMeshPro UI ÅØ½ºÆ® ¿ä¼Ò
+    public GameObject imageObj; // ì´ˆìƒí™” ì´ë¯¸ì§€ ìš”ì†Œ
+    public GameObject nameObj; // ì´ë¦„ ìš”ì†Œ
+    public TextMeshProUGUI nameText; // TextMeshPro UI í…ìŠ¤íŠ¸ ìš”ì†Œ
+    public TextMeshProUGUI descriptionText; // TextMeshPro UI í…ìŠ¤íŠ¸ ìš”ì†Œ
 
-    public GameObject invitation; // ÃÊ´ëÀå È­¸é
-    public TextMeshProUGUI invitationText; // TextMeshPro UI ÅØ½ºÆ® ¿ä¼Ò
+    public GameObject invitation; // ì´ˆëŒ€ì¥ í™”ë©´
+    public TextMeshProUGUI invitationText; // TextMeshPro UI í…ìŠ¤íŠ¸ ìš”ì†Œ
 
-    public GameObject forest; // ½£ È­¸é
+    public GameObject forest; // ìˆ² í™”ë©´
 
-    public GameObject trainStation; // ±âÂ÷¿ª È­¸é
-    public GameObject train; // ±âÂ÷ È­¸é
+    public GameObject trainStation; // ê¸°ì°¨ì—­ í™”ë©´
+    public GameObject train; // ê¸°ì°¨ í™”ë©´
 
-    private int currentDialogueIndex = 0; // ÇöÀç ´ë»ç ÀÎµ¦½º
-    private bool isActivated = false; // TalkManager°¡ È°¼ºÈ­µÇ¾ú´ÂÁö ¿©ºÎ
+    private int currentDialogueIndex = 0; // í˜„ì¬ ëŒ€ì‚¬ ì¸ë±ìŠ¤
+    private bool isActivated = false; // TalkManagerê°€ í™œì„±í™”ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
 
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
-        LoadDialogueFromCSV(); // CSV¿¡¼­ µ¥ÀÌÅÍ¸¦ ·ÎµåÇÏ´Â ÇÔ¼ö È£Ãâ
+        LoadDialogueFromCSV(); // CSVì—ì„œ ë°ì´í„°ë¥¼ ë¡œë“œí•˜ëŠ” í•¨ìˆ˜ í˜¸ì¶œ
     }
 
     void Start()
     {
-        ActivateTalk(); // ¿ÀºêÁ§Æ® È°¼ºÈ­
+        ActivateTalk(); // ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
     }
 
     void Update()
@@ -90,16 +62,16 @@ public class TalkManager : MonoBehaviour
 
         foreach(var row in data_Dialog)
         {
-            int day = int.Parse(row["ÀÏÀÚ"].ToString().Replace("ÀÏÂ÷", "").Trim());
-            string location = row["Àå¼Ò"].ToString();
-            string speaker = row["ÀÎ¹°"].ToString();
-            string line = row["´ë»ç"].ToString();
-            string screenEffect = row["È­¸é ¿¬Ãâ"].ToString();
-            string backgroundMusic = row["¹è°æÀ½¾Ç"].ToString();
-            string expression = row["Ç¥Á¤"].ToString();
-            string note = row["ºñ°í"].ToString();
-            string quest = row["Äù½ºÆ®"].ToString();
-            string questContent = row["Äù½ºÆ® ³»¿ë"].ToString();
+            int day = int.Parse(row["ì¼ì"].ToString().Replace("ì¼ì°¨", "").Trim());
+            string location = row["ì¥ì†Œ"].ToString();
+            string speaker = row["ì¸ë¬¼"].ToString();
+            string line = row["ëŒ€ì‚¬"].ToString();
+            string screenEffect = row["í™”ë©´ ì—°ì¶œ"].ToString();
+            string backgroundMusic = row["ë°°ê²½ìŒì•…"].ToString();
+            string expression = row["í‘œì •"].ToString();
+            string note = row["ë¹„ê³ "].ToString();
+            string quest = row["í€˜ìŠ¤íŠ¸"].ToString();
+            string questContent = row["í€˜ìŠ¤íŠ¸ ë‚´ìš©"].ToString();
 
             proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
         }
@@ -111,7 +83,7 @@ public class TalkManager : MonoBehaviour
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
-            return; // ´ë»ç ¸®½ºÆ®¸¦ ¹ş¾î³ª¸é ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­ ÈÄ ¸®ÅÏ
+            return; // ëŒ€ì‚¬ ë¦¬ìŠ¤íŠ¸ë¥¼ ë²—ì–´ë‚˜ë©´ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™” í›„ ë¦¬í„´
         }
 
         ProDialogue currentDialogue = proDialogue[index];
@@ -123,19 +95,19 @@ public class TalkManager : MonoBehaviour
             opening.SetActive(true);
             openingText.text = currentDialogue.line;
         }
-        //¿ÀÇÁ´× ´ë»ç ÀÌÈÄºÎÅÍ ÀÎ¹°¿¡ µû¶ó ´ë»ç/³ª·¹ÀÌ¼Ç/ÅØ½ºÆ® Ã¢ È°¼ºÈ­
-        else if (currentDialogue.speaker == "ÃÊ´ëÀå")
+        //ì˜¤í”„ë‹ ëŒ€ì‚¬ ì´í›„ë¶€í„° ì¸ë¬¼ì— ë”°ë¼ ëŒ€ì‚¬/ë‚˜ë ˆì´ì…˜/í…ìŠ¤íŠ¸ ì°½ í™œì„±í™”
+        else if (currentDialogue.speaker == "ì´ˆëŒ€ì¥")
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(false);
             if (!string.IsNullOrEmpty(invitationText.text))
             {
-                invitationText.text += "\n"; // ±âÁ¸ ³»¿ëÀÌ ÀÖÀ¸¸é ÇÑ ÁÙ ¶ç¿ì°í Ãß°¡
+                invitationText.text += "\n"; // ê¸°ì¡´ ë‚´ìš©ì´ ìˆìœ¼ë©´ í•œ ì¤„ ë„ìš°ê³  ì¶”ê°€
             }
-            invitationText.text += currentDialogue.line; // »õ·Î¿î ³»¿ë Ãß°¡
+            invitationText.text += currentDialogue.line; // ìƒˆë¡œìš´ ë‚´ìš© ì¶”ê°€
         }
-        else if (currentDialogue.speaker == "³ª·¹ÀÌ¼Ç")
+        else if (currentDialogue.speaker == "ë‚˜ë ˆì´ì…˜")
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
@@ -175,7 +147,7 @@ public class TalkManager : MonoBehaviour
 
         switch (location)
         {
-            case "Áı":
+            case "ì§‘":
                 if (currentDialogueIndex >= 3 && currentDialogueIndex <= 22)
                 {
                     invitation.SetActive(true);
@@ -189,10 +161,10 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "½£":
+            case "ìˆ²":
                 forest.SetActive(true);
                 break;
-            case "±âÂ÷¿ª":
+            case "ê¸°ì°¨ì—­":
                 trainStation.SetActive(true);
                 if (currentDialogueIndex >= 32)
                 {
