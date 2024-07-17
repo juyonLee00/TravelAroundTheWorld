@@ -59,11 +59,12 @@ public class TalkManagerCH1 : MonoBehaviour
 
         foreach (var row in data_Dialog)
         {
-            int day = int.Parse(row["일자"].ToString().Replace("일차", "").Trim());
+            string dayString = row["일자"].ToString();
+            int day = int.Parse(System.Text.RegularExpressions.Regex.Match(dayString, @"\d+").Value);
             string location = row["장소"].ToString();
             string speaker = row["인물"].ToString();
             string line = row["대사"].ToString();
-            string screenEffect = row["화면 연출"].ToString();
+            string screenEffect = row["화면"].ToString();
             string backgroundMusic = row["배경음악"].ToString();
             string expression = row["표정"].ToString();
             string note = row["비고"].ToString();
@@ -165,7 +166,7 @@ public class TalkManagerCH1 : MonoBehaviour
                 garden.SetActive(true);
                 break;
             case "카페":
-                opening.SetActive(true);
+                jazzBar.SetActive(true);
                 break;
         }
 
