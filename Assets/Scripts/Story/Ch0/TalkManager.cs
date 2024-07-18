@@ -28,6 +28,16 @@ public class TalkManager : MonoBehaviour
 
     public GameObject trainStation; // 기차역 화면
     public GameObject train; // 기차 화면
+    public GameObject trainOutside; // 기차 외부 화면
+
+    public GameObject cafe; // 카페 화면
+    public GameObject trainRoom; // 객실 화면
+    public GameObject trainRoomHallway; // 객실 복도 화면
+    public GameObject garden; // 정원 화면
+    public GameObject bakery; // 빵집 화면
+    public GameObject medicalRoom; // 의무실 화면
+
+    public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
 
     private int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
@@ -58,11 +68,12 @@ public class TalkManager : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0 (1)");
 
         foreach(var row in data_Dialog)
         {
-            int day = int.Parse(row["일자"].ToString().Replace("일차", "").Trim());
+            string dayString = row["일자"].ToString();
+            int day = int.Parse(System.Text.RegularExpressions.Regex.Match(dayString, @"\d+").Value);
             string location = row["장소"].ToString();
             string speaker = row["인물"].ToString();
             string line = row["대사"].ToString();
@@ -144,11 +155,22 @@ public class TalkManager : MonoBehaviour
         forest.SetActive(false);
         trainStation.SetActive(false);
         train.SetActive(false);
+        trainOutside.SetActive(false);
+        cafe.SetActive(false);
+        trainRoom.SetActive(false);
+        trainRoomHallway.SetActive(false);
+        garden.SetActive(false);
+        bakery.SetActive(false);
+        medicalRoom.SetActive(false);
 
         switch (location)
         {
             case "집":
-                if (currentDialogueIndex >= 3 && currentDialogueIndex <= 22)
+                if (currentDialogueIndex == 2)
+                {
+                    StartCoroutine(screenFader.FadeIn(invitation));
+                }
+                else if (currentDialogueIndex >= 3 && currentDialogueIndex <= 23)
                 {
                     invitation.SetActive(true);
                     if (currentDialogueIndex >= 3 && currentDialogueIndex <= 5)
@@ -159,17 +181,59 @@ public class TalkManager : MonoBehaviour
                     {
                         invitationText.gameObject.SetActive(true);
                     }
+                    if (currentDialogueIndex == 23)
+                    {
+                        StartCoroutine(screenFader.FadeOut(invitation));
+                    }
                 }
                 break;
             case "숲":
-                forest.SetActive(true);
+                if (currentDialogueIndex == 24)
+                {
+                    StartCoroutine(screenFader.FadeIn(forest));
+                }
+                else
+                {
+                    forest.SetActive(true);
+                }
                 break;
             case "기차역":
-                trainStation.SetActive(true);
-                if (currentDialogueIndex >= 32)
+                if (currentDialogueIndex == 28)
                 {
-                    train.SetActive(true);
+                    StartCoroutine(screenFader.FadeIn(trainStation));
                 }
+                else
+                {
+                    trainStation.SetActive(true);
+                    if (currentDialogueIndex >= 32)
+                    {
+                        train.SetActive(true);
+                    }
+                }
+                break;
+            case "카페":
+                cafe.SetActive(true);
+                break;
+            case "객실":
+                trainRoom.SetActive(true);
+                break;
+            case "엔진룸":
+                trainRoomHallway.SetActive(true);
+                break;
+            case "다른 방 1":
+                trainRoomHallway.SetActive(true);
+                break;
+            case "다른 방 2":
+                trainRoomHallway.SetActive(true);
+                break;
+            case "정원":
+                garden.SetActive(true);
+                break;
+            case "빵집":
+                bakery.SetActive(true);
+                break;
+            case "의무실":
+                medicalRoom.SetActive(true);
                 break;
         }
         if (currentDialogueIndex > proDialogue.Count)
