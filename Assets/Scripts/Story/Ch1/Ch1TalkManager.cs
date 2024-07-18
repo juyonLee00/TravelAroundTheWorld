@@ -22,9 +22,14 @@ public class TalkManagerCH1 : MonoBehaviour
     public GameObject letter;
     public TextMeshProUGUI letterText;
 
+    public GameObject subQuest;
+    public TextMeshProUGUI subQuestText;
+
     public GameObject trainRoom;
     public GameObject jazzBar;
     public GameObject garden;
+
+    public QuestManager questManager; // 퀘스트 매니저 참조
 
     private int currentDialogueIndex = 0;
     private bool isActivated = false;
@@ -33,6 +38,11 @@ public class TalkManagerCH1 : MonoBehaviour
     {
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV();
+    }
+
+    void Start()
+    {
+        ActivateTalk();
     }
 
     void Update()
@@ -111,6 +121,19 @@ public class TalkManagerCH1 : MonoBehaviour
             descriptionText.text = currentDialogue.line;
         }
 
+        // 서브퀘스트 출력 로직 추가
+        if (!string.IsNullOrEmpty(currentDialogue.quest))
+        {
+            Quest quest = questManager.GetQuest(currentDialogue.quest);
+            if (quest != null)
+            {
+                narration.SetActive(true);
+                dialogue.SetActive(false);
+                opening.SetActive(false);
+                narrationText.text += $"\n[퀘스트 시작]\n{quest.questName}\n{quest.questDescription}\n{quest.questNote}";
+            }
+        }
+
         CheckTalk(currentDialogue.location);
     }
 
@@ -130,6 +153,7 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void CheckTalk(string location)
     {
+        subQuest.SetActive(false);
         letter.SetActive(false);
         trainRoom.SetActive(false);
         jazzBar.SetActive(false);
@@ -155,6 +179,7 @@ public class TalkManagerCH1 : MonoBehaviour
                 jazzBar.SetActive(true);
                 break;
             case "정원":
+
                 garden.SetActive(true);
                 break;
             case "카페":
