@@ -35,17 +35,8 @@ public class TalkManagerCH1 : MonoBehaviour
         LoadDialogueFromCSV();
     }
 
-    void Start()
-    {
-        ActivateTalk();
-    }
-
     void Update()
     {
-        if (isActivated && currentDialogueIndex == 0)
-        {
-            PrintProDialogue(currentDialogueIndex);
-        }
         if (isActivated && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
@@ -93,7 +84,6 @@ public class TalkManagerCH1 : MonoBehaviour
             opening.SetActive(true);
             openingText.text = currentDialogue.line;
         }
-
         else if (currentDialogue.speaker == "편지지")
         {
             narration.SetActive(false);
@@ -128,6 +118,8 @@ public class TalkManagerCH1 : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         isActivated = true;
+        currentDialogueIndex = 0; // 대화를 시작할 때 인덱스를 0으로 초기화
+        PrintProDialogue(currentDialogueIndex);
     }
 
     void DeactivateTalk()
