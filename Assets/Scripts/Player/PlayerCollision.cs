@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        //현재 씬의 상태인 SceneType 가져오기
+        /*
+         * 현재 씬의 상태인 SceneType 가져오기
+        
         SceneType.Scene curSceneType = Managers.Scene.GetSceneType();
 
         if(curSceneType == SceneType.Scene.Tutorial)
@@ -31,8 +33,7 @@ public class PlayerCollision : MonoBehaviour
         {
             //씬매니저로 현재 씬의 이름 찾아서 해당 씬 리로드
         }
-        
-
+        */
 
     }
 }
