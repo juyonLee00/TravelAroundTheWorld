@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 3659090709145674017}
   - component: {fileID: 332950377236843374}
   - component: {fileID: 3196667055837162755}
-  - component: {fileID: 8081570383722089087}
+  - component: {fileID: 1549020063432900822}
   m_Layer: 8
   m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3659090709145674017
 Transform:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8081570383722089087
+--- !u!114 &1549020063432900822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
