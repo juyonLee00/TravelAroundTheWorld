@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        
     }
 
     void OnMove(InputValue inputValue)
@@ -30,4 +31,43 @@ public class PlayerController : MonoBehaviour
         rigid.MovePosition(rigid.position + moveVector);
     }
 
+    void OnInventory()
+    {
+        /*
+         * ????UI ?? ? ??? 
+         * 
+         * GameObject inventoryUI = UIManager.Instantiate("inventoryUI");
+         * 
+         * if(inventoryUI != null)
+         *      inventoryUI.SetActive(true);
+         */
+    }
+
+    void OnSetting()
+    {
+        /*
+         * SettingUI ?? ? ??? (Inventory? ??)
+         */
+    }
+
+    void OnMap()
+    {
+        /*
+         * MapUI ?? ? ??? 
+         */
+    }
+
+    void OnSkipDialogue()
+    {
+       /*
+        *  ?? ?? ?? ???? ?? ?? ??
+        */
+    }
+
+    void OnMouseMove()
+    {
+        /*
+         * UI???? ?? ?? map ??? ?? ?? ??? ??
+         */
+    }
 }
