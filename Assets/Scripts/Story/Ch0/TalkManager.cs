@@ -10,19 +10,14 @@ public class TalkManager : MonoBehaviour
     private List<ProDialogue> proDialogue;
 
     public GameObject opening;
-    public TextMeshProUGUI openingText; // TextMeshPro UI 텍스트 요소
-
     public GameObject narration;
-    public TextMeshProUGUI narrationText; // TextMeshPro UI 텍스트 요소
-
     public GameObject dialogue;
+
     public GameObject imageObj; // 초상화 이미지 요소
     public GameObject nameObj; // 이름 요소
-    public TextMeshProUGUI nameText; // TextMeshPro UI 텍스트 요소
-    public TextMeshProUGUI descriptionText; // TextMeshPro UI 텍스트 요소
 
     public GameObject invitation; // 초대장 화면
-    public TextMeshProUGUI invitationText; // TextMeshPro UI 텍스트 요소
+    public TextMeshProUGUI invitationText;
 
     public GameObject forest; // 숲 화면
 
@@ -39,6 +34,10 @@ public class TalkManager : MonoBehaviour
 
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
 
+    public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
+
     private int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
@@ -51,14 +50,14 @@ public class TalkManager : MonoBehaviour
     void Start()
     {
         ActivateTalk(); // 오브젝트 활성화
-    }
-
-    void Update()
-    {
         if (isActivated && currentDialogueIndex == 0)
         {
             PrintProDialogue(currentDialogueIndex);
         }
+    }
+
+    void Update()
+    {
         if (isActivated && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
@@ -104,7 +103,7 @@ public class TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(true);
-            openingText.text = currentDialogue.line;
+            openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         //오프닝 대사 이후부터 인물에 따라 대사/나레이션/텍스트 창 활성화
         else if (currentDialogue.speaker == "초대장")
@@ -114,30 +113,29 @@ public class TalkManager : MonoBehaviour
             opening.SetActive(false);
             if (!string.IsNullOrEmpty(invitationText.text))
             {
-                invitationText.text += "\n"; // 기존 내용이 있으면 한 줄 띄우고 추가
+                invitationText.text += "\n";
             }
-            invitationText.text += currentDialogue.line; // 새로운 내용 추가
+            invitationText.text += currentDialogue.line;
         }
-        else if ((currentDialogue.speaker == "") && (currentDialogue.location == ""))
+        else if (string.IsNullOrEmpty(currentDialogue.speaker) && string.IsNullOrEmpty(currentDialogue.location))
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(false);
         }
-        else if ((currentDialogue.speaker == "나레이션") || (currentDialogue.speaker == ""))
+        else if ((currentDialogue.speaker == "나레이션") || string.IsNullOrEmpty(currentDialogue.speaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
             opening.SetActive(false);
-            narrationText.text = currentDialogue.line;
+            narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         else
         {
             narration.SetActive(false);
             dialogue.SetActive(true);
             opening.SetActive(false);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
+            dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
         CheckTalk(currentDialogue.location);
