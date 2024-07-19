@@ -68,7 +68,7 @@ public class TalkManager : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0 (1)");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0 (2)");
 
         foreach(var row in data_Dialog)
         {
@@ -118,7 +118,13 @@ public class TalkManager : MonoBehaviour
             }
             invitationText.text += currentDialogue.line; // 새로운 내용 추가
         }
-        else if (currentDialogue.speaker == "나레이션")
+        else if ((currentDialogue.speaker == "") && (currentDialogue.location == ""))
+        {
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            opening.SetActive(false);
+        }
+        else if ((currentDialogue.speaker == "나레이션") || (currentDialogue.speaker == ""))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
@@ -208,32 +214,109 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex >= 32)
                     {
                         train.SetActive(true);
+                        if (currentDialogueIndex == 48)
+                        {
+                            StartCoroutine(screenFader.FadeOut(trainStation));
+                            StartCoroutine(screenFader.FadeOut(train));
+                        }
                     }
                 }
                 break;
             case "카페":
-                cafe.SetActive(true);
-                break;
-            case "객실":
-                trainRoom.SetActive(true);
+                //카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
+                if (currentDialogueIndex == 50)
+                {
+                    StartCoroutine(screenFader.FadeIn(cafe));
+                }
+                else if (currentDialogueIndex <= 62)
+                {
+                    cafe.SetActive(true);
+                    if (currentDialogueIndex == 62)
+                    {
+                        StartCoroutine(screenFader.FadeOut(cafe));
+                    }
+                }
+                //맵 튜토리얼
+                if (currentDialogueIndex == 64)
+                {
+                    StartCoroutine(screenFader.FadeIn(cafe));
+                }
+                else if (currentDialogueIndex <= 68)
+                {
+                    cafe.SetActive(true);
+                    if (currentDialogueIndex == 68)
+                    {
+                        StartCoroutine(screenFader.FadeOut(cafe));
+                    }
+                }
                 break;
             case "엔진룸":
-                trainRoomHallway.SetActive(true);
+                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                //trainRoomHallway.SetActive(true);
                 break;
             case "다른 방 1":
-                trainRoomHallway.SetActive(true);
+                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                //trainRoomHallway.SetActive(true);
                 break;
             case "다른 방 2":
-                trainRoomHallway.SetActive(true);
+                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                //trainRoomHallway.SetActive(true);
                 break;
             case "정원":
-                garden.SetActive(true);
+                if (currentDialogueIndex == 73)
+                {
+                    StartCoroutine(screenFader.FadeIn(garden));
+                }
+                else
+                {
+                    garden.SetActive(true);
+                    if (currentDialogueIndex == 81)
+                    {
+                        StartCoroutine(screenFader.FadeOut(garden));
+                    }
+                }
                 break;
             case "빵집":
-                bakery.SetActive(true);
+                if (currentDialogueIndex == 82)
+                {
+                    StartCoroutine(screenFader.FadeIn(bakery));
+                }
+                else
+                {
+                    bakery.SetActive(true);
+                    if (currentDialogueIndex == 107)
+                    {
+                        StartCoroutine(screenFader.FadeOut(bakery));
+                    }
+                }
                 break;
             case "의무실":
-                medicalRoom.SetActive(true);
+                if (currentDialogueIndex == 108)
+                {
+                    StartCoroutine(screenFader.FadeIn(medicalRoom));
+                }
+                else
+                {
+                    medicalRoom.SetActive(true);
+                    if (currentDialogueIndex == 131)
+                    {
+                        StartCoroutine(screenFader.FadeOut(medicalRoom));
+                    }
+                }
+                break;
+            case "객실":
+                if (currentDialogueIndex == 132)
+                {
+                    StartCoroutine(screenFader.FadeIn(trainRoom));
+                }
+                else
+                {
+                    trainRoom.SetActive(true);
+                    if (currentDialogueIndex == 136)
+                    {
+                        StartCoroutine(screenFader.FadeOut(trainRoom));
+                    }
+                }
                 break;
         }
         if (currentDialogueIndex > proDialogue.Count)
