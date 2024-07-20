@@ -38,6 +38,21 @@ public class TalkManager : MonoBehaviour
     public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
     public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
 
+    // 문자열 상수 선언
+    private const string narrationSpeaker = "나레이션";
+    private const string invitationSpeaker = "초대장";
+    private const string locationHome = "집";
+    private const string locationForest = "숲";
+    private const string locationTrainStation = "기차역";
+    private const string locationCafe = "카페";
+    private const string locationEngineRoom = "엔진룸";
+    private const string locationOtherRoom1 = "다른 방 1";
+    private const string locationOtherRoom2 = "다른 방 2";
+    private const string locationGarden = "정원";
+    private const string locationBakery = "빵집";
+    private const string locationMedicalRoom = "의무실";
+    private const string locationTrainRoom = "객실";
+
     private int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
@@ -106,7 +121,7 @@ public class TalkManager : MonoBehaviour
             openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         //오프닝 대사 이후부터 인물에 따라 대사/나레이션/텍스트 창 활성화
-        else if (currentDialogue.speaker == "초대장")
+        else if (currentDialogue.speaker == invitationSpeaker)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -123,7 +138,7 @@ public class TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             opening.SetActive(false);
         }
-        else if ((currentDialogue.speaker == "나레이션") || string.IsNullOrEmpty(currentDialogue.speaker))
+        else if ((currentDialogue.speaker == narrationSpeaker) || string.IsNullOrEmpty(currentDialogue.speaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
@@ -169,7 +184,7 @@ public class TalkManager : MonoBehaviour
 
         switch (location)
         {
-            case "집":
+            case locationHome:
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
@@ -191,7 +206,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "숲":
+            case locationForest:
                 if (currentDialogueIndex == 24)
                 {
                     StartCoroutine(screenFader.FadeIn(forest));
@@ -201,7 +216,7 @@ public class TalkManager : MonoBehaviour
                     forest.SetActive(true);
                 }
                 break;
-            case "기차역":
+            case locationTrainStation:
                 if (currentDialogueIndex == 28)
                 {
                     StartCoroutine(screenFader.FadeIn(trainStation));
@@ -220,7 +235,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "카페":
+            case locationCafe:
                 //카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
                 if (currentDialogueIndex == 50)
                 {
@@ -248,19 +263,16 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "엔진룸":
+            case locationEngineRoom:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "다른 방 1":
+            case locationOtherRoom1:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "다른 방 2":
+            case locationOtherRoom2:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "정원":
+            case locationGarden:
                 if (currentDialogueIndex == 73)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
@@ -274,7 +286,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "빵집":
+            case locationBakery:
                 if (currentDialogueIndex == 82)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
@@ -288,7 +300,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "의무실":
+            case locationMedicalRoom:
                 if (currentDialogueIndex == 108)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
@@ -302,7 +314,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "객실":
+            case locationTrainRoom:
                 if (currentDialogueIndex == 132)
                 {
                     StartCoroutine(screenFader.FadeIn(trainRoom));
