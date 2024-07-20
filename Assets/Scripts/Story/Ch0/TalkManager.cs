@@ -10,19 +10,14 @@ public class TalkManager : MonoBehaviour
     private List<ProDialogue> proDialogue;
 
     public GameObject opening;
-    public TextMeshProUGUI openingText; // TextMeshPro UI 텍스트 요소
-
     public GameObject narration;
-    public TextMeshProUGUI narrationText; // TextMeshPro UI 텍스트 요소
-
     public GameObject dialogue;
+
     public GameObject imageObj; // 초상화 이미지 요소
     public GameObject nameObj; // 이름 요소
-    public TextMeshProUGUI nameText; // TextMeshPro UI 텍스트 요소
-    public TextMeshProUGUI descriptionText; // TextMeshPro UI 텍스트 요소
 
     public GameObject invitation; // 초대장 화면
-    public TextMeshProUGUI invitationText; // TextMeshPro UI 텍스트 요소
+    public TextMeshProUGUI invitationText;
 
     public GameObject forest; // 숲 화면
 
@@ -39,6 +34,25 @@ public class TalkManager : MonoBehaviour
 
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
 
+    public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
+
+    // 문자열 상수 선언
+    private const string narrationSpeaker = "나레이션";
+    private const string invitationSpeaker = "초대장";
+    private const string locationHome = "집";
+    private const string locationForest = "숲";
+    private const string locationTrainStation = "기차역";
+    private const string locationCafe = "카페";
+    private const string locationEngineRoom = "엔진룸";
+    private const string locationOtherRoom1 = "다른 방 1";
+    private const string locationOtherRoom2 = "다른 방 2";
+    private const string locationGarden = "정원";
+    private const string locationBakery = "빵집";
+    private const string locationMedicalRoom = "의무실";
+    private const string locationTrainRoom = "객실";
+
     private int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
@@ -51,14 +65,14 @@ public class TalkManager : MonoBehaviour
     void Start()
     {
         ActivateTalk(); // 오브젝트 활성화
-    }
-
-    void Update()
-    {
         if (isActivated && currentDialogueIndex == 0)
         {
             PrintProDialogue(currentDialogueIndex);
         }
+    }
+
+    void Update()
+    {
         if (isActivated && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
@@ -104,40 +118,39 @@ public class TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(true);
-            openingText.text = currentDialogue.line;
+            openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         //오프닝 대사 이후부터 인물에 따라 대사/나레이션/텍스트 창 활성화
-        else if (currentDialogue.speaker == "초대장")
+        else if (currentDialogue.speaker == invitationSpeaker)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(false);
             if (!string.IsNullOrEmpty(invitationText.text))
             {
-                invitationText.text += "\n"; // 기존 내용이 있으면 한 줄 띄우고 추가
+                invitationText.text += "\n";
             }
-            invitationText.text += currentDialogue.line; // 새로운 내용 추가
+            invitationText.text += currentDialogue.line;
         }
-        else if ((currentDialogue.speaker == "") && (currentDialogue.location == ""))
+        else if (string.IsNullOrEmpty(currentDialogue.speaker) && string.IsNullOrEmpty(currentDialogue.location))
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(false);
         }
-        else if ((currentDialogue.speaker == "나레이션") || (currentDialogue.speaker == ""))
+        else if ((currentDialogue.speaker == narrationSpeaker) || string.IsNullOrEmpty(currentDialogue.speaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
             opening.SetActive(false);
-            narrationText.text = currentDialogue.line;
+            narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         else
         {
             narration.SetActive(false);
             dialogue.SetActive(true);
             opening.SetActive(false);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
+            dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
         CheckTalk(currentDialogue.location);
@@ -171,7 +184,7 @@ public class TalkManager : MonoBehaviour
 
         switch (location)
         {
-            case "집":
+            case locationHome:
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
@@ -193,7 +206,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "숲":
+            case locationForest:
                 if (currentDialogueIndex == 24)
                 {
                     StartCoroutine(screenFader.FadeIn(forest));
@@ -203,7 +216,7 @@ public class TalkManager : MonoBehaviour
                     forest.SetActive(true);
                 }
                 break;
-            case "기차역":
+            case locationTrainStation:
                 if (currentDialogueIndex == 28)
                 {
                     StartCoroutine(screenFader.FadeIn(trainStation));
@@ -222,7 +235,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "카페":
+            case locationCafe:
                 //카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
                 if (currentDialogueIndex == 50)
                 {
@@ -250,19 +263,16 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "엔진룸":
+            case locationEngineRoom:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "다른 방 1":
+            case locationOtherRoom1:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "다른 방 2":
+            case locationOtherRoom2:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
-                //trainRoomHallway.SetActive(true);
                 break;
-            case "정원":
+            case locationGarden:
                 if (currentDialogueIndex == 73)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
@@ -276,7 +286,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "빵집":
+            case locationBakery:
                 if (currentDialogueIndex == 82)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
@@ -290,7 +300,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "의무실":
+            case locationMedicalRoom:
                 if (currentDialogueIndex == 108)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
@@ -304,7 +314,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            case "객실":
+            case locationTrainRoom:
                 if (currentDialogueIndex == 132)
                 {
                     StartCoroutine(screenFader.FadeIn(trainRoom));
