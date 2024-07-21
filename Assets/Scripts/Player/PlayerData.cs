@@ -7,8 +7,10 @@ public class PlayerData : MonoBehaviour
     private int chapterIdx;
     private int mainIdx;
     private List<int> subIdx = new List<int>();
+
     private Dictionary<int, int> inventoryData = new Dictionary<int, int>();
-    private List<int> cafeItemData = new List<int>();
+    private List<int> unlockedCafeItemData = new List<int>();
+
     private List<int> unlockIllustrationData = new List<int>();
     private List<int> unlockEndingData = new List<int>();
 
@@ -36,10 +38,10 @@ public class PlayerData : MonoBehaviour
         set { inventoryData = value; }
     }
 
-    public List<int> CafeItemData
+    public List<int> UnlockedCafeItemData
     {
-        get { return cafeItemData; }
-        set { cafeItemData = value; }
+        get { return unlockedCafeItemData; }
+        set { unlockedCafeItemData = value; }
     }
 
     public List<int> UnlockIllustrationData
@@ -52,6 +54,67 @@ public class PlayerData : MonoBehaviour
     {
         get { return unlockEndingData; }
         set { unlockEndingData = value; }
+    }
+
+    public void AddItem(int idx, int num)
+    {
+        if (inventoryData.ContainsKey(idx))
+            inventoryData[idx] += num;
+
+        else
+            inventoryData.Add(idx, num);
+    }
+
+
+    public void useItem(int idx, int num)
+    {
+        if(!inventoryData.ContainsKey(idx))
+        {
+            //오류로그 저장
+            return;
+        }
+
+        else
+        {
+            int diffValue = inventoryData[idx] - num;
+
+            if(diffValue < 0)
+            {
+                //팝업창 - 사용하려는 아이템을 사용할 수 없다는 팝업창
+                return;
+            }    
+
+            else
+            {
+                inventoryData[idx] = diffValue;
+
+                if(diffValue == 0)
+                {
+                    inventoryData.Remove(idx);
+                }
+            }
+        }
+    }
+
+
+
+    public void AddEndingData(int idx)
+    {
+        if(!unlockEndingData.Contains(idx))
+            unlockEndingData.Add(idx);
+    }
+
+    public void AddIllustrationData(int idx)
+    {
+        if (!unlockIllustrationData.Contains(idx))
+            unlockIllustrationData.Add(idx);
+    }
+
+    public void GetCafeItem(int idx)
+    {
+        if (!unlockedCafeItemData.Contains(idx))
+            unlockedCafeItemData.Add(idx);
+            
     }
 
     // subIdx의 인덱서
