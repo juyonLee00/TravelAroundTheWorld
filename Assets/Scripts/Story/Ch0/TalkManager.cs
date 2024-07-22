@@ -38,6 +38,8 @@ public class TalkManager : MonoBehaviour
     public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
     public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
 
+    public GameObject mapTutorial; //맵 튜토리얼
+
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
     private const string invitationSpeaker = "초대장";
@@ -53,7 +55,7 @@ public class TalkManager : MonoBehaviour
     private const string locationMedicalRoom = "의무실";
     private const string locationTrainRoom = "객실";
 
-    private int currentDialogueIndex = 0; // 현재 대사 인덱스
+    public int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
     void Awake()
@@ -78,11 +80,17 @@ public class TalkManager : MonoBehaviour
             currentDialogueIndex++;
             PrintProDialogue(currentDialogueIndex);
         }
+        // 맵 이동 조작 튜토리얼
+        if (currentDialogueIndex == 63)
+        {
+            mapTutorial.SetActive(true);
+            DeactivateTalk(); // 대화 잠시 종료
+        }
     }
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0 (2)");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH0");
 
         foreach(var row in data_Dialog)
         {
@@ -236,7 +244,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationCafe:
-                //카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
+                // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
                 if (currentDialogueIndex == 50)
                 {
                     StartCoroutine(screenFader.FadeIn(cafe));
@@ -245,19 +253,6 @@ public class TalkManager : MonoBehaviour
                 {
                     cafe.SetActive(true);
                     if (currentDialogueIndex == 62)
-                    {
-                        StartCoroutine(screenFader.FadeOut(cafe));
-                    }
-                }
-                //맵 튜토리얼
-                if (currentDialogueIndex == 64)
-                {
-                    StartCoroutine(screenFader.FadeIn(cafe));
-                }
-                else if (currentDialogueIndex <= 68)
-                {
-                    cafe.SetActive(true);
-                    if (currentDialogueIndex == 68)
                     {
                         StartCoroutine(screenFader.FadeOut(cafe));
                     }
@@ -273,56 +268,56 @@ public class TalkManager : MonoBehaviour
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
                 break;
             case locationGarden:
-                if (currentDialogueIndex == 73)
+                if (currentDialogueIndex == 67)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
                 }
                 else
                 {
                     garden.SetActive(true);
-                    if (currentDialogueIndex == 81)
+                    if (currentDialogueIndex == 75)
                     {
                         StartCoroutine(screenFader.FadeOut(garden));
                     }
                 }
                 break;
             case locationBakery:
-                if (currentDialogueIndex == 82)
+                if (currentDialogueIndex == 76)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
                 }
                 else
                 {
                     bakery.SetActive(true);
-                    if (currentDialogueIndex == 107)
+                    if (currentDialogueIndex == 101)
                     {
                         StartCoroutine(screenFader.FadeOut(bakery));
                     }
                 }
                 break;
             case locationMedicalRoom:
-                if (currentDialogueIndex == 108)
+                if (currentDialogueIndex == 102)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
                 }
                 else
                 {
                     medicalRoom.SetActive(true);
-                    if (currentDialogueIndex == 131)
+                    if (currentDialogueIndex == 125)
                     {
                         StartCoroutine(screenFader.FadeOut(medicalRoom));
                     }
                 }
                 break;
             case locationTrainRoom:
-                if (currentDialogueIndex == 132)
+                if (currentDialogueIndex == 126)
                 {
                     StartCoroutine(screenFader.FadeIn(trainRoom));
                 }
                 else
                 {
                     trainRoom.SetActive(true);
-                    if (currentDialogueIndex == 136)
+                    if (currentDialogueIndex == 130)
                     {
                         StartCoroutine(screenFader.FadeOut(trainRoom));
                     }
