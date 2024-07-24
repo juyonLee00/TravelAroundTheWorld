@@ -9,9 +9,22 @@ public class PlayerController : MonoBehaviour
     Vector2 inputVector;
     Rigidbody2D rigid;
 
+    public GameObject inventoryUI;
+    private GameObject inventory;
+    private Canvas canvas;
+    private bool isActivatedInventoryUI = false;
+    private int inventoryCount = 0;
+
+    private bool isActivatedMapUI = false;
+    private int mapCount = 0;
+
+    private UIManager uiManager;
+
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -22,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue inputValue)
     {
+        if (uiManager.IsUIActive())
+            return;
         inputVector = inputValue.Get<Vector2>();
     }
 
@@ -33,28 +48,17 @@ public class PlayerController : MonoBehaviour
 
     void OnInventory()
     {
-        /*
-         * ????UI ?? ? ??? 
-         * 
-         * GameObject inventoryUI = UIManager.Instantiate("inventoryUI");
-         * 
-         * if(inventoryUI != null)
-         *      inventoryUI.SetActive(true);
-         */
+        uiManager.ToggleUI("Inventory");
     }
 
     void OnSetting()
     {
-        /*
-         * SettingUI ?? ? ??? (Inventory? ??)
-         */
+        uiManager.ToggleUI("Setting");
     }
 
     void OnMap()
     {
-        /*
-         * MapUI ?? ? ??? 
-         */
+        uiManager.ToggleUI("Map");
     }
 
     void OnSkipDialogue()
@@ -68,6 +72,6 @@ public class PlayerController : MonoBehaviour
     {
         /*
          * UI???? ?? ?? map ??? ?? ?? ??? ??
-         */
+?        */
     }
 }
