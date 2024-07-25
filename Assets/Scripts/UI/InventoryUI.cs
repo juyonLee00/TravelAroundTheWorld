@@ -135,16 +135,4 @@ public class InventoryUI : MonoBehaviour
         return placedObj;
     }
 
-
-    public void OpenInventory()
-    {
-        isActiveUI = true;
-        gameObject.SetActive(true);
-    }
-
-    public void CloseInventory()
-    {
-        isActiveUI = false;
-        gameObject.SetActive(false);
-    }
 }
