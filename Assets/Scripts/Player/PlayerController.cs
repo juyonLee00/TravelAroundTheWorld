@@ -5,26 +5,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //animationController? speed ?? ????
     public float speed = 6.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
 
-    public GameObject inventoryUI;
-    private GameObject inventory;
-    private Canvas canvas;
-    private bool isActivatedInventoryUI = false;
-    private int inventoryCount = 0;
-
-    private bool isActivatedMapUI = false;
-    private int mapCount = 0;
-
+    //??? ??
     private UIManager uiManager;
+    public PlayerAnimationController playerAnimationController;
 
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
+        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
     }
 
     void Update()
@@ -36,14 +31,21 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue inputValue)
     {
         if (uiManager.IsUIActive())
+        {
+            //animationController MoveSpeed = 0;?? ??
             return;
+        }
         inputVector = inputValue.Get<Vector2>();
+
+        
     }
 
     void Move()
     {
         Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
         rigid.MovePosition(rigid.position + moveVector);
+
+        playerAnimationController.SetMoveDirection(inputVector);
     }
 
     void OnInventory()
