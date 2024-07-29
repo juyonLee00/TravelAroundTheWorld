@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryUIPrefab;
     public GameObject settingUIPrefab;
     public GameObject mapUIPrefab;
+    public GameObject loadUIPrefab;
+    public GameObject saveDataUIPrefab;
 
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
@@ -75,6 +77,10 @@ public class UIManager : MonoBehaviour
                 return settingUIPrefab;
             case "Map":
                 return mapUIPrefab;
+            case "Load":
+                return loadUIPrefab;
+            case "SaveData":
+                return saveDataUIPrefab;
             default:
                 return null;
         }

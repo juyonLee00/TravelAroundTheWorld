@@ -47,3 +47,5 @@ MonoBehaviour:
   inventoryUIPrefab: {fileID: 5473142306796092411, guid: aa8629fa24a964dc6846e42bd2401cfd, type: 3}
   settingUIPrefab: {fileID: 1145796633550120834, guid: 5b5d2900e285f4822b775325fd1f41dd, type: 3}
   mapUIPrefab: {fileID: 8350214179969966049, guid: 17b3b80ec6f134ee6a9d57d979e73e14, type: 3}
+  loadUIPrefab: {fileID: 1135050589645826663, guid: 2c51b6937a9eb4a57a971ee4432f3de3, type: 3}
+  saveDataUIPrefab: {fileID: 7622798254470653374, guid: 53f1732f1af9f4cdd96371632dcf39d4, type: 3}
