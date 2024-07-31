@@ -33,6 +33,7 @@ public class TalkManager : MonoBehaviour
     public GameObject medicalRoom; // 의무실 화면
 
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
+    private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
 
     public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
     public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
@@ -66,16 +67,12 @@ public class TalkManager : MonoBehaviour
 
     void Start()
     {
-        ActivateTalk(); // 오브젝트 활성화
-        if (isActivated && currentDialogueIndex == 0)
-        {
-            PrintProDialogue(currentDialogueIndex);
-        }
+        ActivateTalk(locationHome); // 오브젝트 활성화
     }
 
     void Update()
     {
-        if (isActivated && Input.GetKeyDown(KeyCode.Space))
+        if (isActivated && !isFadingOut && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
             PrintProDialogue(currentDialogueIndex);
@@ -164,10 +161,18 @@ public class TalkManager : MonoBehaviour
         CheckTalk(currentDialogue.location);
     }
 
-    public void ActivateTalk()
+    public void ActivateTalk(string locationName)
     {
         this.gameObject.SetActive(true);
         isActivated = true;
+
+        // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
+        currentDialogueIndex = proDialogue.FindIndex(dialogue => dialogue.location == locationName);
+        
+        if (currentDialogueIndex >= 0)
+        {
+            PrintProDialogue(currentDialogueIndex);
+        }
     }
 
     void DeactivateTalk()
@@ -243,8 +248,8 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
+            // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
             case locationCafe:
-                // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
                 if (currentDialogueIndex == 50)
                 {
                     StartCoroutine(screenFader.FadeIn(cafe));
@@ -258,6 +263,7 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
+            // 맵 튜토리얼 이후
             case locationEngineRoom:
                 StartCoroutine(screenFader.FadeIn(trainRoomHallway));
                 break;
@@ -277,7 +283,7 @@ public class TalkManager : MonoBehaviour
                     garden.SetActive(true);
                     if (currentDialogueIndex == 75)
                     {
-                        StartCoroutine(screenFader.FadeOut(garden));
+                        StartCoroutine(FadeOutAndDeactivateTalk(garden)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
@@ -291,7 +297,7 @@ public class TalkManager : MonoBehaviour
                     bakery.SetActive(true);
                     if (currentDialogueIndex == 101)
                     {
-                        StartCoroutine(screenFader.FadeOut(bakery));
+                        StartCoroutine(FadeOutAndDeactivateTalk(bakery)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
@@ -305,7 +311,7 @@ public class TalkManager : MonoBehaviour
                     medicalRoom.SetActive(true);
                     if (currentDialogueIndex == 125)
                     {
-                        StartCoroutine(screenFader.FadeOut(medicalRoom));
+                        StartCoroutine(FadeOutAndDeactivateTalk(medicalRoom)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
@@ -328,5 +334,15 @@ public class TalkManager : MonoBehaviour
         {
             DeactivateTalk();
         }
+    }
+
+    private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
+    {
+        isFadingOut = true; // 페이드아웃 시작
+        yield return StartCoroutine(screenFader.FadeOut(obj)); // FadeOut이 완료될 때까지 기다립니다.
+        narration.SetActive(false);
+        dialogue.SetActive(false);
+        DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
+        isFadingOut = false; // 페이드아웃 종료
     }
 }
