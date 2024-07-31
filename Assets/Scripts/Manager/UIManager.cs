@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryUIPrefab;
     public GameObject settingUIPrefab;
     public GameObject mapUIPrefab;
+    public GameObject loadUIPrefab;
+    public GameObject saveDataUIPrefab;
+    public GameObject saveDataPopupPrefab;
 
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
@@ -75,13 +79,33 @@ public class UIManager : MonoBehaviour
                 return settingUIPrefab;
             case "Map":
                 return mapUIPrefab;
+            case "Load":
+                return loadUIPrefab;
+            case "SaveData":
+                return saveDataUIPrefab;
+            case "SaveDataPopup":
+                return saveDataPopupPrefab;
             default:
                 return null;
         }
     }
 
+
     public bool IsUIActive()
     {
         return currentActiveUI != null;
+    }
+
+    public GameObject FindChildByName(GameObject parent, string childName)
+    {
+        if (parent == null)
+        {
+            Debug.LogWarning("Parent object is null.");
+            return null;
+        }
+
+        Transform[] children = parent.GetComponentsInChildren<Transform>(true);
+        Transform childTransform = children.FirstOrDefault(t => t.name == childName);
+        return childTransform != null ? childTransform.gameObject : null;
     }
 }
