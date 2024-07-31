@@ -130,6 +130,8 @@ public class StartBtnGroup : MonoBehaviour
     void LoadGameFunc()
     {
         uIManager.ToggleUI("SaveData");
+        uIManager.ToggleUI("SaveDataPopup");
+        uIManager.DeactivatedUI("SaveDataPopup");
     }
 
     void ExitGameFunc()

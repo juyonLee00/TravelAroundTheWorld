@@ -394,6 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428f1d0677e6947f48c8be481f83fd65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotIdx: 0
+  saveDataPopup: {fileID: 4837505057921801157, guid: c7a8c87ea3f4d46348f213c69115eb7f, type: 3}
 --- !u!114 &4042227964105750715
 MonoBehaviour:
   m_ObjectHideFlags: 0

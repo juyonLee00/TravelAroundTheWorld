@@ -1,52 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 using System.Linq;
 
-public class SaveDataSlot : MonoBehaviour
+public class SaveDataPopup : MonoBehaviour
 {
+    private Button yesBtn;
+    private Button noBtn;
+
     private Image saveImg;
     private TextMeshProUGUI saveTypeTxt;
     private TextMeshProUGUI saveChapterTxt;
     private TextMeshProUGUI savePosTxt;
     private TextMeshProUGUI saveTimeTxt;
-    private int titleSplitNum;
-
-    public int slotIdx;
-    public GameObject saveDataPopup;
-    public GameObject canvas;
-
-    private Button btn;
-
-    private UIManager uIManager;
-
-    private void Awake()
-    {
-        uIManager = FindObjectOfType<UIManager>();
-    }
 
     void Start()
     {
-        SetComponent();
+        SetInitData();
         AllocationCheckFunc();
-        LoadSaveData();
     }
 
-    void SetComponent()
+    void SetInitData()
     {
-        GameObject canvas = GameObject.Find("Canvas");
-        titleSplitNum = gameObject.name.Length;
-        btn = gameObject.GetComponent<Button>();
-        btn.onClick.AddListener(ClickDataSlotFunc);
+        Button[] buttons = gameObject.GetComponentsInChildren<Button>(true);
+        foreach(var btn in buttons)
+        {
+            switch(btn.gameObject.name)
+            {
+                case "YesBtn":
+                    yesBtn = btn;
+                    break;
+                case "NoBtn":
+                    noBtn = btn;
+                    break;
+            }
+        }
+
+        yesBtn.onClick.AddListener(StartWithGameData);
+        noBtn.onClick.AddListener(DeactiveBtn);
+
         saveImg = gameObject.GetComponentsInChildren<Image>(true).FirstOrDefault(img => img.name == "SaveImg");
 
         TextMeshProUGUI[] textMeshProUGUIs = gameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
 
-        foreach(var comp in textMeshProUGUIs)
+        foreach (var comp in textMeshProUGUIs)
         {
-            switch(comp.gameObject.name)
+            switch (comp.gameObject.name)
             {
                 case "SaveTypeTxt":
                     saveTypeTxt = comp;
@@ -62,24 +64,8 @@ public class SaveDataSlot : MonoBehaviour
                     break;
             }
         }
-        //현재 렌더링된 saveDAtaPopup 오브젝트 가져오기 
-        saveDataPopup = uIManager.FindChildByName(canvas, "SaveDataPopup(Clone)");
     }
 
-    void LoadSaveData()
-    {
-        string objName = gameObject.name.Substring(titleSplitNum-1);
-        slotIdx = int.Parse(objName);
-        /*
-         * saveImg = saveDataManager.Instance.saveDataList[idx].Image;
-         */
-    }
-
-    void ClickDataSlotFunc()
-    {
-        Debug.Log("HI");
-        
-    }
 
     void AllocationCheckFunc()
     {
@@ -95,5 +81,33 @@ public class SaveDataSlot : MonoBehaviour
             return;
         if (saveTimeTxt == null)
             return;
+
+        if (yesBtn == null)
+            return;
+        if (noBtn == null)
+            return;
+    }
+
+    void StartWithGameData()
+    {
+        Debug.Log("Start");
+    }
+
+    void DeactiveBtn()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        if (!EventSystem.current.currentSelectedGameObject.GetComponent<SaveDataSlot>())
+            return;
+
+        else
+        {
+            SaveDataSlot clickSlot = EventSystem.current.currentSelectedGameObject.GetComponent<SaveDataSlot>();
+            Debug.Log(clickSlot.slotIdx);
+        }
+        
     }
 }
