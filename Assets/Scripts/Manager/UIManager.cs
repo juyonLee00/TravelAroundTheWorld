@@ -47,7 +47,6 @@ public class UIManager : MonoBehaviour
             }
         }
 
-
         if(uiInstances.ContainsKey(uiName))
         {
             uiInstances[uiName].SetActive(true);
@@ -107,5 +106,10 @@ public class UIManager : MonoBehaviour
         Transform[] children = parent.GetComponentsInChildren<Transform>(true);
         Transform childTransform = children.FirstOrDefault(t => t.name == childName);
         return childTransform != null ? childTransform.gameObject : null;
+    }
+
+    public void ActiveUI(string uiName)
+    {
+        uiInstances[uiName].SetActive(true);
     }
 }

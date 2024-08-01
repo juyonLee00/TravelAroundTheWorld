@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
     private Vector2 itemSlotPos;
     private Vector2 itemImagePos;
     private Vector2 itemDescPos;
-    private Vector2 BlurredImgPos;
+    private Vector2 blurredImgPos;
     private Vector2 inventoryBackgroundImgPos;
     private Vector2 itemNamePos;
     private Vector2 inventoryTitlePos;
@@ -40,7 +40,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         SetInitData();
-        CreateUIComponent(BlurredImgPrefab, BlurredImgPos);
+        CreateUIComponent(BlurredImgPrefab, blurredImgPos);
         CreateUIComponent(inventoryBackgroundPrefab, inventoryBackgroundImgPos);
 
         CreateItemSlots();
@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
 
     void SetInitData()
     {
-        BlurredImgPos = new Vector2(0, 0);
+        blurredImgPos = new Vector2(0, 0);
         itemSlotPos = new Vector2(slotFirstPosY, slotFirstPosX);
         itemImagePos = new Vector2(405, 140);
         itemDescPos = new Vector2(400, -150);

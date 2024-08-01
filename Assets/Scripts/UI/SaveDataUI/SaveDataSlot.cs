@@ -62,8 +62,8 @@ public class SaveDataSlot : MonoBehaviour
                     break;
             }
         }
-        //현재 렌더링된 saveDAtaPopup 오브젝트 가져오기 
-        saveDataPopup = uIManager.FindChildByName(canvas, "SaveDataPopup(Clone)");
+        //현재 렌더링된 saveDAtaPopup 오브젝트 가져오기, 수정 예정
+        saveDataPopup = uIManager.FindChildByName(canvas, "SaveDataPopupUI(Clone)");
     }
 
     void LoadSaveData()
@@ -77,7 +77,7 @@ public class SaveDataSlot : MonoBehaviour
 
     void ClickDataSlotFunc()
     {
-        Debug.Log("HI");
+        saveDataPopup.SetActive(true);
         
     }
 
