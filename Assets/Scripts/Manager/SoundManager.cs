@@ -1,23 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [SerializeField] public AudioSource audioSource;
-    [SerializeField] public AudioSource effectsSource;
+    [Header("Audio Settings")]
+    public AudioMixer audioMixer;
+    public string volumeParameter = "MasterVolume";
+    public float fadeDuration = 1.0f; 
 
-    private Dictionary<string, AudioClip> soundEffects = new Dictionary<string, AudioClip>();
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
+    private Coroutine fadeCoroutine;
 
     private void Awake()
     {
-        // Singleton pattern implementation
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Initialize();
         }
         else
         {
@@ -25,84 +29,127 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(AudioClip clip, bool loop = true, float volume = 1f)
+    private void Initialize()
     {
-        audioSource.clip = clip;
-        audioSource.loop = loop;
-        audioSource.volume = volume;
-        audioSource.Play();
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.loop = true;
+
+        sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.loop = false;
     }
 
-    public void PlayEffect(string soundName)
+    public void PlayMusic(string audioClipName, bool loop = true)
     {
-        if (soundEffects.TryGetValue(soundName, out AudioClip clip))
+        string resourcePath = $"Sounds/{audioClipName}";
+        StartCoroutine(LoadAndPlayMusic(resourcePath, loop));
+    }
+
+    private IEnumerator LoadAndPlayMusic(string resourcePath, bool loop)
+    {
+        ResourceRequest request = Resources.LoadAsync<AudioClip>(resourcePath);
+        yield return request;
+
+        AudioClip musicClip = request.asset as AudioClip;
+        if (musicClip != null)
         {
-            effectsSource.PlayOneShot(clip);
+            if (fadeCoroutine != null)
+            {
+                StopCoroutine(fadeCoroutine);
+            }
+            fadeCoroutine = StartCoroutine(FadeMusic(musicClip, loop));
         }
         else
         {
-            Debug.LogWarning("Sound effect not found: " + soundName);
+            Debug.LogWarning($"No music found for audio clip in folder: {resourcePath}");
         }
     }
 
-    public void AddSoundEffect(string soundName, AudioClip clip)
+    private IEnumerator FadeMusic(AudioClip newClip, bool loop)
     {
-        if (!soundEffects.ContainsKey(soundName))
+        if (musicSource.isPlaying)
         {
-            soundEffects[soundName] = clip;
+            yield return StartCoroutine(FadeOut(musicSource, fadeDuration));
+        }
+
+        musicSource.clip = newClip;
+        musicSource.loop = loop;
+        musicSource.Play();
+
+        yield return StartCoroutine(FadeIn(musicSource, fadeDuration));
+    }
+
+
+    public void PlaySFX(string audioClipName)
+    {
+        string resourcePath = $"Sounds/{audioClipName}";
+        StartCoroutine(LoadAndPlaySFX(resourcePath));
+    }
+
+    private IEnumerator LoadAndPlaySFX(string resourcePath)
+    {
+        ResourceRequest request = Resources.LoadAsync<AudioClip>(resourcePath);
+        yield return request;
+
+        AudioClip sfxClip = request.asset as AudioClip;
+        if (sfxClip != null)
+        {
+            sfxSource.PlayOneShot(sfxClip);
+        }
+        else
+        {
+            Debug.LogWarning($"No SFX found for audio clip in folder: {resourcePath}");
         }
     }
 
-    public void SetMusicVolume(float volume)
-    {
-        audioSource.volume = volume;
-    }
-
-    public void SetEffectsVolume(float volume)
-    {
-        effectsSource.volume = volume;
-    }
-
-    public void FadeInMusic(AudioClip newClip, float duration, bool loop = true)
-    {
-        StartCoroutine(FadeIn(audioSource, newClip, duration, loop));
-    }
-
-    public void FadeOutMusic(float duration)
-    {
-        StartCoroutine(FadeOut(audioSource, duration));
-    }
-
-    private IEnumerator FadeIn(AudioSource audioSource, AudioClip newClip, float duration, bool loop)
+    private IEnumerator FadeIn(AudioSource audioSource, float duration)
     {
         audioSource.volume = 0;
-        audioSource.clip = newClip;
-        audioSource.loop = loop;
-        audioSource.Play();
+        float startVolume = audioSource.volume;
+        float endVolume = 1;
 
-        float startVolume = 0f;
-        float endVolume = 1f;
-
-        for (float t = 0; t < duration; t += Time.deltaTime)
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
         {
-            audioSource.volume = Mathf.Lerp(startVolume, endVolume, t / duration);
+            audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         audioSource.volume = endVolume;
     }
 
     private IEnumerator FadeOut(AudioSource audioSource, float duration)
     {
         float startVolume = audioSource.volume;
+        float endVolume = 0;
 
-        for (float t = 0; t < duration; t += Time.deltaTime)
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
         {
-            audioSource.volume = Mathf.Lerp(startVolume, 0f, t / duration);
+            audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        audioSource.volume = endVolume;
         audioSource.Stop();
-        audioSource.volume = startVolume;
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat(volumeParameter, Mathf.Log10(volume) * 20);
+    }
+
+    public void Mute(bool mute)
+    {
+        audioMixer.SetFloat(volumeParameter, mute ? -80 : 0);
+    }
+
+    public void StopAllSounds()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+        musicSource.Stop();
+        sfxSource.Stop();
     }
 }

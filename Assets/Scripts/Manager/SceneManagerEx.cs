@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx : MonoBehaviour
 {
-    public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
-
     public static SceneManagerEx Instance { get; private set; }
 
-    /*
-    [SerializeField] private GameObject[] managersToLoad;
-    private Dictionary<string, GameObject> loadedManagers = new Dictionary<string, GameObject>();
-    */
+
+    [Header("Manager Prefabs")]
+    public List<GameObject> managersToLoad;
+    private Dictionary<string, GameObject> loadedManagers = new Dictionary<string, GameObject>(); 
 
     public float fadeDuration = 1f;
     public float minLoadingTime = 40f;
@@ -28,7 +26,7 @@ public class SceneManagerEx : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            //LoadManagers();
+            InitializeManagers();
         }
         else
         {
@@ -37,7 +35,22 @@ public class SceneManagerEx : MonoBehaviour
 
     }
 
-    //씬 로드 요청 큐에 추가 
+    private void InitializeManagers()
+    {
+        foreach (var managerPrefab in managersToLoad)
+        {
+            GameObject manager = Instantiate(managerPrefab);
+            loadedManagers[managerPrefab.name] = manager;
+            DontDestroyOnLoad(manager);
+        }
+    }
+
+    private void OnSceneLoaded(string sceneName)
+    {
+        Debug.Log($"Scene {sceneName} loaded successfully");
+    }
+
+    //씬 로드 요청 큐에 추가 
     public void SceanLoadQueue(string sceneName)
     {
         sceneQueue.Enqueue(sceneName);
@@ -63,6 +76,8 @@ public class SceneManagerEx : MonoBehaviour
 
     private IEnumerator LoadSceneWithLoadingScene(string sceneName)
     {
+        SoundManager.Instance.StopAllSounds();
+
         yield return StartCoroutine(FadeIn());
 
         AsyncOperation loadLoadingScene = SceneManager.LoadSceneAsync("LoadingScene");
@@ -113,7 +128,7 @@ public class SceneManagerEx : MonoBehaviour
 
     private void InitializeSceneObjects()
     {
-        
+        //필요한 오브젝트 생성
     }
 
     private IEnumerator FakeLoadingTask(float remainingTime)
@@ -169,47 +184,14 @@ public class SceneManagerEx : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(string sceneName)
-    {
-        Debug.Log($"Scene {sceneName} loaded successfully");
-        // 씬 로드 후 추가적인 초기화 작업
-    }
-
-    /*
-    public GameObject GetManager(string managerName)
-    {
-        //loadedManagers.TryGetValue(managerName, out GameObject manager);
-        return manager;
-    }
-    */
-
     public void Clear()
     {
         Resources.UnloadUnusedAssets();
         System.GC.Collect();
     }
 
-    public string GetCurrentSceneName(SceneType.Scene type)
+    public string GetCurrentSceneName()
     {
-        string name = System.Enum.GetName(typeof(SceneType.Scene), type);
-        return name;
+        return SceneManager.GetActiveScene().name;
     }
-
-    public SceneType.Scene GetSceneType()
-    {
-        return CurrentScene.SceneType;
-    }
-
-    /*
-    private void LoadManagers()
-    {
-        foreach (var managerPrefab in managersToLoad)
-        {
-            GameObject manager = Instantiate(managerPrefab);
-            loadedManagers[managerPrefab.name] = manager;
-            DontDestroyOnLoad(manager);
-        }
-    }
-    */
-
 }
