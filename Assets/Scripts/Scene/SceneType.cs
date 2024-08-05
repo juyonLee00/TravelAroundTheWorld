@@ -8,7 +8,7 @@ public class SceneType
     {
         Unknown,
         Start,
-        Tutorial,
+        Prologue,
         Ch1,
         Ch2,
         Cafe,
