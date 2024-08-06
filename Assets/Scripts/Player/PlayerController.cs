@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
-        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
+        playerAnimationController = gameObject.GetComponent<PlayerAnimationController>();
     }
 
     void Update()
