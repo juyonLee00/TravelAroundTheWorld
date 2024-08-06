@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Vector3 offset = new Vector3(0, 0, -10); // 카메라와 플레이어 사이의 거리 조정
-    public float smoothSpeed = 0.125f; // 카메라 이동의 부드러움 조정
+    public float smoothSpeed = 5f; // 카메라 이동의 부드러움 조정
 
     private Transform cameraTransform;
 
@@ -13,7 +13,6 @@ public class CameraFollow : MonoBehaviour
     {
         // 메인 카메라를 찾아서 할당
         cameraTransform = Camera.main.transform;
-        Debug.Log(cameraTransform);
     }
 
     void LateUpdate()

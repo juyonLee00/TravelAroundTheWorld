@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  mainCamera: {fileID: 0}
   playerAnimationController: {fileID: 966837247721562786}
 --- !u!114 &5628396808438373445
 MonoBehaviour:
@@ -282,4 +283,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: -10}
-  smoothSpeed: 0
+  smoothSpeed: 5
