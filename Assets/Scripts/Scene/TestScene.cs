@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestScene : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class TestScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManagerEx.Instance.SceanLoadQueue("CafeScene");
+            
         }
 
 
@@ -30,6 +31,10 @@ public class TestScene : MonoBehaviour
             SoundManager.Instance.PlayMusic("wood_run", loop: true);
         }
 
-
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            //SceneManager.LoadScene("Ch1Scene");
+            SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
+        }
     }
 }
