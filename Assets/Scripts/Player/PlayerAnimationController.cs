@@ -6,6 +6,7 @@ public class PlayerAnimationController : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
+    private Vector2 lastInputVector;
 
     private IPlayerState currentState;
     public readonly IPlayerState IdleState = new PlayerIdleState();
@@ -18,31 +19,32 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        TransitionToState(IdleState);   
+        //TransitionToState(IdleState);
     }
 
     private void Update()
     {
-        currentState.UpdateState(this);
+        //currentState.UpdateState(this);
     }
 
     public void SetMoveDirection(Vector2 inputVector)
     {
         InputVector = inputVector;
 
-        if(InputVector.x > 0)
+        if (InputVector != Vector2.zero)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            lastInputVector = InputVector;
         }
 
-        else if(InputVector.x < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        Vector2 directionToAnimate = InputVector != Vector2.zero ? InputVector : lastInputVector;
 
-        animator.SetFloat("MoveX", InputVector.x);
-        animator.SetFloat("MoveY", InputVector.y);
-        animator.SetBool("IsMoving", InputVector != Vector2.zero);
+        animator.SetFloat("xDir", directionToAnimate.x);
+        animator.SetFloat("yDir", directionToAnimate.y);
+        animator.SetBool("isMove", InputVector != Vector2.zero);
+        /*
+         * if(directionToAnimate == Vector2.zero)
+         *      SoundManager.Instance.PlaySFX("WalkSound");
+         */
     }
 
     public void TransitionToState(IPlayerState newState)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TestScene : MonoBehaviour
 {
+
+    public AudioSource a;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -20,12 +22,14 @@ public class TestScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             SoundManager.Instance.PlaySFX("pick");
+         
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             SoundManager.Instance.PlayMusic("wood_run", loop: true);
         }
+
 
     }
 }
