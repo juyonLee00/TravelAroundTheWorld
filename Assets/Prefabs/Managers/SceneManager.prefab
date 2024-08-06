@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managersToLoad:
   - {fileID: 6653872841772025071, guid: 218fef8d4de754a1dbc874f8e3676037, type: 3}
+  - {fileID: 7787662521054751003, guid: ebd26b137131d4d1d9f6a1f47b9a22ff, type: 3}
   fadeDuration: 1
   minLoadingTime: 2
