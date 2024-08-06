@@ -21,8 +21,7 @@ public class InteractionButton : MonoBehaviour
         if (talkManager != null)
         {
             // TalkManagerCH1의 ActivateTalk 메서드를 호출하여 대화를 시작
-            talkManager.ActivateTalk();
+            talkManager.ActivateTalk("defaultLocation"); // 적절한 locationName 인자 전달
         }
     }
 }
-
