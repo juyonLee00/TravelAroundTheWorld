@@ -119,7 +119,7 @@ public class StartBtnGroup : MonoBehaviour
 
     void GameStartFunc()
     {
-        //프롤로그씬으로 이동
+        SceneManagerEx.Instance.SceanLoadQueue("Ch0Scene");
     }
 
     void ContinueGameFunc()
