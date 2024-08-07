@@ -40,6 +40,7 @@ public class TalkManager : MonoBehaviour
     public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
 
     public GameObject mapTutorial; //맵 튜토리얼
+    public MapTurorial MapTutorial;
 
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
@@ -58,6 +59,8 @@ public class TalkManager : MonoBehaviour
 
     public int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
+
+    public bool isAllNPCActivated = false; //모든 npc와 대화 완료되었는지 여부
 
     void Awake()
     {
@@ -126,6 +129,7 @@ public class TalkManager : MonoBehaviour
             openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         //오프닝 대사 이후부터 인물에 따라 대사/나레이션/텍스트 창 활성화
+        //인물이 초대장일 경우 - 초대장 활성화
         else if (currentDialogue.speaker == invitationSpeaker)
         {
             narration.SetActive(false);
@@ -137,19 +141,22 @@ public class TalkManager : MonoBehaviour
             }
             invitationText.text += currentDialogue.line;
         }
-        else if (string.IsNullOrEmpty(currentDialogue.speaker) && string.IsNullOrEmpty(currentDialogue.location))
+        //인물 혹은 장소가 없는 경우 - 대사 모두 비활성화
+        else if (string.IsNullOrEmpty(currentDialogue.speaker) || string.IsNullOrEmpty(currentDialogue.location))
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(false);
         }
-        else if ((currentDialogue.speaker == narrationSpeaker) || string.IsNullOrEmpty(currentDialogue.speaker))
+        //인물이 나레이션일 경우 - 나레이션창 활성화
+        else if ((currentDialogue.speaker == narrationSpeaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
             opening.SetActive(false);
             narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
+        //인물이 있을 경우 - 대사창 활성화
         else
         {
             narration.SetActive(false);
@@ -166,13 +173,24 @@ public class TalkManager : MonoBehaviour
         this.gameObject.SetActive(true);
         isActivated = true;
 
-        // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
-        currentDialogueIndex = proDialogue.FindIndex(dialogue => dialogue.location == locationName);
-        
-        if (currentDialogueIndex >= 0)
+        //위치가 객실이고 (잠에 들려고 하는 상태) npc와 다 대화하지 않은 경우 예외처리 
+        if (locationName == locationTrainRoom && !isAllNPCActivated && MapTutorial.isSleeping)
         {
+            currentDialogueIndex = 133;
             PrintProDialogue(currentDialogueIndex);
         }
+        else
+        {
+            // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
+            currentDialogueIndex = proDialogue.FindIndex(dialogue => dialogue.location == locationName);
+
+            if (currentDialogueIndex >= 0)
+            {
+                PrintProDialogue(currentDialogueIndex);
+            }
+        }
+
+ 
     }
 
     void DeactivateTalk()
@@ -263,69 +281,107 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
-            // 맵 튜토리얼 이후
+            // 맵 튜토리얼
             case locationEngineRoom:
-                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                if (currentDialogueIndex == 64)
+                {
+                    StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                }
+                else if (currentDialogueIndex == 65)
+                {
+                    DeactivateTalk();
+                }
                 break;
             case locationOtherRoom1:
-                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                if (currentDialogueIndex == 66)
+                {
+                    StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                }
+                else if (currentDialogueIndex == 67)
+                {
+                    DeactivateTalk();
+                }
                 break;
             case locationOtherRoom2:
-                StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                if (currentDialogueIndex == 68)
+                {
+                    StartCoroutine(screenFader.FadeIn(trainRoomHallway));
+                }
+                else if (currentDialogueIndex == 69)
+                {
+                    DeactivateTalk();
+                }
                 break;
             case locationGarden:
-                if (currentDialogueIndex == 67)
+                if (currentDialogueIndex == 70)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
                 }
                 else
                 {
                     garden.SetActive(true);
-                    if (currentDialogueIndex == 75)
+                    if (currentDialogueIndex == 78)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(garden)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
             case locationBakery:
-                if (currentDialogueIndex == 76)
+                if (currentDialogueIndex == 79)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
                 }
                 else
                 {
                     bakery.SetActive(true);
-                    if (currentDialogueIndex == 101)
+                    if (currentDialogueIndex == 104)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(bakery)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
             case locationMedicalRoom:
-                if (currentDialogueIndex == 102)
+                if (currentDialogueIndex == 105)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
                 }
                 else
                 {
                     medicalRoom.SetActive(true);
-                    if (currentDialogueIndex == 125)
+                    if (currentDialogueIndex == 128)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(medicalRoom)); //npc 대화 끝나고 대화 종료
                     }
                 }
                 break;
             case locationTrainRoom:
-                if (currentDialogueIndex == 126)
+                //모든 npc와 다 대화한 경우
+                if (isAllNPCActivated)
                 {
-                    StartCoroutine(screenFader.FadeIn(trainRoom));
+                    if (currentDialogueIndex == 129)
+                    {
+                        StartCoroutine(screenFader.FadeIn(trainRoom));
+                    }
+                    else if (currentDialogueIndex >= 130 && currentDialogueIndex <= 132)
+                    {
+                        trainRoom.SetActive(true);
+                        if (currentDialogueIndex == 132)
+                        {
+                            StartCoroutine(FadeOutAndDeactivateTalk(trainRoom));
+                            //여기에 ch1으로 씬 이동하는 코드 추가
+                        }
+                    }
                 }
+                //모든 npc와 다 대화하지 않은 경우
                 else
                 {
-                    trainRoom.SetActive(true);
-                    if (currentDialogueIndex == 130)
+                    if (currentDialogueIndex == 133)
                     {
-                        StartCoroutine(screenFader.FadeOut(trainRoom));
+                        StartCoroutine(screenFader.FadeIn(trainRoom));
+                    }
+                    else if (currentDialogueIndex == 134)
+                    {
+                        DeactivateTalk();
                     }
                 }
                 break;

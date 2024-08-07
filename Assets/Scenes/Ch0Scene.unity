@@ -5428,7 +5428,9 @@ MonoBehaviour:
   narrationBar: {fileID: 1860025963}
   openingBar: {fileID: 977798245}
   mapTutorial: {fileID: 1741943776}
+  MapTutorial: {fileID: 1741943778}
   currentDialogueIndex: 0
+  isAllNPCActivated: 0
 --- !u!4 &1506330868
 Transform:
   m_ObjectHideFlags: 0
@@ -6362,11 +6364,13 @@ MonoBehaviour:
   player: {fileID: 86337299}
   map: {fileID: 1864388390}
   mapManager: {fileID: 1454568757}
+  ch0MapManager: {fileID: 1454568758}
   npcs:
   - {fileID: 602302000}
   - {fileID: 1457477479}
   - {fileID: 1750578960}
   activeNpcCount: 0
+  isSleeping: 0
 --- !u!1 &1750578960
 GameObject:
   m_ObjectHideFlags: 0
