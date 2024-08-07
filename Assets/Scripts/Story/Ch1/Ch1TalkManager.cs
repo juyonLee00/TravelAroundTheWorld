@@ -74,7 +74,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1 (1)");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1");
 
         foreach (var row in data_Dialog)
         {
@@ -104,6 +104,27 @@ public class Ch1TalkManager : MonoBehaviour
         }
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
+
+        // QuestManager.Instance와 questUI가 null이 아닌지 확인
+        if (QuestManager.Instance == null)
+        {
+            Debug.LogError("QuestManager.Instance is not set.");
+            return;
+        }
+
+        if (QuestManager.Instance.questUI == null)
+        {
+            Debug.LogError("QuestManager.Instance.questUI is not set.");
+            return;
+        }
+
+        // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 UI 활성화 및 내용 표시
+        if (!string.IsNullOrEmpty(currentDialogue.quest))
+        {
+            QuestManager.Instance.ShowQuest(currentDialogue.quest, currentDialogue.questContent);
+            return; // 퀘스트를 표시하고 대화 진행 중단
+        }
+
 
         // 씬 전환을 위한 특별 대사 감지
         /*if (currentDialogue.line.Contains("랜덤 등장인물 룸서비스 주문 3건") ||
@@ -142,14 +163,6 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(true);
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
-
-        // 현재 대사가 2일차 밤 객실에서 발생했는지 확인하고 비밀 퀘스트 1을 활성화
-        /*if (currentDialogue.day == 2 && !DayNightCycleManager.Instance.GetNowDayTime() && currentDialogue.location == locationTrainRoom)
-        {
-            // 플레이어가 "비밀 퀘스트 1"을 받음
-            questManager.ReceiveQuest("비밀 퀘스트 1");
-            Debug.Log("플레이어가 '비밀 퀘스트 1'을 받았습니다."); // 디버그 로그 출력
-        }*/
 
         CheckTalk(currentDialogue.location);
     }

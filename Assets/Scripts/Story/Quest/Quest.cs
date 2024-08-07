@@ -17,6 +17,13 @@ public class Quest
         isReceived = false; // 초기값 설정
     }
 
+    // 퀘스트 수락 메서드
+    public void ReceiveQuest()
+    {
+        isReceived = true;
+    }
+
+    // 퀘스트 완료 메서드
     public void CompleteQuest()
     {
         isCompleted = true;

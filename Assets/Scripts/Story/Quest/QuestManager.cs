@@ -7,15 +7,16 @@ public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance { get; private set; } // 싱글톤 인스턴스
 
-    public Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>(); // 퀘스트 저장
     public TextMeshProUGUI questUI; // UI 업데이트용
+
+    private Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>(); // 퀘스트 저장
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            Initialize(); // 초기화 메서드 호출
+            DontDestroyOnLoad(gameObject); // 게임 오브젝트가 씬 전환 시 파괴되지 않도록 설정
         }
         else
         {
@@ -23,39 +24,29 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    private void Initialize()
+    public void ShowQuest(string questType, string questDescription)
     {
-        // 초기화 로직: 필요한 초기 설정을 여기에 추가
-        LoadQuestsFromCSV(); // CSV에서 퀘스트 데이터 로드
-    }
-
-    private void LoadQuestsFromCSV()
-    {
-        // CSV 파일로부터 데이터 읽어오기
-        List<Dictionary<string, object>> data_Quest = Ch0CSVReader.Read("Travel Around The World - 퀘스트");
-
-        // CSV 파일에서 각 줄을 순회하며 퀘스트 데이터 추출
-        foreach (var row in data_Quest)
+        if (questUI != null)
         {
-            // CSV 데이터에서 값 추출
-            string questType = row["퀘스트"].ToString();
-            string questDescription = row["퀘스트 설명"].ToString();
+            questUI.text = questDescription;
+            questUI.gameObject.SetActive(true);
 
-            // 퀘스트 객체 생성
-            Quest quest = new Quest(questType, questDescription);
-
-            // 퀘스트 사전에 추가
-            if (!questDictionary.ContainsKey(questType))
+            // Quest dictionary에 퀘스트가 없다면 추가하고 수락 상태로 설정
+            if (!questDictionary.TryGetValue(questType, out Quest quest))
             {
+                quest = new Quest(questType, questDescription);
+                quest.ReceiveQuest(); // 퀘스트를 수락 상태로 설정
                 questDictionary.Add(questType, quest);
             }
+            else if (!quest.isReceived)
+            {
+                quest.ReceiveQuest(); // 퀘스트를 수락 상태로 설정
+            }
         }
-    }
-
-    public Quest GetQuest(string questType)
-    {
-        questDictionary.TryGetValue(questType, out Quest quest);
-        return quest;
+        else
+        {
+            Debug.LogError("Quest UI is not assigned in the QuestManager.");
+        }
     }
 
     public void CompleteQuest(string questType)
@@ -65,20 +56,17 @@ public class QuestManager : MonoBehaviour
             if (!quest.isCompleted)
             {
                 quest.CompleteQuest();
-                Debug.Log(questType + " 퀘스트가 완료되었습니다.");
+                Debug.Log($"{questType} 퀘스트가 완료되었습니다.");
+                questUI.gameObject.SetActive(false); // 완료되면 UI 비활성화
             }
         }
     }
 
-    public void ReceiveQuest(string questType)
+    public void HideQuest()
     {
-        if (questDictionary.TryGetValue(questType, out Quest quest))
+        if (questUI != null)
         {
-            if (!quest.isReceived)
-            {
-                quest.isReceived = true;
-                Debug.Log(questType + " 퀘스트를 받았습니다.");
-            }
+            questUI.gameObject.SetActive(false);
         }
     }
 }
