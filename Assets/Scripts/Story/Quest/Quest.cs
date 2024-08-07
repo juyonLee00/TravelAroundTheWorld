@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Quest
 {
-    public string questType; // 퀘스트
-    public string questName; // 퀘스트 명  
-    public string questDescription; // 퀘스트 설명
-    public string questNote; // 비고
+    public string questType; // 퀘스트 종류
+    public string description; // 퀘스트 설명
+    public bool isCompleted; // 완료 여부
+    public bool isReceived; // 퀘스트를 받았는지 여부
 
-    public Quest(string questName, string questDescription, string questNote, string questType)
+    public Quest(string type, string desc)
     {
-        this.questName = questName;
-        this.questDescription = questDescription;
-        this.questNote = questNote;
-        this.questType = questType;
+        questType = type;
+        description = desc;
+        isCompleted = false;
+        isReceived = false; // 초기값 설정
+    }
+
+    public void CompleteQuest()
+    {
+        isCompleted = true;
     }
 }

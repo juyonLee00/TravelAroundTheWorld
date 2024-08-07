@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class TalkManagerCH1 : MonoBehaviour
+public class Ch1TalkManager : MonoBehaviour
 {
     private List<Ch1ProDialogue> ch1ProDialogue;
 
@@ -60,7 +60,7 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void Start()
     {
-        ActivateTalk(locationTrainRoom);
+        ActivateTalk("객실");
     }
 
     void Update()
@@ -105,6 +105,16 @@ public class TalkManagerCH1 : MonoBehaviour
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
 
+        // 씬 전환을 위한 특별 대사 감지
+        /*if (currentDialogue.line.Contains("랜덤 등장인물 룸서비스 주문 3건") ||
+            currentDialogue.line.Contains("랜덤 등장인물 주문 2건") ||
+            currentDialogue.line.Contains("랜덤 등장인물 주문 1건"))
+        {
+            // CafeScene으로 전환 시작
+            StartCoroutine(TransitionToCafeScene(currentDialogue.line));
+            return;
+        }*/
+
         if (currentDialogue.speaker == letterSpeaker)
         {
             narration.SetActive(false);
@@ -133,8 +143,37 @@ public class TalkManagerCH1 : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
+        // 현재 대사가 2일차 밤 객실에서 발생했는지 확인하고 비밀 퀘스트 1을 활성화
+        /*if (currentDialogue.day == 2 && !DayNightCycleManager.Instance.GetNowDayTime() && currentDialogue.location == locationTrainRoom)
+        {
+            // 플레이어가 "비밀 퀘스트 1"을 받음
+            questManager.ReceiveQuest("비밀 퀘스트 1");
+            Debug.Log("플레이어가 '비밀 퀘스트 1'을 받았습니다."); // 디버그 로그 출력
+        }*/
+
         CheckTalk(currentDialogue.location);
     }
+
+    /*private IEnumerator TransitionToCafeScene(string taskDetails)
+    {
+        // 현재 씬 이름 저장
+        string currentSceneName = GetCurrentSceneName();
+
+        // 작업 세부 정보 또는 필요한 데이터 저장
+        TaskManager.Instance.SetTaskDetails(taskDetails);
+
+        // CafeScene으로 전환
+        yield return StartCoroutine(SceneManagerEx.Instance.LoadSceneWithLoadingScene("CafeScene"));
+
+        // CafeScene에서 작업이 완료될 때까지 대기
+        yield return new WaitUntil(() => TaskManager.Instance.AreTasksCompleted());
+
+        // 원래 씬으로 돌아옴
+        yield return StartCoroutine(SceneManagerEx.Instance.LoadSceneWithLoadingScene(currentSceneName));
+
+        // 이야기 이어서 진행
+        ActivateTalk(currentSceneName);
+    }*/
 
     public void ActivateTalk(string locationName)
     {

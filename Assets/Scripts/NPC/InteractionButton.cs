@@ -17,10 +17,10 @@ public class InteractionButton : MonoBehaviour
     // 버튼 클릭 시 호출되는 메서드
     public void OnInteract()
     {
-        TalkManagerCH1 talkManager = FindObjectOfType<TalkManagerCH1>();
+        Ch1TalkManager talkManager = FindObjectOfType<Ch1TalkManager>();
         if (talkManager != null)
         {
-            // TalkManagerCH1의 ActivateTalk 메서드를 호출하여 대화를 시작
+            // Ch1TalkManager ActivateTalk 메서드를 호출하여 대화를 시작
             talkManager.ActivateTalk("defaultLocation"); // 적절한 locationName 인자 전달
         }
     }
