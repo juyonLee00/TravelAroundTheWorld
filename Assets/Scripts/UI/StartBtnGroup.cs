@@ -13,12 +13,19 @@ public struct BtnDataSet
     public UnityEngine.Events.UnityAction btnEvent;
 }
 
+public struct PosData
+{
+    public int xPos;
+    public int width;
+    public int height;
+}
+
 public class StartBtnGroup : MonoBehaviour
 {
     public GameObject startSceneBtnPrefab;
     public GameObject settingBtnPrefab;
 
-    private Vector2 btnImgScale;
+    private Vector2 btnSize;
     private Vector2 btnPos;
     private List<BtnDataSet> btnDataList;
 
@@ -27,11 +34,14 @@ public class StartBtnGroup : MonoBehaviour
 
     private UIManager uIManager;
 
-    private int xInterval;
+    private List<PosData> btnPosList;
+
+    private int yPos;
 
     private void Awake()
     {
         btnDataList = new List<BtnDataSet>();
+        btnPosList = new List<PosData>();
         uIManager = FindObjectOfType<UIManager>();
     }
 
@@ -39,19 +49,18 @@ public class StartBtnGroup : MonoBehaviour
     {
         SetUIData();
         SetBtnData();
+        SetBtnPosData();
 
         CreateStartBtnGroup();
     }
 
     void SetUIData()
     {
+        yPos = -188;
         btnPos = new Vector2(-300, -100);
-        btnImgScale = new Vector2(1.7f, 1.7f);
 
         settingBtnPos = new Vector2(300, 120);
         settingBtnScale = new Vector2(1, 1);
-
-        xInterval = 120;
     }
 
     void SetBtnData()
@@ -90,6 +99,41 @@ public class StartBtnGroup : MonoBehaviour
         btnDataList.Add(exitBtn);
     }
 
+    void SetBtnPosData()
+    {
+        PosData startBtn = new PosData
+        {
+            xPos = 37,
+            width = 280,
+            height = 75
+        };
+
+        PosData continueBtn = new PosData
+        {
+            xPos = 355,
+            width = 280,
+            height = 75
+        };
+
+        PosData loadBtn = new PosData
+        {
+            xPos = 620,
+            width = 180,
+            height = 75
+        };
+
+        PosData exitBtn = new PosData
+        {
+            xPos = 833,
+            width = 180,
+            height = 75
+        };
+        btnPosList.Add(startBtn);
+        btnPosList.Add(continueBtn);
+        btnPosList.Add(loadBtn);
+        btnPosList.Add(exitBtn);
+    }
+
     void CreateStartBtnGroup()
     {
         int btnDataNum = btnDataList.Count;
@@ -99,8 +143,12 @@ public class StartBtnGroup : MonoBehaviour
             GameObject btn = Instantiate(startSceneBtnPrefab);
             btn.transform.SetParent(gameObject.transform, false);
 
+            btnPos = new Vector2(btnPosList[i].xPos, yPos);
+            btnSize = new Vector2(btnPosList[i].width, btnPosList[i].height);
+
             RectTransform rectTransform = btn.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = btnPos;
+            rectTransform.sizeDelta = btnSize;
 
             TextMeshProUGUI btnTxt = btn.GetComponentInChildren<TextMeshProUGUI>();
             
@@ -110,25 +158,27 @@ public class StartBtnGroup : MonoBehaviour
             btnTxt.text = btnDataList[i].btnTxt;
             btnComponent.onClick.AddListener(btnDataList[i].btnEvent);
 
-            btnPos.x += xInterval;
         }
 
-        CreateSettingBtn();
+        //CreateSettingBtn();
 
     }
 
     void GameStartFunc()
     {
-        //프롤로그씬으로 이동
+        SoundManager.Instance.PlaySFX("click sound");
+        SceneManagerEx.Instance.SceanLoadQueue("Ch0Scene");
     }
 
     void ContinueGameFunc()
     {
+        SoundManager.Instance.PlaySFX("click sound");
         //자동저장된 게임파일로 이동
     }
 
     void LoadGameFunc()
     {
+        SoundManager.Instance.PlaySFX("click sound");
         uIManager.ToggleUI("SaveData");
         uIManager.ToggleUI("SaveDataPopup");
         uIManager.DeactivatedUI("SaveDataPopup");
@@ -138,6 +188,7 @@ public class StartBtnGroup : MonoBehaviour
     void ExitGameFunc()
     {
         //게임 종료
+        SoundManager.Instance.PlaySFX("click sound");
         Application.Quit();
     }
 

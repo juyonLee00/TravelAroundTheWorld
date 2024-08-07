@@ -5,38 +5,58 @@ using TMPro;
 
 public class TalkManagerCH1 : MonoBehaviour
 {
-    private List<ProDialogue> proDialogue;
+    private List<Ch1ProDialogue> ch1ProDialogue;
 
     public GameObject opening;
-    public TextMeshProUGUI openingText;
-
     public GameObject narration;
-    public TextMeshProUGUI narrationText;
-
     public GameObject dialogue;
-    public GameObject imageObj;
-    public GameObject nameObj;
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI descriptionText;
 
-    public GameObject letter;
+    public GameObject imageObj; // 초상화 이미지 요소
+    public GameObject nameObj; // 이름 요소
+
+    public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
 
-    public GameObject subQuest;
-    public TextMeshProUGUI subQuestText;
+    public GameObject quest; // 퀘스트 화면
+    public TextMeshProUGUI questText;
 
-    public GameObject trainRoom;
-    public GameObject jazzBar;
-    public GameObject garden;
+    public GameObject cafe; // 카페 화면
+    public GameObject trainRoom; // 객실 화면
+    public GameObject trainRoomHallway; // 객실 복도 화면
+    public GameObject garden; // 정원 화면
+    public GameObject bakery; // 빵집 화면
+    public GameObject medicalRoom; // 의무실 화면
+    public GameObject jazzBar; // 재즈바 화면
+
+    public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
+    private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
+
+    public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
+    public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
+
+    // 문자열 상수 선언
+    private const string narrationSpeaker = "나레이션";
+    private const string letterSpeaker = "편지지";
+    private const string locationCafe = "카페";
+    private const string locationEngineRoom = "엔진룸";
+    private const string locationOtherRoom1 = "다른 방 1";
+    private const string locationOtherRoom2 = "다른 방 2";
+    private const string locationGarden = "정원";
+    private const string locationBakery = "빵집";
+    private const string locationMedicalRoom = "의무실";
+    private const string locationTrainRoom = "객실";
+    private const string questSpeaker = "퀘스트";
+    private const string locationJazzBar = "재즈바";
+
+    public int currentDialogueIndex = 0; // 현재 대사 인덱스
+    private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
     public QuestManager questManager; // 퀘스트 매니저 참조
 
-    private int currentDialogueIndex = 0;
-    private bool isActivated = false;
-
     void Awake()
     {
-        proDialogue = new List<ProDialogue>();
+        ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
     }
 
@@ -50,7 +70,7 @@ public class TalkManagerCH1 : MonoBehaviour
         if (isActivated && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
-            PrintProDialogue(currentDialogueIndex);
+            PrintCh1ProDialogue(currentDialogueIndex);
         }
     }
 
@@ -72,29 +92,30 @@ public class TalkManagerCH1 : MonoBehaviour
             string quest = row["퀘스트"].ToString();
             string questContent = row["퀘스트 내용"].ToString();
 
-            proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
+            ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
         }
     }
 
-    void PrintProDialogue(int index)
+    void PrintCh1ProDialogue(int index)
     {
-        if (index >= proDialogue.Count)
+        if (index >= ch1ProDialogue.Count)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             return;
         }
 
-        ProDialogue currentDialogue = proDialogue[index];
+        Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
 
         if (index < 2)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
             opening.SetActive(true);
-            openingText.text = currentDialogue.line;
+            openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
-        else if (currentDialogue.speaker == "편지지")
+
+        else if (currentDialogue.speaker == letterSpeaker)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -105,33 +126,25 @@ public class TalkManagerCH1 : MonoBehaviour
             }
             letterText.text += currentDialogue.line;
         }
-        else if (currentDialogue.speaker == "나레이션")
+        else if (string.IsNullOrEmpty(currentDialogue.speaker) && string.IsNullOrEmpty(currentDialogue.location))
+        {
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            opening.SetActive(false);
+        }
+        else if ((currentDialogue.speaker == narrationSpeaker) || string.IsNullOrEmpty(currentDialogue.speaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
             opening.SetActive(false);
-            narrationText.text = currentDialogue.line;
+            narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         else
         {
             narration.SetActive(false);
             dialogue.SetActive(true);
             opening.SetActive(false);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
-        }
-
-        // 서브퀘스트 출력 로직 추가
-        if (!string.IsNullOrEmpty(currentDialogue.quest))
-        {
-            Quest quest = questManager.GetQuest(currentDialogue.quest);
-            if (quest != null)
-            {
-                narration.SetActive(true);
-                dialogue.SetActive(false);
-                opening.SetActive(false);
-                narrationText.text += $"\n[퀘스트 시작]\n{quest.questName}\n{quest.questDescription}\n{quest.questNote}";
-            }
+            dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
         CheckTalk(currentDialogue.location);
@@ -141,8 +154,14 @@ public class TalkManagerCH1 : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         isActivated = true;
-        currentDialogueIndex = 0; // 대화를 시작할 때 인덱스를 0으로 초기화
-        PrintProDialogue(currentDialogueIndex);
+
+        // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
+        // currentDialogueIndex = ch1ProDialogue.FindIndex(dialogue => dialogue.location == locationName);
+
+        if (currentDialogueIndex >= 0)
+        {
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
     }
 
     void DeactivateTalk()
@@ -153,43 +172,66 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void CheckTalk(string location)
     {
-        subQuest.SetActive(false);
         letter.SetActive(false);
+        cafe.SetActive(false);
         trainRoom.SetActive(false);
-        jazzBar.SetActive(false);
+        trainRoomHallway.SetActive(false);
         garden.SetActive(false);
+        bakery.SetActive(false);
+        medicalRoom.SetActive(false);
+        letter.SetActive(false);
+        jazzBar.SetActive(false);
+        quest.SetActive(false);
 
         switch (location)
         {
-            case "객실":
-                if (currentDialogueIndex >= 25 && currentDialogueIndex <= 33)
+            case locationTrainRoom:
+                if (currentDialogueIndex == 25)
+                {
+                    StartCoroutine(screenFader.FadeIn(letter));
+                }
+                else if (currentDialogueIndex >= 26 && currentDialogueIndex <= 33)
                 {
                     letter.SetActive(true);
                     if (currentDialogueIndex >= 26 && currentDialogueIndex <= 29)
                     {
+                        letterText.gameObject.SetActive(true);
+                    }
+                    else if(currentDialogueIndex >= 27)
+                    {
                         letter.gameObject.SetActive(true);
                     }
-                    else
+                    if (currentDialogueIndex == 33)
                     {
-                        letter.gameObject.SetActive(false);
+                        StartCoroutine(screenFader.FadeOut(letter));
                     }
                 }
                 break;
-            case "재즈바":
+            case locationJazzBar:
                 jazzBar.SetActive(true);
                 break;
-            case "정원":
+            case locationGarden:
 
                 garden.SetActive(true);
                 break;
-            case "카페":
+            case locationCafe:
                 jazzBar.SetActive(true);
                 break;
         }
 
-        if (currentDialogueIndex > proDialogue.Count)
+        if (currentDialogueIndex > ch1ProDialogue.Count)
         {
             DeactivateTalk();
         }
+    }
+
+    private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
+    {
+        isFadingOut = true; // 페이드아웃 시작
+        yield return StartCoroutine(screenFader.FadeOut(obj)); // FadeOut이 완료될 때까지 기다립니다.
+        narration.SetActive(false);
+        dialogue.SetActive(false);
+        DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
+        isFadingOut = false; // 페이드아웃 종료
     }
 }

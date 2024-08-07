@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerAnimationController : MonoBehaviour
 {
     public Animator animator;
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
+    private Vector2 lastInputVector;
 
     private IPlayerState currentState;
     public readonly IPlayerState IdleState = new PlayerIdleState();
@@ -16,34 +19,39 @@ public class PlayerAnimationController : MonoBehaviour
 
     public Vector2 InputVector { get; private set; }
 
+    private bool isMoving = false;
+    private Vector3 targetPosition;
+
     private void Start()
     {
-        TransitionToState(IdleState);   
+        //TransitionToState(IdleState);
     }
 
     private void Update()
     {
-        currentState.UpdateState(this);
+        //currentState.UpdateState(this);
     }
 
     public void SetMoveDirection(Vector2 inputVector)
     {
-        InputVector = inputVector;
-
-        if(InputVector.x > 0)
+        if (inputVector != Vector2.zero)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            lastInputVector = inputVector;
         }
 
-        else if(InputVector.x < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        Vector2 directionToAnimate = inputVector != Vector2.zero ? inputVector : lastInputVector;
 
-        animator.SetFloat("MoveX", InputVector.x);
-        animator.SetFloat("MoveY", InputVector.y);
-        animator.SetBool("IsMoving", InputVector != Vector2.zero);
+        animator.SetFloat("xDir", directionToAnimate.x);
+        animator.SetFloat("yDir", directionToAnimate.y);
+        animator.SetBool("isMove", inputVector != Vector2.zero);
+
+        /*
+         * if(inputVector != Vector2.zero)
+         *      SoundManager.Instance.PlaySFX("WalkSound");
+         */
     }
+
+
 
     public void TransitionToState(IPlayerState newState)
     {
@@ -51,5 +59,62 @@ public class PlayerAnimationController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
+    /*
+    public void SetTargetPosition(Vector3 targetPos)
+    {
+        targetPosition = targetPos;
+        isMoving = true;
+
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        UpdateAnimatorParameters(direction);
+    }
+
+    public void MoveToPosition()
+    {
+        float step = moveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        UpdateAnimatorParameters(direction);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            isMoving = false;
+            animator.SetBool("isMove", false);
+        }
+    }*/
+
+    public void MoveToPosition(Vector3 targetPos)
+    {
+        StartCoroutine(MoveToPositionCoroutine(targetPos));
+    }
+
+    private IEnumerator MoveToPositionCoroutine(Vector3 targetPos)
+    {
+        lastInputVector = targetPos ;
+        while (Vector3.Distance(transform.position, targetPos) > 0.1f)
+        {
+            Vector3 direction = (targetPos - transform.position).normalized;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 5f);
+            SetMoveDirection(new Vector2(direction.x, direction.y));
+            yield return null;
+        }
+        SetMoveDirection(Vector2.zero);
+    }
+
+    /*
+    private void UpdateAnimatorParameters(Vector3 direction)
+    {
+        if (direction.magnitude > 0)
+        {
+            animator.SetFloat("xDir", direction.x);
+            animator.SetFloat("yDir", direction.y);
+            animator.SetBool("isMove", true);
+        }
+        else
+        {
+            animator.SetBool("isMove", false);
+        }
+    }*/
 
 }
