@@ -12,6 +12,7 @@ public class MapTurorial : MonoBehaviour
 
     public GameObject player;
     public GameObject map;
+    public GameObject mapManager;
 
     public List<GameObject> npcs; // NPC 오브젝트를 참조하기 위한 리스트
     public int activeNpcCount = 0; // 활성화된 NPC의 수
@@ -23,6 +24,7 @@ public class MapTurorial : MonoBehaviour
     {
         mapTutorial_1.SetActive(false);
         mapTutorial_2.SetActive(false);
+        mapManager.SetActive(true);
         StartCoroutine(screenFader.FadeIn(map));  // 맵 활성화 (맵 완료되면 코드 수정 필요)
         StartCoroutine(screenFader.FadeIn(mapTutorial_1)); // 맵 튜토리얼1 창 활성화
         player.SetActive(true); //플레이어 오브젝트 활성화
