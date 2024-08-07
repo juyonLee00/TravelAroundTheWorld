@@ -26,12 +26,7 @@ public class Bed : MonoBehaviour
 
         if (distance == interactionDistance)
         {
-            //UIManager.Instance.ActiveUI("Bed");
             Debug.Log("II(");
-        }
-        else
-        {
-            //UIManager.Instance.DeactivatedUI("Bed");
         }
     }
 

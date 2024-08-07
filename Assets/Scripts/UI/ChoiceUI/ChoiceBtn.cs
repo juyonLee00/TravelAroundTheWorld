@@ -77,6 +77,22 @@ public class ChoiceBtn : MonoBehaviour
     void GoToNextDay()
     {
         SoundManager.Instance.PlaySFX("click sound");
+        /*
+        if (모든 NPC를 전부 확인하지 않았을 때)
+        {
+            //대화창에 대화를 띄우면서 199번 대사 가져와야 함.
+        }
+        
+
+        else
+        */
+        {
+            //대화창에 대화 띄우면서 순차적으로 대사 보여짐
+            //천천히 FadeOut
+            //씬 전환
+            SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
+        }
+
     }
 
     void DeactivateUI()
