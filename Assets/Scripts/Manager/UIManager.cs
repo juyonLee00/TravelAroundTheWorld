@@ -5,6 +5,7 @@ using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
 
     public GameObject inventoryUIPrefab;
     public GameObject settingUIPrefab;
@@ -21,6 +22,16 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         canvas = FindObjectOfType<Canvas>();
     }
 

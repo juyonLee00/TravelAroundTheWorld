@@ -36,5 +36,10 @@ public class TestScene : MonoBehaviour
             //SceneManager.LoadScene("Ch1Scene");
             SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
         }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            UIManager.Instance.ToggleUI("SaveDataPopup");
+        }
     }
 }

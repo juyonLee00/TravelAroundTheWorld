@@ -11,15 +11,12 @@ public class PlayerController : MonoBehaviour
 
     public Camera mainCamera;
 
-    //??? ??
-    private UIManager uiManager;
     public PlayerAnimationController playerAnimationController;
 
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        uiManager = FindObjectOfType<UIManager>();
         playerAnimationController = gameObject.GetComponent<PlayerAnimationController>();
         if (mainCamera == null)
         {
@@ -29,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!uiManager.IsUIActive())
+        if (!UIManager.Instance.IsUIActive())
         {
             Move();
         }
@@ -54,32 +51,32 @@ public class PlayerController : MonoBehaviour
 
     void OnInventory()
     {
-        uiManager.ToggleUI("Inventory");
+        UIManager.Instance.ToggleUI("Inventory");
     }
 
     void OnSetting()
     {
-        uiManager.ToggleUI("Setting");
+        UIManager.Instance.ToggleUI("Setting");
     }
 
     void OnMap()
     {
-        uiManager.ToggleUI("Map");
+        UIManager.Instance.ToggleUI("Map");
     }
 
     void OnSkipDialogue()
     {
-       /*
-        *  ?? ?? ?? ???? ?? ?? ??
-        */
     }
 
     void OnMouseMove()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
-        worldPos.z = 0; // 2D 게임의 경우 Z 값을 0으로 설정
+        if (!UIManager.Instance.IsUIActive())
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+            worldPos.z = 0;
 
-        playerAnimationController.MoveToPosition(worldPos);
+            playerAnimationController.MoveToPosition(worldPos);
+        }
     }
 }
