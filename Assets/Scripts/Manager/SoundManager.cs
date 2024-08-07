@@ -33,7 +33,7 @@ public class SoundManager : MonoBehaviour
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
-
+        
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
     }

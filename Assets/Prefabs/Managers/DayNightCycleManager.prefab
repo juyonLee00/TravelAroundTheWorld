@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &449496360949594956
+--- !u!1 &4293923876757143222
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5168826182779694933}
-  - component: {fileID: 8357470372417312622}
+  - component: {fileID: 2578559927035291517}
+  - component: {fileID: 90913202366802755}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: DayNightCycleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5168826182779694933
+--- !u!4 &2578559927035291517
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449496360949594956}
+  m_GameObject: {fileID: 4293923876757143222}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,20 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8357470372417312622
+--- !u!114 &90913202366802755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449496360949594956}
+  m_GameObject: {fileID: 4293923876757143222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad3e628fb99e4449b546a625e87db31, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ad22c378581e43489c478facc44fd18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managersToLoad:
-  - {fileID: 6653872841772025071, guid: 218fef8d4de754a1dbc874f8e3676037, type: 3}
-  - {fileID: 7787662521054751003, guid: ebd26b137131d4d1d9f6a1f47b9a22ff, type: 3}
-  fadeDuration: 1
-  minLoadingTime: 2
+  day: 0
+  isDayTime: 0

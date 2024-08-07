@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //animationController? speed ?? ????
     public float speed = 6.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
+
+    public Camera mainCamera;
 
     //??? ??
     private UIManager uiManager;
@@ -20,33 +21,36 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
         playerAnimationController = gameObject.GetComponent<PlayerAnimationController>();
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
     }
 
     void Update()
     {
-        Move();
-        
+        if (!uiManager.IsUIActive())
+        {
+            Move();
+        }
+
     }
 
     void OnMove(InputValue inputValue)
     {
-        if (uiManager.IsUIActive())
-        {
-            //animationController MoveSpeed = 0;?? ??
-            return;
-        }
         inputVector = inputValue.Get<Vector2>();
-
-        
+        playerAnimationController.SetMoveDirection(inputVector);
     }
 
     void Move()
     {
-        Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
-        rigid.MovePosition(rigid.position + moveVector);
-
-        playerAnimationController.SetMoveDirection(inputVector);
+        if (inputVector != Vector2.zero)
+        {
+            Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
+            rigid.MovePosition(rigid.position + moveVector);
+        }
     }
+
 
     void OnInventory()
     {
@@ -72,8 +76,10 @@ public class PlayerController : MonoBehaviour
 
     void OnMouseMove()
     {
-        /*
-         * UI???? ?? ?? map ??? ?? ?? ??? ??
-?        */
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+        worldPos.z = 0; // 2D 게임의 경우 Z 값을 0으로 설정
+
+        playerAnimationController.MoveToPosition(worldPos);
     }
 }
