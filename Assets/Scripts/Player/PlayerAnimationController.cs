@@ -7,7 +7,7 @@ public class PlayerAnimationController : MonoBehaviour
 {
     public Animator animator;
     public Rigidbody2D rb;
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     private Vector2 lastInputVector;
 
     private IPlayerState currentState;
@@ -15,15 +15,21 @@ public class PlayerAnimationController : MonoBehaviour
     public readonly IPlayerState WalkingState = new PlayerWalkingState();
     public readonly IPlayerState FallingAsleepState = new PlayerFallingAsleepState();
     
-    public readonly PlayerController playerController;
+    public PlayerController playerController;
 
     public Vector2 InputVector { get; private set; }
 
     private bool isMoving = false;
     private Vector3 targetPosition;
 
+    private void Awake()
+    {
+        playerController = transform.gameObject.GetComponent<PlayerController>();
+    }
+
     private void Start()
     {
+        moveSpeed = playerController.speed;
         //TransitionToState(IdleState);
     }
 
@@ -95,7 +101,7 @@ public class PlayerAnimationController : MonoBehaviour
         while (Vector3.Distance(transform.position, targetPos) > 0.1f)
         {
             Vector3 direction = (targetPos - transform.position).normalized;
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 5f);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
             SetMoveDirection(new Vector2(direction.x, direction.y));
             yield return null;
         }

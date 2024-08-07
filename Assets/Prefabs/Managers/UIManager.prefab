@@ -50,3 +50,4 @@ MonoBehaviour:
   loadUIPrefab: {fileID: 1135050589645826663, guid: 2c51b6937a9eb4a57a971ee4432f3de3, type: 3}
   saveDataUIPrefab: {fileID: 4675369338822652522, guid: 53f1732f1af9f4cdd96371632dcf39d4, type: 3}
   saveDataPopupPrefab: {fileID: 4837505057921801157, guid: c7a8c87ea3f4d46348f213c69115eb7f, type: 3}
+  bedInteractionUIPrefab: {fileID: 3300009883695447684, guid: 85c61b05deaa34e29992576c7c8cef2f, type: 3}

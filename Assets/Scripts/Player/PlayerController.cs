@@ -5,21 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 6.0f;
+    public float speed = 5.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
+    bool canMove = true;
 
     public Camera mainCamera;
 
-    //??? ??
-    private UIManager uiManager;
     public PlayerAnimationController playerAnimationController;
-
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        uiManager = FindObjectOfType<UIManager>();
         playerAnimationController = gameObject.GetComponent<PlayerAnimationController>();
         if (mainCamera == null)
         {
@@ -29,21 +26,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!uiManager.IsUIActive())
+        if (!UIManager.Instance.IsUIActive() && canMove)
         {
             Move();
         }
-
     }
 
     void OnMove(InputValue inputValue)
     {
-        inputVector = inputValue.Get<Vector2>();
-        playerAnimationController.SetMoveDirection(inputVector);
+        if (canMove)
+        {
+            inputVector = inputValue.Get<Vector2>();
+            playerAnimationController.SetMoveDirection(inputVector);
+        }
     }
 
     void Move()
     {
+        if (UIManager.Instance.IsUIActive())
+            inputVector = Vector2.zero;
+
         if (inputVector != Vector2.zero)
         {
             Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
@@ -51,35 +53,59 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void OnInventory()
     {
-        uiManager.ToggleUI("Inventory");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Inventory");
+        }
     }
 
     void OnSetting()
     {
-        uiManager.ToggleUI("Setting");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Setting");
+        }
     }
 
     void OnMap()
     {
-        uiManager.ToggleUI("Map");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Map");
+        }
     }
 
     void OnSkipDialogue()
     {
-       /*
-        *  ?? ?? ?? ???? ?? ?? ??
-        */
+        if (canMove)
+        {
+            // Add functionality for skipping dialogue here
+        }
     }
 
     void OnMouseMove()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
-        worldPos.z = 0; // 2D 게임의 경우 Z 값을 0으로 설정
+        if (!UIManager.Instance.IsUIActive() && canMove)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+            worldPos.z = 0;
 
-        playerAnimationController.MoveToPosition(worldPos);
+            playerAnimationController.MoveToPosition(worldPos);
+        }
+    }
+
+    public void StopMove()
+    {
+        canMove = false;
+        inputVector = Vector2.zero;
+        playerAnimationController.SetMoveDirection(Vector2.zero);
+    }
+
+    public void StartMove()
+    {
+        canMove = true;
     }
 }
