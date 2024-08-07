@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class TalkManagerCH1 : MonoBehaviour
+public class Ch1TalkManager : MonoBehaviour
 {
     private List<Ch1ProDialogue> ch1ProDialogue;
 
-    public GameObject opening;
     public GameObject narration;
     public GameObject dialogue;
 
@@ -16,9 +15,6 @@ public class TalkManagerCH1 : MonoBehaviour
 
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
-
-    public GameObject quest; // 퀘스트 화면
-    public TextMeshProUGUI questText;
 
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
@@ -33,7 +29,6 @@ public class TalkManagerCH1 : MonoBehaviour
 
     public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
     public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
-    public Ch0DialogueBar openingBar; // 오프닝 대사창 스크립트 (타이핑 효과 호출을 위해)
 
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
@@ -46,7 +41,6 @@ public class TalkManagerCH1 : MonoBehaviour
     private const string locationBakery = "빵집";
     private const string locationMedicalRoom = "의무실";
     private const string locationTrainRoom = "객실";
-    private const string questSpeaker = "퀘스트";
     private const string locationJazzBar = "재즈바";
 
     public int currentDialogueIndex = 0; // 현재 대사 인덱스
@@ -62,7 +56,7 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void Start()
     {
-        ActivateTalk();
+        ActivateTalk("객실");
     }
 
     void Update()
@@ -76,7 +70,7 @@ public class TalkManagerCH1 : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1 (1)");
+        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CH1");
 
         foreach (var row in data_Dialog)
         {
@@ -93,6 +87,12 @@ public class TalkManagerCH1 : MonoBehaviour
             string questContent = row["퀘스트 내용"].ToString();
 
             ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
+
+            // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 저장
+            if (!string.IsNullOrEmpty(quest))
+            {
+                QuestManager.Instance.AddQuest(quest, questContent);
+            }
         }
     }
 
@@ -107,19 +107,10 @@ public class TalkManagerCH1 : MonoBehaviour
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
 
-        if (index < 2)
+        if (currentDialogue.speaker == letterSpeaker)
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
-            opening.SetActive(true);
-            openingBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
-        }
-
-        else if (currentDialogue.speaker == letterSpeaker)
-        {
-            narration.SetActive(false);
-            dialogue.SetActive(false);
-            opening.SetActive(false);
             if (!string.IsNullOrEmpty(letterText.text))
             {
                 letterText.text += "\n";
@@ -130,33 +121,30 @@ public class TalkManagerCH1 : MonoBehaviour
         {
             narration.SetActive(false);
             dialogue.SetActive(false);
-            opening.SetActive(false);
         }
         else if ((currentDialogue.speaker == narrationSpeaker) || string.IsNullOrEmpty(currentDialogue.speaker))
         {
             narration.SetActive(true);
             dialogue.SetActive(false);
-            opening.SetActive(false);
             narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         else
         {
             narration.SetActive(false);
             dialogue.SetActive(true);
-            opening.SetActive(false);
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
         CheckTalk(currentDialogue.location);
     }
 
-    public void ActivateTalk()
+    public void ActivateTalk(string locationName)
     {
         this.gameObject.SetActive(true);
         isActivated = true;
 
         // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
-        // currentDialogueIndex = ch1ProDialogue.FindIndex(dialogue => dialogue.location == locationName);
+        currentDialogueIndex = ch1ProDialogue.FindIndex(dialogue => dialogue.location == locationName);
 
         if (currentDialogueIndex >= 0)
         {
@@ -181,41 +169,51 @@ public class TalkManagerCH1 : MonoBehaviour
         medicalRoom.SetActive(false);
         letter.SetActive(false);
         jazzBar.SetActive(false);
-        quest.SetActive(false);
 
         switch (location)
         {
             case locationTrainRoom:
-                if (currentDialogueIndex == 25)
+                trainRoom.SetActive(true);
+                if (currentDialogueIndex == 24)
                 {
                     StartCoroutine(screenFader.FadeIn(letter));
                 }
-                else if (currentDialogueIndex >= 26 && currentDialogueIndex <= 33)
+                else if (currentDialogueIndex >= 25 && currentDialogueIndex <= 29)
                 {
                     letter.SetActive(true);
-                    if (currentDialogueIndex >= 26 && currentDialogueIndex <= 29)
+                    if (currentDialogueIndex >= 25 && currentDialogueIndex <= 28)
                     {
                         letterText.gameObject.SetActive(true);
                     }
-                    else if(currentDialogueIndex >= 27)
+                    else if (currentDialogueIndex >= 25)
                     {
                         letter.gameObject.SetActive(true);
                     }
-                    if (currentDialogueIndex == 33)
+                    if (currentDialogueIndex == 29)
                     {
                         StartCoroutine(screenFader.FadeOut(letter));
                     }
                 }
                 break;
+
+            case locationMedicalRoom:
+                medicalRoom.SetActive(true);
+                break;
+
+            case locationGarden:
+                garden.SetActive(true);
+                break;
+
+            case locationBakery:
+                bakery.SetActive(true);
+                break;
+
             case locationJazzBar:
                 jazzBar.SetActive(true);
                 break;
-            case locationGarden:
 
-                garden.SetActive(true);
-                break;
             case locationCafe:
-                jazzBar.SetActive(true);
+                cafe.SetActive(true);
                 break;
         }
 

@@ -1,40 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
+public class Quest
+{
+    public string questType; // 퀘스트 종류
+    public string description; // 퀘스트 설명
+    public bool isCompleted; // 완료 여부
+    public bool isReceived; // 퀘스트를 받았는지 여부
+
+    public Quest(string type, string desc)
+    {
+        questType = type;
+        description = desc;
+        isCompleted = false;
+        isReceived = false; // 초기값 설정
+    }
+
+    // 퀘스트 수락 메서드
+    public void ReceiveQuest()
+    {
+        isReceived = true;
+    }
+
+    // 퀘스트 완료 메서드
+    public void CompleteQuest()
+    {
+        isCompleted = true;
+    }
+}
 
 public class QuestManager : MonoBehaviour
 {
-    public Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>();
-    public TextMeshProUGUI questUI;
+    public static QuestManager Instance { get; private set; } // 싱글톤 인스턴스
 
-    void Start()
+    private Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>(); // 퀘스트 저장
+
+    private void Awake()
     {
-        LoadQuestsFromCSV();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 게임 오브젝트가 씬 전환 시 파괴되지 않도록 설정
+        }
+        else
+        {
+            Destroy(gameObject); // 기존 인스턴스가 있을 경우 새 인스턴스 파괴
+        }
     }
 
-    void LoadQuestsFromCSV()
+    public void AddQuest(string questType, string questDescription)
     {
-        List<Dictionary<string, object>> data_Quest = Ch0CSVReader.Read("Travel Around The World - 퀘스트");
-
-        foreach (var row in data_Quest)
+        if (!questDictionary.TryGetValue(questType, out Quest quest))
         {
-            string questType = row["퀘스트"].ToString();
-            string questName = row["퀘스트 명"].ToString();
-            string questDescription = row["퀘스트 설명"].ToString();
-            string questNote = row["비고"].ToString();
+            quest = new Quest(questType, questDescription);
+            quest.ReceiveQuest(); // 퀘스트를 수락 상태로 설정
+            questDictionary.Add(questType, quest);
+        }
+    }
 
-            Quest quest = new Quest(questName, questDescription, questNote, questType);
-            if (!questDictionary.ContainsKey(questName))
+    public void CompleteQuest(string questType)
+    {
+        if (questDictionary.TryGetValue(questType, out Quest quest))
+        {
+            if (!quest.isCompleted)
             {
-                questDictionary.Add(questName, quest);
+                quest.CompleteQuest();
+                Debug.Log($"{questType} 퀘스트가 완료되었습니다.");
             }
         }
     }
 
-    public Quest GetQuest(string questName)
+    public Dictionary<string, Quest> GetQuests()
     {
-        questDictionary.TryGetValue(questName, out Quest quest);
-        return quest;
+        return new Dictionary<string, Quest>(questDictionary);
     }
+
 }
