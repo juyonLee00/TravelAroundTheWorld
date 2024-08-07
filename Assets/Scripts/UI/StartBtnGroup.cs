@@ -32,8 +32,6 @@ public class StartBtnGroup : MonoBehaviour
     private Vector2 settingBtnPos;
     private Vector2 settingBtnScale;
 
-    private UIManager uIManager;
-
     private List<PosData> btnPosList;
 
     private int yPos;
@@ -42,7 +40,6 @@ public class StartBtnGroup : MonoBehaviour
     {
         btnDataList = new List<BtnDataSet>();
         btnPosList = new List<PosData>();
-        uIManager = FindObjectOfType<UIManager>();
     }
 
     private void Start()
@@ -179,10 +176,10 @@ public class StartBtnGroup : MonoBehaviour
     void LoadGameFunc()
     {
         SoundManager.Instance.PlaySFX("click sound");
-        uIManager.ToggleUI("SaveData");
-        uIManager.ToggleUI("SaveDataPopup");
-        uIManager.DeactivatedUI("SaveDataPopup");
-        uIManager.ActiveUI("SaveData");
+        UIManager.Instance.ToggleUI("SaveData");
+        UIManager.Instance.ToggleUI("SaveDataPopup");
+        UIManager.Instance.DeactivatedUI("SaveDataPopup");
+        //UIManager.Instance.ToggleUI("SaveData");
     }
 
     void ExitGameFunc()
@@ -202,7 +199,7 @@ public class StartBtnGroup : MonoBehaviour
 
         Button btnComponent = btn.GetComponent<Button>();
 
-        btnComponent.onClick.AddListener(() => uIManager.ToggleUI("Setting"));
+        btnComponent.onClick.AddListener(() => UIManager.Instance.ToggleUI("Setting"));
 
     }
 

@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 6.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
+    bool canMove = true;
 
     public Camera mainCamera;
 
     public PlayerAnimationController playerAnimationController;
-
 
     private void Awake()
     {
@@ -26,21 +26,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!UIManager.Instance.IsUIActive())
+        if (!UIManager.Instance.IsUIActive() && canMove)
         {
             Move();
         }
-
     }
 
     void OnMove(InputValue inputValue)
     {
-        inputVector = inputValue.Get<Vector2>();
-        playerAnimationController.SetMoveDirection(inputVector);
+        if (canMove)
+        {
+            inputVector = inputValue.Get<Vector2>();
+            playerAnimationController.SetMoveDirection(inputVector);
+        }
     }
 
     void Move()
     {
+        if (UIManager.Instance.IsUIActive())
+            inputVector = Vector2.zero;
+
         if (inputVector != Vector2.zero)
         {
             Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
@@ -48,29 +53,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void OnInventory()
     {
-        UIManager.Instance.ToggleUI("Inventory");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Inventory");
+        }
     }
 
     void OnSetting()
     {
-        UIManager.Instance.ToggleUI("Setting");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Setting");
+        }
     }
 
     void OnMap()
     {
-        UIManager.Instance.ToggleUI("Map");
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Map");
+        }
     }
 
     void OnSkipDialogue()
     {
+        if (canMove)
+        {
+            // Add functionality for skipping dialogue here
+        }
     }
 
     void OnMouseMove()
     {
-        if (!UIManager.Instance.IsUIActive())
+        if (!UIManager.Instance.IsUIActive() && canMove)
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
@@ -78,5 +95,17 @@ public class PlayerController : MonoBehaviour
 
             playerAnimationController.MoveToPosition(worldPos);
         }
+    }
+
+    public void StopMove()
+    {
+        canMove = false;
+        inputVector = Vector2.zero;
+        playerAnimationController.SetMoveDirection(Vector2.zero);
+    }
+
+    public void StartMove()
+    {
+        canMove = true;
     }
 }

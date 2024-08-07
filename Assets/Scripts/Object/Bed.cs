@@ -5,24 +5,44 @@ using UnityEngine.UI;
 
 public class Bed : MonoBehaviour
 {
-    //UI-UIManager, controller-InputManager에서 가져오도록 수정
-    [SerializeField] GameObject popupUI;
-    [SerializeField] PlayerController playerController;
+    private GameObject player;
+    
+    bool isActiveUI = false;
+    private float interactionDistance;
 
-    bool isActivePopupUI = false;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Awake()
     {
-        if(collision.gameObject.layer.Equals(7))
-        {   
-            if (isActivePopupUI == false)
-            {
-                popupUI.SetActive(true);
-                isActivePopupUI = true;
-                playerController.enabled = false ;
-            }
+        player = GameObject.FindWithTag("Player");
+    }
 
+    private void Start()
+    {
+        interactionDistance = 2f;
+    }
+
+    private void Update()
+    {
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+
+        if (distance == interactionDistance)
+        {
+            //UIManager.Instance.ActiveUI("Bed");
+            Debug.Log("II(");
+        }
+        else
+        {
+            //UIManager.Instance.DeactivatedUI("Bed");
         }
     }
 
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            UIManager.Instance.ToggleUI("Bed");
+            player.GetComponent<PlayerController>().StopMove();
+            }
+    }
 }

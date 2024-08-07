@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject loadUIPrefab;
     public GameObject saveDataUIPrefab;
     public GameObject saveDataPopupPrefab;
+    public GameObject bedInteractionUIPrefab;
 
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
@@ -68,6 +69,7 @@ public class UIManager : MonoBehaviour
     public void DeactivatedUI(string uiName)
     {
         uiInstances[uiName].SetActive(false);
+        currentActiveUI = null;
     }
 
 
@@ -76,6 +78,7 @@ public class UIManager : MonoBehaviour
         foreach (var uiInstance in uiInstances.Values)
         {
             uiInstance.SetActive(false);
+            currentActiveUI = null;
         }
     }
 
@@ -95,6 +98,8 @@ public class UIManager : MonoBehaviour
                 return saveDataUIPrefab;
             case "SaveDataPopup":
                 return saveDataPopupPrefab;
+            case "Bed":
+                return bedInteractionUIPrefab;
             default:
                 return null;
         }
@@ -121,6 +126,21 @@ public class UIManager : MonoBehaviour
 
     public void ActiveUI(string uiName)
     {
-        uiInstances[uiName].SetActive(true);
+        if (!uiInstances.ContainsKey(uiName))
+        {
+            GameObject uiPrefab = GetUIPrefab(uiName);
+
+            if (uiPrefab != null)
+            {
+                GameObject uiInstance = Instantiate(uiPrefab, canvas.transform, false);
+                uiInstances[uiName] = uiInstance;
+            }
+        }
+
+        if (uiInstances.ContainsKey(uiName))
+        {
+            uiInstances[uiName].SetActive(true);
+            currentActiveUI = uiName;
+        }
     }
 }
