@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
 public class CafeTalkManager : MonoBehaviour
 {
     private List<ProDialogue> proDialogue;
@@ -17,12 +16,14 @@ public class CafeTalkManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
 
+    public GameObject explainBar;
+    public TextMeshProUGUI explainText;
+
     public GameObject CafeMap; //카페 기본 화면
     public GameObject Money; //소지금
     public GameObject MainCharacter; //주인공 초상화
     public GameObject CoffeePot; //커피머신
     public GameObject RecipeBook; // 레시피북
-
 
     public GameObject Beverage; //음료 제작창
     public GameObject BackSpace; // 뒤로가기
@@ -39,20 +40,18 @@ public class CafeTalkManager : MonoBehaviour
     public GameObject train;
     public GameObject cheetahShop;
 
-
     private const string narrationSpeaker = "나레이션";
     private const string locationCafe = "카페";
 
-
     public int currentDialogueIndex = 0;
     private bool isActivated = false;
+
 
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV();
     }
-
 
     void Start()
     {
@@ -116,13 +115,13 @@ public class CafeTalkManager : MonoBehaviour
             {
                 Debug.Log("Hit something else");
             }
-        } 
+        }
         else if (currentDialogueIndex == 41)
         {
             if (clickedObject == Extract)
             {
                 Debug.Log("Hit Extract at index " + currentDialogueIndex);
-                StartCoroutine(ActivateObjectAfterDelay(3f, Shot));
+                StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
                 currentDialogueIndex++;
                 PrintProDialogue(currentDialogueIndex);
             }
@@ -135,37 +134,34 @@ public class CafeTalkManager : MonoBehaviour
         }
     }
 
-
-
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)
     {
-        Debug.Log("Activate 3f at index " + currentDialogueIndex);
+        Debug.Log("Activate 2f at index " + currentDialogueIndex);
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
     }
 
-
     void LoadDialogueFromCSV()
-        {
+    {
         List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CafeTutorial");
 
         foreach (var row in data_Dialog)
-            {
-                string dayString = row["일자"].ToString();
-                int day = int.Parse(System.Text.RegularExpressions.Regex.Match(dayString, @"\d+").Value);
-                string location = row["장소"].ToString();
-                string speaker = row["인물"].ToString();
-                string line = row["대사"].ToString();
-                string screenEffect = row["화면"].ToString();
-                string backgroundMusic = row["배경음악"].ToString();
-                string expression = row["표정"].ToString();
-                string note = row["비고"].ToString();
-                string quest = row["퀘스트"].ToString();
-                string questContent = row["퀘스트 내용"].ToString();
+        {
+            string dayString = row["일자"].ToString();
+            int day = int.Parse(System.Text.RegularExpressions.Regex.Match(dayString, @"\d+").Value);
+            string location = row["장소"].ToString();
+            string speaker = row["인물"].ToString();
+            string line = row["대사"].ToString();
+            string screenEffect = row["화면"].ToString();
+            string backgroundMusic = row["배경음악"].ToString();
+            string expression = row["표정"].ToString();
+            string note = row["비고"].ToString();
+            string quest = row["퀘스트"].ToString();
+            string questContent = row["퀘스트 내용"].ToString();
 
-                proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
-            }
+            proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
         }
+    }
 
     public void PrintProDialogue(int index)
     {
@@ -176,46 +172,48 @@ public class CafeTalkManager : MonoBehaviour
 
         ProDialogue currentDialogue = proDialogue[index];
 
+        // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
+        if (index >= 40 && index <= 51)
+        {
+            dialogue.SetActive(false);
+            explainBar.SetActive(true);
+            explainText.text = currentDialogue.line;
+        }
+        else
+        {
+            explainBar.SetActive(false);
+            dialogue.SetActive(true);
+            nameText.text = currentDialogue.speaker;
+            descriptionText.text = currentDialogue.line;
+        }
+
         if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 51)
         {
             Beverage.SetActive(false);
             cheetahShop.SetActive(false);
             CafeMap.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
-
         }
         else if (index > 29 && index < 34)
         {
             Beverage.SetActive(false);
             cheetahShop.SetActive(true);
             CafeMap.SetActive(false);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
         else if (index > 39 && index < 42)
-        {
+        { 
             Ingredients.SetActive(true);
             Shot.SetActive(false);
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
-        else if (index == 41)
+        else if (index == 42)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(false);
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
         else if (index > 42 && index < 51)
         {
@@ -224,9 +222,6 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
         else if (index == 51)
         {
@@ -235,21 +230,16 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(true);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
         else
         {
+            explainBar.SetActive(false);
             Ingredients.SetActive(false);
             Shot.SetActive(false);
             Water.SetActive(true);
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
-            dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
         }
         if (currentDialogue.speaker == narrationSpeaker)
         {
@@ -260,12 +250,12 @@ public class CafeTalkManager : MonoBehaviour
             narrationText.text = currentDialogue.line;
         }
     }
-        void ActiveTalk()
-        {
-            this.gameObject.SetActive(true);
-            isActivated = true;
-        Debug.Log("ActivateTalk called, isActivated" + isActivated);
-        }
 
-      
+    void ActiveTalk()
+    {
+        this.gameObject.SetActive(true);
+        isActivated = true;
+        Debug.Log("ActivateTalk called, isActivated" + isActivated);
     }
+
+}
