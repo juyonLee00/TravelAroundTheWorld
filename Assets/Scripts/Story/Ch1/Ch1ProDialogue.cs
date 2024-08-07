@@ -29,6 +29,3 @@ public class Ch1ProDialogue
         this.questContent = questContent;
     }
 }
-
-
-

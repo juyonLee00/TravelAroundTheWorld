@@ -16,9 +16,6 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
 
-    public GameObject quest; // 퀘스트 화면
-    public TextMeshProUGUI questText;
-
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
     public GameObject trainRoomHallway; // 객실 복도 화면
@@ -44,7 +41,6 @@ public class Ch1TalkManager : MonoBehaviour
     private const string locationBakery = "빵집";
     private const string locationMedicalRoom = "의무실";
     private const string locationTrainRoom = "객실";
-    private const string questSpeaker = "퀘스트";
     private const string locationJazzBar = "재즈바";
 
     public int currentDialogueIndex = 0; // 현재 대사 인덱스
@@ -91,6 +87,12 @@ public class Ch1TalkManager : MonoBehaviour
             string questContent = row["퀘스트 내용"].ToString();
 
             ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
+
+            // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 저장
+            if (!string.IsNullOrEmpty(quest))
+            {
+                QuestManager.Instance.AddQuest(quest, questContent);
+            }
         }
     }
 
@@ -104,37 +106,6 @@ public class Ch1TalkManager : MonoBehaviour
         }
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
-
-        // QuestManager.Instance와 questUI가 null이 아닌지 확인
-        if (QuestManager.Instance == null)
-        {
-            Debug.LogError("QuestManager.Instance is not set.");
-            return;
-        }
-
-        if (QuestManager.Instance.questUI == null)
-        {
-            Debug.LogError("QuestManager.Instance.questUI is not set.");
-            return;
-        }
-
-        // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 UI 활성화 및 내용 표시
-        if (!string.IsNullOrEmpty(currentDialogue.quest))
-        {
-            QuestManager.Instance.ShowQuest(currentDialogue.quest, currentDialogue.questContent);
-            return; // 퀘스트를 표시하고 대화 진행 중단
-        }
-
-
-        // 씬 전환을 위한 특별 대사 감지
-        /*if (currentDialogue.line.Contains("랜덤 등장인물 룸서비스 주문 3건") ||
-            currentDialogue.line.Contains("랜덤 등장인물 주문 2건") ||
-            currentDialogue.line.Contains("랜덤 등장인물 주문 1건"))
-        {
-            // CafeScene으로 전환 시작
-            StartCoroutine(TransitionToCafeScene(currentDialogue.line));
-            return;
-        }*/
 
         if (currentDialogue.speaker == letterSpeaker)
         {
@@ -167,27 +138,6 @@ public class Ch1TalkManager : MonoBehaviour
         CheckTalk(currentDialogue.location);
     }
 
-    /*private IEnumerator TransitionToCafeScene(string taskDetails)
-    {
-        // 현재 씬 이름 저장
-        string currentSceneName = GetCurrentSceneName();
-
-        // 작업 세부 정보 또는 필요한 데이터 저장
-        TaskManager.Instance.SetTaskDetails(taskDetails);
-
-        // CafeScene으로 전환
-        yield return StartCoroutine(SceneManagerEx.Instance.LoadSceneWithLoadingScene("CafeScene"));
-
-        // CafeScene에서 작업이 완료될 때까지 대기
-        yield return new WaitUntil(() => TaskManager.Instance.AreTasksCompleted());
-
-        // 원래 씬으로 돌아옴
-        yield return StartCoroutine(SceneManagerEx.Instance.LoadSceneWithLoadingScene(currentSceneName));
-
-        // 이야기 이어서 진행
-        ActivateTalk(currentSceneName);
-    }*/
-
     public void ActivateTalk(string locationName)
     {
         this.gameObject.SetActive(true);
@@ -219,7 +169,6 @@ public class Ch1TalkManager : MonoBehaviour
         medicalRoom.SetActive(false);
         letter.SetActive(false);
         jazzBar.SetActive(false);
-        quest.SetActive(false);
 
         switch (location)
         {
