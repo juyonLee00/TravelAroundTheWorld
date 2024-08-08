@@ -9,6 +9,9 @@ public class ChoiceBtn : MonoBehaviour
     private Vector2 btnPos;
     private List<BtnDataSet> btnDataList;
     private GameObject player;
+
+    private string yesData;
+    private string noData;
     private void Awake()
     {
         btnDataList = new List<BtnDataSet>();
@@ -16,6 +19,7 @@ public class ChoiceBtn : MonoBehaviour
     }
     void Start()
     {
+        SetStringData();
         SetBtnData();
         CreateChoiceBtnGroup();
     }
@@ -25,18 +29,27 @@ public class ChoiceBtn : MonoBehaviour
         BtnDataSet yesBtn = new BtnDataSet
         {
             btnName = "YesBtn",
-            btnTxt = "예",
+            btnTxt = yesData,
             btnEvent = GoToNextDay
         };
         BtnDataSet noBtn = new BtnDataSet
         {
             btnName = "NoBtn",
-            btnTxt = "아니오",
+            btnTxt = noData,
             btnEvent = DeactivateUI
         };
         btnDataList.Add(yesBtn);
         btnDataList.Add(noBtn);
     }
+
+    void SetStringData()
+    {
+        //언어 상태에 따라 다르게 설정하는 기능 추가
+
+        yesData = "예";
+        noData = "아니오";
+    }
+
     void CreateChoiceBtnGroup()
     {
         int btnDataNum = btnDataList.Count;
@@ -57,27 +70,45 @@ public class ChoiceBtn : MonoBehaviour
     void GoToNextDay()
     {
         SoundManager.Instance.PlaySFX("click sound");
-        /*
-        if (모든 NPC를 전부 확인하지 않았을 때)
+
+        if (DayNightCycleManager.Instance.GetCurrentDay() == 4)
         {
-            //대화창에 대화를 띄우면서 199번 대사 가져와야 함.
+            //HappyEnding부분 작성
         }
 
         else
-        */
         {
-            //대화창에 대화 띄우면서 순차적으로 대사 보여짐
-            //천천히 FadeOut
-            //씬 전환
-            SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
+            /*
+            if (모든 NPC를 전부 확인하지 않았을 때)
+            {
+                //대화창에 대화를 띄우면서 199번 대사 가져와야 함.
+            }
+
+            else
+            */
+            {
+                //대화창에 대화 띄우면서 순차적으로 대사 보여짐
+                //천천히 FadeOut
+                //씬 전환
+                SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
+            }
         }
 
     }
 
     void DeactivateUI()
     {
-        SoundManager.Instance.PlaySFX("click sound");
-        UIManager.Instance.DeactivatedUI("Bed");
-        player.GetComponent<PlayerController>().StartMove();
+        if (DayNightCycleManager.Instance.GetCurrentDay() == 4)
+        {
+            //BadEnding부분 작성
+        }
+
+        else
+        {
+            SoundManager.Instance.PlaySFX("click sound");
+            UIManager.Instance.DeactivatedUI("Bed");
+            player.GetComponent<PlayerController>().StartMove();
+        }
+        
     }
 }
