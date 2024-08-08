@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Ch1TalkManager : MonoBehaviour
 {
@@ -48,10 +49,13 @@ public class Ch1TalkManager : MonoBehaviour
 
     public QuestManager questManager; // 퀘스트 매니저 참조
 
+    private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
+
     void Awake()
     {
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
+        InitializeCharacterImages();
     }
 
     void Start()
@@ -96,6 +100,17 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
+    void InitializeCharacterImages()
+    {
+        characterImages = new Dictionary<string, Sprite>();
+        characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
+        characterImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas");
+        characterImages["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow");
+        characterImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai");
+        characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
+        characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
+    }
+
     void PrintCh1ProDialogue(int index)
     {
         if (index >= ch1ProDialogue.Count)
@@ -106,6 +121,17 @@ public class Ch1TalkManager : MonoBehaviour
         }
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
+
+        Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
+
+        if (imageObj.GetComponent<SpriteRenderer>() != null)
+        {
+            imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
+        }
+        else if (imageObj.GetComponent<Image>() != null)
+        {
+            imageObj.GetComponent<Image>().sprite = characterSprite;
+        }
 
         if (currentDialogue.speaker == letterSpeaker)
         {
