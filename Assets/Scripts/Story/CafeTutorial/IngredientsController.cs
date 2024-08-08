@@ -6,8 +6,10 @@ public class IngredientsController : MonoBehaviour
 {
     private Vector3 defaultPos;
     private Vector3 offset;
+    private Vector3 makePos = new Vector3(4f, -3f, -1f);
     private bool isDragging = false;
     private GameObject makeArea;
+    private GameObject IceAmericano;
     private MakeController makeController;
 
 
@@ -15,6 +17,7 @@ public class IngredientsController : MonoBehaviour
     {
         defaultPos = this.transform.position;
         makeArea = GameObject.Find("MakeArea");
+        IceAmericano = GameObject.Find("IceAmericano");
         makeController = FindObjectOfType<MakeController>();
     }
 
@@ -45,8 +48,12 @@ public class IngredientsController : MonoBehaviour
             Debug.Log(gameObject.name + " dropped on MakeArea");
             makeController.HandleIngredientDrop(gameObject);
         }
-
-        transform.position = defaultPos;
+        if (gameObject.name == "IceCup")
+        {
+            transform.position = makePos;
+        }
+        else
+            transform.position = defaultPos;
             
     }
     
@@ -58,4 +65,6 @@ public class IngredientsController : MonoBehaviour
         mousePoint.z = Camera.main.WorldToScreenPoint(transform.position).z; // 오브젝트의 Z 축 유지
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
+
+    
 }
