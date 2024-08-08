@@ -152,7 +152,7 @@ public class CafeTalkManager : MonoBehaviour
             string location = row["장소"].ToString();
             string speaker = row["인물"].ToString();
             string line = row["대사"].ToString();
-            string screenEffect = row["화면"].ToString();
+            string screenEffect = row["화면 연출"].ToString();
             string backgroundMusic = row["배경음악"].ToString();
             string expression = row["표정"].ToString();
             string note = row["비고"].ToString();
@@ -228,6 +228,7 @@ public class CafeTalkManager : MonoBehaviour
             Ingredients.SetActive(true);
             Shot.SetActive(true);
             IceAmericano.SetActive(true);
+            IceCup.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
         }

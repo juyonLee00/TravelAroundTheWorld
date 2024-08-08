@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutoMakeController : MonoBehaviour
+public class MakeController : MonoBehaviour
 {
     private CafeTalkManager cafeTalkManager;
 
@@ -10,6 +10,7 @@ public class TutoMakeController : MonoBehaviour
     {
         cafeTalkManager = FindObjectOfType<CafeTalkManager>();
     }
+
     public void HandleIngredientDrop(GameObject ingredient)
     {
         Debug.Log(ingredient.name + " has  been dropped in the MakeArea at index " + cafeTalkManager.currentDialogueIndex);

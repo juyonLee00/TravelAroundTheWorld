@@ -54,6 +54,5 @@ public class MoveController : MonoBehaviour
 
         rectTransform.anchoredPosition = newPosition;
 
-        Debug.Log("current position set to " + newPosition);
     }
 }
