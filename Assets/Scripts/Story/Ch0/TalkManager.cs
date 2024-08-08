@@ -78,7 +78,14 @@ public class TalkManager : MonoBehaviour
         if (isActivated && !isFadingOut && Input.GetKeyDown(KeyCode.Space))
         {
             currentDialogueIndex++;
-            PrintProDialogue(currentDialogueIndex);
+            if (currentDialogueIndex >= proDialogue.Count)
+            {
+                DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+            }
+            else
+            {
+                PrintProDialogue(currentDialogueIndex);
+            }
         }
         // 맵 이동 조작 튜토리얼
         if (currentDialogueIndex == 63)
@@ -173,8 +180,8 @@ public class TalkManager : MonoBehaviour
         this.gameObject.SetActive(true);
         isActivated = true;
 
-        //위치가 객실이고 (잠에 들려고 하는 상태) npc와 다 대화하지 않은 경우 예외처리 
-        if (locationName == locationTrainRoom && !isAllNPCActivated && MapTutorial.isSleeping)
+        //위치가 객실이고 npc와 다 대화하지 않은 경우 예외처리 
+        if (locationName == locationTrainRoom && !isAllNPCActivated)
         {
             currentDialogueIndex = 133;
             PrintProDialogue(currentDialogueIndex);
@@ -189,8 +196,6 @@ public class TalkManager : MonoBehaviour
                 PrintProDialogue(currentDialogueIndex);
             }
         }
-
- 
     }
 
     void DeactivateTalk()
@@ -355,40 +360,42 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationTrainRoom:
-                //모든 npc와 다 대화한 경우
-                if (isAllNPCActivated)
+                //침대를 사용했고 잠에 들려고 하는 경우만 객실 활성화
+                if (MapTutorial.bedUsed && MapTutorial.isSleeping)
                 {
-                    if (currentDialogueIndex == 129)
+                    //모든 npc와 대화한 경우
+                    if (isAllNPCActivated)
                     {
-                        StartCoroutine(screenFader.FadeIn(trainRoom));
-                    }
-                    else if (currentDialogueIndex >= 130 && currentDialogueIndex <= 132)
-                    {
-                        trainRoom.SetActive(true);
-                        if (currentDialogueIndex == 132)
+                        if (currentDialogueIndex == 129)
                         {
-                            StartCoroutine(FadeOutAndDeactivateTalk(trainRoom));
-                            //여기에 ch1으로 씬 이동하는 코드 추가
+                            StartCoroutine(screenFader.FadeIn(trainRoom));
+                        }
+                        else if (currentDialogueIndex >= 130 && currentDialogueIndex <= 132)
+                        {
+                            trainRoom.SetActive(true);
+                            if (currentDialogueIndex == 132)
+                            {
+                                StartCoroutine(FadeOutAndDeactivateTalk(trainRoom));
+                                //여기에 ch1으로 씬 이동하는 코드 추가
+                            }
+                        }
+                    }
+                    //모든 npc와 대화하지 않은 경우
+                    else
+                    {
+                        if (currentDialogueIndex == 133)
+                        {
+                            StartCoroutine(screenFader.FadeIn(trainRoom));
+                        }
+                        else if (currentDialogueIndex == 134)
+                        {
+                            MapTutorial.bedUsed = false; // 침대 사용과 잠에 드는지 여부 둘다 false로 초기화
+                            MapTutorial.isSleeping = false;
+                            DeactivateTalk();
                         }
                     }
                 }
-                //모든 npc와 다 대화하지 않은 경우
-                else
-                {
-                    if (currentDialogueIndex == 133)
-                    {
-                        StartCoroutine(screenFader.FadeIn(trainRoom));
-                    }
-                    else if (currentDialogueIndex == 134)
-                    {
-                        DeactivateTalk();
-                    }
-                }
                 break;
-        }
-        if (currentDialogueIndex > proDialogue.Count)
-        {
-            DeactivateTalk();
         }
     }
 

@@ -23,7 +23,8 @@ public class MapTurorial : MonoBehaviour
     private bool engineRoomAccessed = false; // 엔진룸 접근 여부
     private bool trainRoom1Accessed = false; // 다른방1 접근 여부
     private bool trainRoom2Accessed = false; // 다른방2 접근 여부
-    public bool isSleeping = false; // 침대를 사용하는지 여부
+    public bool bedUsed = false; // 침대를 사용했는지 여부
+    public bool isSleeping = false; // 잠에 드는지 여부
 
     //문자열 상수 선언
     private const string EngineRoom = "엔진룸";
@@ -144,13 +145,11 @@ public class MapTurorial : MonoBehaviour
                 trainRoom2Accessed = true;
             }
         }
-        if (ch0MapManager.currentState == MapState.TrainRoom3)
+        //현재 위치가 객실이고 침대를 아직 사용하지 않은 상태에서 잠에 들려고 할떄
+        if (ch0MapManager.currentState == MapState.TrainRoom3 && !bedUsed && isSleeping)
         {
-            if (isSleeping)
-            {
-                talkManager.ActivateTalk(TrainRoom3); // 잠에 들려고 할 시 대사 출력
-                isSleeping = false;
-            }
+            talkManager.ActivateTalk(TrainRoom3); // 잠에 들려고 할 시 대사 출력
+            bedUsed = true; //침대 사용
         }
     }
 }
