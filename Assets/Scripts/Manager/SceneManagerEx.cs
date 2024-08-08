@@ -3,30 +3,195 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerEx
+public class SceneManagerEx : MonoBehaviour
 {
-    public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>();  } }
+    public static SceneManagerEx Instance { get; private set; }
 
-    public string GetSceneName(SceneType.Scene type)
+
+    [Header("Manager Prefabs")]
+    public List<GameObject> managersToLoad;
+    private Dictionary<string, GameObject> loadedManagers = new Dictionary<string, GameObject>(); 
+
+    public float fadeDuration = 1f;
+    public float minLoadingTime = 40f;
+    private CanvasGroup fadeCanvasGroup;
+
+    // 현재 로딩 중인지를 나타내는 플래그
+    private bool isLoading = false;
+    private Queue<string> sceneQueue = new Queue<string>();
+
+    private void Awake()
     {
-        string name = System.Enum.GetName(typeof(SceneType.Scene), type);
-        return name;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeManagers();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
 
-    public SceneType.Scene GetSceneType()
+    private void InitializeManagers()
     {
-        return CurrentScene.SceneType;
+        foreach (var managerPrefab in managersToLoad)
+        {
+            GameObject manager = Instantiate(managerPrefab);
+            loadedManagers[managerPrefab.name] = manager;
+            DontDestroyOnLoad(manager);
+        }
     }
 
-    public void LoadScene(SceneType.Scene type)
+    private void OnSceneLoaded(string sceneName)
     {
-        //그 외 현재 존재하는 자원 정리하는 코드 필요
-        //Managers.Clear();
-        SceneManager.LoadScene(GetSceneName(type));
+        Debug.Log($"Scene {sceneName} loaded successfully");
+    }
+
+    //씬 로드 요청 큐에 추가 
+    public void SceanLoadQueue(string sceneName)
+    {
+        sceneQueue.Enqueue(sceneName);
+        if (!isLoading)
+        {
+            StartCoroutine(ProcessLoadQueue());
+        }
+    }
+
+    //현재 큐에 들어온 씬 처리
+    private IEnumerator ProcessLoadQueue()
+    {
+        isLoading = true;
+
+        while (sceneQueue.Count > 0)
+        {
+            string sceneName = sceneQueue.Dequeue();
+            yield return StartCoroutine(LoadSceneWithLoadingScene(sceneName));
+        }
+
+        isLoading = false;
+    }
+
+    private IEnumerator LoadSceneWithLoadingScene(string sceneName)
+    {
+        SoundManager.Instance.StopAllSounds();
+
+        yield return StartCoroutine(FadeIn());
+
+        AsyncOperation loadLoadingScene = SceneManager.LoadSceneAsync("LoadingScene");
+        yield return new WaitUntil(() => loadLoadingScene.isDone);
+
+        FindFadeCanvasGroup();
+
+        float loadingStartTime = Time.time;
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        asyncOperation.allowSceneActivation = false;
+
+        LoadingSceneController loadingSceneController = FindObjectOfType<LoadingSceneController>();
+
+        if(loadingSceneController == null)
+        {
+            Debug.LogError("LoadingScreenController not found in LoadingScene.");
+            yield break;
+        }
+
+        while (!asyncOperation.isDone)
+        {
+            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+            loadingSceneController.UpdateProgress(progress);
+
+            if (asyncOperation.progress >= 0.9f)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
+
+        yield return new WaitUntil(() => asyncOperation.isDone);
+
+
+        float loadingElapsedTime = Time.time - loadingStartTime;
+        if (loadingElapsedTime < minLoadingTime)
+        {
+            yield return StartCoroutine(FakeLoadingTask(minLoadingTime - loadingElapsedTime));
+        }
+
+        yield return StartCoroutine(FadeOut());
+
+        //OnSceneLoaded(sceneName);
+        //Cleanup();
+    }
+
+    private void InitializeSceneObjects()
+    {
+        //필요한 오브젝트 생성
+    }
+
+    private IEnumerator FakeLoadingTask(float remainingTime)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < remainingTime)
+        {
+            elapsedTime += Time.deltaTime;
+            //작업 추가 가능
+            yield return null;
+        }
+    }
+
+    private void FindFadeCanvasGroup()
+    {
+        fadeCanvasGroup = FindObjectOfType<CanvasGroup>();
+
+        if (fadeCanvasGroup == null)
+        {
+            Debug.LogError("FadeCanvasGroup not found in the scene.");
+        }
+    }
+
+    private IEnumerator FadeIn()
+    {
+        if (fadeCanvasGroup != null)
+        {
+            fadeCanvasGroup.gameObject.SetActive(true);
+            float elapsedTime = 5f;
+            while (elapsedTime < fadeDuration)
+            {
+                fadeCanvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            fadeCanvasGroup.alpha = 1f;
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        if (fadeCanvasGroup != null)
+        {
+            float elapsedTime = 0f;
+            while (elapsedTime < fadeDuration)
+            {
+                fadeCanvasGroup.alpha = 1f - Mathf.Clamp01(elapsedTime / fadeDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            fadeCanvasGroup.alpha = 0f;
+            fadeCanvasGroup.gameObject.SetActive(false);
+        }
     }
 
     public void Clear()
     {
-        CurrentScene.Clear();
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+    }
+
+    public string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 }

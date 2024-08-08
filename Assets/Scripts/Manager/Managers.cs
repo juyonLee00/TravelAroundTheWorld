@@ -5,24 +5,16 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
-    public static Managers Instance
-    {
-        get
-        {
-            Init();
-            return s_instance;
-        }
-    }
+    public static Managers Instance { get { Init(); return s_instance; } }
+
+    public string CurrentLocation { get; set; } // 현재 위치 저장
+
 
     void Start()
     {
         Init();
     }
 
-    void Update()
-    {
-        
-    }
 
     static void Init()
     {
