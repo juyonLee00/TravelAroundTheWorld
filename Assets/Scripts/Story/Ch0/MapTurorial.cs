@@ -12,17 +12,32 @@ public class MapTurorial : MonoBehaviour
 
     public GameObject player;
     public GameObject map;
+    public GameObject mapManager;
+    public Ch0MapManager ch0MapManager;
 
     public List<GameObject> npcs; // NPC 오브젝트를 참조하기 위한 리스트
     public int activeNpcCount = 0; // 활성화된 NPC의 수
 
     private int spaceBarIndex = 0;
 
+    private bool engineRoomAccessed = false; // 엔진룸 접근 여부
+    private bool trainRoom1Accessed = false; // 다른방1 접근 여부
+    private bool trainRoom2Accessed = false; // 다른방2 접근 여부
+    public bool bedUsed = false; // 침대를 사용했는지 여부
+    public bool isSleeping = false; // 잠에 드는지 여부
+
+    //문자열 상수 선언
+    private const string EngineRoom = "엔진룸";
+    private const string TrainRoom1 = "다른 방 1";
+    private const string TrainRoom2 = "다른 방 2";
+    private const string TrainRoom3 = "객실";
+
     // Start is called before the first frame update
     void Start()
     {
         mapTutorial_1.SetActive(false);
         mapTutorial_2.SetActive(false);
+        mapManager.SetActive(true);
         StartCoroutine(screenFader.FadeIn(map));  // 맵 활성화 (맵 완료되면 코드 수정 필요)
         StartCoroutine(screenFader.FadeIn(mapTutorial_1)); // 맵 튜토리얼1 창 활성화
         player.SetActive(true); //플레이어 오브젝트 활성화
@@ -43,8 +58,10 @@ public class MapTurorial : MonoBehaviour
         //모든 npc 대화 완료된 경우 로직 추가 필요
         if (activeNpcCount == talkActivedNPC)
         {
-            //Debug.Log("모든 npc 대화 완료");
+            talkManager.isAllNPCActivated = true;
         }
+
+        CheckMapState();
     }
 
     void Tutorial()
@@ -92,5 +109,47 @@ public class MapTurorial : MonoBehaviour
         }
 
         return talkActivedCount;
+    }
+
+    void CheckMapState()
+    {
+        if (ch0MapManager.currentState == MapState.EngineRoom)
+        {
+            if (!engineRoomAccessed)
+            {
+                talkManager.ActivateTalk(EngineRoom); //엔진룸 처음 접근 시 대사 출력 
+                engineRoomAccessed = true;
+            }
+
+            Vector2 playerPosition = player.transform.position;
+            //엔진룸은 접근 불가 (플레이어 이동 불가)
+            if (playerPosition.x < -195)
+            {
+                playerPosition.x = -195;
+                player.transform.position = new Vector3(playerPosition.x, playerPosition.y, player.transform.position.z);
+            }
+        }
+        if (ch0MapManager.currentState == MapState.TrainRoom1)
+        {
+            if (!trainRoom1Accessed)
+            {
+                talkManager.ActivateTalk(TrainRoom1); //다른방1 처음 접근 시 대사 출력 
+                trainRoom1Accessed = true;
+            }
+        }
+        if (ch0MapManager.currentState == MapState.TrainRoom2)
+        {
+            if (!trainRoom2Accessed)
+            {
+                talkManager.ActivateTalk(TrainRoom2); //다른방2 처음 접근 시 대사 출력 
+                trainRoom2Accessed = true;
+            }
+        }
+        //현재 위치가 객실이고 침대를 아직 사용하지 않은 상태에서 잠에 들려고 할떄
+        if (ch0MapManager.currentState == MapState.TrainRoom3 && !bedUsed && isSleeping)
+        {
+            talkManager.ActivateTalk(TrainRoom3); // 잠에 들려고 할 시 대사 출력
+            bedUsed = true; //침대 사용
+        }
     }
 }
