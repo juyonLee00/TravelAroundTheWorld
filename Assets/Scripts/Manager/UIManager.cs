@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public GameObject saveDataUIPrefab;
     public GameObject saveDataPopupPrefab;
     public GameObject bedInteractionUIPrefab;
+    public GameObject staticUICanvasPrefab;
+    public GameObject dynamicUICanvasPrefab;
 
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
@@ -33,13 +35,19 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        canvas = FindObjectOfType<Canvas>();
+
+        
+         canvas = FindObjectOfType<Canvas>();
+         
     }
 
 
     public void ToggleUI(string uiName)
     {
-        if(currentActiveUI == uiName)
+        //??? ?? ?? ?? ??? ?? ??
+        canvas = GameObject.Find("StaticUICanvas").gameObject.GetComponent<Canvas>();
+
+        if (currentActiveUI == uiName)
         {
             DeactivateAllUI();
             currentActiveUI = null;
