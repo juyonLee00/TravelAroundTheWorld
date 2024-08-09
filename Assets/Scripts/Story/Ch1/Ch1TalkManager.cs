@@ -106,8 +106,8 @@ public class Ch1TalkManager : MonoBehaviour
                 player.SetActive(false);
                 map.SetActive(false);
                 trainRoom.SetActive(true);
-                currentDialogueIndex++; // 다음 대사로 넘어가기
-                PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
         }
     }
@@ -211,7 +211,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 23) // 인덱스 23 이후의 로직
+        else if (index == 23 && mapManager.currentState == MapState.Cafe) // 인덱스 23 이후의 로직
         {
             isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
             EnablePlayerMovement();
