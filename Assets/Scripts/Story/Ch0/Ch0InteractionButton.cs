@@ -9,6 +9,7 @@ public class Ch0InteractionButton : MonoBehaviour
     public TalkManager talkManager; // 토크 매니저 스크립트
     private string location; // 상호작용할 위치
     private Ch0TriggerArea triggerArea; // Ch0TriggerArea 컴포넌트
+    public PlayerController playerController;
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class Ch0InteractionButton : MonoBehaviour
     {
         if (talkManager != null)
         {
-            // TalkManager의 ActivateTalk 메서드를 호출하여 대화를 시작
+            playerController.StopMove(); //대화 버튼 클릭할 때 플레이어 움직임 멈춤
             talkManager.ActivateTalk(location); // 토크매니저에 npc 위치 정보 전달
 
             //대화 활성화 후 버튼 비활성화
