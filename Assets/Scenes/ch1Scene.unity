@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 302479982}
   - component: {fileID: 302479981}
   - component: {fileID: 302479980}
-  - component: {fileID: 302479979}
+  - component: {fileID: 302479985}
   m_Layer: 0
   m_Name: Npc_Rayviyak
   m_TagString: NPC
@@ -545,24 +545,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &302479979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302479978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af6d1d27a123cf468993749283e8161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionButton: {fileID: 1399943719}
-  locationName: "\uC815\uC6D0"
-  playerTransform: {fileID: 1372797961}
-  interactionDistance: 1
-  talkActived: 0
-  talkManager: {fileID: 0}
 --- !u!114 &302479980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,6 +691,24 @@ Transform:
   - {fileID: 300759095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &302479985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302479978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc46628e7995354381d4f93ba49aef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionButton: {fileID: 1399943719}
+  locationName: "\uC815\uC6D0"
+  playerTransform: {fileID: 1372797961}
+  interactionDistance: 1
+  talkActived: 0
+  ch1TalkManager: {fileID: 1428910364}
 --- !u!1 &370653972
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 370653976}
   - component: {fileID: 370653975}
   - component: {fileID: 370653974}
-  - component: {fileID: 370653973}
+  - component: {fileID: 370653979}
   m_Layer: 0
   m_Name: Npc_MrHam
   m_TagString: NPC
@@ -730,24 +730,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &370653973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370653972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af6d1d27a123cf468993749283e8161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionButton: {fileID: 659981815}
-  locationName: "\uC758\uBB34\uC2E4"
-  playerTransform: {fileID: 1372797961}
-  interactionDistance: 1
-  talkActived: 0
-  talkManager: {fileID: 0}
 --- !u!114 &370653974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,53 +876,29 @@ Transform:
   - {fileID: 1259566490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &585310696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 585310698}
-  - component: {fileID: 585310697}
-  m_Layer: 0
-  m_Name: MapManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &585310697
+--- !u!114 &370653979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 585310696}
+  m_GameObject: {fileID: 370653972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53774285b268ef04288cf61fe2f7b393, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cc46628e7995354381d4f93ba49aef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  playerPosition: {x: 0, y: 0}
+  interactionButton: {fileID: 659981815}
+  locationName: "\uC758\uBB34\uC2E4"
   playerTransform: {fileID: 1372797961}
---- !u!4 &585310698
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  interactionDistance: 1
+  talkActived: 0
+  ch1TalkManager: {fileID: 1428910364}
+--- !u!1 &406368607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5596419033801846888, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
+  m_PrefabInstance: {fileID: 1372797960}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 585310696}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &659981815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3308,6 +3266,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 806544771307717692, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 896899288}
+    - target: {fileID: 966837247721562786, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3074967453415653480, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -3352,6 +3318,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3086502863576369717, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5596419033801846888, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3374,6 +3344,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3074967453415653480, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
   m_PrefabInstance: {fileID: 1372797960}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1372797962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3086502863576369717, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
+  m_PrefabInstance: {fileID: 1372797960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406368607}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d2645f6649740519ea88465880dcfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1399943719
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,6 +3565,8 @@ MonoBehaviour:
   nameObj: {fileID: 849387338}
   letter: {fileID: 1364585290}
   letterText: {fileID: 1822435432}
+  player: {fileID: 406368607}
+  map: {fileID: 1840874981}
   cafe: {fileID: 766867296}
   trainRoom: {fileID: 1146598505}
   trainRoomHallway: {fileID: 2049399584}
@@ -3596,6 +3579,7 @@ MonoBehaviour:
   narrationBar: {fileID: 90073244}
   currentDialogueIndex: 0
   questManager: {fileID: 182269879}
+  playerController: {fileID: 1372797962}
 --- !u!1 &1432747354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4536,7 +4520,7 @@ GameObject:
   - component: {fileID: 1894486049}
   - component: {fileID: 1894486048}
   - component: {fileID: 1894486047}
-  - component: {fileID: 1894486046}
+  - component: {fileID: 1894486052}
   m_Layer: 0
   m_Name: Npc_Rusk
   m_TagString: NPC
@@ -4544,24 +4528,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1894486046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894486045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af6d1d27a123cf468993749283e8161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionButton: {fileID: 676537453}
-  locationName: "\uBE75\uC9D1"
-  playerTransform: {fileID: 1372797961}
-  interactionDistance: 1
-  talkActived: 0
-  talkManager: {fileID: 0}
 --- !u!114 &1894486047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4708,6 +4674,24 @@ Transform:
   - {fileID: 1342674394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894486052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894486045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc46628e7995354381d4f93ba49aef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionButton: {fileID: 676537453}
+  locationName: "\uBE75\uC9D1"
+  playerTransform: {fileID: 1372797961}
+  interactionDistance: 1
+  talkActived: 0
+  ch1TalkManager: {fileID: 1428910364}
 --- !u!1 &1946526263
 GameObject:
   m_ObjectHideFlags: 0
@@ -5470,7 +5454,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 896899289}
   - {fileID: 1065221804}
+  - {fileID: 2116026556}
   - {fileID: 1428910363}
+  - {fileID: 182269880}
   - {fileID: 1146598509}
   - {fileID: 90073237}
   - {fileID: 849387332}
@@ -5481,13 +5467,10 @@ SceneRoots:
   - {fileID: 1057802145}
   - {fileID: 1652038947}
   - {fileID: 1959825622}
-  - {fileID: 2116026556}
-  - {fileID: 1607421164}
-  - {fileID: 182269880}
-  - {fileID: 585310698}
   - {fileID: 1840874985}
   - {fileID: 370653978}
   - {fileID: 1894486051}
   - {fileID: 302479984}
   - {fileID: 814108821}
   - {fileID: 1372797960}
+  - {fileID: 1607421164}

@@ -17,6 +17,9 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
 
+    public GameObject player; // 플레이어 캐릭터
+    public GameObject map; // 맵
+
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
     public GameObject trainRoomHallway; // 객실 복도 화면
@@ -48,6 +51,7 @@ public class Ch1TalkManager : MonoBehaviour
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
     public QuestManager questManager; // 퀘스트 매니저 참조
+    public PlayerController playerController; // 플레이어 컨트롤러 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
 
@@ -60,6 +64,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Start()
     {
+        playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
         ActivateTalk("객실");
     }
 
@@ -200,6 +205,23 @@ public class Ch1TalkManager : MonoBehaviour
         {
             case locationTrainRoom:
                 trainRoom.SetActive(true);
+                if (currentDialogueIndex == 5) // "카페로 가자" 대사 이후
+                {
+                    // 모든 대화 관련 UI 비활성화
+                    narration.SetActive(false);
+                    dialogue.SetActive(false);
+                    narrationBar.gameObject.SetActive(false);
+                    dialogueBar.gameObject.SetActive(false);
+
+                    // 맵과 플레이어만 활성화
+                    map.SetActive(true);
+                    player.SetActive(true);
+
+                    // 플레이어 이동 활성화
+                    EnablePlayerMovement();
+                }
+                break;
+
                 if (currentDialogueIndex == 24)
                 {
                     StartCoroutine(screenFader.FadeIn(letter));
@@ -240,6 +262,9 @@ public class Ch1TalkManager : MonoBehaviour
 
             case locationCafe:
                 cafe.SetActive(true);
+                map.SetActive(false);
+                player.SetActive(false);
+                DisablePlayerMovement(); // 플레이어와 맵 비활성화
                 break;
         }
 
@@ -247,6 +272,16 @@ public class Ch1TalkManager : MonoBehaviour
         {
             DeactivateTalk();
         }
+    }
+
+    void EnablePlayerMovement()
+    {
+        playerController.StartMove(); // 플레이어 이동 활성화
+    }
+
+    void DisablePlayerMovement()
+    {
+        playerController.StopMove(); // 플레이어 이동 비활성화
     }
 
     private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
