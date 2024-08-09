@@ -7,6 +7,7 @@ public class MoveController : MonoBehaviour
 {
     private CafeTalkManager cafeTalkManager;
     private RectTransform rectTransform;
+    private RectTransform descriptionRectTransform;
 
     public Vector2 extractPosition = new Vector2(-964.16f, -538.02f);
     public Vector2 cupPosition = new Vector2(-957.68f, -539.35f);
@@ -18,7 +19,13 @@ public class MoveController : MonoBehaviour
     {
         cafeTalkManager = FindObjectOfType<CafeTalkManager>();
         rectTransform = GetComponent<RectTransform>();
+        descriptionRectTransform = transform.Find("Description").GetComponent<RectTransform>();
 
+        // Ensure that Description has the same scale as its parent
+        descriptionRectTransform.localScale = Vector3.one;
+
+        // Ensure that Description has the correct z-order
+        descriptionRectTransform.SetSiblingIndex(rectTransform.GetSiblingIndex() + 1);
     }
 
     void Update()
@@ -53,6 +60,10 @@ public class MoveController : MonoBehaviour
         }
 
         rectTransform.anchoredPosition = newPosition;
+        descriptionRectTransform.anchoredPosition = Vector2.zero; // 부모 위치 기준으로 Description 위치 조정
 
+        Debug.Log("ExplainBar new position: " + newPosition);
+        Debug.Log("Description parent: " + descriptionRectTransform.parent.name);
+        Debug.Log("Description current position: " + descriptionRectTransform.anchoredPosition);
     }
 }

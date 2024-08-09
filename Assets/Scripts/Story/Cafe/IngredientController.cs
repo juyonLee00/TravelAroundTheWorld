@@ -11,7 +11,9 @@ public class IngredientController : MonoBehaviour
     private Vector3 makePos = new Vector3(4f, -3f, -1f);
     private bool isDragging = false;
     private GameObject makeArea;
+    private GameObject trashcan;
     private CafeMakeController cafeMakeController;
+    private TrashController trashController;
 
     public GameObject HotCup;
     public GameObject IceCup;
@@ -22,7 +24,9 @@ public class IngredientController : MonoBehaviour
     {
         defaultPos = this.transform.position;
         makeArea = GameObject.Find("MakeArea");
+        trashcan = GameObject.Find("TrashCan");
         cafeMakeController = FindObjectOfType<CafeMakeController>();
+        trashController = FindObjectOfType<TrashController>();
     }
 
     void OnMouseDown()
@@ -43,6 +47,7 @@ public class IngredientController : MonoBehaviour
     {
         isDragging = false;
         CheckForMakeArea();
+        CheckForTrashCan();
     }
 
     private void CheckForMakeArea()
@@ -58,6 +63,16 @@ public class IngredientController : MonoBehaviour
         }
         else
             transform.position = defaultPos;
+
+    }
+
+    private void CheckForTrashCan()
+    {
+        if (trashcan != null && trashcan.GetComponent<Collider2D>().bounds.Contains(transform.position))
+        {
+            Debug.Log(gameObject.name + " dropped on trashcan");
+            trashController.HandleTrashCan(gameObject);
+        }
 
     }
 
