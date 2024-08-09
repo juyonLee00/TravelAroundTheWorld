@@ -13,6 +13,13 @@ public class GameManager : MonoBehaviour
     public GameObject Delivery;
     public GameObject RecipeBook;
 
+    public OrderController orderController;
+
+    void Start()
+    {
+        orderController = FindObjectOfType<OrderController>();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -32,6 +39,7 @@ public class GameManager : MonoBehaviour
             {
                 Beverage.SetActive(true);
                 CafeMap.SetActive(false);
+                orderController.GenerateOrder();
                 //주문 확인해서 UI 띄우는 함수 필요 (주문 처리 완료 시 Beverage false, CafeMap true
 
             }
