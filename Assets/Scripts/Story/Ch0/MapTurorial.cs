@@ -11,6 +11,7 @@ public class MapTurorial : MonoBehaviour
     public GameObject mapTutorial_2;
 
     public GameObject player;
+    public PlayerController playerController;
     public GameObject map;
     public GameObject mapManager;
     public Ch0MapManager ch0MapManager;
@@ -21,15 +22,15 @@ public class MapTurorial : MonoBehaviour
     private int spaceBarIndex = 0;
 
     private bool engineRoomAccessed = false; // 엔진룸 접근 여부
-    private bool trainRoom1Accessed = false; // 다른방1 접근 여부
-    private bool trainRoom2Accessed = false; // 다른방2 접근 여부
+    //private bool trainRoom1Accessed = false; // 다른방1 접근 여부
+    //private bool trainRoom2Accessed = false; // 다른방2 접근 여부
     public bool bedUsed = false; // 침대를 사용했는지 여부
     public bool isSleeping = false; // 잠에 드는지 여부
 
     //문자열 상수 선언
     private const string EngineRoom = "엔진룸";
-    private const string TrainRoom1 = "다른 방 1";
-    private const string TrainRoom2 = "다른 방 2";
+    //private const string TrainRoom1 = "다른 방 1";
+    //private const string TrainRoom2 = "다른 방 2";
     private const string TrainRoom3 = "객실";
 
     // Start is called before the first frame update
@@ -41,6 +42,7 @@ public class MapTurorial : MonoBehaviour
         StartCoroutine(screenFader.FadeIn(map));  // 맵 활성화 (맵 완료되면 코드 수정 필요)
         StartCoroutine(screenFader.FadeIn(mapTutorial_1)); // 맵 튜토리얼1 창 활성화
         player.SetActive(true); //플레이어 오브젝트 활성화
+        playerController.StopMove(); //튜토리얼 창 뜰때 플레이어 움직임 멈춤
         ActivateNPC(true);
     }
 
@@ -55,7 +57,7 @@ public class MapTurorial : MonoBehaviour
         }
 
         int talkActivedNPC = CheckAllNpcTalkStatus();
-        //모든 npc 대화 완료된 경우 로직 추가 필요
+
         if (activeNpcCount == talkActivedNPC)
         {
             talkManager.isAllNPCActivated = true;
@@ -74,7 +76,7 @@ public class MapTurorial : MonoBehaviour
         else if (spaceBarIndex == 2)
         {
             StartCoroutine(screenFader.FadeOut(mapTutorial_2)); //세번째 스페이스바를 누르면 맵 튜토리얼2 창 페이드아웃
-            //this.gameObject.SetActive(false); //맵 튜토리얼 창 비활성화
+            playerController.StartMove(); //튜토리얼 창 꺼질때 플레이어 움직임 재개
         }
     }
 
@@ -117,6 +119,7 @@ public class MapTurorial : MonoBehaviour
         {
             if (!engineRoomAccessed)
             {
+                playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
                 talkManager.ActivateTalk(EngineRoom); //엔진룸 처음 접근 시 대사 출력 
                 engineRoomAccessed = true;
             }
@@ -129,10 +132,12 @@ public class MapTurorial : MonoBehaviour
                 player.transform.position = new Vector3(playerPosition.x, playerPosition.y, player.transform.position.z);
             }
         }
+        /*
         if (ch0MapManager.currentState == MapState.TrainRoom1)
         {
             if (!trainRoom1Accessed)
             {
+                playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
                 talkManager.ActivateTalk(TrainRoom1); //다른방1 처음 접근 시 대사 출력 
                 trainRoom1Accessed = true;
             }
@@ -141,13 +146,16 @@ public class MapTurorial : MonoBehaviour
         {
             if (!trainRoom2Accessed)
             {
+                playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
                 talkManager.ActivateTalk(TrainRoom2); //다른방2 처음 접근 시 대사 출력 
                 trainRoom2Accessed = true;
             }
         }
+        */
         //현재 위치가 객실이고 침대를 아직 사용하지 않은 상태에서 잠에 들려고 할떄
         if (ch0MapManager.currentState == MapState.TrainRoom3 && !bedUsed && isSleeping)
         {
+            playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
             talkManager.ActivateTalk(TrainRoom3); // 잠에 들려고 할 시 대사 출력
             bedUsed = true; //침대 사용
         }
