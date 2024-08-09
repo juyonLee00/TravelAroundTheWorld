@@ -52,6 +52,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     public QuestManager questManager; // 퀘스트 매니저 참조
     public PlayerController playerController; // 플레이어 컨트롤러 참조
+    public Ch0MapManager mapManager; // 맵 매니저 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
 
@@ -65,6 +66,13 @@ public class Ch1TalkManager : MonoBehaviour
     void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
+
+        // mapManager 초기화
+        if (mapManager == null && map != null)
+        {
+            mapManager = map.GetComponent<Ch0MapManager>();
+        }
+
         ActivateTalk("객실");
     }
 
@@ -219,6 +227,23 @@ public class Ch1TalkManager : MonoBehaviour
 
                     // 플레이어 이동 활성화
                     EnablePlayerMovement();
+
+                    // 현재 위치가 '카페'인 경우
+                    if (mapManager != null && mapManager.currentState == MapState.Cafe)
+                    {
+                        Debug.Log("Player has reached the Cafe.");
+
+                        // 맵과 플레이어 비활성화
+                        map.SetActive(false);
+                        player.SetActive(false);
+
+                        // 카페 활성화
+                        cafe.SetActive(true);
+
+                        // 대화 재개
+                        currentDialogueIndex++; // 다음 대사로 넘어가기
+                        PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
+                    }
                 }
                 break;
 
@@ -262,9 +287,6 @@ public class Ch1TalkManager : MonoBehaviour
 
             case locationCafe:
                 cafe.SetActive(true);
-                map.SetActive(false);
-                player.SetActive(false);
-                DisablePlayerMovement(); // 플레이어와 맵 비활성화
                 break;
         }
 
