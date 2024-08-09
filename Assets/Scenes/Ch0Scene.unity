@@ -6132,7 +6132,6 @@ MonoBehaviour:
   activeNpcCount: 0
   bedUsed: 0
   isSleeping: 0
-  playerController: {fileID: 86337315}
 --- !u!1 &1750578960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7486,6 +7485,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1335121949}
     - target: {fileID: 5159925136110109636, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: talk
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159925136110109636, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -7513,6 +7516,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 899143326544251756, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: talk
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 899143326544251756, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
       propertyPath: nameTxt
       value: 
