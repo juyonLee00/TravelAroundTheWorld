@@ -6132,6 +6132,7 @@ MonoBehaviour:
   activeNpcCount: 0
   bedUsed: 0
   isSleeping: 0
+  playerController: {fileID: 86337315}
 --- !u!1 &1750578960
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,8 @@ public class MapTurorial : MonoBehaviour
     //private const string TrainRoom2 = "다른 방 2";
     private const string TrainRoom3 = "객실";
 
+    public PlayerController playerController;
+
     // Start is called before the first frame update
     void Start()
     {
