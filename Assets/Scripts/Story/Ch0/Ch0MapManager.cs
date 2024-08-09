@@ -58,15 +58,15 @@ public class Ch0MapManager : MonoBehaviour
 
     void UpdateMapState()
     {
-        if (playerPosition.x >= -165 && playerPosition.x <= -135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.MechanicalRoom;
         }
-        else if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -105 && playerPosition.x <= -75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.EngineRoom;
         }
-        else if (playerPosition.x >= -105 && playerPosition.x <= -75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -75 && playerPosition.x <= -60 && playerPosition.y >= 7.5f && playerPosition.y <= 22.5f)
         {
             currentState = MapState.TrainRoom3;
         }
