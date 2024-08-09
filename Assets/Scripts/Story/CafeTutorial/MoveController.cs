@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MoveController : MonoBehaviour
 {
@@ -15,17 +16,23 @@ public class MoveController : MonoBehaviour
     public Vector2 makePosition = new Vector2(-953.84f, -540.12f);
     public Vector2 donePosition = new Vector2(-955.17f, -543.63f);
 
+
     void Start()
     {
         cafeTalkManager = FindObjectOfType<CafeTalkManager>();
-        rectTransform = GetComponent<RectTransform>();
-        descriptionRectTransform = transform.Find("Description").GetComponent<RectTransform>();
+        //rectTransform = GetComponent<RectTransform>();
+        //descriptionRectTransform = transform.Find("Description").GetComponent<RectTransform>();
+        GameObject explainImg = GameObject.Find("ExplainBar");
+        rectTransform = explainImg.GetComponent<RectTransform>();
+
+        TextMeshProUGUI descText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        descriptionRectTransform = descText.GetComponent<RectTransform>();
 
         // Ensure that Description has the same scale as its parent
         descriptionRectTransform.localScale = Vector3.one;
 
         // Ensure that Description has the correct z-order
-        descriptionRectTransform.SetSiblingIndex(rectTransform.GetSiblingIndex() + 1);
+        //descriptionRectTransform.SetSiblingIndex(rectTransform.GetSiblingIndex() + 1);
     }
 
     void Update()
@@ -60,7 +67,8 @@ public class MoveController : MonoBehaviour
         }
 
         rectTransform.anchoredPosition = newPosition;
-        descriptionRectTransform.anchoredPosition = Vector2.zero; // 부모 위치 기준으로 Description 위치 조정
+        //descriptionRectTransform.anchoredPosition = newPosition;
+        //descriptionRectTransform.anchoredPosition = Vector2.zero; // 부모 위치 기준으로 Description 위치 조정
 
         Debug.Log("ExplainBar new position: " + newPosition);
         Debug.Log("Description parent: " + descriptionRectTransform.parent.name);
