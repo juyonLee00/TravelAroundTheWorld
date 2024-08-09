@@ -26,17 +26,6 @@ public class Ch1MapManager : MonoBehaviour
     {
         UpdatePlayerPosition(); // 플레이어 위치 업데이트
         UpdateMapState(); // 맵 상태 업데이트
-
-        // 플레이어가 새로운 위치에 들어갔는지 확인
-        if (currentState != previousState)
-        {
-            previousState = currentState;
-            Ch1TalkManager talkManager = FindObjectOfType<Ch1TalkManager>();
-            if (talkManager != null)
-            {
-                talkManager.OnPlayerEnterLocation(currentState); // 플레이어가 새로운 위치에 들어갔을 때 대화 재개
-            }
-        }
     }
 
     void UpdatePlayerPosition()
