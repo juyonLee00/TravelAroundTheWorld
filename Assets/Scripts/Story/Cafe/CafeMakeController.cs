@@ -14,7 +14,7 @@ public class CafeMakeController : MonoBehaviour
     public GameObject RooibosTea;
     public GameObject GreenTea;
 
-    private List<string> currentIngredients = new List<string>();
+    public List<string> currentIngredients = new List<string>();
 
     private IngredientController ingredientController;
 
