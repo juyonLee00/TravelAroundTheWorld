@@ -28,6 +28,8 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject medicalRoom; // 의무실 화면
     public GameObject jazzBar; // 재즈바 화면
 
+    public GameObject Npc_Rayviyak; // 정원 npc
+
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
     private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
 
@@ -109,6 +111,19 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
+
+            // NPC와의 상호작용을 통한 대화 재개
+            if (currentDialogueIndex == 33 && Npc_Rayviyak != null && Npc_Rayviyak.activeSelf)
+            {
+                float distance = Vector3.Distance(player.transform.position, Npc_Rayviyak.transform.position);
+
+                if (distance <= 3.0f && Input.GetKeyDown(KeyCode.E)) // 플레이어가 NPC에게 접근하고 'E' 키를 눌렀을 때
+                {
+                    isWaitingForPlayer = false; // 대기 상태 해제
+                    currentDialogueIndex++;
+                    PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
+                }
+            }
         }
     }
 
@@ -151,7 +166,7 @@ public class Ch1TalkManager : MonoBehaviour
         characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
     }
 
-    void PrintCh1ProDialogue(int index)
+    public void PrintCh1ProDialogue(int index)
     {
         if (index >= ch1ProDialogue.Count)
         {
@@ -221,6 +236,23 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
+        else if (index == 33 && mapManager.currentState == MapState.TrainRoom3)
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            trainRoom.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            // NPC 오브젝트 활성화
+            if (Npc_Rayviyak != null)
+            {
+                Npc_Rayviyak.SetActive(true);
+            }
+        }
+
+
         else
         {
             CheckTalk(currentDialogue.location);

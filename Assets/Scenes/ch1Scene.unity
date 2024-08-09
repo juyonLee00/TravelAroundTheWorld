@@ -664,7 +664,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f03c8c22ae0c7a747b4a24811d9d1a0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -684,7 +684,7 @@ Transform:
   m_GameObject: {fileID: 302479978}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -849,7 +849,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0dd5432d070d55243a81bd3da00b5b55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -933,6 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talkManager: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!114 &659981817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,6 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talkManager: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!114 &676537455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,7 +3374,7 @@ GameObject:
   - component: {fileID: 1399943723}
   - component: {fileID: 1399943722}
   - component: {fileID: 1399943721}
-  - component: {fileID: 1399943720}
+  - component: {fileID: 1399943726}
   m_Layer: 5
   m_Name: DialogueButton
   m_TagString: Untagged
@@ -3380,19 +3382,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1399943720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399943719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7bf6712c96e0941974f2c5f65c9820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  talkManager: {fileID: 0}
 --- !u!114 &1399943721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3519,6 +3508,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 3.5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1399943726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399943719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e0ae626b2b0942aea73f32794a038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ch1TalkManager: {fileID: 1428910364}
+  playerController: {fileID: 1372797962}
 --- !u!1 &1428910361
 GameObject:
   m_ObjectHideFlags: 0
@@ -3578,6 +3581,7 @@ MonoBehaviour:
   bakery: {fileID: 1057802141}
   medicalRoom: {fileID: 1652038943}
   jazzBar: {fileID: 1959825618}
+  Npc_Rayviyak: {fileID: 302479978}
   screenFader: {fileID: 2116026555}
   dialogueBar: {fileID: 849387342}
   narrationBar: {fileID: 90073244}
@@ -4668,7 +4672,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cce7ed218155877459a757726f51a99e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
