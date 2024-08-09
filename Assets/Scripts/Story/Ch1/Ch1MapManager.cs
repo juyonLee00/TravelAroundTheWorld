@@ -7,6 +7,7 @@ public class Ch1MapManager : MonoBehaviour
     public MapState currentState; // 맵의 현재 상태
     public Vector2 playerPosition; // 플레이어의 현재 위치
     public Transform playerTransform; // 플레이어의 Transform 참조
+    private MapState previousState = MapState.Null; // 이전 상태를 저장하는 변수
 
     void Start()
     {
@@ -23,11 +24,8 @@ public class Ch1MapManager : MonoBehaviour
 
     void Update()
     {
-        // 플레이어 위치 업데이트
-        UpdatePlayerPosition();
-
-        // 플레이어 위치에 따른 맵 상태 업데이트
-        UpdateMapState();
+        UpdatePlayerPosition(); // 플레이어 위치 업데이트
+        UpdateMapState(); // 맵 상태 업데이트
     }
 
     void UpdatePlayerPosition()
@@ -44,13 +42,25 @@ public class Ch1MapManager : MonoBehaviour
 
     void UpdateMapState()
     {
-        if (playerPosition.x >= -165 && playerPosition.x <= -135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        if (playerPosition.x >= -255 && playerPosition.x <= -225 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.MechanicalRoom;
         }
-        else if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -225 && playerPosition.x <= -195 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.EngineRoom;
+        }
+        else if (playerPosition.x >= -195 && playerPosition.x <= -165 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        {
+            currentState = MapState.SpecialRoom;
+        }
+        else if (playerPosition.x >= -165 && playerPosition.x <= -135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        {
+            currentState = MapState.TrainRoom1;
+        }
+        else if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        {
+            currentState = MapState.TrainRoom2;
         }
         else if (playerPosition.x >= -105 && playerPosition.x <= -75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
@@ -58,7 +68,7 @@ public class Ch1MapManager : MonoBehaviour
         }
         else if (playerPosition.x >= -75 && playerPosition.x <= -45 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
-            currentState = MapState.Hallway;
+            currentState = MapState.Hallway1;
         }
         else if (playerPosition.x >= -45 && playerPosition.x <= -15 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
@@ -77,6 +87,10 @@ public class Ch1MapManager : MonoBehaviour
             currentState = MapState.MedicalRoom;
         }
         else if (playerPosition.x >= 75 && playerPosition.x <= 105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        {
+            currentState = MapState.Hallway2;
+        }
+        else if (playerPosition.x >= 105 && playerPosition.x <= 135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.Balcony;
         }

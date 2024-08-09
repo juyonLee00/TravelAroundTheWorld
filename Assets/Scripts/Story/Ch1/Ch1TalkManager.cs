@@ -89,26 +89,14 @@ public class Ch1TalkManager : MonoBehaviour
         }
 
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
-        if (isWaitingForPlayer && mapManager != null)
+        if (isWaitingForPlayer && mapManager != null && mapManager.currentState == MapState.Cafe)
         {
-            if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 5)
-            {
-                isWaitingForPlayer = false; // 대기 상태 해제
-                player.SetActive(false);
-                map.SetActive(false);
-                cafe.SetActive(true);
-                currentDialogueIndex++; // 다음 대사로 넘어가기
-                PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 23) // 인덱스 23 이후에만 실행
-            {
-                isWaitingForPlayer = false; // 대기 상태 해제
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex++; // 다음 대사로 넘어가기
-                PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
-            }
+            isWaitingForPlayer = false; // 대기 상태 해제
+            player.SetActive(false);
+            map.SetActive(false);
+            cafe.SetActive(true);
+            currentDialogueIndex++; // 다음 대사로 넘어가기
+            PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
         }
     }
 
@@ -208,16 +196,6 @@ public class Ch1TalkManager : MonoBehaviour
             EnablePlayerMovement();
             map.SetActive(true);
             player.SetActive(true);
-            narration.SetActive(false);
-            dialogue.SetActive(false);
-        }
-        else if (index == 23) // 인덱스 23 이후의 로직
-        {
-            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
-            EnablePlayerMovement();
-            map.SetActive(true);
-            player.SetActive(true);
-            cafe.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
