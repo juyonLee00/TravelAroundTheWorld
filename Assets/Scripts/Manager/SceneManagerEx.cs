@@ -184,6 +184,11 @@ public class SceneManagerEx : MonoBehaviour
         }
     }
 
+    public bool IsLoading()
+    {
+        return isLoading;
+    }
+
     public void Clear()
     {
         Resources.UnloadUnusedAssets();
