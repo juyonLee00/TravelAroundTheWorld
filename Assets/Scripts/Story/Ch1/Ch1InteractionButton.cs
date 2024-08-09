@@ -27,21 +27,22 @@ public class Ch1InteractionButton : MonoBehaviour
         location = locationName;
     }
 
-    // 버튼 클릭 시 호출되는 메서드
     public void OnInteract()
     {
         if (ch1TalkManager != null)
         {
             playerController.StopMove(); // 대화 버튼 클릭할 때 플레이어 움직임 멈춤
-            ch1TalkManager.ActivateTalk(location); // 토크매니저에 npc 위치 정보 전달
 
             // 대화 활성화 후 버튼 비활성화
             gameObject.SetActive(false); // 버튼 비활성화
-            // 버튼 비활성화 상태를 TriggerArea에 전달
+                                         // 버튼 비활성화 상태를 TriggerArea에 전달
             if (ch1TriggerArea != null)
             {
                 ch1TriggerArea.DisableButton(); // 버튼 비활성화 호출
             }
+
+            // Ch1TalkManager의 메서드를 호출하여 대화 진행
+            ch1TalkManager.OnDialogueButtonClicked(33); // 33번 인덱스부터 대화 시작
         }
     }
 }

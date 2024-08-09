@@ -58,7 +58,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
 
-    private bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
+    public bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
 
     void Awake()
     {
@@ -110,19 +110,6 @@ public class Ch1TalkManager : MonoBehaviour
                 trainRoom.SetActive(true);
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
-            }
-
-            // NPC와의 상호작용을 통한 대화 재개
-            if (currentDialogueIndex == 33 && Npc_Rayviyak != null && Npc_Rayviyak.activeSelf)
-            {
-                float distance = Vector3.Distance(player.transform.position, Npc_Rayviyak.transform.position);
-
-                if (distance <= 3.0f && Input.GetKeyDown(KeyCode.E)) // 플레이어가 NPC에게 접근하고 'E' 키를 눌렀을 때
-                {
-                    isWaitingForPlayer = false; // 대기 상태 해제
-                    currentDialogueIndex++;
-                    PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
-                }
             }
         }
     }
@@ -252,10 +239,25 @@ public class Ch1TalkManager : MonoBehaviour
             }
         }
 
-
         else
         {
             CheckTalk(currentDialogue.location);
+        }
+    }
+
+    public void OnDialogueButtonClicked(int index)
+    {
+        // 전달된 인덱스를 사용하여 대화 시작
+        currentDialogueIndex = index;
+
+        if (currentDialogueIndex == 33)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rayviyak.SetActive(false);
+            garden.SetActive(true);
+            isWaitingForPlayer = false; // 대기 상태 해제
+            PrintCh1ProDialogue(currentDialogueIndex);
         }
     }
 
@@ -273,13 +275,13 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
-    void DeactivateTalk()
+    public void DeactivateTalk()
     {
         this.gameObject.SetActive(false);
         isActivated = false;
     }
 
-    void CheckTalk(string location)
+    public void CheckTalk(string location)
     {
         letter.SetActive(false);
         cafe.SetActive(false);
@@ -344,12 +346,12 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
-    void EnablePlayerMovement()
+    public void EnablePlayerMovement()
     {
         playerController.StartMove(); // 플레이어 이동 활성화
     }
 
-    void DisablePlayerMovement()
+    public void DisablePlayerMovement()
     {
         playerController.StopMove(); // 플레이어 이동 비활성화
     }
