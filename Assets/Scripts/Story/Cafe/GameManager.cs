@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
             if (clickedObject != null && clickedObject.name == "CoffeePot")
             {
                 Beverage.SetActive(true);
-                CafeMap.SetActive(true);
+                CafeMap.SetActive(false);
                 //주문 확인해서 UI 띄우는 함수 필요 (주문 처리 완료 시 Beverage false, CafeMap true
 
             }
