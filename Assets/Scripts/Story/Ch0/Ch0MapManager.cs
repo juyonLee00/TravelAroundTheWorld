@@ -7,16 +7,12 @@ public enum MapState
     Null,
     MechanicalRoom,
     EngineRoom,
-    SpecialRoom,
-    TrainRoom1,
-    TrainRoom2,
     TrainRoom3,
-    Hallway1,
+    Hallway,
     Garden,
     Cafe,
     Bakery,
     MedicalRoom,
-    Hallway2,
     Balcony
 }
 
@@ -62,25 +58,13 @@ public class Ch0MapManager : MonoBehaviour
 
     void UpdateMapState()
     {
-        if (playerPosition.x >= -255 && playerPosition.x <= -225 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        if (playerPosition.x >= -165 && playerPosition.x <= -135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.MechanicalRoom;
         }
-        else if (playerPosition.x >= -225 && playerPosition.x <= -195 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
-        {
-            currentState = MapState.EngineRoom;
-        }
-        else if (playerPosition.x >= -195 && playerPosition.x <= -165 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
-        {
-            currentState = MapState.SpecialRoom;
-        }
-        else if (playerPosition.x >= -165 && playerPosition.x <= -135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
-        {
-            currentState = MapState.TrainRoom1;
-        }
         else if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
-            currentState = MapState.TrainRoom2;
+            currentState = MapState.EngineRoom;
         }
         else if (playerPosition.x >= -105 && playerPosition.x <= -75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
@@ -88,7 +72,7 @@ public class Ch0MapManager : MonoBehaviour
         }
         else if (playerPosition.x >= -75 && playerPosition.x <= -45 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
-            currentState = MapState.Hallway1;
+            currentState = MapState.Hallway;
         }
         else if (playerPosition.x >= -45 && playerPosition.x <= -15 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
@@ -107,10 +91,6 @@ public class Ch0MapManager : MonoBehaviour
             currentState = MapState.MedicalRoom;
         }
         else if (playerPosition.x >= 75 && playerPosition.x <= 105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
-        {
-            currentState = MapState.Hallway2;
-        }
-        else if (playerPosition.x >= 105 && playerPosition.x <= 135 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
         {
             currentState = MapState.Balcony;
         }

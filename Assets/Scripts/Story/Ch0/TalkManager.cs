@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // TextMeshPro 네임스페이스 추가
+using UnityEngine.UI;
 
 
 public class TalkManager : MonoBehaviour
@@ -56,16 +57,23 @@ public class TalkManager : MonoBehaviour
     private const string locationBakery = "빵집";
     private const string locationMedicalRoom = "의무실";
     private const string locationTrainRoom = "객실";
+    private const string unknownSpeaker = "???";
 
     public int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
     public bool isAllNPCActivated = false; //모든 npc와 대화 완료되었는지 여부
 
+    private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
+    private Sprite characterSprite;
+
+    public PlayerController playerController;
+
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV(); // CSV에서 데이터를 로드하는 함수 호출
+        InitializeCharacterImages();
     }
 
     void Start()
@@ -117,6 +125,16 @@ public class TalkManager : MonoBehaviour
         }
     }
 
+    void InitializeCharacterImages()
+    {
+        characterImages = new Dictionary<string, Sprite>();
+        characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
+        characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
+        characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
+        characterImages["러스크"] = Resources.Load<Sprite>("NpcImage/Rusk");
+        characterImages["Mr. Ham"] = Resources.Load<Sprite>("NpcImage/MrHam");
+    }
+
     void PrintProDialogue(int index)
     {
         if (index >= proDialogue.Count)
@@ -127,6 +145,40 @@ public class TalkManager : MonoBehaviour
         }
 
         ProDialogue currentDialogue = proDialogue[index];
+
+        //인물이 ???인 경우 장소에 따라 npc 이미지 처리
+        if (currentDialogue.speaker == unknownSpeaker)
+        {
+            //장소가 정원일 경우
+            if (currentDialogue.location == locationGarden)
+            {
+                characterSprite = Resources.Load<Sprite>("NpcImage/Leviac");
+            }
+            //장소가 빵집일 경우
+            else if (currentDialogue.location == locationBakery)
+            {
+                characterSprite = Resources.Load<Sprite>("NpcImage/Rusk");
+            }
+            //장소가 의무실일 경우
+            else if (currentDialogue.location == locationMedicalRoom)
+            {
+                characterSprite = Resources.Load<Sprite>("NpcImage/MrHam");
+            }
+        }
+        //그 외에는 인물에 따라 이미지 처리
+        else
+        {
+            characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
+        }
+
+        if (imageObj.GetComponent<SpriteRenderer>() != null)
+        {
+            imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
+        }
+        else if (imageObj.GetComponent<Image>() != null)
+        {
+            imageObj.GetComponent<Image>().sprite = characterSprite;
+        }
 
         if (index < 2)
         {
@@ -295,6 +347,7 @@ public class TalkManager : MonoBehaviour
                 else if (currentDialogueIndex == 65)
                 {
                     DeactivateTalk();
+                    playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                 }
                 break;
             case locationOtherRoom1:
@@ -305,6 +358,7 @@ public class TalkManager : MonoBehaviour
                 else if (currentDialogueIndex == 67)
                 {
                     DeactivateTalk();
+                    playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                 }
                 break;
             case locationOtherRoom2:
@@ -315,6 +369,7 @@ public class TalkManager : MonoBehaviour
                 else if (currentDialogueIndex == 69)
                 {
                     DeactivateTalk();
+                    playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                 }
                 break;
             case locationGarden:
@@ -328,6 +383,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 78)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(garden)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -342,6 +398,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 104)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(bakery)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -356,6 +413,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 128)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(medicalRoom)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -392,6 +450,7 @@ public class TalkManager : MonoBehaviour
                             MapTutorial.bedUsed = false; // 침대 사용과 잠에 드는지 여부 둘다 false로 초기화
                             MapTutorial.isSleeping = false;
                             DeactivateTalk();
+                            playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                         }
                     }
                 }
@@ -407,5 +466,6 @@ public class TalkManager : MonoBehaviour
         dialogue.SetActive(false);
         DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
         isFadingOut = false; // 페이드아웃 종료
+        playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
     }
 }
