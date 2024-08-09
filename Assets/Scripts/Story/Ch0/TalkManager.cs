@@ -383,6 +383,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 78)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(garden)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -397,6 +398,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 104)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(bakery)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -411,6 +413,7 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 128)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(medicalRoom)); //npc 대화 끝나고 대화 종료
+                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;

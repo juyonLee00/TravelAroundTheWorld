@@ -29,6 +29,7 @@ public class Ch0TriggerArea : MonoBehaviour
         // 거리가 설정된 거리 이내인지 확인
         if (distance <= interactionDistance)
         {
+            //여기에 버튼 활성화 되어있을 때 플레이어 클릭 input을 무시하는 코드 추가
             interactionButton.SetActive(true); // 버튼 활성화
             Ch0InteractionButton interactionButtonScript = interactionButton.GetComponent<Ch0InteractionButton>();
             if (interactionButtonScript != null)

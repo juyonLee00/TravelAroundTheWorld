@@ -11,6 +11,7 @@ public class MapTurorial : MonoBehaviour
     public GameObject mapTutorial_2;
 
     public GameObject player;
+    public PlayerController playerController;
     public GameObject map;
     public GameObject mapManager;
     public Ch0MapManager ch0MapManager;
@@ -21,15 +22,15 @@ public class MapTurorial : MonoBehaviour
     private int spaceBarIndex = 0;
 
     private bool engineRoomAccessed = false; // 엔진룸 접근 여부
-    private bool trainRoom1Accessed = false; // 다른방1 접근 여부
-    private bool trainRoom2Accessed = false; // 다른방2 접근 여부
+    //private bool trainRoom1Accessed = false; // 다른방1 접근 여부
+    //private bool trainRoom2Accessed = false; // 다른방2 접근 여부
     public bool bedUsed = false; // 침대를 사용했는지 여부
     public bool isSleeping = false; // 잠에 드는지 여부
 
     //문자열 상수 선언
     private const string EngineRoom = "엔진룸";
-    private const string TrainRoom1 = "다른 방 1";
-    private const string TrainRoom2 = "다른 방 2";
+    //private const string TrainRoom1 = "다른 방 1";
+    //private const string TrainRoom2 = "다른 방 2";
     private const string TrainRoom3 = "객실";
 
     public PlayerController playerController;
@@ -58,7 +59,7 @@ public class MapTurorial : MonoBehaviour
         }
 
         int talkActivedNPC = CheckAllNpcTalkStatus();
-        //모든 npc 대화 완료된 경우 로직 추가 필요
+
         if (activeNpcCount == talkActivedNPC)
         {
             talkManager.isAllNPCActivated = true;
@@ -121,7 +122,7 @@ public class MapTurorial : MonoBehaviour
             if (!engineRoomAccessed)
             {
                 playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
-                talkManager.ActivateTalk(EngineRoom); //엔진룸 처음 접근 시 대사 출력
+                talkManager.ActivateTalk(EngineRoom); //엔진룸 처음 접근 시 대사 출력 
                 engineRoomAccessed = true;
             }
 
@@ -133,6 +134,7 @@ public class MapTurorial : MonoBehaviour
                 player.transform.position = new Vector3(playerPosition.x, playerPosition.y, player.transform.position.z);
             }
         }
+        /*
         if (ch0MapManager.currentState == MapState.TrainRoom1)
         {
             if (!trainRoom1Accessed)
@@ -151,6 +153,7 @@ public class MapTurorial : MonoBehaviour
                 trainRoom2Accessed = true;
             }
         }
+        */
         //현재 위치가 객실이고 침대를 아직 사용하지 않은 상태에서 잠에 들려고 할떄
         if (ch0MapManager.currentState == MapState.TrainRoom3 && !bedUsed && isSleeping)
         {
