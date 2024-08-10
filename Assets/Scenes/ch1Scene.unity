@@ -218,6 +218,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490128552616223161, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4931633238767405944, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -298,14 +322,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5915077961346673143, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194861365535629994, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364193957897039510, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364193957897039510, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364193957897039510, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 7828712047292830902, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
       propertyPath: m_Name
       value: Narration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142388259242980003, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804840448191663800, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8808025556562022150, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 896899288}
+    - target: {fileID: 9170779933268178799, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2339579369670115480, guid: 5410ad86b733fb7498ad166b7e5ba323, type: 3}
     m_RemovedGameObjects: []
@@ -1922,10 +1978,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1570077854970298603, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570077854970298603, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 2674621719070162627, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 896899288}
+    - target: {fileID: 3589590149728699920, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 5159925136110109636, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
       propertyPath: talk
       value: 
@@ -1933,6 +2001,66 @@ PrefabInstance:
     - target: {fileID: 5159925136110109636, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734142664389477822, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -290
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734142664389477822, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -220
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734142664389477822, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734142664389477822, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867948216596162833, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867948216596162833, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867948216596162833, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283992603300902028, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283992603300902028, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878074141278089809, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878074141278089809, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878074141278089809, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057861161986903243, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -530
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057861161986903243, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057861161986903243, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 8432190946056385226, guid: 668b8968279c943489ac5e13ae3e31fa, type: 3}
       propertyPath: m_Name
@@ -2293,7 +2421,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &912534976
@@ -4051,8 +4179,6 @@ MonoBehaviour:
   letterText: {fileID: 1822435432}
   player: {fileID: 406368607}
   map: {fileID: 966246099}
-  questObject: {fileID: 961399668}
-  questText: {fileID: 1416922351}
   cafe: {fileID: 766867296}
   trainRoom: {fileID: 1146598505}
   trainRoomHallway: {fileID: 2049399584}
@@ -4061,9 +4187,6 @@ MonoBehaviour:
   medicalRoom: {fileID: 1652038943}
   jazzBar: {fileID: 1959825618}
   Npc_Rayviyak: {fileID: 302479978}
-  Npc_MrHam: {fileID: 370653972}
-  Npc_Rusk: {fileID: 1894486045}
-  Npc_Violet: {fileID: 912534970}
   screenFader: {fileID: 2116026555}
   dialogueBar: {fileID: 849387342}
   narrationBar: {fileID: 90073244}
