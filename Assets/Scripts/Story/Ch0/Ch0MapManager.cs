@@ -58,39 +58,39 @@ public class Ch0MapManager : MonoBehaviour
 
     void UpdateMapState()
     {
-        if (playerPosition.x >= -135 && playerPosition.x <= -105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        if (playerPosition.x >= -89.6 && playerPosition.x <= -69.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.MechanicalRoom;
         }
-        else if (playerPosition.x >= -105 && playerPosition.x <= -75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -69.6 && playerPosition.x <= -49.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.EngineRoom;
         }
-        else if (playerPosition.x >= -75 && playerPosition.x <= -60 && playerPosition.y >= 7.5f && playerPosition.y <= 22.5f)
+        else if (playerPosition.x >= -49.3 && playerPosition.x <= -39.7 && playerPosition.y >= 5f && playerPosition.y <= 13f)
         {
             currentState = MapState.TrainRoom3;
         }
-        else if (playerPosition.x >= -75 && playerPosition.x <= -45 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -49.6 && playerPosition.x <= -29.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Hallway;
         }
-        else if (playerPosition.x >= -45 && playerPosition.x <= -15 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -29.6 && playerPosition.x <= -9.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Garden;
         }
-        else if (playerPosition.x >= -15 && playerPosition.x <= 15 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= -9.6 && playerPosition.x <= 9.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Cafe;
         }
-        else if (playerPosition.x >= 15 && playerPosition.x <= 45 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= 9.6 && playerPosition.x <= 29.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Bakery;
         }
-        else if (playerPosition.x >= 45 && playerPosition.x <= 75 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= 29.6 && playerPosition.x <= 49.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.MedicalRoom;
         }
-        else if (playerPosition.x >= 75 && playerPosition.x <= 105 && playerPosition.y >= -7.5f && playerPosition.y <= 7.5f)
+        else if (playerPosition.x >= 49.6 && playerPosition.x <= 68.8 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Balcony;
         }
