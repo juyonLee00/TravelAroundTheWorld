@@ -36,16 +36,6 @@ public class Ch1TriggerArea : MonoBehaviour
                 interactionButtonScript.SetLocation(locationName); // 버튼에 위치 정보 설정
             }
             Managers.Instance.CurrentLocation = locationName; // 현재 위치 설정
-
-            // "대화하기" 버튼 클릭 시 대화 진행
-            if (Input.GetKeyDown(KeyCode.E)) // 예를 들어 'E' 키로 상호작용한다고 가정
-            {
-                if (ch1TalkManager != null && ch1TalkManager.currentDialogueIndex == 33)
-                {
-                    ch1TalkManager.PrintCh1ProDialogue(34); // 다음 대사 출력
-                    DisableButton(); // 버튼 비활성화
-                }
-            }
         }
         else
         {

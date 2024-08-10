@@ -82,7 +82,6 @@ public class Ch1TalkManager : MonoBehaviour
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
     }
 
-
     void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
@@ -283,6 +282,17 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
         }
+        else if (index == 36 && mapManager.currentState == MapState.Garden)
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            garden.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Violet.SetActive(true);
+        }
         else
         {
             CheckTalk(currentDialogue.location);
@@ -301,6 +311,20 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
             garden.SetActive(true);
             isWaitingForPlayer = false; // 대기 상태 해제
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 36)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Violet.SetActive(false);
+            jazzBar.SetActive(true);
+            isWaitingForPlayer = false; // 대기 상태 해제
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else
+        {
+            // 다른 인덱스에 대해서도 기본적인 대화 진행을 수행하도록 처리
             PrintCh1ProDialogue(currentDialogueIndex);
         }
     }
