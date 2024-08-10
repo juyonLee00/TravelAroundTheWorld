@@ -16,7 +16,7 @@ public class PlayerData : MonoBehaviour
     public List<int> subIdx;
 
     public Dictionary<string, InventoryItemData> inventoryData;
-    public List<int> unlockedCafeItemData;
+    public List<string> unlockedCafeItemData;
 
     public List<int> unlockIllustrationData;
     public List<int> unlockEndingData;
@@ -31,7 +31,7 @@ public class PlayerData : MonoBehaviour
         subIdx = new List<int>();
 
         inventoryData = new Dictionary<string, InventoryItemData>();
-        unlockedCafeItemData = new List<int>();
+        unlockedCafeItemData = new List<string>();
 
         unlockIllustrationData = new List<int>();
         unlockEndingData = new List<int>();
@@ -97,14 +97,6 @@ public class PlayerData : MonoBehaviour
         if (!unlockIllustrationData.Contains(idx))
             unlockIllustrationData.Add(idx);
     }
-
-    public void GetCafeItem(int idx)
-    {
-        if (!unlockedCafeItemData.Contains(idx))
-            unlockedCafeItemData.Add(idx);
-            
-    }
-
     
 
 }

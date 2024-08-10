@@ -44,4 +44,13 @@ public class PlayerManager : MonoBehaviour
         return playerData.money;
     }
 
+    public bool IsBoughtCafeItem(string name)
+    {
+        return playerData.unlockedCafeItemData.Contains(name);
+    }
+
+    public void AddCafeItem(string name)
+    {
+        playerData.unlockedCafeItemData.Add(name);
+    }
 }
