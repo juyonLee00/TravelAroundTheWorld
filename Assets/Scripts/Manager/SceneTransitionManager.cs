@@ -42,12 +42,10 @@ public class SceneTransitionManager : MonoBehaviour
 
         yield return WaitForCondition(() => IsSpecificConditionMet(toSceneIdx));
 
-
+        //TalkManager.Instance.currentDialogueIndex = returnIdx;
         yield return TransitionToScene(fromScene);
 
-        OnDialogueIndexUpdated(curIdx, returnIdx);
-
-
+        //OnDialogueIndexUpdated(curIdx, returnIdx);
     }
 
     IEnumerator TransitionToScene(string sceneName)
@@ -88,3 +86,22 @@ public class SceneTransitionManager : MonoBehaviour
         Debug.Log("Performing post-transition tasks...");
     }
 }
+
+
+/*
+ * TalkManager에서 FadeIn과 같이 사용할 경우
+ * 
+ * private IEnumerator PerformFadeInAndHandleDialogue(int fromDialogueIdx, int returnDialogueIdx)
+    {
+        yield return StartCoroutine(screenFader.FadeIn(cafe));
+
+        // 페이드 인이 완료된 후 씬 전환 작업 수행
+        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 3, returnDialogueIdx);
+    }
+ * 
+ * 
+ * 이동한 후 작업해야 할 경우
+ * -CafeScene, CafeTutorialScene-
+ * currentDialogueIdx 뒤 변화하는 부분 추가
+ * SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+ */
