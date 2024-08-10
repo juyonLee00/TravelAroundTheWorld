@@ -20,6 +20,10 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject player; // 플레이어 캐릭터
     public GameObject map; // 맵
 
+    public GameObject questObject; // 퀘스트 오브젝트
+    public TextMeshProUGUI questText; // 퀘스트 내용 텍스트
+    private bool isQuestActive = false; // 퀘스트 오브젝트가 활성화되었는지 여부
+
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
     public GameObject trainRoomHallway; // 객실 복도 화면
@@ -86,8 +90,27 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
-            currentDialogueIndex++;
-            PrintCh1ProDialogue(currentDialogueIndex);
+            if (isQuestActive)
+            {
+                // 퀘스트 오브젝트, 나레이션, 다이얼로그 모두 비활성화
+                questObject.SetActive(false);
+                narration.SetActive(false);
+                dialogue.SetActive(false);
+
+                isQuestActive = false; // 퀘스트 비활성화 상태로 설정
+
+                // Map, Player, NPC 활성화
+                map.SetActive(true);
+                player.SetActive(true);
+                Npc_Rayviyak.SetActive(true);
+
+                EnablePlayerMovement(); // 플레이어 이동 활성화
+            }
+            else
+            {
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
         }
 
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
@@ -203,8 +226,23 @@ public class Ch1TalkManager : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
-        // 특정 대화 인덱스에서 플레이어 이동을 활성화하는 로직
-        if (index == 5) // 예시: "카페로 가자" 대사 이후
+        // 인덱스 33에서 퀘스트 오브젝트 활성화 및 퀘스트 내용 출력
+        if (index == 32)
+        {
+            string quest = currentDialogue.quest; // CSV에서 읽어온 퀘스트 이름
+            string questContent = currentDialogue.questContent; // CSV에서 읽어온 퀘스트 내용
+
+            questText.text = $"{quest}: {questContent}"; // 퀘스트 이름과 내용을 퀘스트 텍스트에 출력
+            questObject.SetActive(true); // 퀘스트 오브젝트 활성화
+
+            // Map, Player, NPC 비활성화
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rayviyak.SetActive(false);
+
+            isQuestActive = true; // 퀘스트 활성화 상태로 설정
+        }
+        else if (index == 5) // 예시: "카페로 가자" 대사 이후
         {
             isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
             EnablePlayerMovement();
@@ -234,7 +272,6 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
         }
-
         else
         {
             CheckTalk(currentDialogue.location);
