@@ -21,6 +21,7 @@ public class Ch0MapManager : MonoBehaviour
     public MapState currentState; // 맵의 현재 상태
     public Vector2 playerPosition; // 플레이어의 현재 위치
     public Transform playerTransform; // 플레이어의 Transform 참조
+    private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
 
     void Start()
     {
@@ -69,26 +70,62 @@ public class Ch0MapManager : MonoBehaviour
         else if (playerPosition.x >= -49.3 && playerPosition.x <= -39.7 && playerPosition.y >= 5f && playerPosition.y <= 13f)
         {
             currentState = MapState.TrainRoom3;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "a room")
+            {
+                SoundManager.Instance.PlayMusic("a room", loop: true);
+                currentMusic = "a room"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= -49.6 && playerPosition.x <= -29.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Hallway;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "a room")
+            {
+                SoundManager.Instance.PlayMusic("a room", loop: true);
+                currentMusic = "a room"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= -29.6 && playerPosition.x <= -9.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Garden;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "GARDEN")
+            {
+                SoundManager.Instance.PlayMusic("GARDEN", loop: true);
+                currentMusic = "GARDEN"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= -9.6 && playerPosition.x <= 9.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Cafe;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "CAFE")
+            {
+                SoundManager.Instance.PlayMusic("CAFE", loop: true);
+                currentMusic = "CAFE"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= 9.6 && playerPosition.x <= 29.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Bakery;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "BAKERY_1.1")
+            {
+                SoundManager.Instance.PlayMusic("BAKERY_1.1", loop: true);
+                currentMusic = "BAKERY_1.1"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= 29.6 && playerPosition.x <= 49.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.MedicalRoom;
+            // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+            if (currentMusic != "amedicaloffice_001")
+            {
+                SoundManager.Instance.PlayMusic("amedicaloffice_001", loop: true);
+                currentMusic = "amedicaloffice_001"; // 현재 재생 중인 음악 이름을 업데이트
+            }
         }
         else if (playerPosition.x >= 49.6 && playerPosition.x <= 68.8 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
