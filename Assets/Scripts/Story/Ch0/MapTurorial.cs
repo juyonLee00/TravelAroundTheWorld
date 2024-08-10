@@ -41,8 +41,14 @@ public class MapTurorial : MonoBehaviour
         mapManager.SetActive(true);
         StartCoroutine(screenFader.FadeIn(map));  // 맵 활성화 (맵 완료되면 코드 수정 필요)
         StartCoroutine(screenFader.FadeIn(mapTutorial_1)); // 맵 튜토리얼1 창 활성화
-        player.SetActive(true); //플레이어 오브젝트 활성화
-        playerController.StopMove(); //튜토리얼 창 뜰때 플레이어 움직임 멈춤
+        //player.SetActive(true); //플레이어 오브젝트 활성화
+        // player의 SpriteRenderer의 Order in Layer를 7로 설정
+        SpriteRenderer playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
+        if (playerSpriteRenderer != null)
+        {
+            playerSpriteRenderer.sortingOrder = 7;
+        }
+        //playerController.StopMove(); //튜토리얼 창 뜰때 플레이어 움직임 멈춤
         ActivateNPC(true);
     }
 

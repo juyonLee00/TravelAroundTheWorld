@@ -19,6 +19,7 @@ public class TalkManager : MonoBehaviour
 
     public GameObject invitation; // 초대장 화면
     public TextMeshProUGUI invitationText;
+    public GameObject backGround; //검은 배경
 
     public GameObject forest; // 숲 화면
 
@@ -73,6 +74,8 @@ public class TalkManager : MonoBehaviour
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV(); // CSV에서 데이터를 로드하는 함수 호출
         InitializeCharacterImages();
+        playerController.StopMove();
+        backGround.SetActive(true);
     }
 
     void Start()
