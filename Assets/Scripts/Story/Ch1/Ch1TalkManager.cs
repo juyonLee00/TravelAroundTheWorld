@@ -232,11 +232,7 @@ public class Ch1TalkManager : MonoBehaviour
             trainRoom.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
-            // NPC 오브젝트 활성화
-            if (Npc_Rayviyak != null)
-            {
-                Npc_Rayviyak.SetActive(true);
-            }
+            Npc_Rayviyak.SetActive(true);
         }
 
         else
