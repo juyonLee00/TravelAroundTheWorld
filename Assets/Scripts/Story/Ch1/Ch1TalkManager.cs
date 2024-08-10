@@ -33,6 +33,9 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject jazzBar; // 재즈바 화면
 
     public GameObject Npc_Rayviyak; // 정원 npc
+    public GameObject Npc_MrHam; // 병원 npc
+    public GameObject Npc_Rusk; // 빵집 npc
+    public GameObject Npc_Violet; // 바 npc
 
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
     private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
@@ -174,6 +177,14 @@ public class Ch1TalkManager : MonoBehaviour
         characterImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai");
         characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
         characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
+    }
+
+    public void SetNpcActive(bool isActive)
+    {
+        Npc_Rayviyak.SetActive(isActive);
+        Npc_MrHam.SetActive(isActive);
+        Npc_Rusk.SetActive(isActive);
+        Npc_Violet.SetActive(isActive);
     }
 
     public void PrintCh1ProDialogue(int index)
