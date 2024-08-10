@@ -76,22 +76,17 @@ public class ChoiceBtn : MonoBehaviour
             //HappyEnding부분 작성
         }
 
+        else if(SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
+        {
+            GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
+            UIManager.Instance.DeactivatedUI("Bed");
+        }
+
         else
         {
-            /*
-            if (모든 NPC를 전부 확인하지 않았을 때)
-            {
-                //대화창에 대화를 띄우면서 199번 대사 가져와야 함.
-            }
-
-            else
-            */
-            {
-                //대화창에 대화 띄우면서 순차적으로 대사 보여짐
-                //천천히 FadeOut
-                //씬 전환
-                SceneManagerEx.Instance.SceanLoadQueue("Ch1Scene");
-            }
+            UIManager.Instance.DeactivatedUI("Bed");
+            //Fadeout
+            //DayNightCycleManager.Instance.ChangeDay();
         }
 
     }
