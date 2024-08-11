@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class Bed : MonoBehaviour
 {
     private GameObject player;
+    private PlayerAnimationController playerAnimationController;
 
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
+        playerAnimationController = player.GetComponent<PlayerAnimationController>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -19,6 +21,9 @@ public class Bed : MonoBehaviour
         {
             UIManager.Instance.ToggleUI("Bed");
             player.GetComponent<PlayerController>().StopMove();
+
+            playerAnimationController.StopAllCoroutines();
+            playerAnimationController.SetMoveDirection(Vector2.zero);
         }
     }
 

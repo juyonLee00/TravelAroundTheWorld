@@ -7,8 +7,8 @@ public class PlayerAnimationController : MonoBehaviour
 {
     public Animator animator;
     public Rigidbody2D rb;
-    public float moveSpeed;
     private Vector2 lastInputVector;
+    private Coroutine moveCoroutine;
 
     private IPlayerState currentState;
     public readonly IPlayerState IdleState = new PlayerIdleState();
@@ -29,7 +29,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        moveSpeed = playerController.speed;
         //TransitionToState(IdleState);
     }
 
@@ -90,22 +89,28 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }*/
 
-    public void MoveToPosition(Vector3 targetPos)
+    public void MoveToPosition(Vector3 targetPos, float speed)
     {
-        StartCoroutine(MoveToPositionCoroutine(targetPos));
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
+        moveCoroutine = StartCoroutine(MoveToPositionCoroutine(targetPos, speed));
     }
 
-    private IEnumerator MoveToPositionCoroutine(Vector3 targetPos)
+    private IEnumerator MoveToPositionCoroutine(Vector3 targetPos, float speed)
     {
         lastInputVector = targetPos ;
         while (Vector3.Distance(transform.position, targetPos) > 0.1f)
         {
             Vector3 direction = (targetPos - transform.position).normalized;
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
             SetMoveDirection(new Vector2(direction.x, direction.y));
             yield return null;
         }
         SetMoveDirection(Vector2.zero);
+        moveCoroutine = null;
+        playerController.currentTargetClick.SetActive(false);
     }
 
     /*
@@ -122,5 +127,14 @@ public class PlayerAnimationController : MonoBehaviour
             animator.SetBool("isMove", false);
         }
     }*/
+
+    public void StopAllCoroutines()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+    }
 
 }
