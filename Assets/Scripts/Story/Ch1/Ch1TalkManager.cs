@@ -63,6 +63,7 @@ public class Ch1TalkManager : MonoBehaviour
     public QuestManager questManager; // 퀘스트 매니저 참조
     public PlayerController playerController; // 플레이어 컨트롤러 참조
     public Ch0MapManager mapManager; // 맵 매니저 참조
+    public Ch1TriggerArea ch1TriggerArea; // Ch1TriggerArea 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
     private Dictionary<string, Sprite> characterBigImages; // 캐릭터 이름과 큰 이미지를 매핑하는 사전
@@ -343,6 +344,18 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
+        }
+        else if (index == 102 && mapManager.currentState == MapState.TrainRoom3)
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            trainRoom.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Rayviyak.SetActive(true);
+            ch1TriggerArea.talkActived = false; // 대화 버튼을 다시 활성화
         }
         else if (index == 36 && mapManager.currentState == MapState.Garden)
         {
