@@ -11,8 +11,9 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject narration;
     public GameObject dialogue;
 
-    public GameObject imageObj; // 초상화 이미지 요소
-    public GameObject nameObj; // 이름 요소
+    public GameObject imageObj; // 초상화 이미지
+    public GameObject nameObj; // 이름
+    public GameObject bigImageObj; // 큰 이미지
 
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
@@ -64,6 +65,7 @@ public class Ch1TalkManager : MonoBehaviour
     public Ch0MapManager mapManager; // 맵 매니저 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
+    private Dictionary<string, Sprite> characterBigImages; // 캐릭터 이름과 큰 이미지를 매핑하는 사전
 
     public bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
 
@@ -71,17 +73,10 @@ public class Ch1TalkManager : MonoBehaviour
     {
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
-        InitializeCharacterImages();
-
-        // mapManager 초기화
-        if (map != null)
-        {
-            mapManager = map.GetComponent<Ch0MapManager>();
-        }
-
+        InitializeCharacterImages(); 
+        mapManager = map.GetComponent<Ch0MapManager>();
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
     }
-
 
     void Start()
     {
@@ -99,15 +94,7 @@ public class Ch1TalkManager : MonoBehaviour
                 questObject.SetActive(false);
                 narration.SetActive(false);
                 dialogue.SetActive(false);
-
                 isQuestActive = false; // 퀘스트 비활성화 상태로 설정
-
-                // Map, Player, NPC 활성화
-                map.SetActive(true);
-                player.SetActive(true);
-                Npc_Rayviyak.SetActive(true);
-
-                EnablePlayerMovement(); // 플레이어 이동 활성화
             }
             else
             {
@@ -171,20 +158,20 @@ public class Ch1TalkManager : MonoBehaviour
     void InitializeCharacterImages()
     {
         characterImages = new Dictionary<string, Sprite>();
+        characterBigImages = new Dictionary<string, Sprite>(); // 큰 이미지 사전 초기화
+
+        // 작은 이미지 로드
         characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
         characterImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas");
         characterImages["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow");
         characterImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai");
         characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
         characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
-    }
 
-    public void SetNpcActive(bool isActive)
-    {
-        Npc_Rayviyak.SetActive(isActive);
-        Npc_MrHam.SetActive(isActive);
-        Npc_Rusk.SetActive(isActive);
-        Npc_Violet.SetActive(isActive);
+        // 큰 이미지 로드
+        characterBigImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas_big");
+        characterBigImages["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow_big");
+        characterBigImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai_big");
     }
 
     public void PrintCh1ProDialogue(int index)
@@ -200,6 +187,7 @@ public class Ch1TalkManager : MonoBehaviour
 
         Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
 
+        // 작은 이미지 설정
         if (imageObj.GetComponent<SpriteRenderer>() != null)
         {
             imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
@@ -207,6 +195,18 @@ public class Ch1TalkManager : MonoBehaviour
         else if (imageObj.GetComponent<Image>() != null)
         {
             imageObj.GetComponent<Image>().sprite = characterSprite;
+        }
+
+        // 큰 이미지 설정
+        Sprite bigCharacterSprite = characterBigImages.ContainsKey(currentDialogue.speaker) ? characterBigImages[currentDialogue.speaker] : null;
+        if (bigImageObj != null && bigCharacterSprite != null)
+        {
+            bigImageObj.GetComponent<Image>().sprite = bigCharacterSprite;
+            bigImageObj.SetActive(true); // 큰 이미지 활성화
+        }
+        else
+        {
+            bigImageObj.SetActive(false); // 큰 이미지 비활성화
         }
 
         if (currentDialogue.speaker == letterSpeaker)
@@ -243,7 +243,7 @@ public class Ch1TalkManager : MonoBehaviour
             string quest = currentDialogue.quest; // CSV에서 읽어온 퀘스트 이름
             string questContent = currentDialogue.questContent; // CSV에서 읽어온 퀘스트 내용
 
-            questText.text = $"{quest}: {questContent}"; // 퀘스트 이름과 내용을 퀘스트 텍스트에 출력
+            questText.text = $"{quest}\n\n{questContent}"; // 퀘스트 이름과 내용을 퀘스트 텍스트에 출력
             questObject.SetActive(true); // 퀘스트 오브젝트 활성화
 
             // Map, Player, NPC 비활성화
@@ -283,6 +283,17 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
         }
+        else if (index == 36 && mapManager.currentState == MapState.Garden)
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            garden.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Violet.SetActive(true);
+        }
         else
         {
             CheckTalk(currentDialogue.location);
@@ -301,6 +312,20 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
             garden.SetActive(true);
             isWaitingForPlayer = false; // 대기 상태 해제
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 36)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Violet.SetActive(false);
+            jazzBar.SetActive(true);
+            isWaitingForPlayer = false; // 대기 상태 해제
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else
+        {
+            // 다른 인덱스에 대해서도 기본적인 대화 진행을 수행하도록 처리
             PrintCh1ProDialogue(currentDialogueIndex);
         }
     }
