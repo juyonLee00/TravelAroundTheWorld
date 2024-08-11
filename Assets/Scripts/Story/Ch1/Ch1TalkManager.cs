@@ -124,6 +124,15 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
+            else if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 65)
+            {
+                isWaitingForPlayer = false; // 대기 상태 해제
+                player.SetActive(false); // 플레이어 활성화
+                map.SetActive(false); // 맵 활성화
+                cafe.SetActive(true); // 카페 활성화
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
+            }
         }
     }
 
@@ -252,8 +261,25 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
 
             isQuestActive = true; // 퀘스트 활성화 상태로 설정
+            StartCoroutine(screenFader.FadeOut(questObject));
         }
-        else if (index == 5) // 예시: "카페로 가자" 대사 이후
+        // 인덱스 62에서 player의 위치를 TrainRoom3로 이동
+        else if (index == 62)
+        {
+            player.transform.position = new Vector3(-44.5f, 9f, 0f);
+            mapManager.currentState = MapState.TrainRoom3; // 맵 상태도 TrainRoom3으로 변경
+        }
+        else if (index == 65)
+        {
+            isWaitingForPlayer = true; // 대기 상태 해제
+            player.SetActive(true); // 플레이어 활성화
+            map.SetActive(true); // 맵 활성화
+            EnablePlayerMovement(); // 플레이어 이동 가능하게 설정
+            trainRoom.SetActive(false); // 객실 비활성화
+            narration.SetActive(false); // 나레이션 비활성화
+            dialogue.SetActive(false); // 대화창 비활성화
+        }
+        else if (index == 5) // "카페로 가자" 대사 이후
         {
             isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
             EnablePlayerMovement();
