@@ -51,5 +51,6 @@ MonoBehaviour:
   saveDataUIPrefab: {fileID: 4675369338822652522, guid: 53f1732f1af9f4cdd96371632dcf39d4, type: 3}
   saveDataPopupPrefab: {fileID: 4837505057921801157, guid: c7a8c87ea3f4d46348f213c69115eb7f, type: 3}
   bedInteractionUIPrefab: {fileID: 3300009883695447684, guid: 85c61b05deaa34e29992576c7c8cef2f, type: 3}
-  staticCanvasUIPrefab: {fileID: 688716910261023074, guid: 90f3c3913e54f4956ba8ac6423e27164, type: 3}
-  dynamicCanvasUIPrefab: {fileID: 3510670784641258542, guid: 90cce4e44b8d14fb5957a77a069dc0fd, type: 3}
+  staticUICanvasPrefab: {fileID: 0}
+  dynamicUICanvasPrefab: {fileID: 0}
+  targetClickUIPrefab: {fileID: 6497032336439079066, guid: aaf42d04b4f094035ac6bd926d8153a3, type: 3}

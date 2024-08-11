@@ -36,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7592942193548100970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   chapterIdx: -1
   mainIdx: 0
   subIdx: 
-  unlockedCafeItemData: 
+  unlockedCafeItemData: []
   unlockIllustrationData: 
   unlockEndingData: 
   position: {x: 0, y: 0}
@@ -230,6 +230,7 @@ MonoBehaviour:
   speed: 6
   mainCamera: {fileID: 0}
   playerAnimationController: {fileID: 966837247721562786}
+  targetClickPrefab: {fileID: 1540943262044676620, guid: cd97e1021922a41ada8ebd12eb31dd3f, type: 3}
 --- !u!114 &5628396808438373445
 MonoBehaviour:
   m_ObjectHideFlags: 0
