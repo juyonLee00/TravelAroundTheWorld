@@ -267,7 +267,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 62)
         {
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
-            mapManager.currentState = MapState.TrainRoom3; // 맵 상태도 TrainRoom3으로 변경
+            mapManager.currentState = MapState.TrainRoom3; // 맵 상태를 TrainRoom3로 변경
         }
         else if (index == 65)
         {
@@ -281,12 +281,15 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 5) // "카페로 가자" 대사 이후
         {
-            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
-            EnablePlayerMovement();
-            map.SetActive(true);
-            player.SetActive(true);
-            narration.SetActive(false);
-            dialogue.SetActive(false);
+            player.transform.position = new Vector3(0, 0, 0);
+            mapManager.currentState = MapState.Cafe; // 맵 상태를 Cafe로 변경
+            isWaitingForPlayer = true; // 대기 상태 해제
+            player.SetActive(true); // 플레이어 활성화
+            map.SetActive(true); // 맵 활성화
+            EnablePlayerMovement(); // 플레이어 이동 가능하게 설정
+            trainRoom.SetActive(false); // 객실 비활성화
+            narration.SetActive(false); // 나레이션 비활성화
+            dialogue.SetActive(false); // 대화창 비활성화
         }
         else if (index == 23 && mapManager.currentState == MapState.Cafe) // 인덱스 23 이후의 로직
         {
