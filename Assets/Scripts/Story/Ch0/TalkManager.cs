@@ -19,6 +19,7 @@ public class TalkManager : MonoBehaviour
 
     public GameObject invitation; // 초대장 화면
     public TextMeshProUGUI invitationText;
+    public GameObject backGround; //검은 배경
 
     public GameObject forest; // 숲 화면
 
@@ -68,11 +69,15 @@ public class TalkManager : MonoBehaviour
 
     public PlayerController playerController;
 
+    private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
+
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV(); // CSV에서 데이터를 로드하는 함수 호출
         InitializeCharacterImages();
+        playerController.StopMove();
+        backGround.SetActive(true);
     }
 
     void Start()
@@ -271,6 +276,13 @@ public class TalkManager : MonoBehaviour
         switch (location)
         {
             case locationHome:
+                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+                if (currentMusic != "TRAIN STATION 1.3")
+                {
+                    SoundManager.Instance.PlayMusic("TRAIN STATION 1.3", loop: true);
+                    currentMusic = "TRAIN STATION 1.3"; // 현재 재생 중인 음악 이름을 업데이트
+                }
+
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
@@ -323,6 +335,12 @@ public class TalkManager : MonoBehaviour
                 break;
             // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
             case locationCafe:
+                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
+                if (currentMusic != "CAFE")
+                {
+                    SoundManager.Instance.PlayMusic("CAFE", loop: true);
+                    currentMusic = "CAFE"; // 현재 재생 중인 음악 이름을 업데이트
+                }
                 if (currentDialogueIndex == 50)
                 {
                     StartCoroutine(screenFader.FadeIn(cafe));
@@ -381,7 +399,6 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 78)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(garden)); //npc 대화 끝나고 대화 종료
-                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -396,7 +413,6 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 104)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(bakery)); //npc 대화 끝나고 대화 종료
-                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -411,7 +427,6 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex == 128)
                     {
                         StartCoroutine(FadeOutAndDeactivateTalk(medicalRoom)); //npc 대화 끝나고 대화 종료
-                        //playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
                     }
                 }
                 break;
@@ -431,8 +446,7 @@ public class TalkManager : MonoBehaviour
                             trainRoom.SetActive(true);
                             if (currentDialogueIndex == 132)
                             {
-                                StartCoroutine(FadeOutAndDeactivateTalk(trainRoom));
-                                //여기에 ch1으로 씬 이동하는 코드 추가
+                                StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene"));
                             }
                         }
                     }
@@ -465,5 +479,16 @@ public class TalkManager : MonoBehaviour
         DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
         isFadingOut = false; // 페이드아웃 종료
         playerController.StartMove(); //대사 끝나고 플레이어 움직임 재개
+    }
+
+    private IEnumerator FadeOutAndLoadScene(GameObject obj, string sceneName)
+    {
+        isFadingOut = true; // 페이드아웃 시작
+        yield return StartCoroutine(screenFader.FadeOut(obj)); // FadeOut이 완료될 때까지 기다립니다.
+        narration.SetActive(false);
+        dialogue.SetActive(false);
+        DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
+        isFadingOut = false; // 페이드아웃 종료
+        SceneManagerEx.Instance.SceanLoadQueue(sceneName); // 씬 로드
     }
 }
