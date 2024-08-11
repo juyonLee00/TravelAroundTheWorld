@@ -133,6 +133,18 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
+
+            // 카페 영역을 벗어나려 할 때 경고 메시지를 표시하는 로직
+            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 65))
+            {
+                // 플레이어를 다시 카페 영역으로 이동
+                player.transform.position = new Vector3(0, 0, 0); // 카페 중앙으로 위치 재설정
+
+                // 경고 메시지 출력
+                narration.SetActive(true);
+                dialogue.SetActive(false);
+                narrationBar.SetDialogue("나레이션", "지금은 일할 시간이야.");
+            }
         }
     }
 
@@ -261,7 +273,6 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
 
             isQuestActive = true; // 퀘스트 활성화 상태로 설정
-            StartCoroutine(screenFader.FadeOut(questObject));
         }
         // 인덱스 62에서 player의 위치를 TrainRoom3로 이동
         else if (index == 62)
@@ -271,6 +282,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 65)
         {
+            player.transform.position = new Vector3(0, 0, 0);
+            mapManager.currentState = MapState.Cafe; // 맵 상태를 Cafe로 변경
             isWaitingForPlayer = true; // 대기 상태 해제
             player.SetActive(true); // 플레이어 활성화
             map.SetActive(true); // 맵 활성화
