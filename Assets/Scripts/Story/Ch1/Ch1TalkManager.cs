@@ -71,14 +71,8 @@ public class Ch1TalkManager : MonoBehaviour
     {
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
-        InitializeCharacterImages();
-
-        // mapManager 초기화
-        if (map != null)
-        {
-            mapManager = map.GetComponent<Ch0MapManager>();
-        }
-
+        InitializeCharacterImages(); 
+        mapManager = map.GetComponent<Ch0MapManager>();
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
     }
 
@@ -98,15 +92,7 @@ public class Ch1TalkManager : MonoBehaviour
                 questObject.SetActive(false);
                 narration.SetActive(false);
                 dialogue.SetActive(false);
-
                 isQuestActive = false; // 퀘스트 비활성화 상태로 설정
-
-                // Map, Player, NPC 활성화
-                map.SetActive(true);
-                player.SetActive(true);
-                Npc_Rayviyak.SetActive(true);
-
-                EnablePlayerMovement(); // 플레이어 이동 활성화
             }
             else
             {
