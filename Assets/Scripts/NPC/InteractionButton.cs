@@ -17,7 +17,7 @@ public class InteractionButton : MonoBehaviour
     // 버튼 클릭 시 호출되는 메서드
     public void OnInteract()
     {
-        Ch1TalkManager talkManager = FindObjectOfType<Ch1TalkManager>();
+        TalkManager talkManager = FindObjectOfType<TalkManager>();
         if (talkManager != null)
         {
             // Ch1TalkManager ActivateTalk 메서드를 호출하여 대화를 시작
