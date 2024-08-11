@@ -106,7 +106,7 @@ public class Ch1TalkManager : MonoBehaviour
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
         if (isWaitingForPlayer && mapManager != null)
         {
-            if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 5)
+            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 5)
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
                 player.SetActive(false);
@@ -124,7 +124,7 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
-            else if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 65)
+            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 65)
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
                 player.SetActive(false); // 플레이어 활성화
