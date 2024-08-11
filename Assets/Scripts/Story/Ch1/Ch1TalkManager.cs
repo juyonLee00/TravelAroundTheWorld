@@ -11,8 +11,9 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject narration;
     public GameObject dialogue;
 
-    public GameObject imageObj; // 초상화 이미지 요소
-    public GameObject nameObj; // 이름 요소
+    public GameObject imageObj; // 초상화 이미지
+    public GameObject nameObj; // 이름
+    public GameObject bigImageObj; // 큰 이미지
 
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
@@ -64,6 +65,7 @@ public class Ch1TalkManager : MonoBehaviour
     public Ch0MapManager mapManager; // 맵 매니저 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
+    private Dictionary<string, Sprite> characterBigImages; // 캐릭터 이름과 큰 이미지를 매핑하는 사전
 
     public bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
 
@@ -156,20 +158,20 @@ public class Ch1TalkManager : MonoBehaviour
     void InitializeCharacterImages()
     {
         characterImages = new Dictionary<string, Sprite>();
+        characterBigImages = new Dictionary<string, Sprite>(); // 큰 이미지 사전 초기화
+
+        // 작은 이미지 로드
         characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
         characterImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas");
         characterImages["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow");
         characterImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai");
         characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
         characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
-    }
 
-    public void SetNpcActive(bool isActive)
-    {
-        Npc_Rayviyak.SetActive(isActive);
-        Npc_MrHam.SetActive(isActive);
-        Npc_Rusk.SetActive(isActive);
-        Npc_Violet.SetActive(isActive);
+        // 큰 이미지 로드
+        characterBigImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas_big");
+        characterBigImages["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow_big");
+        characterBigImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai_big");
     }
 
     public void PrintCh1ProDialogue(int index)
@@ -185,6 +187,7 @@ public class Ch1TalkManager : MonoBehaviour
 
         Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
 
+        // 작은 이미지 설정
         if (imageObj.GetComponent<SpriteRenderer>() != null)
         {
             imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
@@ -192,6 +195,18 @@ public class Ch1TalkManager : MonoBehaviour
         else if (imageObj.GetComponent<Image>() != null)
         {
             imageObj.GetComponent<Image>().sprite = characterSprite;
+        }
+
+        // 큰 이미지 설정
+        Sprite bigCharacterSprite = characterBigImages.ContainsKey(currentDialogue.speaker) ? characterBigImages[currentDialogue.speaker] : null;
+        if (bigImageObj != null && bigCharacterSprite != null)
+        {
+            bigImageObj.GetComponent<Image>().sprite = bigCharacterSprite;
+            bigImageObj.SetActive(true); // 큰 이미지 활성화
+        }
+        else
+        {
+            bigImageObj.SetActive(false); // 큰 이미지 비활성화
         }
 
         if (currentDialogue.speaker == letterSpeaker)
