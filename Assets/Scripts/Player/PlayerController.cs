@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera;
 
     public PlayerAnimationController playerAnimationController;
+    public GameObject targetClickPrefab;
+    public GameObject currentTargetClick;
 
     private void Awake()
     {
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
+
+        currentTargetClick = Instantiate(targetClickPrefab);
+        currentTargetClick.SetActive(false);
+        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void Update()
@@ -38,6 +44,11 @@ public class PlayerController : MonoBehaviour
         {
             inputVector = inputValue.Get<Vector2>();
             playerAnimationController.SetMoveDirection(inputVector);
+
+            if (currentTargetClick != null && currentTargetClick.activeSelf)
+            {
+                currentTargetClick.SetActive(false);
+            }
         }
     }
 
@@ -79,10 +90,6 @@ public class PlayerController : MonoBehaviour
 
     void OnSkipDialogue()
     {
-        if (canMove)
-        {
-            // Add functionality for skipping dialogue here
-        }
     }
 
     void OnMouseMove()
@@ -93,7 +100,13 @@ public class PlayerController : MonoBehaviour
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
 
-            playerAnimationController.MoveToPosition(worldPos);
+            if (currentTargetClick != null)
+            {
+                currentTargetClick.transform.position = worldPos;
+                currentTargetClick.SetActive(true);
+            }
+
+            playerAnimationController.MoveToPosition(worldPos, speed);
         }
     }
 
@@ -102,6 +115,8 @@ public class PlayerController : MonoBehaviour
         canMove = false;
         inputVector = Vector2.zero;
         playerAnimationController.SetMoveDirection(Vector2.zero);
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        currentTargetClick.SetActive(false);
     }
 
     public void StartMove()
