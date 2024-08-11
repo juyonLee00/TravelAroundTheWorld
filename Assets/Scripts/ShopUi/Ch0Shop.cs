@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopStart : MonoBehaviour
+public class Ch0Shop : MonoBehaviour
 {
     //public Image selectedImageDisplay;
     public GameObject newSpeech;
@@ -19,10 +19,9 @@ public class ShopStart : MonoBehaviour
     PlayerManager player;
 
     int selected;
-    int[] price = { 3500, 3000 };
-    string[] item = { "우유", "티세트" };
+    int[] price = { 400, 100 };
 
-    
+
     void Start()
     {
         player = PlayerManager.Instance;
@@ -53,7 +52,7 @@ public class ShopStart : MonoBehaviour
         SoundManager.Instance.PlayMusic("click sound", loop: false);
         newSpeech.SetActive(true);
         selectedImageDisplay.SetActive(true);
-        
+
         // 버튼의 RectTransform 컴포넌트를 가져옵니다.
         RectTransform rectTransform = clickedButton.GetComponent<RectTransform>();
 
@@ -76,7 +75,7 @@ public class ShopStart : MonoBehaviour
             localPosition.y + 41,
             localPosition.z
         );
-        
+
         selectedImageDisplay.transform.localPosition = localPosition;
     }
 
@@ -95,9 +94,9 @@ public class ShopStart : MonoBehaviour
             description.text = "";
             pricedescription.text = "";
             player.PayMoney(price[selected]);
-            player.AddCafeItem(item[selected]);
+            //player.AddCafeItem(selected.ToString());
         }
-        
+
     }
 
     public void HideSpeech()
