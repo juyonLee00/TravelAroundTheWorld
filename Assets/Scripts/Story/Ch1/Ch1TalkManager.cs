@@ -115,7 +115,16 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++; // 다음 대사로 넘어가기
                 PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
             }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 23) // 인덱스 23 이후에만 실행
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 23) // 인덱스 23에만 실행
+            {
+                isWaitingForPlayer = false; // 대기 상태 해제
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 99) // 인덱스 99에만 실행
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
                 player.SetActive(false);
@@ -303,6 +312,16 @@ public class Ch1TalkManager : MonoBehaviour
             trainRoom.SetActive(false); // 객실 비활성화
             narration.SetActive(false); // 나레이션 비활성화
             dialogue.SetActive(false); // 대화창 비활성화
+        }
+        else if (index == 99 && mapManager.currentState == MapState.Cafe) // 인덱스 99 이후의 로직
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            cafe.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
         }
         else if (index == 23 && mapManager.currentState == MapState.Cafe) // 인덱스 23 이후의 로직
         {
