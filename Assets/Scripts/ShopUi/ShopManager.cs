@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public GameObject shopPrefab; // »óÁ¡ UI ÇÁ¸®ÆÕ
+    public GameObject shopPrefab; // ìƒì  UI í”„ë¦¬íŒ¹
+    public GameObject selectedImageDisplay;
 
-    // ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÉ ¸Ş¼­µå
+    // ë²„íŠ¼ í´ë¦­ ì‹œ í˜¸ì¶œë  ë©”ì„œë“œ
     public void ShowShop()
     {
         Transform parentTransform = transform.parent;
@@ -18,11 +19,19 @@ public class ShopManager : MonoBehaviour
         newObject.SetActive(true);
     }
 
-    // »óÁ¡ UI¸¦ ¼û±â´Â ¸Ş¼­µå
+    // ìƒì  UIë¥¼ ìˆ¨ê¸°ëŠ” ë©”ì„œë“œ
     public void HideShop()
     {
+        SoundManager.Instance.PlayMusic("click sound", loop: false);
         //Transform parentTransform = transform.parent;
         Destroy(transform.parent.gameObject);
+    }
+
+    public void HideSpeech() 
+    {
+        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        transform.parent.gameObject.SetActive(false);
+        selectedImageDisplay.SetActive(false);
     }
 
 }
