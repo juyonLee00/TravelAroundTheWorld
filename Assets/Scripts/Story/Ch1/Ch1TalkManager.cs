@@ -228,7 +228,7 @@ public class Ch1TalkManager : MonoBehaviour
             string quest = currentDialogue.quest; // CSV에서 읽어온 퀘스트 이름
             string questContent = currentDialogue.questContent; // CSV에서 읽어온 퀘스트 내용
 
-            questText.text = $"{quest}\n{questContent}"; // 퀘스트 이름과 내용을 퀘스트 텍스트에 출력
+            questText.text = $"{quest}\n\n{questContent}"; // 퀘스트 이름과 내용을 퀘스트 텍스트에 출력
             questObject.SetActive(true); // 퀘스트 오브젝트 활성화
 
             // Map, Player, NPC 비활성화

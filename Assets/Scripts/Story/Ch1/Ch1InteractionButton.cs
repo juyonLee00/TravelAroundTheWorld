@@ -42,7 +42,7 @@ public class Ch1InteractionButton : MonoBehaviour
             }
 
             // Ch1TalkManager의 메서드를 호출하여 대화 진행
-            ch1TalkManager.OnDialogueButtonClicked(33); // 33번 인덱스부터 대화 시작
+            ch1TalkManager.OnDialogueButtonClicked(ch1TalkManager.currentDialogueIndex); // 33번 인덱스부터 대화 시작
         }
     }
 }
