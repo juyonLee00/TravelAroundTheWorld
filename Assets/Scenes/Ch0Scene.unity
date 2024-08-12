@@ -1013,11 +1013,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2171903637991361450, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.6
+      value: -2.93
       objectReference: {fileID: 0}
     - target: {fileID: 2171903637991361450, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 2171903637991361450, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1055,6 +1055,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 4386615578326694519, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5813191495416061237, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_fontSize
       value: 1
@@ -1074,6 +1078,10 @@ PrefabInstance:
     - target: {fileID: 7093141513779517051, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_Name
       value: Npc_Rusk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093141513779517051, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7458219549677200048, guid: 399d75edb92e23f46aa52ef4db25511c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1282,6 +1290,10 @@ PrefabInstance:
     - target: {fileID: 396217128751221635, guid: f95802473fb4d88499e59b3189c49389, type: 3}
       propertyPath: m_Name
       value: Opening
+      objectReference: {fileID: 0}
+    - target: {fileID: 396217128751221635, guid: f95802473fb4d88499e59b3189c49389, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5712578817223039506, guid: f95802473fb4d88499e59b3189c49389, type: 3}
       propertyPath: m_Camera
@@ -1595,6 +1607,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 780394629943642330, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1034966384820207022, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1625,11 +1641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5325789188675171344, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.6
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5325789188675171344, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5325789188675171344, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1674,6 +1690,10 @@ PrefabInstance:
     - target: {fileID: 8867419737912035077, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
       propertyPath: m_Name
       value: Npc_Leviac
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867419737912035077, guid: 7554e2e86a42e0c45a9e7ac2cac92e77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1891,9 +1911,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1511949893410850005, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924790618764730549, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627050704575647782, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8577494832536326323, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577494832536326323, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990062632201005282, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -39.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1951,6 +1991,10 @@ PrefabInstance:
     - target: {fileID: 3428038927670096958, guid: afb8d9f504e54934b97f8efa48627242, type: 3}
       propertyPath: m_Name
       value: TalkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428038927670096958, guid: afb8d9f504e54934b97f8efa48627242, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7452252831755316704, guid: afb8d9f504e54934b97f8efa48627242, type: 3}
       propertyPath: cafe
@@ -2148,11 +2192,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3268139674983032698, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.6
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3268139674983032698, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3268139674983032698, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2189,6 +2233,10 @@ PrefabInstance:
     - target: {fileID: 7256361906112925219, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
       propertyPath: m_Name
       value: Npc_MrHam
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256361906112925219, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842477267644552289, guid: 4c2fbf3ae75433b4bb2ab4519fd02458, type: 3}
       propertyPath: talkManager
