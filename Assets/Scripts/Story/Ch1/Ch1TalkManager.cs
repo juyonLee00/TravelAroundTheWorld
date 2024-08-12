@@ -32,6 +32,7 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject bakery; // 빵집 화면
     public GameObject medicalRoom; // 의무실 화면
     public GameObject jazzBar; // 재즈바 화면
+    public GameObject balcony; // 발코니 화면
 
     public GameObject Npc_Rayviyak; // 정원 npc
     public GameObject Npc_MrHam; // 병원 npc
@@ -137,9 +138,18 @@ public class Ch1TalkManager : MonoBehaviour
             else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 65)
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
-                player.SetActive(false); // 플레이어 활성화
-                map.SetActive(false); // 맵 활성화
+                player.SetActive(false); // 플레이어 비활성화
+                map.SetActive(false); // 맵 비활성화
                 cafe.SetActive(true); // 카페 활성화
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
+            }
+            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 188)
+            {
+                isWaitingForPlayer = false; // 대기 상태 해제
+                player.SetActive(false); // 플레이어 비활성화
+                map.SetActive(false); // 맵 비활성화
+                balcony.SetActive(true); // 발코니 활성화
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
@@ -324,6 +334,18 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
+        else if (index == 188) // 인덱스 188 이후의 로직
+        {
+            player.transform.position = new Vector3(0, 0, 0);
+            mapManager.currentState = MapState.Cafe; // 맵 상태를 Cafe로 변경
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            cafe.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+        }
         else if (index == 23 && mapManager.currentState == MapState.Cafe) // 인덱스 23 이후의 로직
         {
             isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
@@ -344,18 +366,6 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
-        }
-        else if (index == 102 && mapManager.currentState == MapState.TrainRoom3)
-        {
-            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
-            EnablePlayerMovement();
-            map.SetActive(true);
-            player.SetActive(true);
-            trainRoom.SetActive(false);
-            narration.SetActive(false);
-            dialogue.SetActive(false);
-            Npc_Rayviyak.SetActive(true);
-            ch1TriggerArea.talkActived = false; // 대화 버튼을 다시 활성화
         }
         else if (index == 36 && mapManager.currentState == MapState.Garden)
         {
