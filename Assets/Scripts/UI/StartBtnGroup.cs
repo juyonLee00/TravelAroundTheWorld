@@ -44,6 +44,8 @@ public class StartBtnGroup : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.PlayMusic("main theme", loop: true); 
+
         SetUIData();
         SetBtnData();
         SetBtnPosData();

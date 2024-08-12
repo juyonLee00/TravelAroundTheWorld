@@ -203,6 +203,7 @@ public class TalkManager : MonoBehaviour
                 invitationText.text += "\n";
             }
             invitationText.text += currentDialogue.line;
+
         }
         //인물 혹은 장소가 없는 경우 - 대사 모두 비활성화
         else if (string.IsNullOrEmpty(currentDialogue.speaker) || string.IsNullOrEmpty(currentDialogue.location))
@@ -294,19 +295,24 @@ public class TalkManager : MonoBehaviour
                     {
                         invitationText.gameObject.SetActive(false);
                     }
+
                     else if (currentDialogueIndex >= 6)
                     {
+                        if(currentDialogueIndex == 6)
+                            SoundManager.Instance.PlaySFX("twinkle");
                         invitationText.gameObject.SetActive(true);
                     }
                     if (currentDialogueIndex == 23)
                     {
                         StartCoroutine(screenFader.FadeOut(invitation));
+                        SoundManager.Instance.PlaySFX("packing");
                     }
                 }
                 break;
             case locationForest:
                 if (currentDialogueIndex == 24)
                 {
+                    SoundManager.Instance.PlaySFX("soil_walk");
                     StartCoroutine(screenFader.FadeIn(forest));
                 }
                 else

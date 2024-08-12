@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
                 currentTargetClick.SetActive(true);
             }
 
-            playerAnimationController.MoveToPosition(worldPos, speed);
+            playerAnimationController.MoveToPosition(worldPos, speed * 0.5f);
         }
     }
 
