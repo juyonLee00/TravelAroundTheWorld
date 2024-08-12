@@ -299,11 +299,19 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 197)
         {
-            if (cheetahShopCh0 != null)
-            {
-                cheetahShopCh0.SetActive(true); // CheetahShop Ch0 UI 활성화
-            }
-            return; // 다른 처리가 필요 없으면 여기서 함수 종료
+            balcony.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            cheetahShopCh0.SetActive(true); // CheetahShop Ch0 UI 활성화
+            return;
+        }
+        else if (index == 198)
+        {
+            balcony.SetActive(true);
+            narration.SetActive(true);
+            dialogue.SetActive(true);
+            cheetahShopCh0.SetActive(false);
+            return;
         }
         // 인덱스 62에서 player의 위치를 TrainRoom3로 이동
         else if (index == 62)
