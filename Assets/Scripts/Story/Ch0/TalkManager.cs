@@ -71,6 +71,10 @@ public class TalkManager : MonoBehaviour
 
     private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
 
+    [SerializeField] public Sprite closedLetterImg;
+    [SerializeField] public Sprite openLetterImg;
+    [SerializeField] public GameObject twinkleEffect;
+
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
@@ -283,6 +287,7 @@ public class TalkManager : MonoBehaviour
                     SoundManager.Instance.PlayMusic("TRAIN STATION 1.3", loop: true);
                     currentMusic = "TRAIN STATION 1.3"; // 현재 재생 중인 음악 이름을 업데이트
                 }
+                invitation.GetComponentInChildren<Image>().sprite = closedLetterImg;
 
                 if (currentDialogueIndex == 2)
                 {
@@ -290,6 +295,7 @@ public class TalkManager : MonoBehaviour
                 }
                 else if (currentDialogueIndex >= 3 && currentDialogueIndex <= 23)
                 {
+                    //invitation.GetComponentInChildren<Image>().sprite = closedLetterImg;
                     invitation.SetActive(true);
                     if (currentDialogueIndex >= 3 && currentDialogueIndex <= 5)
                     {
@@ -299,7 +305,12 @@ public class TalkManager : MonoBehaviour
                     else if (currentDialogueIndex >= 6)
                     {
                         if(currentDialogueIndex == 6)
+                        {
+                            twinkleEffect.SetActive(true);
+                            invitation.GetComponentInChildren<Image>().sprite = openLetterImg;
                             SoundManager.Instance.PlaySFX("twinkle");
+                        }
+                        invitation.GetComponentInChildren<Image>().sprite = openLetterImg;
                         invitationText.gameObject.SetActive(true);
                     }
                     if (currentDialogueIndex == 23)
