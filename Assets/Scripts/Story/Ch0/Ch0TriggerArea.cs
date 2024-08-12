@@ -7,9 +7,10 @@ public class Ch0TriggerArea : MonoBehaviour
     public GameObject interactionButton; // 상호작용 버튼
     public string locationName; // npc가 있는 장소
     public Transform playerTransform; // 플레이어의 Transform
-    public float interactionDistance = 2.0f; // 상호작용 거리
+    public float interactionDistance = 1.0f; // 상호작용 거리
     public bool talkActived = false; // 대화 활성화 상태
     public TalkManager talkManager; // TalkManager 인스턴스
+    public PlayerController playerController;
 
     private void Start()
     {
@@ -29,8 +30,11 @@ public class Ch0TriggerArea : MonoBehaviour
         // 거리가 설정된 거리 이내인지 확인
         if (distance <= interactionDistance)
         {
-            //여기에 버튼 활성화 되어있을 때 플레이어 클릭 input을 무시하는 코드 추가
             interactionButton.SetActive(true); // 버튼 활성화
+
+            //이동 멈춤
+            playerController.StopMove();
+
             Ch0InteractionButton interactionButtonScript = interactionButton.GetComponent<Ch0InteractionButton>();
             if (interactionButtonScript != null)
             {
