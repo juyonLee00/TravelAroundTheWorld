@@ -75,10 +75,12 @@ public class TalkManager : MonoBehaviour
     [SerializeField] public Sprite openLetterImg;
     [SerializeField] public GameObject twinkleEffect;
 
-    private bool isTrainActive = false;
+    private Animator trainAnimator;
+    private Animator letterAnimator;
 
     void Awake()
     {
+        trainAnimator = train.GetComponent<Animator>();
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV(); // CSV에서 데이터를 로드하는 함수 호출
         InitializeCharacterImages();
@@ -345,15 +347,8 @@ public class TalkManager : MonoBehaviour
                     {
                         train.SetActive(true);
                         if (currentDialogueIndex == 32)
-                        {
-                            SoundManager.Instance.PlaySFX("horn");
-                            //SoundManager.Instance.PlaySFX("a train operation");
-                        }
-                        if (currentDialogueIndex == 37)
-                        {
-                            //효과음만 멈추는 코드 필요
-                            //SoundManager.Instance.StopAllSounds();
-                        }
+                            trainAnimator.SetTrigger("PlayTrainAnimation");
+                        
                         if (currentDialogueIndex == 48)
                         {
                             StartCoroutine(screenFader.FadeOut(trainStation));

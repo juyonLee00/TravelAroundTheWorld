@@ -15,6 +15,9 @@ public class SoundManager : MonoBehaviour
     private AudioSource sfxSource;
     private Coroutine fadeCoroutine;
 
+    private string currentMusicClipName;
+    private string currentSFXClipName;
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,6 +44,7 @@ public class SoundManager : MonoBehaviour
     public void PlayMusic(string audioClipName, bool loop = true)
     {
         string resourcePath = $"Sounds/{audioClipName}";
+        currentMusicClipName = audioClipName;
         StartCoroutine(LoadAndPlayMusic(resourcePath, loop));
     }
 
@@ -82,6 +86,7 @@ public class SoundManager : MonoBehaviour
     public void PlaySFX(string audioClipName)
     {
         string resourcePath = $"Sounds/{audioClipName}";
+        currentSFXClipName = audioClipName;
         StartCoroutine(LoadAndPlaySFX(resourcePath));
     }
 
@@ -152,4 +157,32 @@ public class SoundManager : MonoBehaviour
         musicSource.Stop();
         sfxSource.Stop();
     }
+
+    public void StopMusic()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+        musicSource.Stop();
+        currentMusicClipName = null; 
+    }
+
+    public void StopCurrentMusic()
+    {
+        if (musicSource.isPlaying)
+        {
+            StopMusic();
+        }
+    }
+
+
+    public void StopCurrentSFX()
+    {
+        if (sfxSource.isPlaying)
+        {
+            StopSFX();
+        }
+    }
+
 }
