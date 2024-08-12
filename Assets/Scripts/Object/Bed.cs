@@ -9,6 +9,8 @@ public class Bed : MonoBehaviour
     private GameObject player;
     private PlayerAnimationController playerAnimationController;
 
+    public GameObject bedNarration;
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -19,6 +21,7 @@ public class Bed : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            bedNarration.SetActive(true);
             UIManager.Instance.ToggleUI("Bed");
             player.GetComponent<PlayerController>().StopMove();
 
