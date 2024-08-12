@@ -12,10 +12,14 @@ public class ChoiceBtn : MonoBehaviour
 
     private string yesData;
     private string noData;
+
+    public GameObject bedNarration;
+
     private void Awake()
     {
         btnDataList = new List<BtnDataSet>();
         player = GameObject.FindWithTag("Player");
+        bedNarration = GameObject.Find("BedNarration");
     }
     void Start()
     {
@@ -80,11 +84,13 @@ public class ChoiceBtn : MonoBehaviour
         {
             GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
             UIManager.Instance.DeactivatedUI("Bed");
+            bedNarration.SetActive(false);
         }
 
         else
         {
             UIManager.Instance.DeactivatedUI("Bed");
+            bedNarration.SetActive(false);
             //Fadeout
             //DayNightCycleManager.Instance.ChangeDay();
         }
@@ -102,6 +108,7 @@ public class ChoiceBtn : MonoBehaviour
         {
             SoundManager.Instance.PlaySFX("click sound");
             UIManager.Instance.DeactivatedUI("Bed");
+            bedNarration.SetActive(false);
             player.GetComponent<PlayerController>().StartMove();
         }
         
