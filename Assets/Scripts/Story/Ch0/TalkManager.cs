@@ -75,6 +75,8 @@ public class TalkManager : MonoBehaviour
     [SerializeField] public Sprite openLetterImg;
     [SerializeField] public GameObject twinkleEffect;
 
+    private bool isTrainActive = false;
+
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
@@ -342,6 +344,16 @@ public class TalkManager : MonoBehaviour
                     if (currentDialogueIndex >= 32)
                     {
                         train.SetActive(true);
+                        if (currentDialogueIndex == 32)
+                        {
+                            SoundManager.Instance.PlaySFX("horn");
+                            //SoundManager.Instance.PlaySFX("a train operation");
+                        }
+                        if (currentDialogueIndex == 37)
+                        {
+                            //효과음만 멈추는 코드 필요
+                            //SoundManager.Instance.StopAllSounds();
+                        }
                         if (currentDialogueIndex == 48)
                         {
                             StartCoroutine(screenFader.FadeOut(trainStation));

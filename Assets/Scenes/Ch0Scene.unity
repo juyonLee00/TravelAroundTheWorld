@@ -597,6 +597,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1717667881088215018, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
   m_PrefabInstance: {fileID: 2623052036226509977}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1244339208
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244339204}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 489cea8032045e44bb4f034a3b5f1d92, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1306678907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4987190503699280588, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 4987190503699280588, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
       propertyPath: m_LocalScale.y
@@ -1407,7 +1428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4987190503699280588, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.41
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 4987190503699280588, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1448,7 +1469,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1717667881088215018, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1244339208}
   m_SourcePrefab: {fileID: 100100000, guid: edc4fcf36531b9d498e7fe9ef5930d5b, type: 3}
 --- !u!1001 &3033281008533426563
 PrefabInstance:
