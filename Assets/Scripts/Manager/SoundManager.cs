@@ -168,6 +168,12 @@ public class SoundManager : MonoBehaviour
         currentMusicClipName = null; 
     }
 
+    public void StopSFX()
+    {
+        sfxSource.Stop();
+        currentSFXClipName = null; // 현재 재생 중인 SFX 클립 이름 초기화
+    }
+
     public void StopCurrentMusic()
     {
         if (musicSource.isPlaying)
