@@ -23,6 +23,9 @@ public class Ch0MapManager : MonoBehaviour
     public Transform playerTransform; // 플레이어의 Transform 참조
     private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
 
+    private Dictionary<string, Bounds> cafeSubZones; // 카페바 구역 지정
+    public bool isInCafeBarZone = false; // 카페바 존에 있는지 여부
+
     void Start()
     {
         currentState = MapState.Null; // 초기 상태 설정
@@ -34,6 +37,8 @@ public class Ch0MapManager : MonoBehaviour
         {
             Debug.LogError("Player Transform is not assigned!");
         }
+
+        InitializeCafeSubZones(); // 카페 내 존 초기화
     }
 
     void Update()
@@ -55,6 +60,16 @@ public class Ch0MapManager : MonoBehaviour
         {
             Debug.LogError("Player Transform is not assigned!");
         }
+    }
+
+    void InitializeCafeSubZones()
+    {
+        cafeSubZones = new Dictionary<string, Bounds>();
+
+        Vector3 cafeBarPosition = new Vector3(6.2f, -4f, 0f); // cafebar의 위치
+        Vector3 cafeBarSize = new Vector3(3f, 1.7f, 1f); // cafebar의 스케일
+
+        cafeSubZones["CafeBar"] = new Bounds(cafeBarPosition, cafeBarSize);
     }
 
     void UpdateMapState()
@@ -100,6 +115,15 @@ public class Ch0MapManager : MonoBehaviour
         else if (playerPosition.x >= -9.6 && playerPosition.x <= 9.6 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
             currentState = MapState.Cafe;
+
+            // 카페바 존에 있는지 확인
+            Bounds cafeBarBounds = cafeSubZones["CafeBar"];
+            if (cafeBarBounds.Contains(playerPosition))
+            {
+                isInCafeBarZone = true;
+            }
+            else { isInCafeBarZone = false; }
+
             // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
             if (currentMusic != "CAFE")
             {

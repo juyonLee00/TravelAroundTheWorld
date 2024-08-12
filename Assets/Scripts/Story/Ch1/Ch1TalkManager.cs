@@ -106,7 +106,7 @@ public class Ch1TalkManager : MonoBehaviour
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
         if (isWaitingForPlayer && mapManager != null)
         {
-            if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 5)
+            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 5)
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
                 player.SetActive(false);
@@ -124,7 +124,7 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
             }
-            else if (mapManager.currentState == MapState.Cafe && currentDialogueIndex == 65)
+            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 65)
             {
                 isWaitingForPlayer = false; // 대기 상태 해제
                 player.SetActive(false); // 플레이어 활성화
@@ -132,6 +132,18 @@ public class Ch1TalkManager : MonoBehaviour
                 cafe.SetActive(true); // 카페 활성화
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex); // 대사 출력
+            }
+
+            // 카페 영역을 벗어나려 할 때 경고 메시지를 표시하는 로직
+            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 65))
+            {
+                // 플레이어를 다시 카페 영역으로 이동
+                player.transform.position = new Vector3(0, 0, 0); // 카페 중앙으로 위치 재설정
+
+                // 경고 메시지 출력
+                narration.SetActive(true);
+                dialogue.SetActive(false);
+                narrationBar.SetDialogue("나레이션", "지금은 일할 시간이야.");
             }
         }
     }
@@ -261,16 +273,17 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
 
             isQuestActive = true; // 퀘스트 활성화 상태로 설정
-            StartCoroutine(screenFader.FadeOut(questObject));
         }
         // 인덱스 62에서 player의 위치를 TrainRoom3로 이동
         else if (index == 62)
         {
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
-            mapManager.currentState = MapState.TrainRoom3; // 맵 상태도 TrainRoom3으로 변경
+            mapManager.currentState = MapState.TrainRoom3; // 맵 상태를 TrainRoom3로 변경
         }
         else if (index == 65)
         {
+            player.transform.position = new Vector3(0, 0, 0);
+            mapManager.currentState = MapState.Cafe; // 맵 상태를 Cafe로 변경
             isWaitingForPlayer = true; // 대기 상태 해제
             player.SetActive(true); // 플레이어 활성화
             map.SetActive(true); // 맵 활성화
@@ -281,12 +294,15 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 5) // "카페로 가자" 대사 이후
         {
-            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
-            EnablePlayerMovement();
-            map.SetActive(true);
-            player.SetActive(true);
-            narration.SetActive(false);
-            dialogue.SetActive(false);
+            player.transform.position = new Vector3(0, 0, 0);
+            mapManager.currentState = MapState.Cafe; // 맵 상태를 Cafe로 변경
+            isWaitingForPlayer = true; // 대기 상태 해제
+            player.SetActive(true); // 플레이어 활성화
+            map.SetActive(true); // 맵 활성화
+            EnablePlayerMovement(); // 플레이어 이동 가능하게 설정
+            trainRoom.SetActive(false); // 객실 비활성화
+            narration.SetActive(false); // 나레이션 비활성화
+            dialogue.SetActive(false); // 대화창 비활성화
         }
         else if (index == 23 && mapManager.currentState == MapState.Cafe) // 인덱스 23 이후의 로직
         {

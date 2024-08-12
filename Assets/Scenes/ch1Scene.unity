@@ -2016,10 +2016,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
+    - target: {fileID: 3470299556406892670, guid: 32920bd167d6083429963fff81fa3c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4056995931287560402, guid: 32920bd167d6083429963fff81fa3c2a, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1372797961}
+    - target: {fileID: 6388664762522829436, guid: 32920bd167d6083429963fff81fa3c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
