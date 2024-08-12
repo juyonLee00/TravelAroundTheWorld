@@ -1,44 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopStart : MonoBehaviour
 {
     //public Image selectedImageDisplay;
-    public GameObject buyButton;
+    public GameObject newSpeech;
     public GameObject selectedImageDisplay;
     public string fail;
     public string success;
     public TextMeshProUGUI purchase;
+    public TextMeshProUGUI description;
+    public TextMeshProUGUI pricedescription;
 
-    GameObject player;
-    TestPlayer test;
+    PlayerManager player;
 
     int selected;
     int[] price = { 3500, 3000 };
+    string[] item = { "ìš°ìœ ", "í‹°ì„¸íŠ¸" };
 
     
     void Start()
     {
-        player = GameObject.Find("TestPlayer");
-        test = player.GetComponent<TestPlayer>();
-        if (test != null) 
-        { 
-            Debug.Log("null"); 
-        } else { Debug.Log("not null"); }
+        player = PlayerManager.Instance;
 
-        // ºÎ¸ğ ¿ÀºêÁ§Æ® ¶Ç´Â Æ¯Á¤ ¿ÀºêÁ§Æ® ¾Æ·¡ÀÇ ¸ğµç Button ÄÄÆ÷³ÍÆ®¸¦ Ã£½À´Ï´Ù.
+        // ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ ë˜ëŠ” íŠ¹ì • ì˜¤ë¸Œì íŠ¸ ì•„ë˜ì˜ ëª¨ë“  Button ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ìŠµë‹ˆë‹¤.
         Button[] buttons = GetComponentsInChildren<Button>();
 
-        // °¢ ¹öÆ°¿¡ ÀÌº¥Æ® ¸®½º³Ê¸¦ Ãß°¡ÇÕ´Ï´Ù.
+        // ê° ë²„íŠ¼ì— ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
         foreach (Button button in buttons)
         {
             button.onClick.AddListener(() => OnButtonClick(button));
         }
 
-        Button buyBtn = buyButton.GetComponent<Button>();
+        Button buyBtn = newSpeech.transform.GetChild(0).GetComponent<Button>();
         if (buyBtn != null)
         {
             buyBtn.onClick.AddListener(OnBuyButtonClick);
@@ -49,16 +47,17 @@ public class ShopStart : MonoBehaviour
         }
     }
 
-    // ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ È£ÃâµÇ´Â ¸Ş¼Òµå
+    // ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ í˜¸ì¶œë˜ëŠ” ë©”ì†Œë“œ
     void OnButtonClick(Button clickedButton)
     {
-        
-        buyButton.SetActive(true);
+        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        newSpeech.SetActive(true);
         selectedImageDisplay.SetActive(true);
         
-        // ¹öÆ°ÀÇ RectTransform ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿É´Ï´Ù.
+        // ë²„íŠ¼ì˜ RectTransform ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         RectTransform rectTransform = clickedButton.GetComponent<RectTransform>();
-        if (rectTransform.localPosition.x > -76 && rectTransform.localPosition.x < -74)
+
+        if (rectTransform.localPosition.x > -200 && rectTransform.localPosition.x < -190)
         {
             selected = 0;
             Debug.Log(selected);
@@ -68,43 +67,43 @@ public class ShopStart : MonoBehaviour
             selected = 1;
             Debug.Log(selected);
         }
-        Debug.Log(rectTransform.localPosition.x);
-        // ºÎ¸ğ ¿ÀºêÁ§Æ®¸¦ ±âÁØÀ¸·Î ÇÑ ·ÎÄÃ ÁÂÇ¥°è¿¡¼­ÀÇ ¹öÆ° À§Ä¡
+        // ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ë¡œì»¬ ì¢Œí‘œê³„ì—ì„œì˜ ë²„íŠ¼ ìœ„ì¹˜
         Vector3 localPosition = rectTransform.localPosition;
+
+
         localPosition = new Vector3(
-            localPosition.x - 2,
-            localPosition.y + 24,
+            localPosition.x,
+            localPosition.y + 41,
             localPosition.z
         );
         
         selectedImageDisplay.transform.localPosition = localPosition;
-
-
-        //Debug.Log(rectTransform);
-        //Debug.Log(localPosition);
-        
-
     }
 
     void OnBuyButtonClick()
     {
-        Debug.Log("Buy Button Clicked!");
-        if (test.bean == 500)
-        {
-            Debug.Log("500");
-        }
-        else Debug.Log("not 500");
-
-        if (price[selected] > test.bean)
+        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        if (price[selected] > player.GetMoney())
         {
             purchase.text = fail;
+            description.text = "";
+            pricedescription.text = "";
         }
         else
         {
             purchase.text = success;
-            test.bean -= price[selected];
-            test.list[selected] = true;
+            description.text = "";
+            pricedescription.text = "";
+            player.PayMoney(price[selected]);
+            player.AddCafeItem(item[selected]);
         }
         
+    }
+
+    public void HideSpeech()
+    {
+        transform.parent.gameObject.SetActive(false);
+        selectedImageDisplay.SetActive(false);
+
     }
 }
