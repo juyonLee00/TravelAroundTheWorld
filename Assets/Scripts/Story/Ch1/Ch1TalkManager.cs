@@ -208,6 +208,7 @@ public class Ch1TalkManager : MonoBehaviour
         characterImages["가이"] = Resources.Load<Sprite>("NpcImage/Gai");
         characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
         characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
+        characterImages["파이아"] = Resources.Load<Sprite>("NpcImage/Fire");
 
         // 큰 이미지 로드
         characterBigImages["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas_big");
