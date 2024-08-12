@@ -39,6 +39,8 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject Npc_Rusk; // 빵집 npc
     public GameObject Npc_Violet; // 바 npc
 
+    public GameObject cheetahShopCh0; // 치타샵 UI
+
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
     private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
 
@@ -294,6 +296,14 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rayviyak.SetActive(false);
 
             isQuestActive = true; // 퀘스트 활성화 상태로 설정
+        }
+        else if (index == 197)
+        {
+            if (cheetahShopCh0 != null)
+            {
+                cheetahShopCh0.SetActive(true); // CheetahShop Ch0 UI 활성화
+            }
+            return; // 다른 처리가 필요 없으면 여기서 함수 종료
         }
         // 인덱스 62에서 player의 위치를 TrainRoom3로 이동
         else if (index == 62)
