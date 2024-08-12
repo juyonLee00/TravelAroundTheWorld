@@ -303,6 +303,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             cheetahShopCh0.SetActive(true); // CheetahShop Ch0 UI 활성화
+            currentDialogueIndex++;
             return;
         }
         else if (index == 198)
