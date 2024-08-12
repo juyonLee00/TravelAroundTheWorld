@@ -116,14 +116,14 @@ public class StartBtnGroup : MonoBehaviour
 
         PosData loadBtn = new PosData
         {
-            xPos = 620,
+            xPos = 610,
             width = 180,
             height = 75
         };
 
         PosData exitBtn = new PosData
         {
-            xPos = 833,
+            xPos = 818,
             width = 180,
             height = 75
         };
