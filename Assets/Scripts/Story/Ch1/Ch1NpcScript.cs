@@ -41,8 +41,23 @@ public class Ch1NpcScript : MonoBehaviour
         {
             dialogueButton.SetActive(true);
         }
-        // currentDialogueIndex가 33인 경우 정원 NPC와 상호작용
+        // currentDialogueIndex가 104인 경우 정원 NPC와 상호작용
         else if (isPlayerInRange && talkManager.currentDialogueIndex == 104 && gameObject.name == "Npc_Rayviyak")
+        {
+            dialogueButton.SetActive(true);
+        }
+        // currentDialogueIndex가 187인 경우 정원 NPC와 상호작용
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 187 && gameObject.name == "Npc_Rayviyak")
+        {
+            dialogueButton.SetActive(true);
+        }
+        // currentDialogueIndex가 191인 경우 바 NPC와 상호작용
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Violet")
+        {
+            dialogueButton.SetActive(true);
+        }
+        // currentDialogueIndex가 207인 경우 빵집 NPC와 상호작용
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Rusk")
         {
             dialogueButton.SetActive(true);
         }
@@ -80,12 +95,48 @@ public class Ch1NpcScript : MonoBehaviour
             talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
         }
         // currentDialogueIndex가 104인 경우 정원 NPC와 대화 진행
-        if (talkManager.currentDialogueIndex == 104 && gameObject.name == "Npc_Rayviyak")
+        else if (talkManager.currentDialogueIndex == 104 && gameObject.name == "Npc_Rayviyak")
         {
             talkManager.map.SetActive(false);
             talkManager.player.SetActive(false);
             talkManager.Npc_Rayviyak.SetActive(false);
             talkManager.garden.SetActive(true);
+            talkManager.dialogue.SetActive(true);
+            talkManager.isWaitingForPlayer = false;
+            talkManager.currentDialogueIndex++;
+            talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+        }
+        // currentDialogueIndex가 187인 경우 정원 NPC와 대화 진행
+        else if (talkManager.currentDialogueIndex == 187 && gameObject.name == "Npc_Rayviyak")
+        {
+            talkManager.map.SetActive(false);
+            talkManager.player.SetActive(false);
+            talkManager.Npc_Rayviyak.SetActive(false);
+            talkManager.garden.SetActive(true);
+            talkManager.dialogue.SetActive(true);
+            talkManager.isWaitingForPlayer = false;
+            talkManager.currentDialogueIndex++;
+            talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+        }
+        // currentDialogueIndex가 191 경우 바 NPC와 대화 진행
+        else if (talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Violet")
+        {
+            talkManager.map.SetActive(false);
+            talkManager.player.SetActive(false);
+            talkManager.Npc_Violet.SetActive(false);
+            talkManager.cafe.SetActive(true);
+            talkManager.dialogue.SetActive(true);
+            talkManager.isWaitingForPlayer = false;
+            talkManager.currentDialogueIndex++;
+            talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+        }
+        // currentDialogueIndex가 207 경우 빵집 NPC와 대화 진행
+        else if (talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Rusk")
+        {
+            talkManager.map.SetActive(false);
+            talkManager.player.SetActive(false);
+            talkManager.Npc_Rusk.SetActive(false);
+            talkManager.bakery.SetActive(true);
             talkManager.dialogue.SetActive(true);
             talkManager.isWaitingForPlayer = false;
             talkManager.currentDialogueIndex++;

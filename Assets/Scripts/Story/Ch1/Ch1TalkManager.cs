@@ -155,7 +155,7 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 193) // 인덱스 189 때 발코니 도착하면 스토리 다시 진행
+            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 195) // 인덱스 195 때 발코니 도착하면 스토리 다시 진행
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -164,16 +164,7 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 205) // 인덱스 205 때 빵집 도착하면 스토리 다시 진행
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                bakery.SetActive(true);
-                currentDialogueIndex++;
-                PrintCh1ProDialogue(currentDialogueIndex);
-            }
-            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 258) // 인덱스 258 때 카페바에 도착하면 스토리 다시 진행
+            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 261) // 인덱스 261 때 카페바에 도착하면 스토리 다시 진행
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -184,7 +175,7 @@ public class Ch1TalkManager : MonoBehaviour
             }
 
             // 카페에서 일해야 되는데 다른 곳으로 가려고 하면 다시 카페로 플레이어 강제 이동
-            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 67 || currentDialogueIndex == 136 || currentDialogueIndex == 258))
+            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 67 || currentDialogueIndex == 136 || currentDialogueIndex == 261))
             {
                 player.transform.position = new Vector3(0, 0, 0);
                 narration.SetActive(true);
@@ -434,7 +425,29 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 193) // 특별상점까지 이동 가능하게 전환
+        else if (index == 187 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
+        {
+            isWaitingForPlayer = true;
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            cafe.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Rayviyak.SetActive(true);
+        }
+        else if (index == 191 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
+        {
+            isWaitingForPlayer = true;
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            garden.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Violet.SetActive(true);
+        }
+        else if (index == 195) // 특별상점까지 이동 가능하게 전환
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -446,21 +459,21 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 201) // 치타샵 ui 활성화
+        else if (index == 203) // 치타샵 ui 활성화
         {
             balcony.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
             cheetahShopCh0.SetActive(true);
         }
-        else if (index == 202) // 치타샵 ui 비활성화
+        else if (index == 204) // 치타샵 ui 비활성화
         {
             balcony.SetActive(true);
             narration.SetActive(true);
             dialogue.SetActive(true);
             cheetahShopCh0.SetActive(false);
         }
-        else if (index == 205) // 빵집까지 이동 가능하게 전환
+        else if (index == 207 && mapManager.currentState == MapState.Balcony) // 빵집까지 이동 가능하게 전환
         {            
             isWaitingForPlayer = true;
             EnablePlayerMovement();
@@ -469,13 +482,14 @@ public class Ch1TalkManager : MonoBehaviour
             balcony.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
+            Npc_Rusk.SetActive(true);
         }
-        else if (index == 254) // 빵집 npc와 대화 후 객실 자동 이동 및 맵상태 변경
+        else if (index == 257) // 빵집 npc와 대화 후 객실 자동 이동 및 맵상태 변경
         {
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
             mapManager.currentState = MapState.TrainRoom3;
         }
-        else if (index == 258) // 기상 후 플레이어 카페로 자동 이동 및 맵상태 변경
+        else if (index == 261) // 기상 후 플레이어 카페로 자동 이동 및 맵상태 변경
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -487,7 +501,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 315 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
+        else if (index == 318 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             EnablePlayerMovement();
@@ -532,6 +546,35 @@ public class Ch1TalkManager : MonoBehaviour
             player.SetActive(false);
             Npc_Rayviyak.SetActive(false);
             garden.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 187)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rayviyak.SetActive(false);
+            garden.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 191)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Violet.SetActive(false);
+            cafe.SetActive(true);
+            dialogue.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 207)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rusk.SetActive(false);
+            bakery.SetActive(true);
+            dialogue.SetActive(true);
             isWaitingForPlayer = false;
             PrintCh1ProDialogue(currentDialogueIndex);
         }

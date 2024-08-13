@@ -806,6 +806,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8507613518046425251, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
   m_PrefabInstance: {fileID: 1111318269392346671}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1894486046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894486045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68bd332e7d70f347bc9f7a84d022ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueButton: {fileID: 1111318269392346672}
+  talkManager: {fileID: 1428910364}
+  player: {fileID: 1372797961}
+  interactionRange: 2
 --- !u!1 &1959825618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5934517695576946740, guid: 65cffa0052c25854797071e9852c3dd6, type: 3}
@@ -1473,6 +1489,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 186873656813999891, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1894486046}
+    - target: {fileID: 186873656813999891, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDialogueButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 186873656813999891, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ch1NpcScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3703557257299616977, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -1553,11 +1581,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Npc_Rusk
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8179808101840720264, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+    - {fileID: 6121311264916669244, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+    - {fileID: 9015350299628952490, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+    - {fileID: 1773637923132018402, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8507613518046425251, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1894486046}
   m_SourcePrefab: {fileID: 100100000, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+--- !u!1 &1111318269392346672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3767971109127311560, guid: 27048c81e7b31554c81860c4d112ecf3, type: 3}
+  m_PrefabInstance: {fileID: 1111318269392346671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1832051892601305100
 PrefabInstance:
   m_ObjectHideFlags: 0
