@@ -395,7 +395,7 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Rayviyak.SetActive(true);
         }
-        else if (index == 36 && mapManager.currentState == MapState.Garden)
+        else if (index == 36 && mapManager.currentState == MapState.Cafe)
         {
             isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
             EnablePlayerMovement();
@@ -431,7 +431,8 @@ public class Ch1TalkManager : MonoBehaviour
             map.SetActive(false);
             player.SetActive(false);
             Npc_Violet.SetActive(false);
-            jazzBar.SetActive(true);
+            cafe.SetActive(true);
+            dialogue.SetActive(true);
             isWaitingForPlayer = false; // 대기 상태 해제
             PrintCh1ProDialogue(currentDialogueIndex);
         }
