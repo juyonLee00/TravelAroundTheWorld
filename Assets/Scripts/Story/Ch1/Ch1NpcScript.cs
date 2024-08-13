@@ -41,6 +41,11 @@ public class Ch1NpcScript : MonoBehaviour
         {
             dialogueButton.SetActive(true);
         }
+        // currentDialogueIndex가 33인 경우 정원 NPC와 상호작용
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 104 && gameObject.name == "Npc_Rayviyak")
+        {
+            dialogueButton.SetActive(true);
+        }
         else
         {
             dialogueButton.SetActive(false);
@@ -69,6 +74,18 @@ public class Ch1NpcScript : MonoBehaviour
             talkManager.player.SetActive(false);
             talkManager.Npc_Violet.SetActive(false);
             talkManager.cafe.SetActive(true);
+            talkManager.dialogue.SetActive(true);
+            talkManager.isWaitingForPlayer = false;
+            talkManager.currentDialogueIndex++;
+            talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+        }
+        // currentDialogueIndex가 104인 경우 정원 NPC와 대화 진행
+        if (talkManager.currentDialogueIndex == 104 && gameObject.name == "Npc_Rayviyak")
+        {
+            talkManager.map.SetActive(false);
+            talkManager.player.SetActive(false);
+            talkManager.Npc_Rayviyak.SetActive(false);
+            talkManager.garden.SetActive(true);
             talkManager.dialogue.SetActive(true);
             talkManager.isWaitingForPlayer = false;
             talkManager.currentDialogueIndex++;

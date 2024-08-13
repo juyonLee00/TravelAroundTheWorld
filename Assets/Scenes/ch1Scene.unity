@@ -160,17 +160,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4023244194683745959, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
   m_PrefabInstance: {fileID: 2970476393248888340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &302479979 stripped
+--- !u!114 &302479985
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8971799521879701701, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
-  m_PrefabInstance: {fileID: 2970476393248888340}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302479978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc46628e7995354381d4f93ba49aef4, type: 3}
+  m_Script: {fileID: 11500000, guid: f68bd332e7d70f347bc9f7a84d022ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueButton: {fileID: 1677687963}
+  talkManager: {fileID: 1428910364}
+  player: {fileID: 1372797961}
+  interactionRange: 2
 --- !u!1 &370653972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1803783457138325445, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
@@ -2035,10 +2040,14 @@ PrefabInstance:
     - target: {fileID: 127043352943164590, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 302479978}
+      objectReference: {fileID: 302479985}
     - target: {fileID: 127043352943164590, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: OnDialogueButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 127043352943164590, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ch1NpcScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1123884114722494836, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
       propertyPath: m_LocalScale.x
@@ -2136,10 +2145,17 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1372797961}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3522981048674660198, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
+    - {fileID: 8971799521879701701, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
+    - {fileID: 2018904693040600248, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
+    - {fileID: 3719843176502670968, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4023244194683745959, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 302479985}
   m_SourcePrefab: {fileID: 100100000, guid: 5919c7cd439af1f498790c042aa478e2, type: 3}
 --- !u!1001 &3407636624811081289
 PrefabInstance:
@@ -3337,7 +3353,7 @@ PrefabInstance:
     - target: {fileID: 5705592646663647476, guid: 0750962c5b8a8e74cb88e83b8ce51ffd, type: 3}
       propertyPath: ch1TriggerArea
       value: 
-      objectReference: {fileID: 302479979}
+      objectReference: {fileID: 0}
     - target: {fileID: 5705592646663647476, guid: 0750962c5b8a8e74cb88e83b8ce51ffd, type: 3}
       propertyPath: cheetahShopCh0
       value: 
