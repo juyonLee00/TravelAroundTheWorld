@@ -14,6 +14,12 @@ public class CafeMakeController : MonoBehaviour
     public GameObject RooibosTea;
     public GameObject GreenTea;
 
+    public GameObject OrderHotAm2;
+    public GameObject OrderIceAm;
+    public GameObject OrderHotAm;
+
+    public GameObject Beverage;
+    public GameObject CafeMap;
     public List<string> currentIngredients = new List<string>();
 
     private IngredientController ingredientController;
@@ -91,5 +97,42 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("Chamomile is maded");
             ingredientController.CupPos("HotCup");
         }
+        CheckOrder();
     }
+    public void CheckOrder()
+    {
+        if (IceAmericano.activeSelf)
+        {
+            OrderIceAm.SetActive(false);
+            IceAmericano.SetActive(false);
+            currentIngredients.Clear();
+        }
+        else if (HotAmericano.activeSelf)
+        {
+            if (OrderHotAm2.activeSelf)
+            {
+                OrderHotAm2.SetActive(false);
+                HotAmericano.SetActive(false);
+                currentIngredients.Clear();
+            }
+            else
+                OrderHotAm.SetActive(false);
+                HotAmericano.SetActive(false);
+                currentIngredients.Clear();
+        }
+        CheckOrderClear();
+    }
+    public void CheckOrderClear()
+    {
+        Debug.Log("a: " + !OrderHotAm.activeSelf + "b: " + !OrderHotAm2.activeSelf + "c: " + !OrderIceAm.activeSelf);
+
+        Debug.Log("check");
+        if (!OrderHotAm2.activeSelf && !OrderHotAm.activeSelf && !OrderIceAm.activeSelf)
+        {
+            Debug.Log("clear");
+            Beverage.SetActive(false);
+            CafeMap.SetActive(true);
+        }
+    }
+        
 }

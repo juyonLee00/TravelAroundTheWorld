@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CafeTalkManager : MonoBehaviour
@@ -38,7 +39,8 @@ public class CafeTalkManager : MonoBehaviour
     public GameObject Done;
 
     public GameObject train;
-    public GameObject cheetahShop;
+    public GameObject cheetah;
+    public GameObject narrBack;
 
     private const string narrationSpeaker = "나레이션";
     private const string locationCafe = "카페";
@@ -65,6 +67,7 @@ public class CafeTalkManager : MonoBehaviour
         {
             PrintProDialogue(currentDialogueIndex);
         }
+
     }
 
     void Update()
@@ -163,14 +166,16 @@ public class CafeTalkManager : MonoBehaviour
         }
     }
 
+
     public void PrintProDialogue(int index)
     {
         if (index >= proDialogue.Count)
         {
             return;
         }
-
         ProDialogue currentDialogue = proDialogue[index];
+            
+
 
         // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
         if (index >= 40 && index <= 51)
@@ -190,14 +195,21 @@ public class CafeTalkManager : MonoBehaviour
         if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 51)
         {
             Beverage.SetActive(false);
-            cheetahShop.SetActive(false);
             CafeMap.SetActive(true);
+            narrBack.SetActive(false);
+            if (index >= 18 && index <= 36)
+                cheetah.SetActive(true);
+            else
+                cheetah.SetActive(false);
+            narration.SetActive(false);
         }
         else if (index > 29 && index < 34)
         {
             Beverage.SetActive(false);
-            cheetahShop.SetActive(true);
-            CafeMap.SetActive(false);
+            cheetah.SetActive(true);
+            CafeMap.SetActive(true);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         else if (index > 39 && index < 42)
         { 
@@ -206,6 +218,9 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
+            cheetah.SetActive(false);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         else if (index == 42)
         {
@@ -214,6 +229,9 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
+            cheetah.SetActive(false);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         else if (index > 42 && index < 51)
         {
@@ -222,6 +240,9 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
+            cheetah.SetActive(false);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         else if (index == 51)
         {
@@ -231,6 +252,9 @@ public class CafeTalkManager : MonoBehaviour
             IceCup.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
+            cheetah.SetActive(false);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         else
         {
@@ -241,6 +265,9 @@ public class CafeTalkManager : MonoBehaviour
             IceAmericano.SetActive(false);
             CafeMap.SetActive(false);
             Beverage.SetActive(true);
+            cheetah.SetActive(false);
+            narration.SetActive(false);
+            narrBack.SetActive(false);
         }
         if (currentDialogue.speaker == narrationSpeaker)
         {
@@ -249,7 +276,10 @@ public class CafeTalkManager : MonoBehaviour
             dialogue.SetActive(false);
             narration.SetActive(true);
             narrationText.text = currentDialogue.line;
+            narrBack.SetActive(true);
         }
+        Debug.Log("current index: " + currentDialogueIndex + " && cheetah active: " + cheetah.activeSelf.ToString());
+
     }
 
     void ActiveTalk()
