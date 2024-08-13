@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
                 Delivery.SetActive(true);
                 CafeMap.SetActive(false);
             }
-            if (clickedObject != null && clickedObject.name == "RecipeBook")
+            if (clickedObject != null && (clickedObject.name == "RecipeBook" || clickedObject.name == "Recipe"))
             {
                 RecipeBook.SetActive(true);
                 CafeMap.SetActive(false);
