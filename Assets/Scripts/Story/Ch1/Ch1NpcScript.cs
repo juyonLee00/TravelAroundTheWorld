@@ -21,11 +21,23 @@ public class Ch1NpcScript : MonoBehaviour
 
     void Update()
     {
+        // NPC가 활성화되어 있을 때만 상호작용 가능 여부를 확인
+        if (!gameObject.activeInHierarchy)
+        {
+            dialogueButton.SetActive(false);
+            return;
+        }
+
         // 플레이어가 NPC 근처에 있는지 체크
         isPlayerInRange = Vector3.Distance(player.position, transform.position) <= interactionRange;
 
-        // 플레이어가 범위 내에 있고 currentDialogueIndex가 36이면 버튼 활성화
-        if (isPlayerInRange && talkManager.currentDialogueIndex == 36)
+        // currentDialogueIndex가 33인 경우 정원 NPC와 상호작용
+        if (isPlayerInRange && talkManager.currentDialogueIndex == 33 && gameObject.name == "Npc_Rayviyak")
+        {
+            dialogueButton.SetActive(true);
+        }
+        // currentDialogueIndex가 37인 경우 바 NPC와 상호작용
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 37 && gameObject.name == "Npc_Violet")
         {
             dialogueButton.SetActive(true);
         }
@@ -38,7 +50,20 @@ public class Ch1NpcScript : MonoBehaviour
     // "대화하기" 버튼을 눌렀을 때 호출되는 함수
     public void OnDialogueButtonClicked()
     {
-        if (talkManager.currentDialogueIndex == 36)
+        // currentDialogueIndex가 33인 경우 정원 NPC와 대화 진행
+        if (talkManager.currentDialogueIndex == 33 && gameObject.name == "Npc_Rayviyak")
+        {
+            talkManager.map.SetActive(false);
+            talkManager.player.SetActive(false);
+            talkManager.Npc_Rayviyak.SetActive(false);
+            talkManager.garden.SetActive(true);
+            talkManager.dialogue.SetActive(true);
+            talkManager.isWaitingForPlayer = false;
+            talkManager.currentDialogueIndex++;
+            talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+        }
+        // currentDialogueIndex가 37인 경우 바 NPC와 대화 진행
+        else if (talkManager.currentDialogueIndex == 37 && gameObject.name == "Npc_Violet")
         {
             talkManager.map.SetActive(false);
             talkManager.player.SetActive(false);
