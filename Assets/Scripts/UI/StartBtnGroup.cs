@@ -55,7 +55,7 @@ public class StartBtnGroup : MonoBehaviour
 
     void SetUIData()
     {
-        yPos = -188;
+        yPos = -200;
         btnPos = new Vector2(-300, -100);
 
         settingBtnPos = new Vector2(300, 120);
@@ -102,21 +102,21 @@ public class StartBtnGroup : MonoBehaviour
     {
         PosData startBtn = new PosData
         {
-            xPos = 37,
+            xPos = -10,
             width = 280,
             height = 75
         };
 
         PosData continueBtn = new PosData
         {
-            xPos = 355,
+            xPos = 330,
             width = 280,
             height = 75
         };
 
         PosData loadBtn = new PosData
         {
-            xPos = 620,
+            xPos = 610,
             width = 180,
             height = 75
         };

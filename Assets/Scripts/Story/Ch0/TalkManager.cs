@@ -290,16 +290,18 @@ public class TalkManager : MonoBehaviour
                     SoundManager.Instance.PlayMusic("TRAIN STATION 1.3", loop: true);
                     currentMusic = "TRAIN STATION 1.3"; // 현재 재생 중인 음악 이름을 업데이트
                 }
-                
+
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
                 }
+
                 else if (currentDialogueIndex >= 3 && currentDialogueIndex <= 23)
                 {
                     invitation.SetActive(true);
                     if (currentDialogueIndex == 3)
-                        letterAnimator.SetBool("isTwinkled", true);
+                        letterAnimator.SetTrigger("isTwinkled");
+
                     if (currentDialogueIndex >= 3 && currentDialogueIndex <= 5)
                     {
                         invitationText.gameObject.SetActive(false);
@@ -310,7 +312,9 @@ public class TalkManager : MonoBehaviour
                         invitation.GetComponent<SpriteRenderer>().sprite = openPaperImg;
                         if (currentDialogueIndex == 6)
                         {
+
                             letterAnimator.SetBool("isOpened", true);
+
                         }
                         else if (currentDialogueIndex == 7)
                         {
@@ -321,7 +325,6 @@ public class TalkManager : MonoBehaviour
                         {
                             invitationText.gameObject.SetActive(true);
                         }
-
                     }
                     if (currentDialogueIndex == 23)
                     {
