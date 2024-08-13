@@ -39,8 +39,7 @@ public class GameManager : MonoBehaviour
             {
                 Beverage.SetActive(true);
                 CafeMap.SetActive(false);
-                orderController.GenerateOrder();
-                //주문 확인해서 UI 띄우는 함수 필요 (주문 처리 완료 시 Beverage false, CafeMap true
+                //주문 확인해서 UI 띄우는 함수 필요 (주문 처리 완료 시 Beverage false, CafeMap true orderController.GenerateOrder();
 
             }
             if (clickedObject !=   null && clickedObject.name == "RoomService")

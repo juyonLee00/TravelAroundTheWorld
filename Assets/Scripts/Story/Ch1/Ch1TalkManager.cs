@@ -17,6 +17,9 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject letter; // 편지지 화면
     public TextMeshProUGUI letterText;
 
+    public GameObject player; // 플레이어 캐릭터
+    public GameObject map; // 맵
+
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
     public GameObject trainRoomHallway; // 객실 복도 화면
@@ -48,27 +51,52 @@ public class Ch1TalkManager : MonoBehaviour
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
     public QuestManager questManager; // 퀘스트 매니저 참조
+    public PlayerController playerController; // 플레이어 컨트롤러 참조
+    public Ch0MapManager mapManager; // 맵 매니저 참조
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
+
+    private bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
 
     void Awake()
     {
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
         InitializeCharacterImages();
+
+        // mapManager 초기화
+        if (map != null)
+        {
+            mapManager = map.GetComponent<Ch0MapManager>();
+        }
+
+        playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
     }
+
 
     void Start()
     {
+        playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
         ActivateTalk("객실");
     }
 
     void Update()
     {
-        if (isActivated && Input.GetKeyDown(KeyCode.Space))
+        if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
             currentDialogueIndex++;
             PrintCh1ProDialogue(currentDialogueIndex);
+        }
+
+        // 플레이어가 특정 위치에 도달했는지 확인하는 부분
+        if (isWaitingForPlayer && mapManager != null && mapManager.currentState == MapState.Cafe)
+        {
+            isWaitingForPlayer = false; // 대기 상태 해제
+            player.SetActive(false);
+            map.SetActive(false);
+            cafe.SetActive(true);
+            currentDialogueIndex++; // 다음 대사로 넘어가기
+            PrintCh1ProDialogue(currentDialogueIndex); // 다음 대사 출력
         }
     }
 
@@ -161,7 +189,20 @@ public class Ch1TalkManager : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
-        CheckTalk(currentDialogue.location);
+        // 특정 대화 인덱스에서 플레이어 이동을 활성화하는 로직
+        if (index == 5) // 예시: "카페로 가자" 대사 이후
+        {
+            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+        }
+        else
+        {
+            CheckTalk(currentDialogue.location);
+        }
     }
 
     public void ActivateTalk(string locationName)
@@ -247,6 +288,16 @@ public class Ch1TalkManager : MonoBehaviour
         {
             DeactivateTalk();
         }
+    }
+
+    void EnablePlayerMovement()
+    {
+        playerController.StartMove(); // 플레이어 이동 활성화
+    }
+
+    void DisablePlayerMovement()
+    {
+        playerController.StopMove(); // 플레이어 이동 비활성화
     }
 
     private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
