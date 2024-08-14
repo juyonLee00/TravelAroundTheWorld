@@ -181,6 +181,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1803783457138325445, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
   m_PrefabInstance: {fileID: 275589279649957384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &370653979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370653972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68bd332e7d70f347bc9f7a84d022ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueButton: {fileID: 1604173484}
+  talkManager: {fileID: 1428910364}
+  player: {fileID: 1372797961}
+  interactionRange: 2
 --- !u!1 &406368607 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5596419033801846888, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
@@ -691,6 +707,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6735713048108156032, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
   m_PrefabInstance: {fileID: 3407636624811081289}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1604173484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3437325266864594637, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+  m_PrefabInstance: {fileID: 275589279649957384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1607421161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1054,18 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1372797961}
+    - target: {fileID: 940828090434371722, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 370653979}
+    - target: {fileID: 940828090434371722, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDialogueButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 940828090434371722, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ch1NpcScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1179779251849977932, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
       propertyPath: playerTransform
       value: 
@@ -1105,10 +1138,17 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1179779251849977932, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+    - {fileID: 114709524692377827, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+    - {fileID: 421101248552080891, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+    - {fileID: 7243056208231914302, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1803783457138325445, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 370653979}
   m_SourcePrefab: {fileID: 100100000, guid: 861a581c91b46ee428b2fa4108ede0b3, type: 3}
 --- !u!1001 &355774352981774369
 PrefabInstance:
@@ -2289,9 +2329,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5401701006510671228, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1500.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401701006510671228, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 103.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401701006510671228, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -337.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401701006510671228, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 376.23
+      objectReference: {fileID: 0}
     - target: {fileID: 5683587076558044619, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
       propertyPath: m_Name
       value: Dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5683587076558044619, guid: 0f73d68b82bdbb14bab77525dfac67bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
