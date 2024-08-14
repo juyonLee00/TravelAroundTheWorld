@@ -103,29 +103,29 @@ public class StartBtnGroup : MonoBehaviour
         PosData startBtn = new PosData
         {
             xPos = -10,
-            width = 280,
-            height = 75
+            width = 306,
+            height = 90
         };
 
         PosData continueBtn = new PosData
         {
             xPos = 330,
-            width = 280,
-            height = 75
+            width = 306,
+            height = 90
         };
 
         PosData loadBtn = new PosData
         {
             xPos = 610,
-            width = 180,
-            height = 75
+            width = 192,
+            height = 90
         };
 
         PosData exitBtn = new PosData
         {
             xPos = 833,
-            width = 180,
-            height = 75
+            width = 192,
+            height = 90
         };
         btnPosList.Add(startBtn);
         btnPosList.Add(continueBtn);
@@ -179,8 +179,8 @@ public class StartBtnGroup : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX("click sound");
         UIManager.Instance.ToggleUI("SaveData");
-        UIManager.Instance.ToggleUI("SaveDataPopup");
-        UIManager.Instance.DeactivatedUI("SaveDataPopup");
+        //UIManager.Instance.ToggleUI("SaveDataPopup");
+        //UIManager.Instance.DeactivatedUI("SaveDataPopup");
         //UIManager.Instance.ToggleUI("SaveData");
     }
 
