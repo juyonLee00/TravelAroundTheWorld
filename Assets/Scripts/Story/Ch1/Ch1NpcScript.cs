@@ -57,7 +57,7 @@ public class Ch1NpcScript : MonoBehaviour
             dialogueButton.SetActive(true);
         }
         // currentDialogueIndex가 207인 경우 빵집 NPC와 상호작용
-        else if (isPlayerInRange && talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Rusk")
+        else if (isPlayerInRange && talkManager.currentDialogueIndex == 207 && gameObject.name == "Npc_Rusk")
         {
             dialogueButton.SetActive(true);
         }
@@ -131,7 +131,7 @@ public class Ch1NpcScript : MonoBehaviour
             talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
         }
         // currentDialogueIndex가 207 경우 빵집 NPC와 대화 진행
-        else if (talkManager.currentDialogueIndex == 191 && gameObject.name == "Npc_Rusk")
+        else if (talkManager.currentDialogueIndex == 207 && gameObject.name == "Npc_Rusk")
         {
             talkManager.map.SetActive(false);
             talkManager.player.SetActive(false);
