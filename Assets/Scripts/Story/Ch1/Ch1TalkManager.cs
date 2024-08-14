@@ -381,7 +381,7 @@ public class Ch1TalkManager : MonoBehaviour
             QuestManager.Instance.CompleteQuest("비밀퀘스트1"); // 기존 퀘스트 완료 처리
             QuestManager.Instance.AddQuest(quest, questContent); // 새로운 퀘스트 추가
 
-            questText.text = $"{quest}\n\n{questContent}";
+            questText.text = $"비밀 퀘스트 2\n\n편지를 남긴 사람은 누구일까요? 정원사는 그에 대해 알지도 모릅니다. 정원에서 정보를 얻어봅시다.";
             questObject.SetActive(true);
             map.SetActive(false);
             player.SetActive(false);
@@ -522,6 +522,7 @@ public class Ch1TalkManager : MonoBehaviour
             cafe.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
+            Npc_Rayviyak.SetActive(true);
         }
         else if (index == 322 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
         {
