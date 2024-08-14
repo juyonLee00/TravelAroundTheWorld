@@ -99,6 +99,7 @@ public class CafeTalkManager : MonoBehaviour
                 currentDialogueIndex != 49)
             {
                 currentDialogueIndex++;
+                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
         }
@@ -112,6 +113,7 @@ public class CafeTalkManager : MonoBehaviour
             {
                 Debug.Log("Hit CoffeePot at index " + currentDialogueIndex);
                 currentDialogueIndex++;
+                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
             else
@@ -126,6 +128,7 @@ public class CafeTalkManager : MonoBehaviour
                 Debug.Log("Hit Extract at index " + currentDialogueIndex);
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
                 currentDialogueIndex++;
+                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
         }
@@ -133,6 +136,7 @@ public class CafeTalkManager : MonoBehaviour
         {
             Debug.Log("Hit Done at index " + currentDialogueIndex);
             currentDialogueIndex++;
+            SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
             PrintProDialogue(currentDialogueIndex);
         }
     }
