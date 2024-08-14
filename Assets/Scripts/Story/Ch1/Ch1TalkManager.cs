@@ -375,17 +375,13 @@ public class Ch1TalkManager : MonoBehaviour
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
             mapManager.currentState = MapState.TrainRoom3;
 
-            string questType = "비밀퀘스트2";
+            string quest = currentDialogue.quest;
             string questContent = currentDialogue.questContent;
 
-            // 기존 퀘스트 완료 처리
-            QuestManager.Instance.CompleteQuest("비밀퀘스트1");
+            QuestManager.Instance.CompleteQuest("비밀퀘스트1"); // 기존 퀘스트 완료 처리
+            QuestManager.Instance.AddQuest(questType, questContent); // 새로운 퀘스트 추가
 
-            // 새로운 퀘스트 추가
-            QuestManager.Instance.AddQuest(questType, questContent);
-
-            // 퀘스트 UI에 퀘스트 내용 표시
-            questText.text = $"{questType}\n\n{questContent}";
+            questText.text = $"{quest}\n\n{questContent}";
             questObject.SetActive(true);
             map.SetActive(false);
             player.SetActive(false);
@@ -527,6 +523,39 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
+        else if (index == 322 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
+        {
+            isWaitingForPlayer = true;
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            garden.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Violet.SetActive(true);
+        }
+        else if (index == 326 && mapManager.currentState == MapState.Cafe) // 바 npc와 대화 이후 이동 가능하게 전환
+        {
+            isWaitingForPlayer = true;
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            cafe.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_Rusk.SetActive(true);
+        }
+        else if (index == 330 && mapManager.currentState == MapState.Bakery) // 빵집 npc와 대화 이후 이동 가능하게 전환
+        {
+            isWaitingForPlayer = true;
+            EnablePlayerMovement();
+            map.SetActive(true);
+            player.SetActive(true);
+            bakery.SetActive(false);
+            narration.SetActive(false);
+            dialogue.SetActive(false);
+            Npc_MrHam.SetActive(true);
+        }
         else
         {
             CheckTalk(currentDialogue.location);
@@ -590,6 +619,45 @@ public class Ch1TalkManager : MonoBehaviour
             player.SetActive(false);
             Npc_Rusk.SetActive(false);
             bakery.SetActive(true);
+            dialogue.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 318)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rayviyak.SetActive(false);
+            garden.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 322)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Violet.SetActive(false);
+            cafe.SetActive(true);
+            dialogue.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 326)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_Rusk.SetActive(false);
+            bakery.SetActive(true);
+            dialogue.SetActive(true);
+            isWaitingForPlayer = false;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+        else if (currentDialogueIndex == 330)
+        {
+            map.SetActive(false);
+            player.SetActive(false);
+            Npc_MrHam.SetActive(false);
+            medicalRoom.SetActive(true);
             dialogue.SetActive(true);
             isWaitingForPlayer = false;
             PrintCh1ProDialogue(currentDialogueIndex);
