@@ -379,7 +379,7 @@ public class Ch1TalkManager : MonoBehaviour
             string questContent = currentDialogue.questContent;
 
             QuestManager.Instance.CompleteQuest("비밀퀘스트1"); // 기존 퀘스트 완료 처리
-            QuestManager.Instance.AddQuest(questType, questContent); // 새로운 퀘스트 추가
+            QuestManager.Instance.AddQuest(quest, questContent); // 새로운 퀘스트 추가
 
             questText.text = $"{quest}\n\n{questContent}";
             questObject.SetActive(true);
