@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class TalkManager : MonoBehaviour
 {
+    public static TalkManager Instance { get; private set; }
     // 대사들을 저장할 리스트
     private List<ProDialogue> proDialogue;
 
@@ -76,8 +77,11 @@ public class TalkManager : MonoBehaviour
     private Animator trainAnimator;
     private Animator letterAnimator;
 
+    public bool isTransition = false;
+
     void Awake()
     {
+        Instance = this;
         letterAnimator = invitation.GetComponent<Animator>();
         trainAnimator = train.GetComponent<Animator>();
         proDialogue = new List<ProDialogue>();
@@ -89,7 +93,10 @@ public class TalkManager : MonoBehaviour
 
     void Start()
     {
-        ActivateTalk(locationHome); // 오브젝트 활성화
+        if (!isTransition)
+            ActivateTalk(locationHome); // 오브젝트 활성화
+        else
+            ActivateTalk(locationCafe);
     }
 
     void Update()
@@ -268,6 +275,13 @@ public class TalkManager : MonoBehaviour
         isActivated = false;
     }
 
+    public void SetDialogueIndex(int index, bool isTransitionValue)
+    {
+        isTransition = true;
+        currentDialogueIndex = index;
+        //PrintProDialogue(currentDialogueIndex); // 대사 출력
+    }
+
     void CheckTalk(string location)
     {
         invitation.SetActive(false);
@@ -360,8 +374,7 @@ public class TalkManager : MonoBehaviour
                         
                         if (currentDialogueIndex == 48)
                         {
-                            StartCoroutine(screenFader.FadeOut(trainStation));
-                            StartCoroutine(screenFader.FadeOut(train));
+                            StartCoroutine(PerformFadeInAndHandleDialogue(48, 50));
                         }
                     }
                 }
@@ -523,5 +536,15 @@ public class TalkManager : MonoBehaviour
         DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
         isFadingOut = false; // 페이드아웃 종료
         SceneManagerEx.Instance.SceanLoadQueue(sceneName); // 씬 로드
+    }
+
+    private IEnumerator PerformFadeInAndHandleDialogue(int fromDialogueIdx, int returnDialogueIdx)
+    {
+        yield return StartCoroutine(screenFader.FadeOut(trainStation));
+        yield return StartCoroutine(screenFader.FadeOut(train));
+
+        // 페이드 인이 완료된 후 씬 전환 작업 수행
+        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 5, returnDialogueIdx);
+        currentDialogueIndex = returnDialogueIdx;
     }
 }
