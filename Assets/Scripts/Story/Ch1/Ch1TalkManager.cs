@@ -370,10 +370,26 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Violet.SetActive(true);
         }
-        else if (index == 64) // 재즈바 npc와 대화 후 객실 자동 이동 및 맵상태 변경
+        else if (index == 64) // 퀘스트 UI 띄우고 비밀퀘스트2 활성화
         {
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
             mapManager.currentState = MapState.TrainRoom3;
+
+            string questType = "비밀퀘스트2";
+            string questContent = currentDialogue.questContent;
+
+            // 기존 퀘스트 완료 처리
+            QuestManager.Instance.CompleteQuest("비밀퀘스트1");
+
+            // 새로운 퀘스트 추가
+            QuestManager.Instance.AddQuest(questType, questContent);
+
+            // 퀘스트 UI에 퀘스트 내용 표시
+            questText.text = $"{questType}\n\n{questContent}";
+            questObject.SetActive(true);
+            map.SetActive(false);
+            player.SetActive(false);
+            isQuestActive = true;
         }
         else if (index == 67) // 기상 후 플레이어 카페로 자동 이동 및 맵상태 변경
         {
