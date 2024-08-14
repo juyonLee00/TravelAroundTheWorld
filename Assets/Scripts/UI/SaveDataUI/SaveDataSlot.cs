@@ -77,7 +77,7 @@ public class SaveDataSlot : MonoBehaviour
 
     void ClickDataSlotFunc()
     {
-        saveDataPopup.SetActive(true);
+        //saveDataPopup.SetActive(true);
         
     }
 
