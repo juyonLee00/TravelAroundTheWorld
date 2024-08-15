@@ -64,7 +64,7 @@ public class StartBtnGroup : MonoBehaviour
         yPos = -200;
         btnPos = new Vector2(-300, -100);
 
-        settingBtnPos = new Vector2(300, 120);
+        settingBtnPos = new Vector2(844, 425);
         settingBtnScale = new Vector2(1, 1);
     }
 
@@ -165,7 +165,7 @@ public class StartBtnGroup : MonoBehaviour
 
         }
 
-        //CreateSettingBtn();
+        CreateSettingBtn();
 
     }
 

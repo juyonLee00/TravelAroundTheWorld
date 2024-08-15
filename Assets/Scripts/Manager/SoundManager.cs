@@ -8,7 +8,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Settings")]
     public AudioMixer audioMixer;
-    public string volumeParameter = "MasterVolume";
+    public string bgmVolumeParameter = "BGMVolume";
+    public string sfxVolumeParameter = "SFXVolume"; 
     public float fadeDuration = 1.0f; 
 
     private AudioSource musicSource;
@@ -138,15 +139,27 @@ public class SoundManager : MonoBehaviour
         audioSource.Stop();
     }
 
-    public void SetVolume(float volume)
+    public void SetBGMVolume(float volume)
     {
-        audioMixer.SetFloat(volumeParameter, Mathf.Log10(volume) * 20);
+        musicSource.volume = volume;
+        //오디오 믹서 적용 후 수정
+        //audioMixer.SetFloat(bgmVolumeParameter, Mathf.Log10(volume) * 20);
     }
 
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
+        //오디오믹서 적용 후 수정 
+        //audioMixer.SetFloat(sfxVolumeParameter, Mathf.Log10(volume) * 20);
+    }
+
+    //전체 마스터볼륨 조절
+    /*
     public void Mute(bool mute)
     {
         audioMixer.SetFloat(volumeParameter, mute ? -80 : 0);
     }
+    */
 
     public void StopAllSounds()
     {
