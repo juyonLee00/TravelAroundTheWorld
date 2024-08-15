@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Ch1TalkManager : MonoBehaviour
 {
+    public static Ch1TalkManager Instance { get; private set; }
+
     private List<Ch1ProDialogue> ch1ProDialogue;
 
     public GameObject narration;
@@ -73,6 +75,8 @@ public class Ch1TalkManager : MonoBehaviour
 
     public bool isWaitingForPlayer = false; // 플레이어가 특정 위치에 도달할 때까지 기다리는 상태인지 여부
 
+    public bool isTransition = false;
+
     void Awake()
     {
         ch1ProDialogue = new List<Ch1ProDialogue>();
@@ -85,8 +89,28 @@ public class Ch1TalkManager : MonoBehaviour
     void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
-        ActivateTalk("객실");
+
+        if (PlayerManager.Instance.GetIsLoaded())
+        {
+            currentDialogueIndex = PlayerManager.Instance.GetDialogueIdx();
+            //Index만 설정하면 되는지는 잘 모르겠어서 이렇게 남겨둡니다
+            //PlayerManager.Instance.SetIsLoaded();
+            //DayNightCycleManager.Instance.LoadSaveData();
+            //로드되었을 경우 플레이어가 리젠될 위치 정보를 선언하는 변수가 필요합니다
+            //
+        }
+        else
+        {
+            ActivateTalk("객실");
+        }
     }
+
+    public void SetDialogueIndex(int index, bool isTransitionValue)
+    {
+        isTransition = isTransitionValue;
+        currentDialogueIndex = index;
+    }
+
 
     void Update()
     {
