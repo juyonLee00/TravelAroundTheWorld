@@ -53,6 +53,12 @@ public class StartBtnGroup : MonoBehaviour
         CreateStartBtnGroup();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+            UIManager.Instance.DeactivatedUI("SaveData");
+    }
+
     void SetUIData()
     {
         yPos = -200;
@@ -165,14 +171,53 @@ public class StartBtnGroup : MonoBehaviour
 
     void GameStartFunc()
     {
+        int slotIndex;
+
         SoundManager.Instance.PlaySFX("click sound");
+        if (SaveDataManager.Instance.HasSaveData())
+        {
+            slotIndex = SaveDataManager.Instance.GetAvailableSaveSlots().Count;
+        }
+        else
+            slotIndex = 0;
+
+        PlayerManager.Instance.SetPlayerData(slotIndex);
         SceneManagerEx.Instance.SceanLoadQueue("Ch0Scene");
     }
 
     void ContinueGameFunc()
     {
         SoundManager.Instance.PlaySFX("click sound");
-        //자동저장된 게임파일로 이동
+
+        if (SaveDataManager.Instance.HasSaveData())
+        {
+            PlayerData recentData = SaveDataManager.Instance.LoadMostRecentSave();
+
+            if (recentData != null)
+            {
+                // 불러온 데이터를 PlayerManager에 설정
+                PlayerManager.Instance.currentData = recentData;
+                PlayerManager.Instance.SetIsLoaded();
+
+                // 게임 시작 씬으로 이동
+                StartGameFromLastSave();
+            }
+
+        }
+            
+        
+        else
+        {
+            Debug.LogWarning("No save data found.");
+            // 데이터가 없는 경우 처리: 예를 들어, 경고 메시지 출력
+        }
+    }
+
+    private void StartGameFromLastSave()
+    {
+        //ChN으로 갈 때에도 적용되도록 수정
+        SceneManagerEx.Instance.SceanLoadQueue(PlayerManager.Instance.GetSceneName());
+
     }
 
     void LoadGameFunc()

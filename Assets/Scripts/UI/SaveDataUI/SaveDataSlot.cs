@@ -19,19 +19,15 @@ public class SaveDataSlot : MonoBehaviour
     public GameObject canvas;
 
     private Button btn;
+    private bool isSaveDataNull;
 
-    private UIManager uIManager;
-
-    private void Awake()
-    {
-        uIManager = FindObjectOfType<UIManager>();
-    }
+    List<int> saveDataList;
 
     void Start()
     {
         SetComponent();
-        AllocationCheckFunc();
-        LoadSaveData();
+        //AllocationCheckFunc();
+        isSaveDataNull = CheckSaveDataList();
     }
 
     void SetComponent()
@@ -62,25 +58,35 @@ public class SaveDataSlot : MonoBehaviour
                     break;
             }
         }
-        //현재 렌더링된 saveDAtaPopup 오브젝트 가져오기, 수정 예정
-        saveDataPopup = uIManager.FindChildByName(canvas, "SaveDataPopupUI(Clone)");
     }
 
-    void LoadSaveData()
+    bool CheckSaveDataList()
     {
-        string objName = gameObject.name.Substring(titleSplitNum-1);
-        slotIdx = int.Parse(objName);
-        /*
-         * saveImg = saveDataManager.Instance.saveDataList[idx].Image;
-         */
+        List<int> saveDataList = SaveDataManager.Instance.GetAvailableSaveSlots();
+        if (saveDataList.Count == 0)
+            return true;
+        else
+            return false;
     }
 
     void ClickDataSlotFunc()
     {
-        //saveDataPopup.SetActive(true);
-        
+        if (isSaveDataNull)
+            return;
+
+        else
+        {
+            string objName = gameObject.name.Substring(titleSplitNum - 1);
+            slotIdx = int.Parse(objName);
+
+            PlayerManager.Instance.SetPlayerData(slotIdx);
+            PlayerManager.Instance.SetIsLoaded();
+            SceneManagerEx.Instance.SceanLoadQueue(PlayerManager.Instance.GetSceneName());
+        }
+
     }
 
+    /*
     void AllocationCheckFunc()
     {
         if (saveImg == null)
@@ -96,4 +102,5 @@ public class SaveDataSlot : MonoBehaviour
         if (saveTimeTxt == null)
             return;
     }
+    */
 }

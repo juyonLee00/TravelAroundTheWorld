@@ -51,3 +51,4 @@ MonoBehaviour:
   saveDataBackground: {fileID: 2140642697507202694, guid: 97c60556242a8438493c06d86ce3eab3, type: 3}
   titleTxt: {fileID: 5169978859107051609, guid: 11e0f951f3ec948de831e7714063946c, type: 3}
   scrollView: {fileID: 6600397599353235591, guid: 8fba5f245a9d34ef49bfd4889e0de8ca, type: 3}
+  exitBtn: {fileID: 8555358475479682115, guid: 2e4e5ebbcf38d49a188ec5edc6d1ca35, type: 3}

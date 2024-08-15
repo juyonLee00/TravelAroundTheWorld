@@ -641,6 +641,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1847902563786604896, guid: 90f3c3913e54f4956ba8ac6423e27164, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -720,7 +724,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 879850201}
   - {fileID: 726863130}
+  - {fileID: 175415935}
   - {fileID: 1913300875}
   - {fileID: 471720215}
   - {fileID: 7913971507062212530}
-  - {fileID: 175415935}
