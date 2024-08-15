@@ -50,6 +50,6 @@ MonoBehaviour:
   - {fileID: 4293923876757143222, guid: 76cffa3df7ae341799d42c3ebd4a97cc, type: 3}
   - {fileID: 6664102430098341053, guid: e3b6a6092c49e4aab9297581883585fc, type: 3}
   - {fileID: 3586491182391941495, guid: 887c5767785034a89a74c454b1fdf6a5, type: 3}
-  - {fileID: 3586491182391941495, guid: 887c5767785034a89a74c454b1fdf6a5, type: 3}
+  - {fileID: 5679241677683194524, guid: 13cf34b613dec4eac8da014faccf29e2, type: 3}
   fadeDuration: 1
   minLoadingTime: 2

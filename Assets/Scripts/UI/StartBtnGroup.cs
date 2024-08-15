@@ -181,6 +181,7 @@ public class StartBtnGroup : MonoBehaviour
         else
             slotIndex = 0;
 
+        SaveDataManager.Instance.SetActiveSlot(slotIndex);
         PlayerManager.Instance.SetPlayerData(slotIndex);
         SceneManagerEx.Instance.SceanLoadQueue("Ch0Scene");
     }

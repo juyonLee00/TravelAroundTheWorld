@@ -8,26 +8,20 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance { get; private set; }
     public PlayerData currentData;
 
+    public string isAutoSaveTrue = "자동";
+    public string isAutoSaveFalse = "수동";
+
+    //저장된 데이터가 로드되었는지 설정
+    private bool isLoaded = false;
+
+    public int playingSaveDataIdx;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            List<int> availableSlots = SaveDataManager.Instance.GetAvailableSaveSlots();
-
-            //현재 저장된 데이터가 없으면 새 데이터 선언.
-            if (availableSlots.Count == 0)
-            {
-                currentData = new PlayerData();
-                InitializePlayerData();
-            }
-
-            else
-            {
-                currentData = SaveDataManager.Instance.LoadGame(slotIndex: 1);
-            }
 
         }
         else
@@ -36,12 +30,37 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public DateTime GetDayTime()
+    public void SetPlayerData(int idx)
+    {
+        if (SaveDataManager.Instance.HasSaveData())
+        {
+            playingSaveDataIdx = idx;
+            isLoaded = true;
+        }
+        else
+        {
+            currentData = new PlayerData();
+            InitializePlayerData();
+            //Debug.LogError("Failed to load save data.");
+        }
+    }
+
+    public bool GetIsLoaded()
+    {
+        return isLoaded;
+    }
+
+    public void SetIsLoaded()
+    {
+        isLoaded = !isLoaded;
+    }
+
+    public DateTime GetSaveTime()
     {
         return currentData.saveTime;
     }
 
-    public void SetDateTime()
+    public void SetSaveTime()
     {
         currentData.saveTime = DateTime.Now;
     }
@@ -49,6 +68,14 @@ public class PlayerManager : MonoBehaviour
     public bool GetIsAutoSave()
     {
         return currentData.isAutoSave;
+    }
+
+    public string GetIsAutoSaveToString()
+    {
+        if (currentData.isAutoSave)
+            return isAutoSaveTrue;
+        else
+            return isAutoSaveFalse;
     }
 
     public void SetIsAutoSave()

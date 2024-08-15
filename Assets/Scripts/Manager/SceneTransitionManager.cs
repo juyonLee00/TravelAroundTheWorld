@@ -12,6 +12,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     public int toDialogueIdx;
 
+    private string destScene;
+
     private int returnDialogueIndex;
     private string targetScene;
 
@@ -32,10 +34,16 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
 
+    public string GetDescScene()
+    {
+        return destScene;
+    }
+
     public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, int deliveryNum)
     {
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
+        destScene = toScene;
         cafeDeliveryNum = 0;
         StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx, deliveryNum));
     }
@@ -146,7 +154,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
         // TalkManager의 currentDialogueIndex 설정
         Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnDialogueIndex}.");
-        TalkManager.Instance.SetDialogueIndex(returnDialogueIndex, true);
+        Ch1TalkManager.Instance.SetDialogueIndex(returnDialogueIndex, true);
         Debug.Log($"Dialogue index set to {returnDialogueIndex} in {targetScene}.");
     }
 
