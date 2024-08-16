@@ -483,6 +483,8 @@ public class TalkManager : MonoBehaviour
                     //모든 npc와 대화한 경우
                     if (isAllNPCActivated)
                     {
+                        DayNightCycleManager.Instance.ChangeDayTime();
+
                         if (currentDialogueIndex == 129)
                         {
                             StartCoroutine(screenFader.FadeIn(trainRoom));

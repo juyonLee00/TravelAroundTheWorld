@@ -11,6 +11,7 @@ public class DayNightCycleManager : MonoBehaviour
     private bool isNowDayTime;
 
     public int day;
+    //낮이면 true, 밤이면 false
     public bool isDayTime;
 
     private string previousSceneName;
@@ -75,7 +76,7 @@ public class DayNightCycleManager : MonoBehaviour
         }
 
         //챕터 1로 넘어갈 때
-        else if (fromScene == "Ch0Scene" && toScene == "LoadingScene" && curDay == 0 && TalkManager.Instance.currentDialogueIndex == 132)
+        else if (fromScene == "Ch0Scene" && toScene == "LoadingScene" && curDay == 0 && !isNowDayTime)
         {
             ChangeDay();
             SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
