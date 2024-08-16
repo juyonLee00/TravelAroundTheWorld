@@ -633,7 +633,7 @@ public class TalkManager : MonoBehaviour
         yield return StartCoroutine(screenFader.FadeOut(train));
 
         // 페이드 인이 완료된 후 씬 전환 작업 수행
-        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 5, returnDialogueIdx);
+        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 56, returnDialogueIdx);
         currentDialogueIndex = returnDialogueIdx;
     }
 }
