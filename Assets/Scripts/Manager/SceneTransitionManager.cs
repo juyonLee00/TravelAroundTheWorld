@@ -43,18 +43,18 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     //직접 와서 주문 받는 형식(주문자가 정해져 있음)
-    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, List<CafeOrder> orders)
+    public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, List<CafeOrder> orders)
     {
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
         destScene = toScene;
         cafeOrders = new List<CafeOrder>(orders);
 
-        StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx, orders));
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, orders));
     }
 
     //직접 와서 주문받는 형식 
-    IEnumerator HandleSceneTransition(string fromScene, string toScene, int curIdx, int toSceneIdx, int returnIdx, List<CafeOrder> orders)
+    IEnumerator HandleSceneTransition(string fromScene, string toScene, int returnIdx, List<CafeOrder> orders)
     {
         // 씬 전환
         yield return TransitionToScene(toScene);
@@ -95,17 +95,17 @@ public class SceneTransitionManager : MonoBehaviour
 
 
     //배달 랜덤 메뉴 설정
-    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, int deliveryNum)
+    public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, int deliveryNum)
     {
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
         destScene = toScene;
         cafeDeliveryNum = 0;
-        StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx, deliveryNum));
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, deliveryNum));
     }
 
     //배달 랜덤 메뉴 설정
-    IEnumerator HandleSceneTransition(string fromScene, string toScene, int curIdx, int toSceneIdx, int returnIdx, int deliveryNum)
+    IEnumerator HandleSceneTransition(string fromScene, string toScene, int returnIdx, int deliveryNum)
     {
         // 씬 전환
         yield return TransitionToScene(toScene);
@@ -179,7 +179,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
-    //TutorialScene에서 CafeTutorial 상호작용시 이
+    //TutorialScene에서 CafeTutorial 상호작용시 
     private IEnumerator WaitAndSetDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
