@@ -43,6 +43,7 @@ public class Ch1TalkManager : MonoBehaviour
     public GameObject Npc_Violet; // 바 npc
 
     public GameObject cheetahShopCh0; // 치타샵 UI
+    public bool isShopActive = false;
 
     public ScreenFader screenFader; // 페이드인/아웃 효과 스크립트
     private bool isFadingOut = false; // 페이드 아웃 중인지 여부 (페이드 아웃 중에는 입력 무시하기 위해)
@@ -112,6 +113,12 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Update()
     {
+        if (isShopActive)
+        {
+            // Shop UI가 활성화된 동안 Update 함수의 나머지 처리 무시
+            return;
+        }
+
         if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
             // 퀘스트 ui 띄우는 코드
@@ -261,6 +268,22 @@ public class Ch1TalkManager : MonoBehaviour
                 narrationBar.SetDialogue("나레이션", "지금은 일할 시간이야.");
             }
         }
+    }
+
+    // Shop UI를 여는 부분에서 호출
+    public void OnShopOpened()
+    {
+        isShopActive = true;
+    }
+
+    // Shop UI가 닫혔음을 알리는 메서드
+    public void OnShopClosed()
+    {
+        isShopActive = false;
+        balcony.SetActive(true);
+        cheetahShopCh0.SetActive(false);
+        currentDialogueIndex += 2;
+        PrintCh1ProDialogue(currentDialogueIndex);
     }
 
     // csv 읽어오기
@@ -554,17 +577,14 @@ public class Ch1TalkManager : MonoBehaviour
         }*/
         else if (index == 203 || index == 426) // 치타샵 ui 활성화
         {
+            // Shop UI를 표시
+            cheetahShopCh0.SetActive(true);
+            OnShopOpened(); // Shop UI가 열렸음을 기록
+
+            // 대화를 임시로 숨기기
             balcony.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
-            cheetahShopCh0.SetActive(true);
-        }
-        else if (index == 204 || index == 427) // 치타샵 ui 비활성화
-        {
-            balcony.SetActive(true);
-            narration.SetActive(true);
-            dialogue.SetActive(true);
-            cheetahShopCh0.SetActive(false);
         }
         else if ((index == 207 || index == 428) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
         {            

@@ -1845,6 +1845,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -122.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1098235882701449395, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
+      propertyPath: shopPrefab
+      value: 
+      objectReference: {fileID: 71731770}
     - target: {fileID: 2938929502117167209, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
       propertyPath: m_Camera
       value: 
