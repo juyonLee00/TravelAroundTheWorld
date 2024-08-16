@@ -48,11 +48,13 @@ public class CafeTalkManager : MonoBehaviour
     public int currentDialogueIndex = 0;
     private bool isActivated = false;
 
+    private Dictionary<string, Sprite> characterImages;
 
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV();
+        InitializeCharacterImages();
     }
 
     void Start()
@@ -169,7 +171,15 @@ public class CafeTalkManager : MonoBehaviour
             proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
         }
     }
-
+    
+    void InitializeCharacterImages()
+    {
+        characterImages = new Dictionary<string, Sprite>();
+        characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
+        characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
+        characterImages["파이아"] = Resources.Load<Sprite>("NpcImage/Fire");
+        characterImages["???"] = Resources.Load<Sprite>("NpcImage/Fire");
+    }
 
     public void PrintProDialogue(int index)
     {
@@ -177,8 +187,8 @@ public class CafeTalkManager : MonoBehaviour
         {
             return;
         }
+
         ProDialogue currentDialogue = proDialogue[index];
-            
 
 
         // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
@@ -194,6 +204,16 @@ public class CafeTalkManager : MonoBehaviour
             dialogue.SetActive(true);
             nameText.text = currentDialogue.speaker;
             descriptionText.text = currentDialogue.line;
+            Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
+
+            if (imageObj.GetComponent<SpriteRenderer>() != null)
+            {
+                imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
+            }
+            else if (imageObj.GetComponent<Image>() != null)
+            {
+                imageObj.GetComponent<Image>().sprite = characterSprite;
+            }
         }
 
         if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 51)

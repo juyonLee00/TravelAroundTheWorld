@@ -5,10 +5,10 @@ using UnityEngine;
 public class IngredientController : MonoBehaviour
 {
     private Vector3 defaultPos;
-    private Vector3 hotCupdefaultPos = new Vector3(-1.3f, -3.3f, -1f);
-    private Vector3 iceCupdefaultPos = new Vector3(-1.25f, 0f, -1f);
+    private Vector3 hotCupdefaultPos = new Vector3(-1.59f, -2.46f, -1f);
+    private Vector3 iceCupdefaultPos = new Vector3(-1.56f, 0.58f, -1f);
     private Vector3 offset;
-    private Vector3 makePos = new Vector3(4f, -3f, -1f);
+    private Vector3 makePos = new Vector3(3.5f, -2.5f, -1f);
     private bool isDragging = false;
     private GameObject makeArea;
     private GameObject trashcan;
