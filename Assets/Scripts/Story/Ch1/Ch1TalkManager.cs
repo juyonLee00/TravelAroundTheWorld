@@ -233,13 +233,22 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }*/
-            else if (mapManager.currentState == MapState.Balcony && (currentDialogueIndex == 187 || currentDialogueIndex == 420)) // 발코니 도착하면 스토리 다시 진행
+            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 187) // 발코니 도착하면 스토리 다시 진행
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
                 balcony.SetActive(true);
                 currentDialogueIndex = 196;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 420) // 발코니 도착하면 스토리 다시 진행
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                balcony.SetActive(true);
+                currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
 
