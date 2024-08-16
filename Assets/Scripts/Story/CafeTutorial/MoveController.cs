@@ -10,7 +10,7 @@ public class MoveController : MonoBehaviour
     private RectTransform rectTransform;
     private RectTransform descriptionRectTransform;
 
-    public Vector2 extractPosition = new Vector2(-964.16f, -538.02f);
+    public Vector2 extractPosition = new Vector2(-960f, -530f);
     public Vector2 cupPosition = new Vector2(-957.68f, -539.35f);
     public Vector2 ingredientPosition = new Vector2(-954.03f, -536.07f);
     public Vector2 makePosition = new Vector2(-953.84f, -540.12f);
@@ -28,9 +28,9 @@ public class MoveController : MonoBehaviour
 
     public Vector2 descNewPosition;
 
-    public Sprite DownL;
-    public Sprite Left;
-    public Sprite TopL;
+    //public Sprite DownL;
+    //public Sprite Left;
+    //public Sprite TopL;
 
     private SpriteRenderer spriteRenderer;
 
@@ -66,40 +66,31 @@ public class MoveController : MonoBehaviour
             case 42:
                 newPosition = extractPosition;
                 descNewPosition = descExtractPosition;
-                spriteRenderer.sprite = DownL;
-                if (DownL != null)
-                {
-                    spriteRenderer.sprite = DownL;
-                    Debug.Log("DownL 스프라이트로 변경되었습니다.");
-                }
-                else
-                {
-                    Debug.LogError("DownL 스프라이트가 null입니다!");
-                }
+               // spriteRenderer.sprite = DownL;
                 break;
             case 43:
             case 44:
             case 45:
                 newPosition = cupPosition;
                 descNewPosition = descCupPosition;
-                spriteRenderer.sprite = Left;
+                //spriteRenderer.sprite = Left;
                 break;
             case 46:
                 newPosition = ingredientPosition;
                 descNewPosition = descIngredientPosition;
-                spriteRenderer.sprite = TopL;
+                //spriteRenderer.sprite = TopL;
                 break;
             case 47:
             case 48:
             case 51:
                 newPosition = makePosition;
                 descNewPosition = descMakePosition;
-                spriteRenderer.sprite = TopL;
+                //spriteRenderer.sprite = TopL;
                 break;
             case 49:
                 newPosition = donePosition;
                 descNewPosition = descDonePosition;
-                spriteRenderer.sprite = DownL;
+                //spriteRenderer.sprite = DownL;
                 break;
             default:
                 return;

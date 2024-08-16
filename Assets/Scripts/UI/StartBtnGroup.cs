@@ -44,6 +44,8 @@ public class StartBtnGroup : MonoBehaviour
 
     private void Start()
     {
+        //처음에 더미데이터 생성되는 문제 해결해야 함
+        SaveDataManager.Instance.DeleteSave(0);
         SoundManager.Instance.PlayMusic("main theme", loop: true); 
 
         SetUIData();
@@ -64,7 +66,7 @@ public class StartBtnGroup : MonoBehaviour
         yPos = -200;
         btnPos = new Vector2(-300, -100);
 
-        settingBtnPos = new Vector2(300, 120);
+        settingBtnPos = new Vector2(844, 425);
         settingBtnScale = new Vector2(1, 1);
     }
 
@@ -165,7 +167,7 @@ public class StartBtnGroup : MonoBehaviour
 
         }
 
-        //CreateSettingBtn();
+        CreateSettingBtn();
 
     }
 
@@ -179,7 +181,9 @@ public class StartBtnGroup : MonoBehaviour
             slotIndex = SaveDataManager.Instance.GetAvailableSaveSlots().Count;
         }
         else
+        {
             slotIndex = 0;
+        }
 
         SaveDataManager.Instance.SetActiveSlot(slotIndex);
         PlayerManager.Instance.SetPlayerData(slotIndex);

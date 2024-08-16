@@ -97,7 +97,7 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    //가장 최근에 저장한 데이터 로
+    //가장 최근에 저장한 데이터로 수정
     public PlayerData LoadMostRecentSave()
     {
         List<int> availableSlots = GetAvailableSaveSlots();
@@ -186,5 +186,11 @@ public class SaveDataManager : MonoBehaviour
     {
         List<int> availableSlots = GetAvailableSaveSlots();
         return availableSlots.Count > 0;
+    }
+
+    public int GetSaveDataCount()
+    {
+        List<int> saveSlots = GetAvailableSaveSlots();
+        return saveSlots.Count;
     }
 }

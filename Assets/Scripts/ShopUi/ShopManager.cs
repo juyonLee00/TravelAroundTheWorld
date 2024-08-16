@@ -10,6 +10,13 @@ public class ShopManager : MonoBehaviour
     public GameObject shopPrefab; // 상점 UI 프리팹
     public GameObject selectedImageDisplay;
 
+    private Ch1TalkManager talkManager;
+
+    void Start()
+    {
+        talkManager = FindObjectOfType<Ch1TalkManager>();
+    }
+
     // 버튼 클릭 시 호출될 메서드
     public void ShowShop()
     {
@@ -23,6 +30,10 @@ public class ShopManager : MonoBehaviour
     public void HideShop()
     {
         SoundManager.Instance.PlayMusic("click sound", loop: false);
+        if (talkManager != null)
+        {
+            talkManager.OnShopClosed();
+        }
         //Transform parentTransform = transform.parent;
         Destroy(transform.parent.gameObject);
     }
