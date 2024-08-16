@@ -33,9 +33,9 @@ public class SaveDataUI : MonoBehaviour
     void SetInitData()
     {
         defaultPos = Vector2.zero;
-        titlePos = new Vector2(-420, 395);
+        titlePos = new Vector2(-315, 395);
         scrollPos = new Vector2(0, -25);
-        exitPos = new Vector2(-819, 426);
+        exitPos = new Vector2(-620, 400);
     }
 
     public void CreateUIComponent(GameObject obj, Vector2 pos)
@@ -71,25 +71,28 @@ public class SaveDataUI : MonoBehaviour
 
     public void SetScrollViewData()
     {
-        List<int> saveDataList = SaveDataManager.Instance.GetAvailableSaveSlots();
-        int saveDataListCount = saveDataList.Count;
-
-        if (saveDataListCount == 0)
+        if (SaveDataManager.Instance.HasSaveData())
             return;
 
         else
         {
-            ScrollRect scrollRect = scrollView.GetComponent<ScrollRect>();
+            List<int> saveDataList = SaveDataManager.Instance.GetAvailableSaveSlots();
+            int saveDataListCount = saveDataList.Count;
 
-            for(int i=0; i<saveDataListCount; i++)
-            {
-                TextMeshProUGUI[] textArr = scrollRect.content.GetChild(i).GetComponents<TextMeshProUGUI>();
-                textArr[0].text = PlayerManager.Instance.GetIsAutoSaveToString();
-                textArr[1].text = PlayerManager.Instance.GetSceneName();
-                textArr[2].text = PlayerManager.Instance.GetMapLocation().ToString();
-                textArr[3].text = PlayerManager.Instance.GetSaveTime().ToString();
-            }
+            
+                ScrollRect scrollRect = scrollView.GetComponent<ScrollRect>();
+
+                for (int i = 0; i < saveDataListCount; i++)
+                {
+                    TextMeshProUGUI[] textArr = scrollRect.content.GetChild(i).GetComponents<TextMeshProUGUI>();
+                    textArr[0].text = PlayerManager.Instance.GetIsAutoSaveToString();
+                    textArr[1].text = PlayerManager.Instance.GetSceneName();
+                    textArr[2].text = PlayerManager.Instance.GetMapLocation().ToString();
+                    textArr[3].text = PlayerManager.Instance.GetSaveTime().ToString();
+                }
+            
         }
+        
     }
 
     void SetBtnEvent()
@@ -97,12 +100,10 @@ public class SaveDataUI : MonoBehaviour
         exitBtnEvent = CancleUIFunc;
         Button btn = exitBtn.GetComponent<Button>();
         btn.onClick.AddListener(exitBtnEvent);
-        Debug.Log("HIHIHI");
     }
 
     public void CancleUIFunc()
     {
-        Debug.Log("HI");
         SoundManager.Instance.PlaySFX("click sound");
         //UIManager.Instance.ToggleUI("SaveData");
         UIManager.Instance.DeactivatedUI("SaveData");

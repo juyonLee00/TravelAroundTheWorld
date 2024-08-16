@@ -8,10 +8,10 @@ using System.Linq;
 public class SaveDataSlot : MonoBehaviour
 {
     private Image saveImg;
-    private TextMeshProUGUI saveTypeTxt;
     private TextMeshProUGUI saveChapterTxt;
     private TextMeshProUGUI savePosTxt;
     private TextMeshProUGUI saveTimeTxt;
+    private TextMeshProUGUI saveCurDayTxt;
     private int titleSplitNum;
 
     public int slotIdx;
@@ -19,20 +19,17 @@ public class SaveDataSlot : MonoBehaviour
     public GameObject canvas;
 
     private Button btn;
-    private bool isSaveDataNull;
-
-    List<int> saveDataList;
 
     void Start()
     {
         SetComponent();
         //AllocationCheckFunc();
-        isSaveDataNull = CheckSaveDataList();
+        SetSlotData();
     }
 
     void SetComponent()
     {
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("StaticUICanvas");
         titleSplitNum = gameObject.name.Length;
         btn = gameObject.GetComponent<Button>();
         btn.onClick.AddListener(ClickDataSlotFunc);
@@ -44,8 +41,8 @@ public class SaveDataSlot : MonoBehaviour
         {
             switch(comp.gameObject.name)
             {
-                case "SaveTypeTxt":
-                    saveTypeTxt = comp;
+                case "SaveCurDayTxt":
+                    saveCurDayTxt = comp;
                     break;
                 case "SaveChapterTxt":
                     saveChapterTxt = comp;
@@ -60,30 +57,52 @@ public class SaveDataSlot : MonoBehaviour
         }
     }
 
-    bool CheckSaveDataList()
+    void SetSlotData()
     {
-        List<int> saveDataList = SaveDataManager.Instance.GetAvailableSaveSlots();
-        if (saveDataList.Count == 0)
-            return true;
+        string objName = gameObject.name.Substring(titleSplitNum - 1);
+        slotIdx = int.Parse(objName);
+
+        if (!SaveDataManager.Instance.HasSaveData())
+        {
+            //데이터 없으면 해당 부분 투명화
+            Color nonDataColor = new Color(0, 0, 0);
+            nonDataColor.a = 0f;
+            saveImg.color = nonDataColor;
+            return;
+        }
+            
         else
-            return false;
+        {
+            saveChapterTxt.text = "CH " + SaveDataManager.Instance.LoadGame(slotIdx).currentSceneName;
+            savePosTxt.text = SaveDataManager.Instance.LoadGame(slotIdx).mapLocation.ToString();
+            saveTimeTxt.text = SaveDataManager.Instance.LoadGame(slotIdx).saveTime.ToString();
+            saveCurDayTxt.text = "day " + SaveDataManager.Instance.LoadGame(slotIdx).currentDay.ToString();
+        }
     }
 
     void ClickDataSlotFunc()
     {
-        if (isSaveDataNull)
+        if (!SaveDataManager.Instance.HasSaveData())
+        {
             return;
+        }
+            
 
         else
         {
-            string objName = gameObject.name.Substring(titleSplitNum - 1);
-            slotIdx = int.Parse(objName);
+            Debug.Log(SaveDataManager.Instance.GetSaveDataCount());
+            if (slotIdx > SaveDataManager.Instance.GetSaveDataCount() && saveChapterTxt == null)
+            {
+                return;
+            }
 
-            PlayerManager.Instance.SetPlayerData(slotIdx);
-            PlayerManager.Instance.SetIsLoaded();
-            SceneManagerEx.Instance.SceanLoadQueue(PlayerManager.Instance.GetSceneName());
+            else
+            {
+                PlayerManager.Instance.SetPlayerData(slotIdx);
+                PlayerManager.Instance.SetIsLoaded();
+                SceneManagerEx.Instance.SceanLoadQueue(PlayerManager.Instance.GetSceneName());
+            }
         }
-
     }
 
     /*

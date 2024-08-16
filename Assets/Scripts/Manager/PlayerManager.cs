@@ -113,6 +113,7 @@ public class PlayerManager : MonoBehaviour
         currentData.currentSceneName = curScene;
     }
 
+    //날짜
     public int GetDay()
     {
         return currentData.currentDay;
@@ -123,6 +124,7 @@ public class PlayerManager : MonoBehaviour
         currentData.currentDay = DayNightCycleManager.Instance.GetCurrentDay();
     }
 
+    //시간
     public bool GetCurrentTimeofDay()
     {
         return currentData.currentTimeofDay;
