@@ -88,8 +88,6 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Start()
     {
-        playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
-
         if (PlayerManager.Instance.GetIsLoaded())
         {
             currentDialogueIndex = PlayerManager.Instance.GetDialogueIdx();
@@ -134,7 +132,8 @@ public class Ch1TalkManager : MonoBehaviour
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
         if (isWaitingForPlayer && mapManager != null)
         {
-            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 5) // 인덱스 5일 때 카페바에 도착하면 스토리 다시 진행
+            // 카페바에 도착하면 스토리 다시 진행
+            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && (currentDialogueIndex == 5 || currentDialogueIndex == 67 || currentDialogueIndex == 136 || currentDialogueIndex == 261 || currentDialogueIndex == 348 || currentDialogueIndex == 391 || currentDialogueIndex == 431 || currentDialogueIndex == 496))
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -142,8 +141,57 @@ public class Ch1TalkManager : MonoBehaviour
                 cafe.SetActive(true);
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
+                Npc_Rayviyak.SetActive(false);
+                Npc_MrHam.SetActive(false);
+                Npc_Rusk.SetActive(false);
+                Npc_Violet.SetActive(false);
             }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 23) // 인덱스 23일 때 객실에 도착하면 편지지 띄우기
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 23)
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex = 65;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 101)
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex = 132;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 207)
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex = 258;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 318)
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex = 345;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 386)
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex = 388;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 428)
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -152,16 +200,12 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 67) // 인덱스 67일 때 카페바에 도착하면 스토리 다시 진행
+            else if (currentDialogueIndex == 437)
             {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                cafe.SetActive(true);
-                currentDialogueIndex++;
+                currentDialogueIndex = 476;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 101) // 인덱스 101 때 객실 도착하면 다시 스토리 진행
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 489)
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -170,31 +214,32 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 136) // 인덱스 136 때 카페바에 도착하면 스토리 다시 진행
+            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 510)
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
-                cafe.SetActive(true);
+                trainRoom.SetActive(true);
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.Balcony && currentDialogueIndex == 195) // 인덱스 195 때 발코니 도착하면 스토리 다시 진행
+            // 객실에 도착하면 스토리 다시 진행
+            /*else if (mapManager.currentState == MapState.TrainRoom3 && (currentDialogueIndex == 23 || currentDialogueIndex == 101))
+            {
+                isWaitingForPlayer = false;
+                player.SetActive(false);
+                map.SetActive(false);
+                trainRoom.SetActive(true);
+                currentDialogueIndex++;
+                PrintCh1ProDialogue(currentDialogueIndex);
+            }*/
+            else if (mapManager.currentState == MapState.Balcony && (currentDialogueIndex == 187 || currentDialogueIndex == 420)) // 발코니 도착하면 스토리 다시 진행
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
                 balcony.SetActive(true);
-                currentDialogueIndex++;
-                PrintCh1ProDialogue(currentDialogueIndex);
-            }
-            else if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && currentDialogueIndex == 261) // 인덱스 261 때 카페바에 도착하면 스토리 다시 진행
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                cafe.SetActive(true);
-                currentDialogueIndex++;
+                currentDialogueIndex = 196;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
 
@@ -337,7 +382,7 @@ public class Ch1TalkManager : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
         
-        if (index == 5) // 카페로 강제 이동 후 이동 가능하게 전환
+        if (index == 5 || index == 67 || index == 136 || index == 261 || index == 348 || index == 391 || index == 431 || index == 496) // 카페로 강제 이동 후 이동 가능하게 전환
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -348,19 +393,22 @@ public class Ch1TalkManager : MonoBehaviour
             trainRoom.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
-        }
-        
-        else if (index == 23 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
+        }        
+        else if ((index == 23 || index == 101 || index == 187 || index == 318 || index == 386 || index == 420 || index == 489 | index == 510) && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
-            isWaitingForPlayer = true; // 플레이어가 특정 위치에 도달할 때까지 대기
+            isWaitingForPlayer = true;
             EnablePlayerMovement();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
+            Npc_Rayviyak.SetActive(true);
+            Npc_MrHam.SetActive(true);
+            Npc_Rusk.SetActive(true);
+            Npc_Violet.SetActive(true);
         }
-        else if (index == 32) // 퀘스트 활성화
+        /*else if (index == 32) // 퀘스트 활성화
         {
             string quest = currentDialogue.quest;
             string questContent = currentDialogue.questContent;
@@ -411,7 +459,7 @@ public class Ch1TalkManager : MonoBehaviour
             player.SetActive(false);
             isQuestActive = true;
         }
-        else if (index == 67) // 기상 후 플레이어 카페로 자동 이동 및 맵상태 변경
+        else if (index == 67 || index == 136) // 기상 후 플레이어 카페로 자동 이동 및 맵상태 변경
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -494,22 +542,22 @@ public class Ch1TalkManager : MonoBehaviour
             cafe.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
-        }
-        else if (index == 203) // 치타샵 ui 활성화
+        }*/
+        else if (index == 203 || index == 426) // 치타샵 ui 활성화
         {
             balcony.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
             cheetahShopCh0.SetActive(true);
         }
-        else if (index == 204) // 치타샵 ui 비활성화
+        else if (index == 204 || index == 427) // 치타샵 ui 비활성화
         {
             balcony.SetActive(true);
             narration.SetActive(true);
             dialogue.SetActive(true);
             cheetahShopCh0.SetActive(false);
         }
-        else if (index == 207 && mapManager.currentState == MapState.Balcony) // 빵집까지 이동 가능하게 전환
+        else if ((index == 207 || index == 428) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
         {            
             isWaitingForPlayer = true;
             EnablePlayerMovement();
@@ -518,9 +566,12 @@ public class Ch1TalkManager : MonoBehaviour
             balcony.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
+            Npc_Rayviyak.SetActive(true);
+            Npc_MrHam.SetActive(true);
             Npc_Rusk.SetActive(true);
+            Npc_Violet.SetActive(true);
         }
-        else if (index == 257) // 빵집 npc와 대화 후 객실 자동 이동 및 맵상태 변경
+        /*else if (index == 257) // 빵집 npc와 대화 후 객실 자동 이동 및 맵상태 변경
         {
             player.transform.position = new Vector3(-44.5f, 9f, 0f);
             mapManager.currentState = MapState.TrainRoom3;
@@ -580,7 +631,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
             Npc_MrHam.SetActive(true);
-        }
+        }*/
         else
         {
             CheckTalk(currentDialogue.location);
@@ -589,7 +640,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     public void OnDialogueButtonClicked(int index)
     {
-        currentDialogueIndex = index;
+        /*currentDialogueIndex = index;
 
         if (currentDialogueIndex == 33)
         {
@@ -690,7 +741,7 @@ public class Ch1TalkManager : MonoBehaviour
         else
         {
             PrintCh1ProDialogue(currentDialogueIndex);
-        }
+        }*/
     }
 
     public void ActivateTalk(string locationName)
@@ -780,12 +831,12 @@ public class Ch1TalkManager : MonoBehaviour
 
     public void EnablePlayerMovement()
     {
-        playerController.StartMove(); // 플레이어 이동 활성화
+        playerController.canMove = true; // 플레이어 이동 활성화
     }
 
     public void DisablePlayerMovement()
     {
-        playerController.StopMove(); // 플레이어 이동 비활성화
+        playerController.canMove = false; // 플레이어 이동 비활성화
     }
 
     private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)

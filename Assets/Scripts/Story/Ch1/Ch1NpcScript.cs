@@ -32,7 +32,7 @@ public class Ch1NpcScript : MonoBehaviour
         isPlayerInRange = Vector3.Distance(player.position, transform.position) <= interactionRange;
 
         // currentDialogueIndex가 33인 경우 정원 NPC와 상호작용
-        if (isPlayerInRange && talkManager.currentDialogueIndex == 33 && gameObject.name == "Npc_Rayviyak")
+        /*if (isPlayerInRange && talkManager.currentDialogueIndex == 33 && gameObject.name == "Npc_Rayviyak")
         {
             dialogueButton.SetActive(true);
         }
@@ -84,7 +84,7 @@ public class Ch1NpcScript : MonoBehaviour
         else
         {
             dialogueButton.SetActive(false);
-        }
+        }*/
     }
 
     // "대화하기" 버튼을 눌렀을 때 호출되는 함수
