@@ -1593,6 +1593,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8875234556325520773, guid: 44d910f028aadfc4f888c7f6e1ce1fd5, type: 3}
+      propertyPath: talkManager
+      value: 
+      objectReference: {fileID: 1506330867}
+    - target: {fileID: 8875234556325520773, guid: 44d910f028aadfc4f888c7f6e1ce1fd5, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 86337310}
@@ -2321,6 +2325,10 @@ PrefabInstance:
       propertyPath: invitation
       value: 
       objectReference: {fileID: 219800103}
+    - target: {fileID: 7452252831755316704, guid: afb8d9f504e54934b97f8efa48627242, type: 3}
+      propertyPath: mapManager
+      value: 
+      objectReference: {fileID: 1454568758}
     - target: {fileID: 7452252831755316704, guid: afb8d9f504e54934b97f8efa48627242, type: 3}
       propertyPath: openingBar
       value: 

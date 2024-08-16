@@ -43,6 +43,7 @@ public class TalkManager : MonoBehaviour
 
     public GameObject mapTutorial; //맵 튜토리얼
     public MapTurorial MapTutorial;
+    public Ch0MapManager mapManager;
 
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
@@ -70,7 +71,7 @@ public class TalkManager : MonoBehaviour
 
     public PlayerController playerController;
 
-    private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
+    public string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
     public Sprite openPaperImg;
 
 
@@ -298,13 +299,7 @@ public class TalkManager : MonoBehaviour
         switch (location)
         {
             case locationHome:
-                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
-                if (currentMusic != "TRAIN STATION 1.3")
-                {
-                    SoundManager.Instance.PlayMusic("TRAIN STATION 1.3", loop: true);
-                    currentMusic = "TRAIN STATION 1.3"; // 현재 재생 중인 음악 이름을 업데이트
-                }
-
+                PlayMusic(locationHome);
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
@@ -381,12 +376,7 @@ public class TalkManager : MonoBehaviour
                 break;
             // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
             case locationCafe:
-                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
-                if (currentMusic != "CAFE")
-                {
-                    SoundManager.Instance.PlayMusic("CAFE", loop: true);
-                    currentMusic = "CAFE"; // 현재 재생 중인 음악 이름을 업데이트
-                }
+                PlayMusic(locationCafe);
                 if (currentDialogueIndex == 50)
                 {
                     StartCoroutine(screenFader.FadeIn(cafe));
@@ -435,6 +425,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationGarden:
+                PlayMusic(locationGarden);
                 if (currentDialogueIndex == 70)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
@@ -449,6 +440,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationBakery:
+                PlayMusic(locationBakery);
                 if (currentDialogueIndex == 79)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
@@ -463,6 +455,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationMedicalRoom:
+                PlayMusic(locationMedicalRoom);
                 if (currentDialogueIndex == 105)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
@@ -513,6 +506,50 @@ public class TalkManager : MonoBehaviour
                     }
                 }
                 break;
+        }
+    }
+
+    public void PlayMusic(string location = null)
+    {
+        string newMusic = ""; // 재생할 음악 이름
+
+        // 대사 상의 location에 따른 음악 설정
+        switch (location)
+         {
+            case locationHome:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationForest:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationTrainStation:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationCafe:
+                newMusic = "CAFE";
+                break;
+            case locationGarden:
+                newMusic = "GARDEN";
+                break;
+            case locationBakery:
+                newMusic = "BAKERY";
+                break;
+            case locationMedicalRoom:
+                newMusic = "amedicaloffice_001";
+                break;
+            case locationTrainRoom:
+                newMusic = "a room";
+                break;
+            default:
+                newMusic = "CAFE";
+                break;
+        }
+
+        // 새로운 음악이 현재 음악과 다를 경우에만 음악 재생
+        if (currentMusic != newMusic)
+        {
+            SoundManager.Instance.PlayMusic(newMusic, loop: true);
+            currentMusic = newMusic;
         }
     }
 
