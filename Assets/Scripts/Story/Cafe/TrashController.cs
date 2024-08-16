@@ -6,28 +6,60 @@ public class TrashController : MonoBehaviour
 {
     private CafeMakeController cafeMakeController;
     private IngredientController ingredientController;
+    private SpriteRenderer spriteRenderer;
 
-    private Vector3 hotCupdefaultPos = new Vector3(-1.3f, -3.3f, -1f);
-    private Vector3 iceCupdefaultPos = new Vector3(-1.25f, 0f, -1f);
+    private Sprite defaultSprite;
+    private Sprite collisionSprite;
+    public float spriteChangeDuration = 0.1f;
+
 
     void Start()
     {
         ingredientController = FindObjectOfType<IngredientController>();
         cafeMakeController = FindObjectOfType<CafeMakeController>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultSprite = Resources.Load<Sprite>("CafeImage/cafemake_Trashcan0");
+        collisionSprite = Resources.Load<Sprite>("CafeImage/cafemake_Trashcan2");
+        if (defaultSprite != null)
+        {
+            spriteRenderer.sprite = defaultSprite;
+        }
+        else
+        {
+            Debug.LogError("Default sprite could not be loaded.");
+        }
+
     }
 
-    public void HandleTrashCan(GameObject cup)
+    public void HandleTrashCan(GameObject trash)
     {
-        if (cup.name == "IceCup")
+        if (collisionSprite != null)
         {
-            cup.transform.position = iceCupdefaultPos;
+            spriteRenderer.sprite = collisionSprite;
+            Invoke("ResetSprite", spriteChangeDuration); // 일정 시간 후 원래 스프라이트로 복귀
+        }
+        if (trash.name == "MakeIceCup")
+        {
+            trash.SetActive(false);
             cafeMakeController.currentIngredients.Clear();
-            Debug.Log("Trash");
             Debug.Log("Current ingredients: " + string.Join(", ", cafeMakeController.currentIngredients)); // 리스트의 현재 상태를 출력
         }
-        else if(cup.name == "HotCup"){
-            cup.transform.position = hotCupdefaultPos;
+        else if(trash.name == "MakeHotCup"){
+            trash.SetActive(false);
             cafeMakeController.currentIngredients.Clear();
+            Debug.Log("Current ingredients: " + string.Join(", ", cafeMakeController.currentIngredients)); // 리스트의 현재 상태를 출력
         }
+        else if (trash.name == "DoneEsp" || trash.name == "DoneIceAm" || trash.name == "DoneHotAm" ||
+            trash.name == "DoneIceLt" || trash.name == "DoneHotLt" || trash.name == "DoneHb"||
+            trash.name == "DoneRoo" || trash.name == "DoneGt" || trash.name == "DoneCm")
+        {
+            trash.SetActive(false);
+        }
+    }
+
+    private void ResetSprite()
+    {
+        spriteRenderer.sprite = defaultSprite;
     }
 }

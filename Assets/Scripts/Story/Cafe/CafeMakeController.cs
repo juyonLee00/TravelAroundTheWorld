@@ -19,6 +19,10 @@ public class CafeMakeController : MonoBehaviour
     public GameObject OrderHotAm;
     public GameObject Shot;
 
+    public GameObject makeIceCup;
+    public GameObject makeHotCup;
+
+
     public GameObject Beverage;
     public GameObject CafeMap;
     public List<string> currentIngredients = new List<string>();
@@ -54,56 +58,65 @@ public class CafeMakeController : MonoBehaviour
             {
                 HotAmericano.SetActive(true);
                 Debug.Log("HotAmericano is maded");
-                ingredientController.CupPos("HotCup");
+                makeHotCup.SetActive(false);
+                currentIngredients.Clear();
+            }
+            else if (currentIngredients.Contains("Milk"))
+            {
+                HotLatte.SetActive(true);
+                Debug.Log("HotLatte is maded");
+                makeHotCup.SetActive(false);
+                currentIngredients.Clear();
             }
             else
             {
                 Espresso.SetActive(true);
                 Debug.Log("Espresso is maded");
-                ingredientController.CupPos("HotCup");
+                makeHotCup.SetActive(false);
+                currentIngredients.Clear();
             }
         }
         else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
             IceAmericano.SetActive(true);
             Debug.Log("IceAmericano is maded");
-            ingredientController.CupPos("IceCup");
+            makeIceCup.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Milk") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
             IceLatte.SetActive(true);
             Debug.Log("IceLatte is maded");
-            ingredientController.CupPos("IceCup");
-        }
-        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Milk") && currentIngredients.Contains("Shot"))
-        {
-            HotLatte.SetActive(true);
-            Debug.Log("HotLatte is maded");
-            ingredientController.CupPos("HotCup");
+            makeIceCup.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("HbTeabag"))
         {
             HibiscusTea.SetActive(true);
             Debug.Log("HibiscusTea is maded");
-            ingredientController.CupPos("HotCup");
+            makeHotCup.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooTeabag"))
         {
             RooibosTea.SetActive(true);
             Debug.Log("RooibosTea is maded");
-            ingredientController.CupPos("HotCup");
+            makeHotCup.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("GrTeabag"))
         {
             GreenTea.SetActive(true);
             Debug.Log("GreenTea is maded");
-            ingredientController.CupPos("HotCup");
+            makeHotCup.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("CmTeabag"))
         {
             ChamomileTea.SetActive(true);
             Debug.Log("Chamomile is maded");
-            ingredientController.CupPos("HotCup");
+            makeHotCup.SetActive(false);
+            currentIngredients.Clear();
         }
         Invoke("CheckOrder", 0.2f);
     }
