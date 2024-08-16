@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
-    bool canMove = true;
+    public bool canMove = true;
 
     public Camera mainCamera;
 

@@ -45,10 +45,12 @@ public class SceneManagerEx : MonoBehaviour
         }
     }
 
+    /*
     private void OnSceneLoaded(string sceneName)
     {
         Debug.Log($"Scene {sceneName} loaded successfully");
     }
+    */
 
     //씬 로드 요청 큐에 추가 
     public void SceanLoadQueue(string sceneName)
@@ -123,7 +125,7 @@ public class SceneManagerEx : MonoBehaviour
         yield return StartCoroutine(FadeOut());
 
         //OnSceneLoaded(sceneName);
-        //Cleanup();
+        Clear();
     }
 
     private void InitializeSceneObjects()

@@ -68,10 +68,19 @@ public class DayNightCycleManager : MonoBehaviour
 
     private void HandleSceneTransition(string fromScene, string toScene)
     {
+        //카페튜토리얼로 넘어갈 때
+        if(SceneTransitionManager.Instance.GetDescScene() == "CafeTutorialScene")
+        {
+            return;
+        }
+
         //챕터 1로 넘어갈 때
-        if (fromScene == "Ch0Scene" && toScene == "LoadingScene" && curDay == 0)
+        else if (fromScene == "Ch0Scene" && toScene == "LoadingScene" && curDay == 0 && TalkManager.Instance.currentDialogueIndex == 132)
         {
             ChangeDay();
+            SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
+            PlayerManager.Instance.SetSceneName("Ch1Scene");
+
         }
 
         //챕터에서 카페일을 할 때
@@ -83,6 +92,8 @@ public class DayNightCycleManager : MonoBehaviour
         else if (fromScene == "LoadingScene" && toScene == "Ch1Scene" && isNowDayTime)
         {
             ChangeDayTime();
+            //현재 인덱스 지점에 저장
+            SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
         }
         else
         {
@@ -96,12 +107,15 @@ public class DayNightCycleManager : MonoBehaviour
     public void ChangeDay()
     {
         curDay += 1;
+        PlayerManager.Instance.SetDay();
         isNowDayTime = true;
+        PlayerManager.Instance.SetCurrentTimeofDay();
     }
 
     public void ChangeDayTime()
     {
         isNowDayTime = !isNowDayTime;
+        PlayerManager.Instance.SetCurrentTimeofDay();
     }
 
     public int GetCurrentDay()
@@ -112,5 +126,11 @@ public class DayNightCycleManager : MonoBehaviour
     public bool GetNowDayTime()
     {
         return isNowDayTime;
+    }
+
+    public void LoadSaveData()
+    {
+        curDay = PlayerManager.Instance.GetDay();
+        isNowDayTime = PlayerManager.Instance.GetCurrentTimeofDay();
     }
 }
