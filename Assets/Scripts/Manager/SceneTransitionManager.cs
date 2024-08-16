@@ -19,6 +19,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     private int cafeDeliveryNum;
 
+    private List<CafeOrder> cafeOrders = new List<CafeOrder>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -34,11 +36,65 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
 
+    //현재 도착하는 씬 위치 반환
     public string GetDescScene()
     {
         return destScene;
     }
 
+    //직접 와서 주문 받는 형식(주문자가 정해져 있음)
+    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, List<CafeOrder> orders)
+    {
+        returnDialogueIndex = returnIdx;
+        targetScene = fromScene;
+        destScene = toScene;
+        cafeOrders = new List<CafeOrder>(orders);
+
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx, orders));
+    }
+
+    //직접 와서 주문받는 형식 
+    IEnumerator HandleSceneTransition(string fromScene, string toScene, int curIdx, int toSceneIdx, int returnIdx, List<CafeOrder> orders)
+    {
+        // 씬 전환
+        yield return TransitionToScene(toScene);
+
+        // 필요한 작업 수행
+        PerformPostTransitionTasks();
+
+        //해당 조건 수행될때까지 대기
+        yield return WaitForCondition(() => AreSpecificOrderConditionsMet(orders));
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        yield return TransitionToScene(fromScene);
+    }
+
+    //모든 직접 주문 메뉴가 처리되었는지 확인(리스트 기준)
+    private bool AreSpecificOrderConditionsMet(List<CafeOrder> orders)
+    {
+        foreach (var order in orders)
+        {
+            if (!IsSpecificOrderConditionMet(order))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //직접 주문 메뉴별로 처리되었는지 확인(value 기준)
+    private bool IsSpecificOrderConditionMet(CafeOrder order)
+    {
+        return cafeOrders.Exists(o =>
+            o.CustomerName == order.CustomerName &&
+            o.MenuItem == order.MenuItem &&
+            o.MenuQuantity == order.MenuQuantity);
+    }
+
+
+
+    //배달 랜덤 메뉴 설정
     public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, int deliveryNum)
     {
         returnDialogueIndex = returnIdx;
@@ -48,6 +104,7 @@ public class SceneTransitionManager : MonoBehaviour
         StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx, deliveryNum));
     }
 
+    //배달 랜덤 메뉴 설정
     IEnumerator HandleSceneTransition(string fromScene, string toScene, int curIdx, int toSceneIdx, int returnIdx, int deliveryNum)
     {
         // 씬 전환
@@ -65,13 +122,14 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
 
+    //배달 랜덤 메뉴 개수 확인 
     private bool IsSpecificDeliveryConditionMet(int deliveryNum)
     {
         return cafeDeliveryNum == deliveryNum;
     }
 
 
-    // 대화 진행 중 특정 조건에서 호출
+    //스토리 진행 중 다른 씬으로 이동
     public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx)
     {
         returnDialogueIndex = returnIdx; 
@@ -79,6 +137,7 @@ public class SceneTransitionManager : MonoBehaviour
         StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx));
     }
 
+    //스토리 진행 중 다른 씬으로 이동
     IEnumerator HandleSceneTransition(string fromScene, string toScene, int curIdx, int toSceneIdx, int returnIdx)
     {
         // 씬 전환
@@ -95,6 +154,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
 
+    //스토리 진행 중 다른 씬으로 이동
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //tutorial의 경우
@@ -119,6 +179,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
+    //TutorialScene에서 CafeTutorial 상호작용시 이
     private IEnumerator WaitAndSetDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
@@ -142,11 +203,12 @@ public class SceneTransitionManager : MonoBehaviour
     private IEnumerator WaitAndSetStoryDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
-        TalkManager talkManager = null;
-        while (talkManager == null)
+        // 전체 씬에서 적용가능하게 수정해야 함
+        Ch1TalkManager ch1TalkManager = null;
+        while (ch1TalkManager == null)
         {
-            talkManager = FindObjectOfType<TalkManager>();
-            if (talkManager != null)
+            ch1TalkManager = FindObjectOfType<Ch1TalkManager>();
+            if (ch1TalkManager != null)
             {
                 break;
             }
@@ -158,6 +220,7 @@ public class SceneTransitionManager : MonoBehaviour
         Debug.Log($"Dialogue index set to {returnDialogueIndex} in {targetScene}.");
     }
 
+    //씬 전환
     IEnumerator TransitionToScene(string sceneName)
     {
         // 씬 전환
@@ -172,6 +235,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
 
+    //스토리 확인시 스토리 대화 index 확인
     private bool IsSpecificConditionMet(int returnIdx)
     {
         return toDialogueIdx == returnIdx;
@@ -185,16 +249,24 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
+    //대화 idx 업데이트
     public void UpdateDialogueIndex(int newIndex)
     {
         toDialogueIdx = newIndex;
     }
 
+    //배달 주문수 업데이트
     public void UpdateCafeDelivery(int newNum)
     {
         cafeDeliveryNum = newNum;
     }
 
+    //직접 주문수 업데이트
+    public void UpdateCafeOrders(List<CafeOrder> newOrders)
+    {
+        cafeOrders = new List<CafeOrder>(newOrders);
+    }
+    //
     private void OnDialogueIndexUpdated(int fromSceneIdx, int returnIdx)
     {
         fromSceneIdx = returnIdx;
