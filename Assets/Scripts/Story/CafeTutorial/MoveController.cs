@@ -82,7 +82,6 @@ public class MoveController : MonoBehaviour
                 break;
             case 47:
             case 48:
-            case 51:
                 newPosition = makePosition;
                 descNewPosition = descMakePosition;
                 spriteRenderer.sprite = DownL;
@@ -90,6 +89,15 @@ public class MoveController : MonoBehaviour
             case 49:
                 newPosition = donePosition;
                 descNewPosition = descDonePosition;
+                spriteRenderer.sprite = DownL;
+                break;
+            case 50:
+                newPosition = new Vector2(-9999, -9999); // 화면 밖으로 이동
+                descNewPosition = new Vector2(-9999, -9999);
+                break;
+            case 51:
+                newPosition = makePosition;
+                descNewPosition = descMakePosition;
                 spriteRenderer.sprite = DownL;
                 break;
             default:
