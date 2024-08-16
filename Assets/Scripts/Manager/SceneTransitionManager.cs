@@ -95,7 +95,7 @@ public class SceneTransitionManager : MonoBehaviour
 
 
     //배달 랜덤 메뉴 설정
-    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx, int deliveryNum)
+    public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, int deliveryNum)
     {
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
@@ -179,7 +179,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
-    //TutorialScene에서 CafeTutorial 상호작용시 이
+    //TutorialScene에서 CafeTutorial 상호작용시 
     private IEnumerator WaitAndSetDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
