@@ -821,7 +821,7 @@ MonoBehaviour:
   orderGreenTeaPrefab: {fileID: 5795300025164973998, guid: 7c8f26e9524322d43bff1de9ff93b624, type: 3}
   orderRooibosTeaPrefab: {fileID: 2112077620423120186, guid: d463289ab8192fb4d86feecbfbc7dee7, type: 3}
   orderHibiscusTeaPrefab: {fileID: 4364993533804031774, guid: 17e8710a89b637f4ab890e4b76442d78, type: 3}
-  orderCamomileTeaPrefab: {fileID: 6751296363363338847, guid: 807882d832f76a243b4b03c24646c8e6, type: 3}
+  orderChamomileTeaPrefab: {fileID: 0}
   startPosition: {x: -4.51, y: 4}
   offset: {x: 1.5, y: 0}
 --- !u!1 &261378552
@@ -4393,6 +4393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968746747}
+  - component: {fileID: 1968746748}
   m_Layer: 0
   m_Name: Beverage
   m_TagString: Untagged
@@ -4433,6 +4434,55 @@ Transform:
   - {fileID: 168229482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1968746748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968746746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d213481cad2a67e45a57714524f517a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preAvailableOrders:
+  - Espresso
+  - IceAmericano
+  - HotAmericano
+  maxpreEspresso: 7
+  maxpreIceAmericano: 8
+  maxpreHotAmericano: 8
+  preOrderCount: 0
+  preCurrentOrders:
+  - 
+  - 
+  - 
+  postAvailableOrders: []
+  maxpostEspresso: 0
+  maxpostIceAmericano: 0
+  maxpostHotAmericano: 0
+  maxpostIceLatte: 0
+  maxpostHotLatte: 0
+  maxpostGreenTea: 0
+  maxpostRooibosTea: 0
+  maxpostChamomileTea: 0
+  maxpostHibicusTea: 0
+  postOrderCount: 0
+  postCurrentOrders: []
+  orderListParent: {fileID: 220372535}
+  orderEspressoPrefab: {fileID: 3155596509432154914, guid: c0b06ccb987986844adc0dba32f1f077, type: 3}
+  orderHotAmericanoPrefab: {fileID: 3743385587279340488, guid: dfd3060acd91cb943b96800d6305f29d, type: 3}
+  orderIceAmericanoPrefab: {fileID: 4593053589231473950, guid: c0589f30d7cc61a40a090002c7532b43, type: 3}
+  orderHotLattePrefab: {fileID: 5712412965101894054, guid: 6bc4938296dee914e8a014efb89ad620, type: 3}
+  orderIceLattePrefab: {fileID: 6347129403903982708, guid: afe6b56396617e14eaa95af8f7b26823, type: 3}
+  orderGreenTeaPrefab: {fileID: 5795300025164973998, guid: 7c8f26e9524322d43bff1de9ff93b624, type: 3}
+  orderRooibosTeaPrefab: {fileID: 2112077620423120186, guid: d463289ab8192fb4d86feecbfbc7dee7, type: 3}
+  orderHibiscusTeaPrefab: {fileID: 4364993533804031774, guid: 17e8710a89b637f4ab890e4b76442d78, type: 3}
+  orderChamomileTeaPrefab: {fileID: 6751296363363338847, guid: 807882d832f76a243b4b03c24646c8e6, type: 3}
+  buyMilk: 1
+  startPosition: {x: -4.51, y: 4}
+  offset: {x: 1.5, y: 0}
 --- !u!1 &2025726183
 GameObject:
   m_ObjectHideFlags: 0
