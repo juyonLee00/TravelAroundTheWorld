@@ -74,6 +74,7 @@ public class TalkManager : MonoBehaviour
     public string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
     public Sprite openPaperImg;
 
+    public bool isAnimationPlaying = false;
 
     private Animator trainAnimator;
     private Animator letterAnimator;
@@ -97,29 +98,76 @@ public class TalkManager : MonoBehaviour
         if (!isTransition)
             ActivateTalk(locationHome); // 오브젝트 활성화
         else
+        {
+            OnAnimationEnd();
             ActivateTalk(locationCafe);
+        }
+            
     }
 
     void Update()
     {
         if (isActivated && !isFadingOut && Input.GetKeyDown(KeyCode.Space))
         {
-            currentDialogueIndex++;
-            if (currentDialogueIndex >= proDialogue.Count)
+            if (isAnimationPlaying)
             {
-                DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                return;
             }
-            else
+
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (opening != null && opening.GetComponentInChildren<Ch0TypeEffect>().IsTyping())
             {
-                PrintProDialogue(currentDialogueIndex);
+                opening.GetComponentInChildren<Ch0TypeEffect>().CompleteEffect();
+                anyTyping = true;
+            }
+
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            // 타이핑 중이었으면 아래 코드는 실행하지 않음
+            if (!anyTyping)
+            {
+                currentDialogueIndex++;
+                if (currentDialogueIndex >= proDialogue.Count)
+                {
+                    DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                }
+                else
+                {
+                    PrintProDialogue(currentDialogueIndex);
+                }
             }
         }
+
         // 맵 이동 조작 튜토리얼
         if (currentDialogueIndex == 63)
         {
             mapTutorial.SetActive(true);
             DeactivateTalk(); // 대화 잠시 종료
         }
+    }
+
+    //애니메이션 시작될 때 호
+    public void OnAnimationStart()
+    {
+        isAnimationPlaying = true;
+    }
+
+    // 애니메이션이 끝날 때 호출
+    public void OnAnimationEnd()
+    {
+        isAnimationPlaying = false;
     }
 
     void LoadDialogueFromCSV()
@@ -197,7 +245,7 @@ public class TalkManager : MonoBehaviour
         }
 
         ProDialogue currentDialogue = proDialogue[index];
-        
+
         string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
         string speakerKey = "";
 
@@ -373,14 +421,13 @@ public class TalkManager : MonoBehaviour
                         invitation.GetComponent<SpriteRenderer>().sprite = openPaperImg;
                         if (currentDialogueIndex == 6)
                         {
-
+                            OnAnimationStart();
                             letterAnimator.SetBool("isOpened", true);
 
-                        }
-                        else if (currentDialogueIndex == 7)
-                        {
-                            SoundManager.Instance.PlaySFX("twinkle");
-                            invitationText.gameObject.SetActive(true);
+                            //currentDialogueIndex += 1;
+                            //SoundManager.Instance.PlaySFX("twinkle");
+                            //invitationText.gameObject.SetActive(true);
+
                         }
                         else
                         {
@@ -408,6 +455,7 @@ public class TalkManager : MonoBehaviour
             case locationTrainStation:
                 if (currentDialogueIndex == 28)
                 {
+                    SoundManager.Instance.StopSFX();
                     StartCoroutine(screenFader.FadeIn(trainStation));
                 }
                 else
@@ -417,10 +465,15 @@ public class TalkManager : MonoBehaviour
                     {
                         train.SetActive(true);
                         if (currentDialogueIndex == 32)
+                        {
+                            OnAnimationStart();
                             trainAnimator.SetTrigger("PlayTrainAnimation");
+                        }
+                            
                         
                         if (currentDialogueIndex == 48)
                         {
+                            OnAnimationStart();
                             StartCoroutine(PerformFadeInAndHandleDialogue(48, 50));
                         }
                     }
@@ -633,9 +686,10 @@ public class TalkManager : MonoBehaviour
     {
         yield return StartCoroutine(screenFader.FadeOut(trainStation));
         yield return StartCoroutine(screenFader.FadeOut(train));
-
+        
         // 페이드 인이 완료된 후 씬 전환 작업 수행
         SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 56, returnDialogueIdx);
         currentDialogueIndex = returnDialogueIdx;
     }
+
 }

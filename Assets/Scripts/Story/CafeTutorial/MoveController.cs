@@ -23,26 +23,26 @@ public class MoveController : MonoBehaviour
     public Vector2 descMakePosition = new Vector2(680, 20);
     public Vector2 descDonePosition = new Vector2(550, -350);
 
-    //여기는 대사 idx를 잘 모르겠습니다..
-    public Vector2 descIcedAmericanoPosition = new Vector2(675, 31);
 
     public Vector2 descNewPosition;
 
-    //public Sprite DownL;
-    //public Sprite Left;
-    //public Sprite TopL;
+    public Sprite DownL;
+    public Sprite Left;
+    public Sprite TopL;
 
     private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         cafeTalkManager = FindObjectOfType<CafeTalkManager>();
-        //rectTransform = GetComponent<RectTransform>();
-        //descriptionRectTransform = transform.Find("Description").GetComponent<RectTransform>();
         GameObject explainImg = GameObject.Find("ExplainBar");
         rectTransform = explainImg.GetComponent<RectTransform>();
 
         spriteRenderer = explainImg.GetComponent<SpriteRenderer>();
+
+        DownL = Resources.Load<Sprite>("CafeImage/mal_DownL");
+        Left = Resources.Load<Sprite>("CafeImage/mal_Left");
+        TopL = Resources.Load<Sprite>("CafeImage/mal_TopL");
 
         TextMeshProUGUI descText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         descriptionRectTransform = descText.GetComponent<RectTransform>();
@@ -66,31 +66,39 @@ public class MoveController : MonoBehaviour
             case 42:
                 newPosition = extractPosition;
                 descNewPosition = descExtractPosition;
-               // spriteRenderer.sprite = DownL;
+                spriteRenderer.sprite = DownL;
                 break;
             case 43:
             case 44:
             case 45:
                 newPosition = cupPosition;
                 descNewPosition = descCupPosition;
-                //spriteRenderer.sprite = Left;
+                spriteRenderer.sprite = Left;
                 break;
             case 46:
-                newPosition = ingredientPosition;
-                descNewPosition = descIngredientPosition;
-                //spriteRenderer.sprite = TopL;
+                newPosition = makePosition;
+                descNewPosition = descMakePosition;
+                spriteRenderer.sprite = TopL;
                 break;
             case 47:
             case 48:
-            case 51:
                 newPosition = makePosition;
                 descNewPosition = descMakePosition;
-                //spriteRenderer.sprite = TopL;
+                spriteRenderer.sprite = DownL;
                 break;
             case 49:
                 newPosition = donePosition;
                 descNewPosition = descDonePosition;
-                //spriteRenderer.sprite = DownL;
+                spriteRenderer.sprite = DownL;
+                break;
+            case 50:
+                newPosition = new Vector2(-9999, -9999); // 화면 밖으로 이동
+                descNewPosition = new Vector2(-9999, -9999);
+                break;
+            case 51:
+                newPosition = makePosition;
+                descNewPosition = descMakePosition;
+                spriteRenderer.sprite = DownL;
                 break;
             default:
                 return;
