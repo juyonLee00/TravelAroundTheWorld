@@ -43,6 +43,7 @@ public class TalkManager : MonoBehaviour
 
     public GameObject mapTutorial; //맵 튜토리얼
     public MapTurorial MapTutorial;
+    public Ch0MapManager mapManager;
 
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
@@ -70,7 +71,7 @@ public class TalkManager : MonoBehaviour
 
     public PlayerController playerController;
 
-    private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
+    public string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
     public Sprite openPaperImg;
 
     public bool isAnimationPlaying = false;
@@ -157,7 +158,7 @@ public class TalkManager : MonoBehaviour
         }
     }
 
-    //애니메이션 시작될 때 호
+    //애니메이션 시작될 때 호
     public void OnAnimationStart()
     {
         isAnimationPlaying = true;
@@ -193,12 +194,45 @@ public class TalkManager : MonoBehaviour
 
     void InitializeCharacterImages()
     {
-        characterImages = new Dictionary<string, Sprite>();
-        characterImages["솔"] = Resources.Load<Sprite>("PlayerImage/Sol");
-        characterImages["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac");
-        characterImages["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet");
-        characterImages["러스크"] = Resources.Load<Sprite>("NpcImage/Rusk");
-        characterImages["Mr. Ham"] = Resources.Load<Sprite>("NpcImage/MrHam");
+        characterImages = new Dictionary<string, Sprite>
+        {
+            // 기본 캐릭터 이미지
+            ["솔"] = Resources.Load<Sprite>("PlayerImage/Sol"),
+            ["레이비야크"] = Resources.Load<Sprite>("NpcImage/Leviac"),
+            ["바이올렛"] = Resources.Load<Sprite>("NpcImage/Violet"),
+            ["러스크"] = Resources.Load<Sprite>("NpcImage/Rusk"),
+            ["Mr. Ham"] = Resources.Load<Sprite>("NpcImage/MrHam"),
+
+            // 솔 표정 이미지
+            ["솔_일반"] = Resources.Load<Sprite>("PlayerImage/Sol"),
+            ["솔_놀람"] = Resources.Load<Sprite>("PlayerImage/놀람"),
+            ["솔_슬픔"] = Resources.Load<Sprite>("PlayerImage/눈물"),
+            ["솔_당황"] = Resources.Load<Sprite>("PlayerImage/당황"),
+            ["솔_웃음"] = Resources.Load<Sprite>("PlayerImage/웃음"),
+            ["솔_화남"] = Resources.Load<Sprite>("PlayerImage/화남"),
+
+            // 레이비야크 표정 이미지
+            ["레이비야크_일반"] = Resources.Load<Sprite>("NpcImage/Leviac"),
+            ["레이비야크_웃음"] = Resources.Load<Sprite>("NpcImage/Leviac_웃음"),
+
+            // 바이올렛 표정 이미지
+            ["바이올렛_일반"] = Resources.Load<Sprite>("NpcImage/Violet"),
+            ["바이올렛_웃음"] = Resources.Load<Sprite>("NpcImage/Violet_웃음"),
+            ["바이올렛_윙크"] = Resources.Load<Sprite>("NpcImage/Violet_윙크"),
+
+            // 러스크 표정 이미지
+            ["러스크_일반"] = Resources.Load<Sprite>("NpcImage/Rusk"),
+            ["러스크_웃음"] = Resources.Load<Sprite>("NpcImage/Rusk_웃음"),
+
+            // Mr. Ham 표정 이미지
+            ["Mr. Ham_일반"] = Resources.Load<Sprite>("NpcImage/MrHam"),
+            ["Mr. Ham_웃음"] = Resources.Load<Sprite>("NpcImage/MrHam_웃음"),
+            ["Mr. Ham_화남"] = Resources.Load<Sprite>("NpcImage/MrHam_화남"),
+            ["Mr. Ham_아쉬움"] = Resources.Load<Sprite>("NpcImage/MrHam_아쉬움"),
+
+            // 기본 NPC 이미지
+            ["Default"] = Resources.Load<Sprite>("NpcImage/Default")
+        };
     }
 
     void PrintProDialogue(int index)
@@ -212,31 +246,50 @@ public class TalkManager : MonoBehaviour
 
         ProDialogue currentDialogue = proDialogue[index];
 
-        //인물이 ???인 경우 장소에 따라 npc 이미지 처리
+        string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
+        string speakerKey = "";
+
+        //인물이 ???인 경우 장소에 따라 이미지 처리
         if (currentDialogue.speaker == unknownSpeaker)
         {
-            //장소가 정원일 경우
-            if (currentDialogue.location == locationGarden)
+            if (currentDialogue.location == locationTrainStation)
             {
-                characterSprite = Resources.Load<Sprite>("NpcImage/Leviac");
+                speakerKey = "바이올렛";
             }
-            //장소가 빵집일 경우
+            else if (currentDialogue.location == locationGarden)
+            {
+                speakerKey = "레이비야크";
+            }
             else if (currentDialogue.location == locationBakery)
             {
-                characterSprite = Resources.Load<Sprite>("NpcImage/Rusk");
+                speakerKey = "러스크";
             }
-            //장소가 의무실일 경우
             else if (currentDialogue.location == locationMedicalRoom)
             {
-                characterSprite = Resources.Load<Sprite>("NpcImage/MrHam");
+                speakerKey = "Mr. Ham";
             }
         }
-        //그 외에는 인물에 따라 이미지 처리
         else
         {
-            characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
+            speakerKey = currentDialogue.speaker;
         }
 
+        // 인물과 표정을 포함한 최종 키 생성
+        string finalKey = speakerKey + expressionKey;
+
+        if (characterImages.ContainsKey(finalKey))
+        {
+            characterSprite = characterImages[finalKey];
+        }
+        else
+        {
+            // 해당사항 없는 경우 기본 이미지 사용
+            characterSprite = characterImages.ContainsKey(speakerKey)
+                ? characterImages[speakerKey]
+                : characterImages["Default"];
+        }
+
+        //이미지 적용
         if (imageObj.GetComponent<SpriteRenderer>() != null)
         {
             imageObj.GetComponent<SpriteRenderer>().sprite = characterSprite;
@@ -346,13 +399,7 @@ public class TalkManager : MonoBehaviour
         switch (location)
         {
             case locationHome:
-                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
-                if (currentMusic != "TRAIN STATION 1.3")
-                {
-                    SoundManager.Instance.PlayMusic("TRAIN STATION 1.3", loop: true);
-                    currentMusic = "TRAIN STATION 1.3"; // 현재 재생 중인 음악 이름을 업데이트
-                }
-
+                PlayMusic(locationHome);
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
@@ -434,12 +481,7 @@ public class TalkManager : MonoBehaviour
                 break;
             // 카페 튜토리얼 이후 ~ 맵 튜토리얼 이전
             case locationCafe:
-                // 현재 재생 중인 음악이 다른 음악이라면 새 음악을 재생
-                if (currentMusic != "CAFE")
-                {
-                    SoundManager.Instance.PlayMusic("CAFE", loop: true);
-                    currentMusic = "CAFE"; // 현재 재생 중인 음악 이름을 업데이트
-                }
+                PlayMusic(locationCafe);
                 if (currentDialogueIndex == 50)
                 {
                     StartCoroutine(screenFader.FadeIn(cafe));
@@ -488,6 +530,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationGarden:
+                PlayMusic(locationGarden);
                 if (currentDialogueIndex == 70)
                 {
                     StartCoroutine(screenFader.FadeIn(garden));
@@ -502,6 +545,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationBakery:
+                PlayMusic(locationBakery);
                 if (currentDialogueIndex == 79)
                 {
                     StartCoroutine(screenFader.FadeIn(bakery));
@@ -516,6 +560,7 @@ public class TalkManager : MonoBehaviour
                 }
                 break;
             case locationMedicalRoom:
+                PlayMusic(locationMedicalRoom);
                 if (currentDialogueIndex == 105)
                 {
                     StartCoroutine(screenFader.FadeIn(medicalRoom));
@@ -571,6 +616,50 @@ public class TalkManager : MonoBehaviour
         }
     }
 
+    public void PlayMusic(string location = null)
+    {
+        string newMusic = ""; // 재생할 음악 이름
+
+        // 대사 상의 location에 따른 음악 설정
+        switch (location)
+         {
+            case locationHome:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationForest:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationTrainStation:
+                newMusic = "TRAIN STATION 1.3";
+                break;
+            case locationCafe:
+                newMusic = "CAFE";
+                break;
+            case locationGarden:
+                newMusic = "GARDEN";
+                break;
+            case locationBakery:
+                newMusic = "BAKERY";
+                break;
+            case locationMedicalRoom:
+                newMusic = "amedicaloffice_001";
+                break;
+            case locationTrainRoom:
+                newMusic = "a room";
+                break;
+            default:
+                newMusic = "CAFE";
+                break;
+        }
+
+        // 새로운 음악이 현재 음악과 다를 경우에만 음악 재생
+        if (currentMusic != newMusic)
+        {
+            SoundManager.Instance.PlayMusic(newMusic, loop: true);
+            currentMusic = newMusic;
+        }
+    }
+
     private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
     {
         isFadingOut = true; // 페이드아웃 시작
@@ -599,7 +688,7 @@ public class TalkManager : MonoBehaviour
         yield return StartCoroutine(screenFader.FadeOut(train));
         
         // 페이드 인이 완료된 후 씬 전환 작업 수행
-        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 5, returnDialogueIdx);
+        SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 56, returnDialogueIdx);
         currentDialogueIndex = returnDialogueIdx;
     }
 
