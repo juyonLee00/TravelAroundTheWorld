@@ -132,9 +132,9 @@ public class MapTurorial : MonoBehaviour
 
             Vector2 playerPosition = player.transform.position;
             //엔진룸은 접근 불가 (플레이어 이동 불가)
-            if (playerPosition.x < -49)
+            if (playerPosition.x < -47)
             {
-                playerPosition.x = -49;
+                playerPosition.x = -47;
                 player.transform.position = new Vector3(playerPosition.x, playerPosition.y, player.transform.position.z);
             }
         }
