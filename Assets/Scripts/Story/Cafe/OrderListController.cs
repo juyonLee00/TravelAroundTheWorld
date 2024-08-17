@@ -23,7 +23,7 @@ public class OrderListController : MonoBehaviour
 
     void Start()
     {
-        UpdateOrderList();
+        //UpdateOrderList();
     }
 
     public void UpdateOrderList()
