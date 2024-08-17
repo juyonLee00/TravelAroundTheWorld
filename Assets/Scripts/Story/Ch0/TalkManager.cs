@@ -97,7 +97,11 @@ public class TalkManager : MonoBehaviour
         if (!isTransition)
             ActivateTalk(locationHome); // 오브젝트 활성화
         else
+        {
+            OnAnimationEnd();
             ActivateTalk(locationCafe);
+        }
+            
     }
 
     void Update()
@@ -404,6 +408,7 @@ public class TalkManager : MonoBehaviour
             case locationTrainStation:
                 if (currentDialogueIndex == 28)
                 {
+                    SoundManager.Instance.StopSFX();
                     StartCoroutine(screenFader.FadeIn(trainStation));
                 }
                 else
@@ -413,10 +418,15 @@ public class TalkManager : MonoBehaviour
                     {
                         train.SetActive(true);
                         if (currentDialogueIndex == 32)
+                        {
+                            OnAnimationStart();
                             trainAnimator.SetTrigger("PlayTrainAnimation");
+                        }
+                            
                         
                         if (currentDialogueIndex == 48)
                         {
+                            OnAnimationStart();
                             StartCoroutine(PerformFadeInAndHandleDialogue(48, 50));
                         }
                     }
@@ -587,7 +597,7 @@ public class TalkManager : MonoBehaviour
     {
         yield return StartCoroutine(screenFader.FadeOut(trainStation));
         yield return StartCoroutine(screenFader.FadeOut(train));
-
+        
         // 페이드 인이 완료된 후 씬 전환 작업 수행
         SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 5, returnDialogueIdx);
         currentDialogueIndex = returnDialogueIdx;

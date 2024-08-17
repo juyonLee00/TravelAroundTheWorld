@@ -14,4 +14,9 @@ public class AnimationFunc : MonoBehaviour
         SoundManager.Instance.PlaySFX("twinkle");
         talkManager.invitationText.gameObject.SetActive(true);
     }
+
+    public void OnTrainAnimationEnd()
+    {
+        talkManager.isAnimationPlaying = false;
+    }
 }
