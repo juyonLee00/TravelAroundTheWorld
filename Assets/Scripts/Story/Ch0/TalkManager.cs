@@ -73,6 +73,7 @@ public class TalkManager : MonoBehaviour
     private string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
     public Sprite openPaperImg;
 
+    public bool isAnimationPlaying = false;
 
     private Animator trainAnimator;
     private Animator letterAnimator;
@@ -103,22 +104,65 @@ public class TalkManager : MonoBehaviour
     {
         if (isActivated && !isFadingOut && Input.GetKeyDown(KeyCode.Space))
         {
-            currentDialogueIndex++;
-            if (currentDialogueIndex >= proDialogue.Count)
+            if (isAnimationPlaying)
             {
-                DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                return;
             }
-            else
+
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (opening != null && opening.GetComponentInChildren<Ch0TypeEffect>().IsTyping())
             {
-                PrintProDialogue(currentDialogueIndex);
+                opening.GetComponentInChildren<Ch0TypeEffect>().CompleteEffect();
+                anyTyping = true;
+            }
+
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            // 타이핑 중이었으면 아래 코드는 실행하지 않음
+            if (!anyTyping)
+            {
+                currentDialogueIndex++;
+                if (currentDialogueIndex >= proDialogue.Count)
+                {
+                    DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                }
+                else
+                {
+                    PrintProDialogue(currentDialogueIndex);
+                }
             }
         }
+
         // 맵 이동 조작 튜토리얼
         if (currentDialogueIndex == 63)
         {
             mapTutorial.SetActive(true);
             DeactivateTalk(); // 대화 잠시 종료
         }
+    }
+
+    //애니메이션 시작될 때 호
+    public void OnAnimationStart()
+    {
+        isAnimationPlaying = true;
+    }
+
+    // 애니메이션이 끝날 때 호출
+    public void OnAnimationEnd()
+    {
+        isAnimationPlaying = false;
     }
 
     void LoadDialogueFromCSV()
@@ -326,14 +370,13 @@ public class TalkManager : MonoBehaviour
                         invitation.GetComponent<SpriteRenderer>().sprite = openPaperImg;
                         if (currentDialogueIndex == 6)
                         {
-
+                            OnAnimationStart();
                             letterAnimator.SetBool("isOpened", true);
 
-                        }
-                        else if (currentDialogueIndex == 7)
-                        {
-                            SoundManager.Instance.PlaySFX("twinkle");
-                            invitationText.gameObject.SetActive(true);
+                            //currentDialogueIndex += 1;
+                            //SoundManager.Instance.PlaySFX("twinkle");
+                            //invitationText.gameObject.SetActive(true);
+
                         }
                         else
                         {
@@ -549,4 +592,5 @@ public class TalkManager : MonoBehaviour
         SceneTransitionManager.Instance.HandleDialogueTransition("Ch0Scene", "CafeTutorialScene", fromDialogueIdx, 5, returnDialogueIdx);
         currentDialogueIndex = returnDialogueIdx;
     }
+
 }
