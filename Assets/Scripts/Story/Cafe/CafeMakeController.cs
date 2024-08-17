@@ -14,9 +14,6 @@ public class CafeMakeController : MonoBehaviour
     public GameObject RooibosTea;
     public GameObject GreenTea;
 
-    public GameObject OrderIceLt;
-    public GameObject OrderIceAm;
-    public GameObject OrderHotAm;
     public GameObject Shot;
 
     public GameObject makeIceCup;
@@ -93,28 +90,28 @@ public class CafeMakeController : MonoBehaviour
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("HbTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
         {
             HibiscusTea.SetActive(true);
             Debug.Log("HibiscusTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
         {
             RooibosTea.SetActive(true);
             Debug.Log("RooibosTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("GrTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
         {
             GreenTea.SetActive(true);
             Debug.Log("GreenTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("CmTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
         {
             ChamomileTea.SetActive(true);
             Debug.Log("Chamomile is maded");
