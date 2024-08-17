@@ -27,4 +27,16 @@ public class Ch0DialogueBar : MonoBehaviour
         }
         talk.SetMsg(dialogue);
     }
+
+    public bool IsTyping()
+    {
+        // 현재 타이핑 중인지 확인
+        return talk.IsTyping(); 
+    }
+
+    public void CompleteTypingEffect()
+    {
+        // 타이핑 이펙트를 즉시 완료
+        talk.CompleteEffect(); 
+    }
 }
