@@ -28,6 +28,10 @@ public class CafeMakeController : MonoBehaviour
 
     List<CafeOrder> updatedOrders = new List<CafeOrder>();
 
+    public Transform orderListParent;
+
+    private int newNum = 0;
+
 
     void Start()
     {
@@ -122,61 +126,140 @@ public class CafeMakeController : MonoBehaviour
     }
     public void CheckOrder()
     {
-/*        if (Espresso.activeSelf)
+      if (Espresso.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("Espresso"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("Espresso"));
             Espresso.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (HotAmericano.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("HotAmericano"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("HotAmericano"));
             HotAmericano.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (IceAmericano.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("IceAmericano"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("IceAmericano"));
             IceAmericano.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (HotLatte.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("HotLatte"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("HotLatte"));
             HotLatte.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (IceLatte.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("IceLatte"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("IceLatte"));
             IceLatte.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (GreenTea.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("GreenTea"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("GreenTea"));
             GreenTea.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (HibiscusTea.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("HibiscusTea"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("HibiscusTea"));
             HibiscusTea.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (RooibosTea.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("RooibosTea"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("RooibosTea"));
             RooibosTea.SetActive(false);
-            currentIngredients.Clear();
         }
         else if (ChamomileTea.activeSelf)
         {
+            foreach (Transform order in orderListParent)
+            {
+                if (order.gameObject.activeInHierarchy && order.name.Contains("ChamomileTea"))
+                {
+                    Destroy(order.gameObject);
+                    ProcessOrderCompletion();
+                    break;
+                }
+            }
             updatedOrders.Add(new CafeOrder("ChamomileTea"));
             ChamomileTea.SetActive(false);
-            currentIngredients.Clear();
         }
-        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);*/
+        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
     }
 
+    public void ProcessOrderCompletion()
+    {
+        currentIngredients.Clear();
+        newNum++;
+        Debug.Log("주문 제작 완료 수 = "+ newNum);
+        SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
+    }
 }

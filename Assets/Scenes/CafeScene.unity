@@ -1950,7 +1950,7 @@ Transform:
   m_GameObject: {fileID: 471007994}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 17.589645, y: 11.300622, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2395,6 +2395,7 @@ MonoBehaviour:
   Beverage: {fileID: 1968746746}
   CafeMap: {fileID: 611514468}
   currentIngredients: []
+  orderListParent: {fileID: 220372535}
 --- !u!1 &611514468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,7 +5127,9 @@ MonoBehaviour:
   RecipeBook: {fileID: 343777029}
   Milk: {fileID: 440113884}
   TeaInventory: {fileID: 168229481}
-  buyMilk: 1
+  buyMilk: 0
+  buyTeaSet: 0
+  deliveryNum: 0
   orderController: {fileID: 0}
 --- !u!4 &1960370859
 Transform:
@@ -5206,7 +5209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d213481cad2a67e45a57714524f517a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Day: 6
+  Day: 2
   buyMilk: 0
   orderEspressoPrefab: {fileID: 3155596509432154914, guid: c0b06ccb987986844adc0dba32f1f077, type: 3}
   orderHotAmericanoPrefab: {fileID: 3743385587279340488, guid: dfd3060acd91cb943b96800d6305f29d, type: 3}
