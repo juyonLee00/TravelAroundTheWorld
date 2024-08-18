@@ -143,6 +143,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("Espresso"))
                 {
+                    PlayerManager.Instance.EarnMoney(50);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -157,6 +158,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("HotAmericano"))
                 {
+                    PlayerManager.Instance.EarnMoney(150);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -171,6 +173,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("IceAmericano"))
                 {
+                    PlayerManager.Instance.EarnMoney(150);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -185,6 +188,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("HotLatte"))
                 {
+                    PlayerManager.Instance.EarnMoney(180);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -199,6 +203,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("IceLatte"))
                 {
+                    PlayerManager.Instance.EarnMoney(180);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -213,6 +218,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("GreenTea"))
                 {
+                    PlayerManager.Instance.EarnMoney(110);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -227,6 +233,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("HibiscusTea"))
                 {
+                    PlayerManager.Instance.EarnMoney(150);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -241,6 +248,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("RooibosTea"))
                 {
+                    PlayerManager.Instance.EarnMoney(160);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
@@ -255,6 +263,7 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (order.gameObject.activeInHierarchy && order.name.Contains("ChamomileTea"))
                 {
+                    PlayerManager.Instance.EarnMoney(120);
                     Destroy(order.gameObject);
                     ProcessOrderCompletion();
                     break;
