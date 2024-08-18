@@ -122,7 +122,7 @@ public class CafeMakeController : MonoBehaviour
     }
     public void CheckOrder()
     {
-        if (Espresso.activeSelf)
+/*        if (Espresso.activeSelf)
         {
             updatedOrders.Add(new CafeOrder("Espresso"));
             Espresso.SetActive(false);
@@ -176,7 +176,7 @@ public class CafeMakeController : MonoBehaviour
             ChamomileTea.SetActive(false);
             currentIngredients.Clear();
         }
-        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
+        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);*/
     }
 
 }
