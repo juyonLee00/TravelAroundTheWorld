@@ -213,9 +213,9 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (currentDialogueIndex == 437)
+            else if (mapManager.currentState == MapState.Cafe &&  currentDialogueIndex == 437)
             {
-                currentDialogueIndex = 476;
+                currentDialogueIndex = 474;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
             else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 489)

@@ -61,7 +61,7 @@ public class Ch1MapManager : MonoBehaviour
         cafeSubZones = new Dictionary<string, Bounds>();
 
         Vector3 cafeBarPosition = new Vector3(6.2f, -4f, 0f); // cafebar의 위치
-        Vector3 cafeBarSize = new Vector3(6f, 2.5f, 1f); // cafebar의 스케일
+        Vector3 cafeBarSize = new Vector3(6f, 3f, 1f); // cafebar의 스케일
 
         cafeSubZones["CafeBar"] = new Bounds(cafeBarPosition, cafeBarSize);
     }
