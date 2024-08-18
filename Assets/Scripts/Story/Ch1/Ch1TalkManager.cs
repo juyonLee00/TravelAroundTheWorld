@@ -901,16 +901,7 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
-    void CheckBed()
-    {
-        if (mapManager.currentState == MapState.TrainRoom3 && !bedUsed)
-        {
-            playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
-            bedUsed = true; //침대 사용
-        }
-    }
-
-private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
+    private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
     {
         isFadingOut = true; // 페이드아웃 시작
         yield return StartCoroutine(screenFader.FadeOut(obj)); // FadeOut이 완료될 때까지 기다립니다.
