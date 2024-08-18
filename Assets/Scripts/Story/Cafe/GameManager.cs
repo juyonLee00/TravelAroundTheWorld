@@ -13,7 +13,25 @@ public class GameManager : MonoBehaviour
     public GameObject Delivery;
     public GameObject RecipeBook;
 
+    public GameObject Milk;
+    public GameObject TeaInventory;
+
+    //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
+    public bool buyMilk = true;
+
     public OrderController orderController;
+
+    void Start()
+    {
+        if (buyMilk)
+        {
+            Milk.SetActive(true);
+        }
+        else
+        {
+            TeaInventory.SetActive(true);
+        }
+    }
 
 
     void Update()

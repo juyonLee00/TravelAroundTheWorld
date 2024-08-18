@@ -20,29 +20,18 @@ public class OrderController : MonoBehaviour
     public GameObject orderHibiscusTeaPrefab;
     public GameObject orderChamomileTeaPrefab;
 
-    public GameObject TeaInventory;
-    public GameObject Milk;
-
     public Transform orderListParent;
 
-    public Vector2 startPosition = new Vector2(-4.51f, 4f);
-    public Vector2 offset = new Vector2(-1.5f, 0);
+    public Vector3 startPosition = new Vector3(1.5f, 0f, -2f);
+    public Vector3 offset = new Vector3(-1.6f, 0, 0);
 
     private List<string> generatedOrders = new List<string>();
 
     void Start()
     {
 
-        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
-
-        if (buyMilk)
-        {
-            Milk.SetActive(true);
-        }
-        else
-        {
-            TeaInventory.SetActive(true);
-        }
+        //int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+        int randomNum = 3;
         
         GenerateOrder(randomNum);
         DisplayOrders();
@@ -96,7 +85,7 @@ public class OrderController : MonoBehaviour
 
     public void DisplayOrders()
     {
-        Vector2 currentPosition = startPosition;
+        Vector3 currentPosition = startPosition;
 
         foreach (var order in generatedOrders)
         {
@@ -106,6 +95,7 @@ public class OrderController : MonoBehaviour
             {
                 GameObject newOrder = Instantiate(orderPrefab, orderListParent);
                 newOrder.transform.localPosition = currentPosition;
+                Debug.Log($"Order {order} placed at {currentPosition}");
 
                 // 다음 주문 아이템을 위한 위치 계산
                 currentPosition += offset;
