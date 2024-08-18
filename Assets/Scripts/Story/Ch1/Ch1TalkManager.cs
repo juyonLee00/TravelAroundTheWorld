@@ -279,8 +279,8 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (index == 7)
         {
-            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 Ch1Scene으로 복귀
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("Ch1Scene", "CafeScene", 9, 3);
+            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 9, 3);
         }
         else if (index == 12)
         {
@@ -290,7 +290,7 @@ public class Ch1TalkManager : MonoBehaviour
             new CafeOrder("Espresso")  // 직접 주문하는 에스프레소 1잔
         };
 
-            SceneTransitionManager.Instance.HandleDialogueTransition("Ch1Scene", "CafeScene", 14, orders);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 14, orders);
 
             // 랜덤 주문 2건 처리
             SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 14, 2);
