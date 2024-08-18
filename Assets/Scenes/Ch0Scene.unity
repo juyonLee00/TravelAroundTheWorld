@@ -1125,14 +1125,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 27483318659481518, guid: 36a6b807eeb69624db77087a36099605, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5a4ffea73a9ce68458e48b4e35e5d34c, type: 3}
     - target: {fileID: 129286535322354632, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+<<<<<<< HEAD
     - target: {fileID: 184361926744842394, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1161,6 +1158,8 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of 0729741 (Feat : 맵 튜토리얼 조작키 이미지 변경)
     - target: {fileID: 1533058206178437202, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1177,6 +1176,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 1953569567192169158, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_SizeDelta.x
       value: 100
@@ -1189,10 +1189,13 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of 0729741 (Feat : 맵 튜토리얼 조작키 이미지 변경)
     - target: {fileID: 2817256290955932129, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 3079503190494729451, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1221,6 +1224,8 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of 0729741 (Feat : 맵 튜토리얼 조작키 이미지 변경)
     - target: {fileID: 3964920509123295164, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.3354497
@@ -1353,6 +1358,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 7280889822834357422, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1360,11 +1366,17 @@ PrefabInstance:
     - target: {fileID: 7280889822834357422, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+=======
+    - target: {fileID: 5827075298509400620, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+>>>>>>> parent of 0729741 (Feat : 맵 튜토리얼 조작키 이미지 변경)
       objectReference: {fileID: 0}
     - target: {fileID: 7425081421915160792, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 7704234691532595431, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1372,6 +1384,11 @@ PrefabInstance:
     - target: {fileID: 7704234691532595431, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+=======
+    - target: {fileID: 7973653752441286095, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+>>>>>>> parent of 0729741 (Feat : 맵 튜토리얼 조작키 이미지 변경)
       objectReference: {fileID: 0}
     - target: {fileID: 8225742639084351074, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1384,6 +1401,10 @@ PrefabInstance:
     - target: {fileID: 8366836888198049709, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_Name
       value: MapTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8366836888198049709, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8739954660817994237, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_LocalPosition.z
