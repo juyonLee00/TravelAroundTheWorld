@@ -136,9 +136,38 @@ public class Ch1TalkManager : MonoBehaviour
                 isQuestActive = false;
             }
 
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            // 타이핑 중이었으면 아래 코드는 실행하지 않음
+            if (!anyTyping)
+            {
+                currentDialogueIndex++;
+                if (currentDialogueIndex >= ch1ProDialogue.Count)
+                {
+                    DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                }
+                else
+                {
+                    HandleDialogueProgression(currentDialogueIndex);
+                }
+            }
+
             // 대화 인덱스를 증가시키고 대화 진행을 처리
-            currentDialogueIndex++;
-            HandleDialogueProgression(currentDialogueIndex);
+            //currentDialogueIndex++;
+            //HandleDialogueProgression(currentDialogueIndex);
         }
 
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
