@@ -51,6 +51,8 @@ public class Ch1TalkManager : MonoBehaviour
     public Ch0DialogueBar dialogueBar; // 대화창 스크립트 (타이핑 효과 호출을 위해)
     public Ch0DialogueBar narrationBar; // 나레이션창 스크립트 (타이핑 효과 호출을 위해)
 
+    public bool bedUsed = false; // 침대를 사용했는지 여부
+
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
     private const string letterSpeaker = "편지지";
@@ -899,7 +901,16 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
+    void CheckBed()
+    {
+        if (mapManager.currentState == MapState.TrainRoom3 && !bedUsed)
+        {
+            playerController.StopMove(); //대사 나올때 플레이어 움직임 멈춤
+            bedUsed = true; //침대 사용
+        }
+    }
+
+private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
     {
         isFadingOut = true; // 페이드아웃 시작
         yield return StartCoroutine(screenFader.FadeOut(obj)); // FadeOut이 완료될 때까지 기다립니다.
