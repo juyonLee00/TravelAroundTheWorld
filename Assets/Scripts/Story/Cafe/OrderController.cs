@@ -36,6 +36,10 @@ public class OrderController : MonoBehaviour
     public GameObject orderHibiscusTeaPrefab;
     public GameObject orderChamomileTeaPrefab;
 
+    public GameObject teaInventory;
+    public GameObject milk;
+
+    // public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
     public bool buyMilk = true;
 
     public Vector2 startPosition = new Vector2(-4.51f, 4f);
@@ -88,7 +92,8 @@ public class OrderController : MonoBehaviour
         List<string> currentOrders;
 
         // 날짜에 따라 pre 또는 post 주문 목록 사용
-        if (PlayerManager.Instance.GetDay() < 5)
+        // PlayerManager.Instance.GetDay() < 5
+        if (true)
         {
             possibleOrders = preAvailableOrders;
             currentOrders = preCurrentOrders;
@@ -120,7 +125,8 @@ public class OrderController : MonoBehaviour
     {
         List<string> availableOrders = new List<string>();
 
-        bool isPreOrder = PlayerManager.Instance.GetDay() < 5;
+        //bool isPreOrder = PlayerManager.Instance.GetDay() < 5;
+        bool isPreOrder = true;
 
         foreach (var order in possibleOrders)
         {
