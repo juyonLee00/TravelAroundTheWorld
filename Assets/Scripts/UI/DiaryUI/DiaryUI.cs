@@ -45,6 +45,8 @@ public class DiaryUI : MonoBehaviour
     {
         Debug.Log("K");
         UIManager.Instance.DeactivatedUI("Diary");
+        PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        playerController.StartMove();
     }
 
     
