@@ -221,7 +221,8 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
-    //TutorialScene에서 CafeTutorial 상호작용시 
+    //TutorialScene에서 CafeTutorial 상호작용시 
+
     private IEnumerator WaitAndSetDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기

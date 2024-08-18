@@ -4,27 +4,11 @@ using UnityEngine;
 
 public class OrderController : MonoBehaviour
 {
-    public List<string> preAvailableOrders = new List<string> { "Espresso", "IceAmericano", "HotAmericano" };
-    public int maxpreEspresso = 7;
-    public int maxpreIceAmericano = 8;
-    public int maxpreHotAmericano = 8;
-    public int preOrderCount;
-    public List<string> preCurrentOrders = new List<string>();
+    //public int Day = PlayerManager.Instance.GetDay();
+    //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
 
-    public List<string> postAvailableOrders = new List<string>();
-    public int maxpostEspresso;
-    public int maxpostIceAmericano;
-    public int maxpostHotAmericano;
-    public int maxpostIceLatte;
-    public int maxpostHotLatte;
-    public int maxpostGreenTea;
-    public int maxpostRooibosTea;
-    public int maxpostChamomileTea;
-    public int maxpostHibicusTea;
-    public int postOrderCount;
-    public List<string> postCurrentOrders = new List<string>();
-
-    public Transform orderListParent;
+    public int Day;
+    public bool buyMilk;
 
     public GameObject orderEspressoPrefab;
     public GameObject orderHotAmericanoPrefab;
@@ -36,154 +20,142 @@ public class OrderController : MonoBehaviour
     public GameObject orderHibiscusTeaPrefab;
     public GameObject orderChamomileTeaPrefab;
 
-    public GameObject teaInventory;
-    public GameObject milk;
+    public GameObject TeaInventory;
+    public GameObject Milk;
 
-    // public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
-    public bool buyMilk = true;
+    public Transform orderListParent;
 
     public Vector2 startPosition = new Vector2(-4.51f, 4f);
-    public Vector2 offset = new Vector2(1.5f, 0);
+    public Vector2 offset = new Vector2(-1.5f, 0);
+
+    private List<string> generatedOrders = new List<string>();
 
     void Start()
     {
-        SetupAvailableOrders();
-    }
 
-    private void SetupAvailableOrders()
-    {
+        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+
         if (buyMilk)
         {
-            postAvailableOrders.Add("Espresso");
-            postAvailableOrders.Add("HotAmericano");
-            postAvailableOrders.Add("IceAmericano");
-            postAvailableOrders.Add("HotLatte");
-            postAvailableOrders.Add("IceLatte");
-
-            maxpostEspresso = 6;
-            maxpostHotAmericano = 4;
-            maxpostIceAmericano = 5;
-            maxpostHotLatte = 5;
-            maxpostIceLatte = 5;
+            Milk.SetActive(true);
         }
         else
         {
-            postAvailableOrders.Add("Espresso");
-            postAvailableOrders.Add("HotAmericano");
-            postAvailableOrders.Add("IceAmericano");
-            postAvailableOrders.Add("GreenTea");
-            postAvailableOrders.Add("RooibosTea");
-            postAvailableOrders.Add("ChamomileTea");
-            postAvailableOrders.Add("HibiscusTea");
+            TeaInventory.SetActive(true);
+        }
+        
+        GenerateOrder(randomNum);
+        DisplayOrders();
+    }
 
-            maxpostEspresso = 0;
-            maxpostHotAmericano = 1;
-            maxpostIceAmericano = 1;
-            maxpostGreenTea = 5;
-            maxpostRooibosTea = 5;
-            maxpostChamomileTea = 5;
-            maxpostHibicusTea = 8;
+    public void GenerateOrder(int randomNum)
+    {
+        List<string> availableKeys = new List<string>();
+
+        // 조건에 따라 사용할 주문 목록 선택
+        if (Day < 5)
+        {
+            availableKeys.AddRange(new string[] { "preEspresso", "preHotAmericano", "preIceAmericano" });
+        }
+        else if (Day >= 5 && buyMilk)
+        {
+            availableKeys.AddRange(new string[] { "milkEspresso", "milkHotAmericano", "milkIceAmericano", "HotLatte", "IceLatte" });
+        }
+        else if (Day >= 5 && !buyMilk)
+        {
+            availableKeys.AddRange(new string[] { "postEspresso", "postHotAmericano", "postIceAmericano", "GreenTea", "RooibosTea", "ChamomileTea", "HibiscusTea" });
+        }
+
+        // 랜덤으로 주문 생성
+        for (int i = 0; i < randomNum; i++)
+        {
+            if (availableKeys.Count == 0)
+            {
+                Debug.LogWarning("No available orders to generate!");
+                return;
+            }
+
+            string randomOrderKey = availableKeys[Random.Range(0, availableKeys.Count)];
+            if (CafeOrderManager.Instance.TryCreateOrder(randomOrderKey))
+            {
+                generatedOrders.Add(randomOrderKey);
+            }
+            else
+            {
+                // 주문이 불가능한 경우(수량이 부족한 경우), 해당 키를 목록에서 제거
+                availableKeys.Remove(randomOrderKey);
+                // 더 이상 생성할 수 있는 주문이 없으면 종료
+                if (availableKeys.Count == 0)
+                {
+                    Debug.LogWarning("No more available orders to generate.");
+                    break;
+                }
+            }
         }
     }
 
-    public void GenerateOrder(int orderCount)
+    public void DisplayOrders()
     {
-        List<string> possibleOrders;
-        List<string> currentOrders;
+        Vector2 currentPosition = startPosition;
 
-        // 날짜에 따라 pre 또는 post 주문 목록 사용
-        // PlayerManager.Instance.GetDay() < 5
-        if (true)
+        foreach (var order in generatedOrders)
         {
-            possibleOrders = preAvailableOrders;
-            currentOrders = preCurrentOrders;
-        }
-        else
-        {
-            possibleOrders = postAvailableOrders;
-            currentOrders = postCurrentOrders;
-        }
+            GameObject orderPrefab = GetOrderPrefab(order);
 
-        currentOrders.Clear();
+            if (orderPrefab != null)
+            {
+                GameObject newOrder = Instantiate(orderPrefab, orderListParent);
+                newOrder.transform.localPosition = currentPosition;
 
-        // 기존 UI에서 이전 주문 이미지 제거
-        foreach (Transform child in orderListParent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // 새로운 주문 생성 및 UI에 추가
-        for (int i = 0; i < orderCount; i++)
-        {
-            string order = GetRandomOrder(possibleOrders, currentOrders);
-            currentOrders.Add(order);
-            AddOrderImageToUI(order);
+                // 다음 주문 아이템을 위한 위치 계산
+                currentPosition += offset;
+            }
+            else
+            {
+                Debug.LogError("No prefab found for order: " + order);
+            }
         }
     }
 
-    private string GetRandomOrder(List<string> possibleOrders, List<string> currentOrders)
+    public GameObject GetOrderPrefab(string order)
     {
-        List<string> availableOrders = new List<string>();
-
-        //bool isPreOrder = PlayerManager.Instance.GetDay() < 5;
-        bool isPreOrder = true;
-
-        foreach (var order in possibleOrders)
+        switch (order)
         {
-            if (order == "Espresso" && currentOrders.FindAll(o => o == "Espresso").Count < (isPreOrder ? maxpreEspresso : maxpostEspresso))
-                availableOrders.Add(order);
-            else if (order == "IceAmericano" && currentOrders.FindAll(o => o == "IceAmericano").Count < (isPreOrder ? maxpreIceAmericano : maxpostIceAmericano))
-                availableOrders.Add(order);
-            else if (order == "HotAmericano" && currentOrders.FindAll(o => o == "HotAmericano").Count < (isPreOrder ? maxpreHotAmericano : maxpostHotAmericano))
-                availableOrders.Add(order);
-            else if (order == "HotLatte" && currentOrders.FindAll(o => o == "HotLatte").Count < (isPreOrder ? 0 : maxpostHotLatte)) // PreOrder에는 Latte가 없음
-                availableOrders.Add(order);
-            else if (order == "IceLatte" && currentOrders.FindAll(o => o == "IceLatte").Count < (isPreOrder ? 0 : maxpostIceLatte)) // PreOrder에는 Latte가 없음
-                availableOrders.Add(order);
-            else if (order == "GreenTea" && currentOrders.FindAll(o => o == "GreenTea").Count < (isPreOrder ? 0 : maxpostGreenTea)) // GreenTea는 post에서만 가능
-                availableOrders.Add(order);
-            else if (order == "RooibosTea" && currentOrders.FindAll(o => o == "RooibosTea").Count < (isPreOrder ? 0 : maxpostRooibosTea)) // RooibosTea는 post에서만 가능
-                availableOrders.Add(order);
-            else if (order == "ChamomileTea" && currentOrders.FindAll(o => o == "ChamomileTea").Count < (isPreOrder ? 0 : maxpostChamomileTea)) // ChamomileTea는 post에서만 가능
-                availableOrders.Add(order);
-            else if (order == "HibiscusTea" && currentOrders.FindAll(o => o == "HibiscusTea").Count < (isPreOrder ? 0 : maxpostHibicusTea)) // HibiscusTea는 post에서만 가능
-                availableOrders.Add(order);
-        }
+            case "preEspresso":
+            case "milkEspresso":
+            case "postEspresso":
+                return orderEspressoPrefab;
 
-        if (availableOrders.Count == 0)
-            return "Espresso"; // 모든 주문이 최대치면 기본값 반환
+            case "preHotAmericano":
+            case "milkHotAmericano":
+            case "postHotAmericano":
+                return orderHotAmericanoPrefab;
 
-        int randomIndex = Random.Range(0, availableOrders.Count);
-        return availableOrders[randomIndex];
-    }
+            case "preIceAmericano":
+            case "milkIceAmericano":
+            case "postIceAmericano":
+                return orderIceAmericanoPrefab;
 
+            case "HotLatte":
+                return orderHotLattePrefab;
 
-    private void AddOrderImageToUI(string order)
-    {
-        GameObject orderPrefab = null;
+            case "IceLatte":
+                return orderIceLattePrefab;
 
-        if (order == "Espresso")
-            orderPrefab = orderEspressoPrefab;
-        else if (order == "IceAmericano")
-            orderPrefab = orderIceAmericanoPrefab;
-        else if (order == "HotAmericano")
-            orderPrefab = orderHotAmericanoPrefab;
-        else if (order == "HotLatte")
-            orderPrefab = orderHotLattePrefab;
-        else if (order == "IceLatte")
-            orderPrefab = orderIceLattePrefab;
-        else if (order == "GreenTea")
-            orderPrefab = orderGreenTeaPrefab;
-        else if (order == "RooibosTea")
-            orderPrefab = orderRooibosTeaPrefab;
-        else if (order == "ChamomileTea")
-            orderPrefab = orderChamomileTeaPrefab;
-        else if (order == "HibiscusTea")
-            orderPrefab = orderHibiscusTeaPrefab;
+            case "GreenTea":
+                return orderGreenTeaPrefab;
 
-        if (orderPrefab != null)
-        {
-            Instantiate(orderPrefab, orderListParent);
+            case "RooibosTea":
+                return orderRooibosTeaPrefab;
+
+            case "ChamomileTea":
+                return orderChamomileTeaPrefab;
+
+            case "HibiscusTea":
+                return orderHibiscusTeaPrefab;
+
+            default:
+                return null;
         }
     }
 }
