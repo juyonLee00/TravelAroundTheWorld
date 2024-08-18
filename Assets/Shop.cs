@@ -12,8 +12,6 @@ public class Shop : MonoBehaviour
     {
         Transform parentTransform = transform.parent;
 
-        //Instantiate(nomal, parentTransform);
-        
         if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
         {
             Instantiate(teaSet, parentTransform);

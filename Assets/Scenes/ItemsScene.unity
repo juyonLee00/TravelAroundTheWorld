@@ -935,9 +935,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c931212fd20444048ae21fa4292e191c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomalShop: {fileID: 0}
-  milkShop: {fileID: 0}
-  teaSetShop: {fileID: 0}
+  nomalShop: {fileID: 8729241274096750049, guid: a1c6d55a2d9145f4e83acf44e4357c62, type: 3}
+  milkShop: {fileID: 8729241274096750049, guid: 354d49437d7bfb245ab9deddd2ec8b49, type: 3}
+  teaSetShop: {fileID: 8729241274096750049, guid: a9f149ca97af0694082cec26e0fc6cc4, type: 3}
   selectedImageDisplay: {fileID: 0}
 --- !u!114 &1708733783
 MonoBehaviour:
