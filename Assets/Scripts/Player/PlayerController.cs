@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     void OnMap()
     {
         if (canMove)
@@ -87,10 +88,8 @@ public class PlayerController : MonoBehaviour
             UIManager.Instance.ToggleUI("Map");
         }
     }
+    */
 
-    void OnSkipDialogue()
-    {
-    }
 
     void OnMouseMove()
     {
