@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject saveDataUIPrefab;
     public GameObject saveDataPopupPrefab;
     public GameObject bedInteractionUIPrefab;
+    public GameObject diaryInteractionUIPrefab;
     public GameObject staticUICanvasPrefab;
     public GameObject dynamicUICanvasPrefab;
 
@@ -108,6 +109,8 @@ public class UIManager : MonoBehaviour
                 return saveDataPopupPrefab;
             case "Bed":
                 return bedInteractionUIPrefab;
+            case "Diary":
+                return diaryInteractionUIPrefab;
             default:
                 return null;
         }

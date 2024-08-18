@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class Diary : MonoBehaviour
 {
-    //UI-UIManager, controller-InputManager에서 가져오도록 수정
-    [SerializeField] GameObject popupUI;
-    [SerializeField] PlayerController playerController;
-
-    bool isActivePopupUI = false;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private GameObject player;
+    private PlayerAnimationController playerAnimationController;
+    
+    private void Awake()
     {
-        if (collision.gameObject.layer.Equals(7))
-        {
-            if (isActivePopupUI == false)
-            {
-                popupUI.SetActive(true);
-                isActivePopupUI = true;
-                playerController.enabled = false;
-            }
+        player = GameObject.FindWithTag("Player");
+        playerAnimationController = player.GetComponent<PlayerAnimationController>();
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            UIManager.Instance.ToggleUI("Diary");
+            player.GetComponent<PlayerController>().StopMove();
+
+            playerAnimationController.StopAllCoroutines();
+            playerAnimationController.SetMoveDirection(Vector2.zero);
         }
     }
 }
