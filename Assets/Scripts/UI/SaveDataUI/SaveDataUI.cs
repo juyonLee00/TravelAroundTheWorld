@@ -104,6 +104,11 @@ public class SaveDataUI : MonoBehaviour
 
     public void CancleUIFunc()
     {
+        if (SceneManagerEx.Instance.GetCurrentSceneName() != "StartScene")
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().StartMove();
+        }
+
         SoundManager.Instance.PlaySFX("click sound");
         //UIManager.Instance.ToggleUI("SaveData");
         UIManager.Instance.DeactivatedUI("SaveData");
