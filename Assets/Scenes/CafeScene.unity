@@ -604,7 +604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &168229482
 Transform:
   m_ObjectHideFlags: 0
@@ -1809,7 +1809,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &440113885
 Transform:
   m_ObjectHideFlags: 0
@@ -2314,12 +2314,9 @@ MonoBehaviour:
   IceLatte: {fileID: 1481395800}
   HotLatte: {fileID: 2102538842}
   HibiscusTea: {fileID: 618880262}
-  ChamomileTea: {fileID: 1677248608}
+  ChamomileTea: {fileID: 1295162179}
   RooibosTea: {fileID: 394076659}
-  GreenTea: {fileID: 1295162179}
-  OrderIceLt: {fileID: 0}
-  OrderIceAm: {fileID: 0}
-  OrderHotAm: {fileID: 0}
+  GreenTea: {fileID: 1677248608}
   Shot: {fileID: 382342920}
   makeIceCup: {fileID: 1694037656}
   makeHotCup: {fileID: 1766387770}
@@ -3569,6 +3566,63 @@ Transform:
   - {fileID: 1295162180}
   m_Father: {fileID: 1968746747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1383835111
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 449496360949594956, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_Name
+      value: SceneManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168826182779694933, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
 --- !u!1 &1464601936
 GameObject:
   m_ObjectHideFlags: 0
@@ -5055,13 +5109,13 @@ Transform:
   - {fileID: 2052104176}
   - {fileID: 694403041}
   - {fileID: 1464601937}
+  - {fileID: 168229482}
   - {fileID: 382342921}
   - {fileID: 1323131732}
   - {fileID: 601373091}
   - {fileID: 86371763}
   - {fileID: 220372535}
   - {fileID: 317946070}
-  - {fileID: 168229482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968746748
@@ -5110,6 +5164,8 @@ MonoBehaviour:
   orderRooibosTeaPrefab: {fileID: 2112077620423120186, guid: d463289ab8192fb4d86feecbfbc7dee7, type: 3}
   orderHibiscusTeaPrefab: {fileID: 4364993533804031774, guid: 17e8710a89b637f4ab890e4b76442d78, type: 3}
   orderChamomileTeaPrefab: {fileID: 6751296363363338847, guid: 807882d832f76a243b4b03c24646c8e6, type: 3}
+  teaInventory: {fileID: 168229481}
+  milk: {fileID: 440113884}
   buyMilk: 1
   startPosition: {x: -4.51, y: 4}
   offset: {x: 1.5, y: 0}
@@ -5543,3 +5599,4 @@ SceneRoots:
   - {fileID: 343777030}
   - {fileID: 1960370859}
   - {fileID: 1968746747}
+  - {fileID: 1383835111}
