@@ -21,6 +21,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     private List<CafeOrder> cafeOrders = new List<CafeOrder>();
 
+    private int randomMenuNum;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,6 +42,11 @@ public class SceneTransitionManager : MonoBehaviour
     public string GetDescScene()
     {
         return destScene;
+    }
+
+    public List<CafeOrder> GetCafeOrders()
+    {
+        return cafeOrders;
     }
 
     //직접 와서 주문 받는 형식(주문자가 정해져 있음)
@@ -87,10 +94,45 @@ public class SceneTransitionManager : MonoBehaviour
     private bool IsSpecificOrderConditionMet(CafeOrder order)
     {
         return cafeOrders.Exists(o =>
-            o.CustomerName == order.CustomerName &&
-            o.MenuItem == order.MenuItem &&
-            o.MenuQuantity == order.MenuQuantity);
+            //o.CustomerName == order.CustomerName &&
+            o.MenuItem == order.MenuItem); //&&
+            //o.MenuQuantity == order.MenuQuantity);
     }
+
+    //랜덤메뉴 설정
+    public void HandleRandomMenuTransition(string fromScene, string toScene, int returnIdx, int randomNum)
+    {
+        returnDialogueIndex = returnIdx;
+        targetScene = fromScene;
+        destScene = toScene;
+        randomMenuNum = 0;
+        StartCoroutine(HandleRandomMenuSceneTransition(fromScene, toScene, returnIdx, randomNum));
+    }
+
+    //랜덤메뉴 설정
+    IEnumerator HandleRandomMenuSceneTransition(string fromScene, string toScene, int returnIdx, int randomNum)
+    {
+        // 씬 전환
+        yield return TransitionToScene(toScene);
+
+        // 필요한 작업 수행
+        PerformPostTransitionTasks();
+
+        //해당 조건 수행될때까지 대기
+        yield return WaitForCondition(() => IsSpecificRandomMenuConditionMet(randomNum));
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        yield return TransitionToScene(fromScene);
+
+    }
+
+    //랜덤메뉴 개수 확인
+    private bool IsSpecificRandomMenuConditionMet(int randomNum)
+    {
+        return randomMenuNum == randomNum;
+    }
+
 
 
 
@@ -266,6 +308,29 @@ public class SceneTransitionManager : MonoBehaviour
     {
         cafeOrders = new List<CafeOrder>(newOrders);
     }
+
+    //랜덤주문수 업데이트
+    public void UpdateRandomMenuDelivery(int newNum)
+    {
+        cafeDeliveryNum = newNum;
+    }
+
+    public int GetCurCafeDeliveryNum()
+    {
+        return cafeDeliveryNum;
+    }
+
+    public int GetDeliveryNum()
+    {
+        return cafeDeliveryNum;
+    }
+
+    public int GetRandomMenuNum()
+    {
+        return randomMenuNum;
+    }
+
+
     //
     private void OnDialogueIndexUpdated(int fromSceneIdx, int returnIdx)
     {

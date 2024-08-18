@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 1787121112801554430}
   - component: {fileID: 7455803936852249035}
   m_Layer: 0
-  m_Name: IceAmericano
+  m_Name: IceAmericanoRecipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

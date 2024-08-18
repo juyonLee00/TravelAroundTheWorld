@@ -15,10 +15,6 @@ public class GameManager : MonoBehaviour
 
     public OrderController orderController;
 
-    void Start()
-    {
-        orderController = FindObjectOfType<OrderController>();
-    }
 
     void Update()
     {
@@ -39,7 +35,7 @@ public class GameManager : MonoBehaviour
             {
                 Beverage.SetActive(true);
                 CafeMap.SetActive(false);
-                //주문 확인해서 UI 띄우는 함수 필요 (주문 처리 완료 시 Beverage false, CafeMap true orderController.GenerateOrder();
+                orderController.GenerateOrder(3);
 
             }
             if (clickedObject !=   null && clickedObject.name == "RoomService")
@@ -56,6 +52,32 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
             }
+            if (clickedObject != null && clickedObject.name == "TeaInventory")
+            {
+                Vector2 currentPosition = clickedObject.transform.position;
+
+                Vector2 targetPosition1 = new Vector2(6f, 0.55f);
+                Vector2 targetPosition2 = new Vector2(10.8f, 0.55f);
+
+                // 현재 위치가 targetPosition1에 가까우면 targetPosition2로 이동
+                if (Vector2.Distance(currentPosition, targetPosition1) < 0.1f)
+                {
+                    clickedObject.transform.position = targetPosition2;
+                    Debug.Log("Moved to: " + targetPosition2);
+                }
+                // 현재 위치가 targetPosition2에 가까우면 targetPosition1으로 이동
+                else if (Vector2.Distance(currentPosition, targetPosition2) < 0.1f)
+                {
+                    clickedObject.transform.position = targetPosition1;
+                    Debug.Log("Moved to: " + targetPosition1);
+                }
+                else
+                {
+                    Debug.Log("No match found for current position.");
+                }
+            }
+
+
         }
     }
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)

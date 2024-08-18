@@ -11,6 +11,7 @@ public class Ch0TypeEffect : MonoBehaviour
     [SerializeField] TextMeshProUGUI msgText;
     int idx;
     float interval;
+    private bool isTyping;
 
     public void SetMsg(string msg)
     {
@@ -20,6 +21,7 @@ public class Ch0TypeEffect : MonoBehaviour
 
     IEnumerator EffectStart()
     {
+        isTyping = true;
         msgText.text = "";
         idx = 0;
         interval = 1.0f / charPerSeconds;
@@ -42,40 +44,30 @@ public class Ch0TypeEffect : MonoBehaviour
         EffectEnd();
     }
 
-    /*
-    void EffectStart()
+    public void CompleteEffect()
     {
-        msgText.text = "";
-        idx = 0;
-        interval = 1.0f / charPerSeconds;
-
-        if (endCursor != null)
+        if (isTyping)
         {
-            endCursor.SetActive(false);
+            // 현재 실행 중인 코루틴을 중지
+            StopAllCoroutines();
+            // 전체 텍스트를 한 번에 표시
+            msgText.text = targetMsg;
+            // 이펙트 종료 처리
+            EffectEnd(); 
         }
-
-        Invoke("Effecting", 1 / charPerSeconds);
     }
-
-    void Effecting()
-    {
-        if (msgText.text == targetMsg)
-        {
-            EffectEnd();
-            return;
-        }
-        msgText.text += targetMsg[idx];
-        idx++;
-
-        Invoke("Effecting", interval);
-    }
-    */
 
     void EffectEnd()
     {
+        isTyping = false;
         if (endCursor != null)
         {
             endCursor.SetActive(true);
         }
+    }
+
+    public bool IsTyping()
+    {
+        return isTyping;
     }
 }

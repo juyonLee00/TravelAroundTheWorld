@@ -14,9 +14,6 @@ public class CafeMakeController : MonoBehaviour
     public GameObject RooibosTea;
     public GameObject GreenTea;
 
-    public GameObject OrderIceLt;
-    public GameObject OrderIceAm;
-    public GameObject OrderHotAm;
     public GameObject Shot;
 
     public GameObject makeIceCup;
@@ -28,6 +25,9 @@ public class CafeMakeController : MonoBehaviour
     public List<string> currentIngredients = new List<string>();
 
     private IngredientController ingredientController;
+
+    List<CafeOrder> updatedOrders = new List<CafeOrder>();
+
 
     void Start()
     {
@@ -90,28 +90,28 @@ public class CafeMakeController : MonoBehaviour
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("HbTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
         {
             HibiscusTea.SetActive(true);
             Debug.Log("HibiscusTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
         {
             RooibosTea.SetActive(true);
             Debug.Log("RooibosTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("GrTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
         {
             GreenTea.SetActive(true);
             Debug.Log("GreenTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
         }
-        else if (currentIngredients.Contains("Hot") && currentIngredients.Contains("Water") && currentIngredients.Contains("CmTeabag"))
+        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
         {
             ChamomileTea.SetActive(true);
             Debug.Log("Chamomile is maded");
@@ -122,34 +122,70 @@ public class CafeMakeController : MonoBehaviour
     }
     public void CheckOrder()
     {
-        if (IceAmericano.activeSelf)
+/*        if (Espresso.activeSelf)
         {
-            OrderIceAm.SetActive(false);
-            IceAmericano.SetActive(false);
+            updatedOrders.Add(new CafeOrder("Espresso"));
+            orderListController.RemoveOrderItem("Espresso");
+            Espresso.SetActive(false);
             currentIngredients.Clear();
         }
         else if (HotAmericano.activeSelf)
         {
-                OrderHotAm.SetActive(false);
-                HotAmericano.SetActive(false);
-                currentIngredients.Clear();
+            updatedOrders.Add(new CafeOrder("HotAmericano"));
+            orderListController.RemoveOrderItem("HotAmericano");
+            HotAmericano.SetActive(false);
+            currentIngredients.Clear();
+        }
+        else if (IceAmericano.activeSelf)
+        {
+            updatedOrders.Add(new CafeOrder("IceAmericano"));
+            orderListController.RemoveOrderItem("IceAmericano");
+            IceAmericano.SetActive(false);
+            currentIngredients.Clear();
+        }
+        else if (HotLatte.activeSelf)
+        {
+            updatedOrders.Add(new CafeOrder("HotLatte"));
+            orderListController.RemoveOrderItem("HotLatte");
+            HotLatte.SetActive(false);
+            currentIngredients.Clear();
         }
         else if (IceLatte.activeSelf)
         {
-            OrderIceLt.SetActive(false);
+            updatedOrders.Add(new CafeOrder("IceLatte"));
+            orderListController.RemoveOrderItem("IcaLatte");
             IceLatte.SetActive(false);
             currentIngredients.Clear();
         }
-        CheckOrderClear();
-    }
-    public void CheckOrderClear()
-    {
-        if (!OrderIceLt.activeSelf && !OrderHotAm.activeSelf && !OrderIceAm.activeSelf)
+        else if (GreenTea.activeSelf)
         {
-            Debug.Log("clear");
-            Beverage.SetActive(false);
-            CafeMap.SetActive(true);
+            updatedOrders.Add(new CafeOrder("GreenTea"));
+            orderListController.RemoveOrderItem("GreenTea");
+            GreenTea.SetActive(false);
+            currentIngredients.Clear();
         }
+        else if (HibiscusTea.activeSelf)
+        {
+            updatedOrders.Add(new CafeOrder("HibiscusTea"));
+            orderListController.RemoveOrderItem("HibiscusTea");
+            HibiscusTea.SetActive(false);
+            currentIngredients.Clear();
+        }
+        else if (RooibosTea.activeSelf)
+        {
+            updatedOrders.Add(new CafeOrder("RooibosTea"));
+            orderListController.RemoveOrderItem("RooibosTea");
+            RooibosTea.SetActive(false);
+            currentIngredients.Clear();
+        }
+        else if (ChamomileTea.activeSelf)
+        {
+            updatedOrders.Add(new CafeOrder("ChamomileTea"));
+            orderListController.RemoveOrderItem("ChamomileTea");
+            ChamomileTea.SetActive(false);
+            currentIngredients.Clear();
+        }
+        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);*/
     }
-        
+
 }
