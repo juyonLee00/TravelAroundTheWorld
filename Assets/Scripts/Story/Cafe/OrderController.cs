@@ -54,8 +54,6 @@ public class OrderController : MonoBehaviour
     {
         if (buyMilk)
         {
-            milk.SetActive(true);
-
             postAvailableOrders.Add("Espresso");
             postAvailableOrders.Add("HotAmericano");
             postAvailableOrders.Add("IceAmericano");
@@ -70,8 +68,6 @@ public class OrderController : MonoBehaviour
         }
         else
         {
-            teaInventory.SetActive(true);
-
             postAvailableOrders.Add("Espresso");
             postAvailableOrders.Add("HotAmericano");
             postAvailableOrders.Add("IceAmericano");
