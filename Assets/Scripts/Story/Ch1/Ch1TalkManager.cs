@@ -363,12 +363,20 @@ public class Ch1TalkManager : MonoBehaviour
             // 루카스 표정 이미지
             ["루카스_일반"] = Resources.Load<Sprite>("NpcImage/Lucas"),
             ["루카스_곤란"] = Resources.Load<Sprite>("NpcImage/Lucas_곤란"),
+            ["루카스_찡그림"] = Resources.Load<Sprite>("NpcImage/Lucas_찡그림"),
 
             // 슬로우 표정 이미지
             ["슬로우_일반"] = Resources.Load<Sprite>("NpcImage/Slow"),
+            ["슬로우_당황"] = Resources.Load<Sprite>("NpcImage/Slow_당황"),
+            ["슬로우_화남"] = Resources.Load<Sprite>("NpcImage/Slow_화남"),
 
             // 가이 표정 이미지
             ["가이_일반"] = Resources.Load<Sprite>("NpcImage/Gai"),
+            ["가이_당황"] = Resources.Load<Sprite>("NpcImage/Gai_당황"),
+
+            // 파이아 표정 이미지
+            ["파이아_일반"] = Resources.Load<Sprite>("NpcImage/Fire"),
+            ["파이아_웃음"] = Resources.Load<Sprite>("NpcImage/Fire_웃음"),
 
             // 기본 NPC 이미지
             ["Default"] = Resources.Load<Sprite>("NpcImage/Default")
@@ -384,6 +392,7 @@ public class Ch1TalkManager : MonoBehaviour
             ["루카스"] = Resources.Load<Sprite>("NpcImage/Lucas_big"),
             ["슬로우"] = Resources.Load<Sprite>("NpcImage/Slow_big"),
             ["가이"] = Resources.Load<Sprite>("NpcImage/Gai_big"),
+            ["파이아"] = Resources.Load<Sprite>("NpcImage/Fire_full"),
             ["Default"] = Resources.Load<Sprite>("NpcImage/Default")
         };
     }
