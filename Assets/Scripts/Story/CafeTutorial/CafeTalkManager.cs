@@ -22,6 +22,7 @@ public class CafeTalkManager : MonoBehaviour
 
     public GameObject CafeMap; //카페 기본 화면
     public GameObject Money; //소지금
+    public TextMeshProUGUI moneyText;
     public GameObject MainCharacter; //주인공 초상화
     public GameObject CoffeePot; //커피머신
     public GameObject RecipeBook; // 레시피북
@@ -71,7 +72,7 @@ public class CafeTalkManager : MonoBehaviour
         {
             PrintProDialogue(currentDialogueIndex);
         }
-        
+        moneyText.text = "0";
     }
 
     void Update()
@@ -103,7 +104,7 @@ public class CafeTalkManager : MonoBehaviour
                 currentDialogueIndex != 49)
             {
                 currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                //SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
         }
@@ -117,7 +118,7 @@ public class CafeTalkManager : MonoBehaviour
             {
                 Debug.Log("Hit CoffeePot at index " + currentDialogueIndex);
                 currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                //SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
             else
@@ -132,7 +133,7 @@ public class CafeTalkManager : MonoBehaviour
                 Debug.Log("Hit Extract at index " + currentDialogueIndex);
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
                 currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                //SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 SoundManager.Instance.PlaySFX("grinding coffee");
                 PrintProDialogue(currentDialogueIndex);
             }
@@ -141,7 +142,7 @@ public class CafeTalkManager : MonoBehaviour
         {
             Debug.Log("Hit Done at index " + currentDialogueIndex);
             currentDialogueIndex++;
-            SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+            //SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
             SoundManager.Instance.PlaySFX("mixing with ice");
             PrintProDialogue(currentDialogueIndex);
         }
@@ -234,6 +235,10 @@ public class CafeTalkManager : MonoBehaviour
         }
         else if (index > 29 && index < 34)
         {
+            if (index == 32)
+            {
+                moneyText.text = "500";
+            }
             Beverage.SetActive(false);
             cheetah.SetActive(true);
             CafeMap.SetActive(true);
