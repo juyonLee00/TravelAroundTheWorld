@@ -2686,7 +2686,6 @@ MonoBehaviour:
   selectedImageDisplay: {fileID: 7342077030642720664}
   fail: "\uC774\uB7F0.. \uBE48\uC774 \uBD80\uC871\uD55C\uAC83 \uAC19\uC740\uB370?"
   success: "\uC88B\uC740 \uC120\uD0DD\uC774\uC57C. \uB2E4\uB978 \uAC83\uB3C4 \uAD00\uC2EC\uC788\uC5B4?"
-  alreadyBuy: "\uADF8\uAC74 \uC774\uBBF8 \uC0AC\uAC14\uB294\uB294\uAC78?"
   purchase: {fileID: 2484720758106493792}
   description: {fileID: 1604453597238183050}
   pricedescription: {fileID: 7944061578436215034}
@@ -3238,7 +3237,7 @@ GameObject:
   - component: {fileID: 4460069010178314986}
   - component: {fileID: 4279318537408248577}
   m_Layer: 5
-  m_Name: CheetahShop Ch1
+  m_Name: ShopMilk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

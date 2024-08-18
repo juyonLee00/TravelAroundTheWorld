@@ -12,6 +12,7 @@ public class ShopStart : MonoBehaviour
     public GameObject selectedImageDisplay;
     public string fail;
     public string success;
+    public string alreadyBuy;
     public TextMeshProUGUI purchase;
     public TextMeshProUGUI description;
     public TextMeshProUGUI pricedescription;
@@ -20,7 +21,7 @@ public class ShopStart : MonoBehaviour
 
     int selected;
     int[] price = { 3500, 3000 };
-    string[] item = { "우유", "티세트" };
+    string[] item = { "milk", "teaSet" };
 
     
     void Start()
@@ -50,7 +51,7 @@ public class ShopStart : MonoBehaviour
     // 버튼이 눌렸을 때 호출되는 메소드
     void OnButtonClick(Button clickedButton)
     {
-        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        SoundManager.Instance.PlaySFX("click sound");
         newSpeech.SetActive(true);
         selectedImageDisplay.SetActive(true);
         
@@ -82,9 +83,16 @@ public class ShopStart : MonoBehaviour
 
     void OnBuyButtonClick()
     {
-        SoundManager.Instance.PlayMusic("click sound", loop: false);
-        if (price[selected] > player.GetMoney())
+        SoundManager.Instance.PlaySFX("click sound");
+        if (false) //PlayerManager.Instance.IsBoughtCafeItem(item[selected]))
         {
+            purchase.text = alreadyBuy;
+            description.text = "";
+            pricedescription.text = "";
+        }
+        else if (price[selected] > player.GetMoney())
+        {
+            Debug.Log(player.GetMoney());
             purchase.text = fail;
             description.text = "";
             pricedescription.text = "";
