@@ -19,9 +19,13 @@ public class SceneTransitionManager : MonoBehaviour
 
     private int cafeDeliveryNum;
 
+    private int cafeDeliveryTransitionNum;
+
     private List<CafeOrder> cafeOrders = new List<CafeOrder>();
 
     private int randomMenuNum;
+
+    private int randomMenuTransitionNum;
 
     private void Awake()
     {
@@ -106,6 +110,7 @@ public class SceneTransitionManager : MonoBehaviour
         targetScene = fromScene;
         destScene = toScene;
         randomMenuNum = 0;
+        randomMenuTransitionNum = randomNum;
         StartCoroutine(HandleRandomMenuSceneTransition(fromScene, toScene, returnIdx, randomNum));
     }
 
@@ -142,6 +147,7 @@ public class SceneTransitionManager : MonoBehaviour
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
         destScene = toScene;
+        cafeDeliveryTransitionNum = deliveryNum;
         cafeDeliveryNum = 0;
         StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, deliveryNum));
     }
@@ -316,11 +322,6 @@ public class SceneTransitionManager : MonoBehaviour
         cafeDeliveryNum = newNum;
     }
 
-    public int GetCurCafeDeliveryNum()
-    {
-        return cafeDeliveryNum;
-    }
-
     public int GetDeliveryNum()
     {
         return cafeDeliveryNum;
@@ -328,7 +329,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     public int GetRandomMenuNum()
     {
-        return randomMenuNum;
+        return randomMenuTransitionNum;
     }
 
 
