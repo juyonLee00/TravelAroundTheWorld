@@ -350,10 +350,6 @@ public class Ch1TalkManager : MonoBehaviour
             ["바이올렛_웃음"] = Resources.Load<Sprite>("NpcImage/Violet_웃음"),
             ["바이올렛_윙크"] = Resources.Load<Sprite>("NpcImage/Violet_윙크"),
 
-            // 파이아 표정 이미지
-            ["파이아_일반"] = Resources.Load<Sprite>("NpcImage/Fire"),
-            ["파이아_웃음"] = Resources.Load<Sprite>("NpcImage/Fire_웃음"),
-
             // 러스크 표정 이미지
             ["러스크_일반"] = Resources.Load<Sprite>("NpcImage/Rusk"),
             ["러스크_웃음"] = Resources.Load<Sprite>("NpcImage/Rusk_웃음"),
@@ -370,12 +366,9 @@ public class Ch1TalkManager : MonoBehaviour
 
             // 슬로우 표정 이미지
             ["슬로우_일반"] = Resources.Load<Sprite>("NpcImage/Slow"),
-            ["슬로우_당황"] = Resources.Load<Sprite>("NpcImage/Slow_당황"),
-            ["슬로우_화남"] = Resources.Load<Sprite>("NpcImage/Slow_화남"),
 
             // 가이 표정 이미지
             ["가이_일반"] = Resources.Load<Sprite>("NpcImage/Gai"),
-            ["가이_당황"] = Resources.Load<Sprite>("NpcImage/Gai_당황"),
 
             // 기본 NPC 이미지
             ["Default"] = Resources.Load<Sprite>("NpcImage/Default")
