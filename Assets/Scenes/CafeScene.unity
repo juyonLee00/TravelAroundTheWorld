@@ -2317,9 +2317,6 @@ MonoBehaviour:
   ChamomileTea: {fileID: 1677248608}
   RooibosTea: {fileID: 394076659}
   GreenTea: {fileID: 1295162179}
-  OrderIceLt: {fileID: 0}
-  OrderIceAm: {fileID: 0}
-  OrderHotAm: {fileID: 0}
   Shot: {fileID: 382342920}
   makeIceCup: {fileID: 1694037656}
   makeHotCup: {fileID: 1766387770}
@@ -2341,7 +2338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &611514469
 Transform:
   m_ObjectHideFlags: 0
@@ -5030,7 +5027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1968746747
 Transform:
   m_ObjectHideFlags: 0
@@ -5110,6 +5107,8 @@ MonoBehaviour:
   orderRooibosTeaPrefab: {fileID: 2112077620423120186, guid: d463289ab8192fb4d86feecbfbc7dee7, type: 3}
   orderHibiscusTeaPrefab: {fileID: 4364993533804031774, guid: 17e8710a89b637f4ab890e4b76442d78, type: 3}
   orderChamomileTeaPrefab: {fileID: 6751296363363338847, guid: 807882d832f76a243b4b03c24646c8e6, type: 3}
+  teaInventory: {fileID: 0}
+  milk: {fileID: 0}
   buyMilk: 1
   startPosition: {x: -4.51, y: 4}
   offset: {x: 1.5, y: 0}
