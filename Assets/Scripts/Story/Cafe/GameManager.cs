@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
     public GameObject TeaInventory;
 
     //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
-    public bool buyMilk = true;
+    //public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("TeaSet");
+    public bool buyMilk = false;
+    public bool buyTeaSet = false;
+
+    public int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
 
     public OrderController orderController;
 
@@ -27,9 +31,15 @@ public class GameManager : MonoBehaviour
         {
             Milk.SetActive(true);
         }
-        else
+        else if (buyTeaSet)
         {
             TeaInventory.SetActive(true);
+        }
+
+        if (deliveryNum != null && deliveryNum > 0)
+        {
+            Beverage.SetActive(false);
+            Delivery.SetActive(true);
         }
     }
 

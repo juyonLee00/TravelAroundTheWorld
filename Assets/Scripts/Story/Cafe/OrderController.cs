@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class OrderController : MonoBehaviour
 {
-    //public int Day = PlayerManager.Instance.GetDay();
+    public int Day = PlayerManager.Instance.GetDay();
     //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
 
-    public int Day;
+    //public int Day;
     public bool buyMilk;
 
     public GameObject orderEspressoPrefab;
@@ -30,8 +30,8 @@ public class OrderController : MonoBehaviour
     void Start()
     {
 
-        //int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
-        int randomNum = 3;
+        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+        //int randomNum = 3;
         
         GenerateOrder(randomNum);
         DisplayOrders();

@@ -319,7 +319,7 @@ public class SceneTransitionManager : MonoBehaviour
     //랜덤주문수 업데이트
     public void UpdateRandomMenuDelivery(int newNum)
     {
-        cafeDeliveryNum = newNum;
+        randomMenuNum = newNum;
     }
 
     public int GetDeliveryNum()
