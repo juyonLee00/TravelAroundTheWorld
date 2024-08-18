@@ -127,19 +127,18 @@ public class Ch1TalkManager : MonoBehaviour
 
         if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
-            // 퀘스트 ui 띄우는 코드
             if (isQuestActive)
             {
+                // 퀘스트 UI를 비활성화
                 questObject.SetActive(false);
                 narration.SetActive(false);
                 dialogue.SetActive(false);
                 isQuestActive = false;
             }
-            else
-            {
-                currentDialogueIndex++;
-                PrintCh1ProDialogue(currentDialogueIndex);
-            }
+
+            // 대화 인덱스를 증가시키고 대화 진행을 처리
+            currentDialogueIndex++;
+            HandleDialogueProgression(currentDialogueIndex);
         }
 
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
@@ -273,6 +272,33 @@ public class Ch1TalkManager : MonoBehaviour
                 dialogue.SetActive(false);
                 narrationBar.SetDialogue("나레이션", "지금은 일할 시간이야.");
             }
+        }
+    }
+
+    private void HandleDialogueProgression(int index)
+    {
+        if (index == 7)
+        {
+            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 Ch1Scene으로 복귀
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("Ch1Scene", "CafeScene", 9, 3);
+        }
+        else if (index == 12)
+        {
+            // 에스프레소 1잔 직접 주문 처리
+            List<CafeOrder> orders = new List<CafeOrder>
+        {
+            new CafeOrder("Espresso")  // 직접 주문하는 에스프레소 1잔
+        };
+
+            SceneTransitionManager.Instance.HandleDialogueTransition("Ch1Scene", "CafeScene", 14, orders);
+
+            // 랜덤 주문 2건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 14, 2);
+        }
+        else
+        {
+            // 기본 대화 진행
+            PrintCh1ProDialogue(index);
         }
     }
 
