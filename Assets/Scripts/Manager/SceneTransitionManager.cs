@@ -324,7 +324,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     public int GetDeliveryNum()
     {
-        return cafeDeliveryNum;
+        return cafeDeliveryTransitionNum;
     }
 
     public int GetRandomMenuNum()
