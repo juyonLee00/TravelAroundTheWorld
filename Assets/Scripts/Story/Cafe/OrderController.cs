@@ -36,10 +36,7 @@ public class OrderController : MonoBehaviour
     public GameObject orderHibiscusTeaPrefab;
     public GameObject orderChamomileTeaPrefab;
 
-    public GameObject teaInventory;
-    public GameObject milk;
-
-    public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
+    public bool buyMilk = true;
 
     public Vector2 startPosition = new Vector2(-4.51f, 4f);
     public Vector2 offset = new Vector2(1.5f, 0);
@@ -53,8 +50,6 @@ public class OrderController : MonoBehaviour
     {
         if (buyMilk)
         {
-            milk.SetActive(true);
-
             postAvailableOrders.Add("Espresso");
             postAvailableOrders.Add("HotAmericano");
             postAvailableOrders.Add("IceAmericano");
@@ -69,8 +64,6 @@ public class OrderController : MonoBehaviour
         }
         else
         {
-            teaInventory.SetActive(true);
-
             postAvailableOrders.Add("Espresso");
             postAvailableOrders.Add("HotAmericano");
             postAvailableOrders.Add("IceAmericano");
