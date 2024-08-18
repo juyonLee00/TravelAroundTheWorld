@@ -80,7 +80,7 @@ public class DayNightCycleManager : MonoBehaviour
         {
             ChangeDay();
             SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
-            PlayerManager.Instance.SetSceneName("Ch1Scene");
+            PlayerManager.Instance.SetSceneName("ch1Scene");
 
         }
 
@@ -90,7 +90,7 @@ public class DayNightCycleManager : MonoBehaviour
             // 변화 없음
         }
         //카페일을 하고 카페 밖으로 나왔을 땐
-        else if (fromScene == "LoadingScene" && toScene == "Ch1Scene" && isNowDayTime)
+        else if (fromScene == "LoadingScene" && toScene == "ch1Scene" && isNowDayTime)
         {
             ChangeDayTime();
             //현재 인덱스 지점에 저장
