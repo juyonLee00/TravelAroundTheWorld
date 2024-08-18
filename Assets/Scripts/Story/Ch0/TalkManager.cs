@@ -26,6 +26,7 @@ public class TalkManager : MonoBehaviour
 
     public GameObject trainStation; // 기차역 화면
     public GameObject train; // 기차 화면
+    public GameObject trainBackground; // 기차 배경 화면
 
     public GameObject cafe; // 카페 화면
     public GameObject trainRoom; // 객실 화면
@@ -389,6 +390,7 @@ public class TalkManager : MonoBehaviour
         forest.SetActive(false);
         trainStation.SetActive(false);
         train.SetActive(false);
+        trainBackground.SetActive(false);
         cafe.SetActive(false);
         trainRoom.SetActive(false);
         trainRoomHallway.SetActive(false);
@@ -463,7 +465,9 @@ public class TalkManager : MonoBehaviour
                     trainStation.SetActive(true);
                     if (currentDialogueIndex >= 32)
                     {
+                        trainStation.SetActive(false);
                         train.SetActive(true);
+                        trainBackground.SetActive(true);
                         if (currentDialogueIndex == 32)
                         {
                             OnAnimationStart();
