@@ -31,6 +31,7 @@ public class OrderController : MonoBehaviour
     {
 
         int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+        Debug.Log(randomNum);
         //int randomNum = 3;
         
         GenerateOrder(randomNum);

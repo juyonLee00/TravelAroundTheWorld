@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SoundManager.Instance.PlayMusic("CAFE", true);
+
         if (buyMilk)
         {
             Milk.SetActive(true);
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
             if (clickedObject != null && clickedObject.name == "Extract")
             {
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
+                SoundManager.Instance.PlaySFX("grinding coffee");
             }
             if (clickedObject != null && clickedObject.name == "TeaInventory")
             {
@@ -110,6 +113,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)
     {
+        SoundManager.Instance.PlaySFX("coffee machine (espresso)");
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
     }
