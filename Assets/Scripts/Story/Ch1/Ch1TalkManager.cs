@@ -136,9 +136,38 @@ public class Ch1TalkManager : MonoBehaviour
                 isQuestActive = false;
             }
 
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            // 타이핑 중이었으면 아래 코드는 실행하지 않음
+            if (!anyTyping)
+            {
+                currentDialogueIndex++;
+                if (currentDialogueIndex >= ch1ProDialogue.Count)
+                {
+                    DeactivateTalk(); // 대사 리스트를 벗어나면 오브젝트 비활성화
+                }
+                else
+                {
+                    HandleDialogueProgression(currentDialogueIndex);
+                }
+            }
+
             // 대화 인덱스를 증가시키고 대화 진행을 처리
-            currentDialogueIndex++;
-            HandleDialogueProgression(currentDialogueIndex);
+            //currentDialogueIndex++;
+            //HandleDialogueProgression(currentDialogueIndex);
         }
 
         // 플레이어가 특정 위치에 도달했는지 확인하는 부분
@@ -279,8 +308,8 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (index == 7)
         {
-            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 Ch1Scene으로 복귀
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("Ch1Scene", "CafeScene", 9, 3);
+            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 9, 3);
         }
         else if (index == 12)
         {
@@ -290,7 +319,7 @@ public class Ch1TalkManager : MonoBehaviour
             new CafeOrder("Espresso")  // 직접 주문하는 에스프레소 1잔
         };
 
-            SceneTransitionManager.Instance.HandleDialogueTransition("Ch1Scene", "CafeScene", 14, orders);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 14, orders);
 
             // 랜덤 주문 2건 처리
             SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 14, 2);

@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 public class ShopManager : MonoBehaviour
 {
-    public GameObject shopPrefab; // 상점 UI 프리팹
+    public GameObject nomalShop; // 상점 UI 프리팹
+    public GameObject milkShop;
+    public GameObject teaSetShop;
     public GameObject selectedImageDisplay;
 
     private Ch1TalkManager talkManager;
@@ -22,14 +26,27 @@ public class ShopManager : MonoBehaviour
     {
         Transform parentTransform = transform.parent;
 
-        GameObject newObject = Instantiate(shopPrefab, parentTransform);
-        newObject.SetActive(true);
+        if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+        {
+            Instantiate(teaSetShop, parentTransform);
+            return;
+        }
+        else if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+        {
+            Instantiate(milkShop, parentTransform);
+            return;
+        }
+        else
+        {
+            Instantiate(nomalShop, parentTransform);
+            return;
+        }
     }
 
     // 상점 UI를 숨기는 메서드
     public void HideShop()
     {
-        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        SoundManager.Instance.PlaySFX("click sound");
         if (talkManager != null)
         {
             talkManager.OnShopClosed();
@@ -40,7 +57,7 @@ public class ShopManager : MonoBehaviour
 
     public void HideSpeech() 
     {
-        SoundManager.Instance.PlayMusic("click sound", loop: false);
+        SoundManager.Instance.PlaySFX("click sound");
         transform.parent.gameObject.SetActive(false);
         selectedImageDisplay.SetActive(false);
     }
