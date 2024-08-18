@@ -4365,22 +4365,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 806544771307717692, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 896899288}
-    - target: {fileID: 966837247721562786, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: playerController
-      value: 
-      objectReference: {fileID: 1372797962}
-    - target: {fileID: 3074967453415653480, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074967453415653480, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 3074967453415653480, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39
@@ -4421,14 +4405,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3086502863576369717, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3086502863576369717, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 896899288}
     - target: {fileID: 5596419033801846888, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4440,10 +4416,6 @@ PrefabInstance:
     - target: {fileID: 7592942193548100970, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: position.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810725717047291467, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
-      propertyPath: m_SortingOrder
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4461,7 +4433,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1372797960}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406368607}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82d2645f6649740519ea88465880dcfb, type: 3}
   m_Name: 
