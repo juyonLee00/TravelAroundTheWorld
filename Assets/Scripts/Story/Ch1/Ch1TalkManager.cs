@@ -69,7 +69,9 @@ public class Ch1TalkManager : MonoBehaviour
 
     public QuestManager questManager; // 퀘스트 매니저 참조
     public PlayerController playerController; // 플레이어 컨트롤러 참조
-    public Ch0MapManager mapManager; // 맵 매니저 참조
+    public Ch1MapManager mapManager; // 맵 매니저 참조
+
+    public string currentMusic = ""; // 현재 재생 중인 음악의 이름을 저장
 
     private Dictionary<string, Sprite> characterImages; // 캐릭터 이름과 이미지를 매핑하는 사전
     private Dictionary<string, Sprite> characterBigImages; // 캐릭터 이름과 큰 이미지를 매핑하는 사전
@@ -83,7 +85,7 @@ public class Ch1TalkManager : MonoBehaviour
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
         InitializeCharacterImages(); 
-        mapManager = map.GetComponent<Ch0MapManager>();
+        mapManager = map.GetComponent<Ch1MapManager>();
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
     }
 
@@ -421,7 +423,7 @@ public class Ch1TalkManager : MonoBehaviour
             isWaitingForPlayer = true;
             player.SetActive(true);
             map.SetActive(true);
-            EnablePlayerMovement();
+            playerController.StartMove();
             trainRoom.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -429,7 +431,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if ((index == 23 || index == 101 || index == 187 || index == 318 || index == 386 || index == 420 || index == 489 | index == 510) && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -455,7 +457,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 33 && mapManager.currentState == MapState.TrainRoom3) // 퀘스트 받은 후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             trainRoom.SetActive(false);
@@ -466,7 +468,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 37 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             garden.SetActive(false);
@@ -498,7 +500,7 @@ public class Ch1TalkManager : MonoBehaviour
             isWaitingForPlayer = true;
             player.SetActive(true);
             map.SetActive(true);
-            EnablePlayerMovement();
+            playerController.StartMove();
             trainRoom.SetActive(false); 
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -506,7 +508,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 101 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -516,7 +518,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 104 && mapManager.currentState == MapState.TrainRoom3) // npc와 대화를 위해 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             trainRoom.SetActive(false);
@@ -536,7 +538,7 @@ public class Ch1TalkManager : MonoBehaviour
             isWaitingForPlayer = true;
             player.SetActive(true);
             map.SetActive(true);
-            EnablePlayerMovement();
+            playerController.StartMove();
             trainRoom.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -544,7 +546,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 187 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -555,7 +557,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 191 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             garden.SetActive(false);
@@ -568,7 +570,7 @@ public class Ch1TalkManager : MonoBehaviour
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -589,7 +591,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if ((index == 207 || index == 428) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
         {            
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             balcony.SetActive(false);
@@ -612,7 +614,7 @@ public class Ch1TalkManager : MonoBehaviour
             isWaitingForPlayer = true;
             player.SetActive(true);
             map.SetActive(true);
-            EnablePlayerMovement();
+            playerController.StartMove();
             trainRoom.SetActive(false);
             narration.SetActive(false);
             dialogue.SetActive(false);
@@ -620,7 +622,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 318 && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -631,7 +633,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 322 && mapManager.currentState == MapState.Cafe) // 정원 npc와 대화 이후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             garden.SetActive(false);
@@ -642,7 +644,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 326 && mapManager.currentState == MapState.Cafe) // 바 npc와 대화 이후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             cafe.SetActive(false);
@@ -653,7 +655,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 330 && mapManager.currentState == MapState.Bakery) // 빵집 npc와 대화 이후 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
-            EnablePlayerMovement();
+            playerController.StartMove();
             map.SetActive(true);
             player.SetActive(true);
             bakery.SetActive(false);
@@ -832,14 +834,17 @@ public class Ch1TalkManager : MonoBehaviour
                 break;
 
             case locationMedicalRoom:
+                PlayMusic(locationMedicalRoom);
                 medicalRoom.SetActive(true);
                 break;
 
             case locationGarden:
+                PlayMusic(locationGarden);
                 garden.SetActive(true);
                 break;
 
             case locationBakery:
+                PlayMusic(locationBakery);
                 bakery.SetActive(true);
                 break;
 
@@ -848,6 +853,7 @@ public class Ch1TalkManager : MonoBehaviour
                 break;
 
             case locationCafe:
+                PlayMusic(locationCafe);
                 cafe.SetActive(true);
                 break;
         }
@@ -858,14 +864,39 @@ public class Ch1TalkManager : MonoBehaviour
         }
     }
 
-    public void EnablePlayerMovement()
+    public void PlayMusic(string location = null)
     {
-        playerController.canMove = true; // 플레이어 이동 활성화
-    }
+        string newMusic = ""; // 재생할 음악 이름
 
-    public void DisablePlayerMovement()
-    {
-        playerController.canMove = false; // 플레이어 이동 비활성화
+        // 대사 상의 location에 따른 음악 설정
+        switch (location)
+        {
+            case locationCafe:
+                newMusic = "CAFE";
+                break;
+            case locationGarden:
+                newMusic = "GARDEN";
+                break;
+            case locationBakery:
+                newMusic = "BAKERY";
+                break;
+            case locationMedicalRoom:
+                newMusic = "amedicaloffice_001";
+                break;
+            case locationTrainRoom:
+                newMusic = "a room";
+                break;
+            default:
+                newMusic = "CAFE";
+                break;
+        }
+
+        // 새로운 음악이 현재 음악과 다를 경우에만 음악 재생
+        if (currentMusic != newMusic)
+        {
+            SoundManager.Instance.PlayMusic(newMusic, loop: true);
+            currentMusic = newMusic;
+        }
     }
 
     private IEnumerator FadeOutAndDeactivateTalk(GameObject obj)
