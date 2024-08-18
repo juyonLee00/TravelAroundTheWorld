@@ -15,10 +15,6 @@ public class GameManager : MonoBehaviour
 
     public OrderController orderController;
 
-    void Start()
-    {
-        orderController = FindObjectOfType<OrderController>();
-    }
 
     void Update()
     {
@@ -39,7 +35,7 @@ public class GameManager : MonoBehaviour
             {
                 Beverage.SetActive(true);
                 CafeMap.SetActive(false);
-                //orderController.GenerateOrder(SceneTransitionManager.Instance.GetCafeDeliveryNum());
+                orderController.GenerateOrder(3);
 
             }
             if (clickedObject !=   null && clickedObject.name == "RoomService")

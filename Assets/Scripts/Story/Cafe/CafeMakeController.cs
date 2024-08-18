@@ -25,13 +25,13 @@ public class CafeMakeController : MonoBehaviour
     public List<string> currentIngredients = new List<string>();
 
     private IngredientController ingredientController;
-    private OrderListController orderListController;
+
+    List<CafeOrder> updatedOrders = new List<CafeOrder>();
 
 
     void Start()
     {
         ingredientController = FindObjectOfType<IngredientController>();
-        orderListController = FindObjectOfType<OrderListController>();
     }
 
     public void HandleMakeArea(GameObject ingredient)
@@ -124,58 +124,68 @@ public class CafeMakeController : MonoBehaviour
     {
         if (Espresso.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("Espresso"));
             orderListController.RemoveOrderItem("Espresso");
             Espresso.SetActive(false);
             currentIngredients.Clear();
         }
         else if (HotAmericano.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("HotAmericano"));
             orderListController.RemoveOrderItem("HotAmericano");
             HotAmericano.SetActive(false);
             currentIngredients.Clear();
         }
         else if (IceAmericano.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("IceAmericano"));
             orderListController.RemoveOrderItem("IceAmericano");
             IceAmericano.SetActive(false);
             currentIngredients.Clear();
         }
         else if (HotLatte.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("HotLatte"));
             orderListController.RemoveOrderItem("HotLatte");
             HotLatte.SetActive(false);
             currentIngredients.Clear();
         }
         else if (IceLatte.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("IceLatte"));
             orderListController.RemoveOrderItem("IcaLatte");
             IceLatte.SetActive(false);
             currentIngredients.Clear();
         }
         else if (GreenTea.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("GreenTea"));
             orderListController.RemoveOrderItem("GreenTea");
             GreenTea.SetActive(false);
             currentIngredients.Clear();
         }
         else if (HibiscusTea.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("HibiscusTea"));
             orderListController.RemoveOrderItem("HibiscusTea");
             HibiscusTea.SetActive(false);
             currentIngredients.Clear();
         }
         else if (RooibosTea.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("RooibosTea"));
             orderListController.RemoveOrderItem("RooibosTea");
             RooibosTea.SetActive(false);
             currentIngredients.Clear();
         }
         else if (ChamomileTea.activeSelf)
         {
+            updatedOrders.Add(new CafeOrder("ChamomileTea"));
             orderListController.RemoveOrderItem("ChamomileTea");
             ChamomileTea.SetActive(false);
             currentIngredients.Clear();
         }
+        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
     }
-        
+
 }
