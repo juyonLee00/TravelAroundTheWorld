@@ -46,6 +46,10 @@ public class IngredientsController : MonoBehaviour
         if (makeArea != null && makeArea.GetComponent<Collider2D>().bounds.Contains(transform.position))
         {
             Debug.Log(gameObject.name + " dropped on MakeArea");
+            if(gameObject.name == "Water")
+            {
+                SoundManager.Instance.PlaySFX("pouring water");
+            }
             makeController.HandleIngredientDrop(gameObject);
         }
         if (gameObject.name == "IceCup")
