@@ -106,12 +106,14 @@ public class SceneTransitionManager : MonoBehaviour
     //랜덤메뉴 설정
     public void HandleRandomMenuTransition(string fromScene, string toScene, int returnIdx, int randomNum)
     {
+        Debug.Log(randomMenuTransitionNum);
         returnDialogueIndex = returnIdx;
         targetScene = fromScene;
         destScene = toScene;
         randomMenuNum = 0;
         randomMenuTransitionNum = randomNum;
         StartCoroutine(HandleRandomMenuSceneTransition(fromScene, toScene, returnIdx, randomNum));
+        
     }
 
     //랜덤메뉴 설정
@@ -252,22 +254,23 @@ public class SceneTransitionManager : MonoBehaviour
     private IEnumerator WaitAndSetStoryDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
-        // 전체 씬에서 적용가능하게 수정해야 함
         Ch1TalkManager ch1TalkManager = null;
         while (ch1TalkManager == null)
         {
             ch1TalkManager = FindObjectOfType<Ch1TalkManager>();
             if (ch1TalkManager != null)
             {
+                Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnDialogueIndex}.");
                 break;
             }
             yield return null;
         }
-        // TalkManager의 currentDialogueIndex 설정
-        Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnDialogueIndex}.");
+
+        Debug.Log($"Setting dialogue index to {returnDialogueIndex}");
         Ch1TalkManager.Instance.SetDialogueIndex(returnDialogueIndex, true);
         Debug.Log($"Dialogue index set to {returnDialogueIndex} in {targetScene}.");
     }
+
 
     //씬 전환
     IEnumerator TransitionToScene(string sceneName)
@@ -319,7 +322,7 @@ public class SceneTransitionManager : MonoBehaviour
     //랜덤주문수 업데이트
     public void UpdateRandomMenuDelivery(int newNum)
     {
-        cafeDeliveryNum = newNum;
+        randomMenuNum = newNum;
     }
 
     public int GetDeliveryNum()

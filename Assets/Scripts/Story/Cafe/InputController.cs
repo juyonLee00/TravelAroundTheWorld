@@ -27,6 +27,7 @@ public class InputController : MonoBehaviour
             if (clickedObject != null && clickedObject.name == "Done")
             {
                 cafeMakeController.CheckRecipe();
+                SoundManager.Instance.PlaySFX("cupsetdown");
             }
         }
     }

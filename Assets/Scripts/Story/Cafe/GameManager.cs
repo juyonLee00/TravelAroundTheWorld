@@ -17,19 +17,33 @@ public class GameManager : MonoBehaviour
     public GameObject TeaInventory;
 
     //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
-    public bool buyMilk = true;
+    //public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("TeaSet");
+    public bool buyMilk = false;
+    public bool buyTeaSet = false;
+
+    public int deliveryNum;
 
     public OrderController orderController;
 
     void Start()
     {
+        SoundManager.Instance.PlayMusic("CAFE", true);
+
         if (buyMilk)
         {
             Milk.SetActive(true);
         }
-        else
+        else if (buyTeaSet)
         {
             TeaInventory.SetActive(true);
+        }
+        deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+
+        if (deliveryNum != null && deliveryNum > 0)
+        {
+            Debug.Log("deliveryNum = " + deliveryNum);
+            Beverage.SetActive(false);
+            Delivery.SetActive(true);
         }
     }
 
@@ -69,6 +83,7 @@ public class GameManager : MonoBehaviour
             if (clickedObject != null && clickedObject.name == "Extract")
             {
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
+                SoundManager.Instance.PlaySFX("grinding coffee");
             }
             if (clickedObject != null && clickedObject.name == "TeaInventory")
             {
@@ -100,6 +115,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)
     {
+        SoundManager.Instance.PlaySFX("coffee machine (espresso)");
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
     }

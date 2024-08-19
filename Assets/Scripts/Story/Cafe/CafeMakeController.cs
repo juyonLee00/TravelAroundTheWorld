@@ -28,6 +28,10 @@ public class CafeMakeController : MonoBehaviour
 
     List<CafeOrder> updatedOrders = new List<CafeOrder>();
 
+    public Transform orderListParent;
+
+    private int newNum = 0;
+
 
     void Start()
     {
@@ -43,6 +47,10 @@ public class CafeMakeController : MonoBehaviour
             if (ingredient.name == "Shot")
             {
                 Shot.SetActive(false);
+            }
+            if (ingredient.name == "Water" || ingredient.name =="Milk")
+            {
+                SoundManager.Instance.PlaySFX("pouring water");
             }
         }
     }
@@ -75,6 +83,7 @@ public class CafeMakeController : MonoBehaviour
                 makeHotCup.SetActive(false);
                 currentIngredients.Clear();
             }
+            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
@@ -82,6 +91,7 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("IceAmericano is maded");
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing with ice");
         }
         else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Milk") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
@@ -89,6 +99,7 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("IceLatte is maded");
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing with ice");
         }
         else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
         {
@@ -96,6 +107,7 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("HibiscusTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
         {
@@ -103,6 +115,7 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("RooibosTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
         {
@@ -110,6 +123,7 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("GreenTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
         {
@@ -117,66 +131,203 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("Chamomile is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
+            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         Invoke("CheckOrder", 0.2f);
     }
     public void CheckOrder()
     {
-/*        if (Espresso.activeSelf)
+        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+        int diliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+        if (randomNum > 0)
         {
-            updatedOrders.Add(new CafeOrder("Espresso"));
-            Espresso.SetActive(false);
-            currentIngredients.Clear();
+            if (Espresso.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("Espresso"))
+                    {
+                        PlayerManager.Instance.EarnMoney(50);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                Espresso.SetActive(false);
+            }
+            else if (HotAmericano.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("HotAmericano"))
+                    {
+                        PlayerManager.Instance.EarnMoney(150);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                HotAmericano.SetActive(false);
+            }
+            else if (IceAmericano.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("IceAmericano"))
+                    {
+                        PlayerManager.Instance.EarnMoney(150);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                IceAmericano.SetActive(false);
+            }
+            else if (HotLatte.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("HotLatte"))
+                    {
+                        PlayerManager.Instance.EarnMoney(180);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                HotLatte.SetActive(false);
+            }
+            else if (IceLatte.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("IceLatte"))
+                    {
+                        PlayerManager.Instance.EarnMoney(180);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                IceLatte.SetActive(false);
+            }
+            else if (GreenTea.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("GreenTea"))
+                    {
+                        PlayerManager.Instance.EarnMoney(110);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                GreenTea.SetActive(false);
+            }
+            else if (HibiscusTea.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("HibiscusTea"))
+                    {
+                        PlayerManager.Instance.EarnMoney(150);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                HibiscusTea.SetActive(false);
+            }
+            else if (RooibosTea.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("RooibosTea"))
+                    {
+                        PlayerManager.Instance.EarnMoney(160);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                RooibosTea.SetActive(false);
+            }
+            else if (ChamomileTea.activeSelf)
+            {
+                foreach (Transform order in orderListParent)
+                {
+                    if (order.gameObject.activeInHierarchy && order.name.Contains("ChamomileTea"))
+                    {
+                        PlayerManager.Instance.EarnMoney(120);
+                        Destroy(order.gameObject);
+                        ProcessOrderCompletion();
+                        break;
+                    }
+                }
+                ChamomileTea.SetActive(false);
+            }
         }
-        else if (HotAmericano.activeSelf)
+        else if (diliveryNum > 0)
         {
-            updatedOrders.Add(new CafeOrder("HotAmericano"));
-            HotAmericano.SetActive(false);
-            currentIngredients.Clear();
+
         }
-        else if (IceAmericano.activeSelf)
+        else
         {
-            updatedOrders.Add(new CafeOrder("IceAmericano"));
-            IceAmericano.SetActive(false);
-            currentIngredients.Clear();
+            if (Espresso.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("Espresso"));
+                Espresso.SetActive(false);
+            }
+            else if (HotAmericano.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("HotAmericano"));
+                HotAmericano.SetActive(false);
+            }
+            else if (IceAmericano.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("IceAmericano"));
+                IceAmericano.SetActive(false);
+            }
+            else if (HotLatte.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("HotLatte"));
+                HotLatte.SetActive(false);
+            }
+            else if (IceLatte.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("IceLatte"));
+                IceLatte.SetActive(false);
+            }
+            else if (GreenTea.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("GreenTea"));
+                GreenTea.SetActive(false);
+            }
+            else if (HibiscusTea.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("HibiscusTea"));
+                HibiscusTea.SetActive(false);
+            }
+            else if (RooibosTea.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("RooibosTea"));
+                RooibosTea.SetActive(false);
+            }
+            else if (ChamomileTea.activeSelf)
+            {
+                updatedOrders.Add(new CafeOrder("ChamomileTea"));
+                ChamomileTea.SetActive(false);
+            }
         }
-        else if (HotLatte.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("HotLatte"));
-            HotLatte.SetActive(false);
-            currentIngredients.Clear();
-        }
-        else if (IceLatte.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("IceLatte"));
-            IceLatte.SetActive(false);
-            currentIngredients.Clear();
-        }
-        else if (GreenTea.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("GreenTea"));
-            GreenTea.SetActive(false);
-            currentIngredients.Clear();
-        }
-        else if (HibiscusTea.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("HibiscusTea"));
-            HibiscusTea.SetActive(false);
-            currentIngredients.Clear();
-        }
-        else if (RooibosTea.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("RooibosTea"));
-            RooibosTea.SetActive(false);
-            currentIngredients.Clear();
-        }
-        else if (ChamomileTea.activeSelf)
-        {
-            updatedOrders.Add(new CafeOrder("ChamomileTea"));
-            ChamomileTea.SetActive(false);
-            currentIngredients.Clear();
-        }
-        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);*/
+        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
     }
 
+    public void ProcessOrderCompletion()
+    {
+        currentIngredients.Clear();
+        newNum++;
+        Debug.Log("주문 제작 완료 수 = "+ newNum);
+        SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
+    }
 }

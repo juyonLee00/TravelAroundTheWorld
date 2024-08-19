@@ -22,6 +22,7 @@ public class CafeTalkManager : MonoBehaviour
 
     public GameObject CafeMap; //카페 기본 화면
     public GameObject Money; //소지금
+    public TextMeshProUGUI moneyText;
     public GameObject MainCharacter; //주인공 초상화
     public GameObject CoffeePot; //커피머신
     public GameObject RecipeBook; // 레시피북
@@ -65,11 +66,13 @@ public class CafeTalkManager : MonoBehaviour
             Debug.LogError("CoffeePot is not assigned");
         }
         ActiveTalk();
+
+        SoundManager.Instance.PlayMusic("CAFE", true);
         if (isActivated && currentDialogueIndex == 0)
         {
             PrintProDialogue(currentDialogueIndex);
         }
-
+        moneyText.text = "0";
     }
 
     void Update()
@@ -131,6 +134,7 @@ public class CafeTalkManager : MonoBehaviour
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
                 currentDialogueIndex++;
                 SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                SoundManager.Instance.PlaySFX("grinding coffee");
                 PrintProDialogue(currentDialogueIndex);
             }
         }
@@ -139,6 +143,7 @@ public class CafeTalkManager : MonoBehaviour
             Debug.Log("Hit Done at index " + currentDialogueIndex);
             currentDialogueIndex++;
             SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+            SoundManager.Instance.PlaySFX("mixing with ice");
             PrintProDialogue(currentDialogueIndex);
         }
     }
@@ -146,6 +151,7 @@ public class CafeTalkManager : MonoBehaviour
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)
     {
         Debug.Log("Activate 2f at index " + currentDialogueIndex);
+        SoundManager.Instance.PlaySFX("coffee machine (espresso)");
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
     }
@@ -229,6 +235,10 @@ public class CafeTalkManager : MonoBehaviour
         }
         else if (index > 29 && index < 34)
         {
+            if (index == 32)
+            {
+                moneyText.text = "500";
+            }
             Beverage.SetActive(false);
             cheetah.SetActive(true);
             CafeMap.SetActive(true);
@@ -279,6 +289,7 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
             narrBack.SetActive(false);
+            SoundManager.Instance.PlaySFX("cupsetdown");
         }
         else
         {

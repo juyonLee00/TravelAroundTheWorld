@@ -11,7 +11,7 @@ public class Bed : MonoBehaviour
 
     public GameObject bedNarration;
 
-    private void Awake()
+    private void Start()
     {
         player = GameObject.FindWithTag("Player");
         playerAnimationController = player.GetComponent<PlayerAnimationController>();
