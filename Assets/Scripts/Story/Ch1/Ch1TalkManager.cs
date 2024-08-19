@@ -351,8 +351,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 69)
         {
-            // 랜덤 주문 5건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 71, 5);
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 71, 3);
         }
         else if (index == 83)
         {
@@ -366,8 +366,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 138)
         {
-            // 랜덤 주문 5건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 140, 5);
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 140, 3);
         }
         else if (index == 149)
         {
@@ -381,8 +381,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 290)
         {
-            // 랜덤 주문 4건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 291, 4);
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 291, 3);
         }
         else if (index == 316)
         {
@@ -391,13 +391,13 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 350)
         {
-            // 랜덤 주문 5건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 352, 5);
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 352, 3);
         }
         else if (index == 393)
         {
-            // 랜덤 주문 4건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 395, 4);
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 395, 3);
         }
         else
         {
