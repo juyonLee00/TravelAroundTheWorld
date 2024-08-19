@@ -95,6 +95,11 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Start()
     {
+        if (isTransition)
+        {
+            player.transform.position = new Vector3(0, 0, 0);
+        }
+
         if (PlayerManager.Instance.GetIsLoaded())
         {
             currentDialogueIndex = PlayerManager.Instance.GetDialogueIdx();
