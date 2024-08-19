@@ -277,78 +277,90 @@ public class CafeMakeController : MonoBehaviour
                 ChamomileTea.SetActive(false);
             }
         }
-        else if (diliveryNum > 0)
-        {
+        
+         else if (diliveryNum > 0)
+         {
 
+         }
+
+         else
+         {
+             if (Espresso.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("Espresso"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "Espresso")
+                     PlayerManager.Instance.EarnMoney(500);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 Espresso.SetActive(false);
+             }
+             else if (HotAmericano.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("HotAmericano"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "HotAmericano")
+                     PlayerManager.Instance.EarnMoney(1500);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 HotAmericano.SetActive(false);
+             }
+             else if (IceAmericano.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("IceAmericano"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "IceAmericano")
+                     PlayerManager.Instance.EarnMoney(1500);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 IceAmericano.SetActive(false);
+             }
+             else if (HotLatte.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("HotLatte"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "HotLatte")
+                     PlayerManager.Instance.EarnMoney(1800);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 HotLatte.SetActive(false);
+             }
+             else if (IceLatte.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("IceLatte"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "IceLatte")
+                     PlayerManager.Instance.EarnMoney(1800);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 IceLatte.SetActive(false);
+             }
+             else if (GreenTea.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("GreenTea"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "GreenTea")
+                     PlayerManager.Instance.EarnMoney(1100);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 GreenTea.SetActive(false);
+             }
+             else if (HibiscusTea.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("HibiscusTea"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "HibiscusTea")
+                     PlayerManager.Instance.EarnMoney(1500);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 HibiscusTea.SetActive(false);
+             }
+             else if (RooibosTea.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("RooibosTea"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "RooibosTea")
+                     PlayerManager.Instance.EarnMoney(1600);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 RooibosTea.SetActive(false);
+             }
+             else if (ChamomileTea.activeSelf)
+             {
+                 updatedOrders.Add(new CafeOrder("ChamomileTea"));
+                 if (SceneTransitionManager.Instance.GetCafeOrders() == "ChamomileTea")
+                     PlayerManager.Instance.EarnMoney(1200);
+                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                 ChamomileTea.SetActive(false);
+             }
+         }
+         SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
+     
         }
-        else
-        {
-            if (Espresso.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("Espresso"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "Espresso")
-                    PlayerManager.Instance.EarnMoney(50);
-                Espresso.SetActive(false);
-            }
-            else if (HotAmericano.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("HotAmericano"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "HotAmericano")
-                    PlayerManager.Instance.EarnMoney(150);
-                HotAmericano.SetActive(false);
-            }
-            else if (IceAmericano.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("IceAmericano"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "IceAmericano")
-                    PlayerManager.Instance.EarnMoney(150);
-                IceAmericano.SetActive(false);
-            }
-            else if (HotLatte.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("HotLatte"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "HotLatte")
-                    PlayerManager.Instance.EarnMoney(180);
-                HotLatte.SetActive(false);
-            }
-            else if (IceLatte.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("IceLatte"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "IceLatte")
-                    PlayerManager.Instance.EarnMoney(180);
-                IceLatte.SetActive(false);
-            }
-            else if (GreenTea.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("GreenTea"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "GreenTea")
-                    PlayerManager.Instance.EarnMoney(110);
-                GreenTea.SetActive(false);
-            }
-            else if (HibiscusTea.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("HibiscusTea"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "HibiscusTea")
-                    PlayerManager.Instance.EarnMoney(150);
-                HibiscusTea.SetActive(false);
-            }
-            else if (RooibosTea.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("RooibosTea"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "RooibosTea")
-                    PlayerManager.Instance.EarnMoney(160);
-                RooibosTea.SetActive(false);
-            }
-            else if (ChamomileTea.activeSelf)
-            {
-                updatedOrders.Add(new CafeOrder("ChamomileTea"));
-                if (SceneTransitionManager.Instance.GetCafeOrders() == "ChamomileTea")
-                    PlayerManager.Instance.EarnMoney(120);
-                ChamomileTea.SetActive(false);
-            }
-        }
-        SceneTransitionManager.Instance.UpdateCafeOrders(updatedOrders);
-    }
 
     public void ProcessOrderCompletion()
     {
@@ -356,5 +368,19 @@ public class CafeMakeController : MonoBehaviour
         newNum++;
         Debug.Log("주문 제작 완료 수 = "+ newNum);
         SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
+
+        for (int i = 0; i < orderListParent.childCount; i++)
+        {
+            Transform order = orderListParent.GetChild(i);
+            if (order.gameObject.activeInHierarchy)
+            {
+                // 각 주문의 위치를 앞으로 이동
+                order.localPosition = new Vector3(
+                    order.localPosition.x + 1.35f, // 이동할 x 축의 거리
+                    order.localPosition.y,
+                    order.localPosition.z
+                );
+            }
+        }
     }
 }
