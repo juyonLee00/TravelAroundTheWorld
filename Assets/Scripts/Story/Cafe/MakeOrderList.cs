@@ -24,11 +24,18 @@ public class MakeOrderList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        MakeFull(OrderStruct.RoomServiceOrder_after_tea[1]);
-        /*
+
+        UpdateOrderList();
+
+    }
+    public void UpdateOrderList()
+    {
         int day = DayNightCycleManager.Instance.GetCurrentDay();
-        if(day < 4)
+        if(day < 2)
+        {
+            MakeFull(OrderStruct.RoomServiceOrder_after_tea[1]);
+        }
+        else if(day < 4)
         {
             MakeFull(OrderStruct.RoomServiceOrder_before[day-2]);
         }else if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
@@ -39,8 +46,6 @@ public class MakeOrderList : MonoBehaviour
         {
             MakeFull(OrderStruct.RoomServiceOrder_after_tea[day - 5]);
         }
-        */
-
     }
 
     // Update is called once per frame

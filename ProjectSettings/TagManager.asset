@@ -6,6 +6,8 @@ TagManager:
   tags:
   - NPC
   - RS
+  - Bat
+  - X
   layers:
   - Default
   - TransparentFX
