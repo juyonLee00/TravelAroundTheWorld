@@ -76,6 +76,7 @@ public class OrderController : MonoBehaviour
             {
                 // 주문이 불가능한 경우(수량이 부족한 경우), 해당 키를 목록에서 제거
                 availableKeys.Remove(randomOrderKey);
+                randomNum++;
                 // 더 이상 생성할 수 있는 주문이 없으면 종료
                 if (availableKeys.Count == 0)
                 {
