@@ -19,7 +19,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public Vector2 InputVector { get; private set; }
 
-    private bool isMoving = false;
+    public bool isMoving = false;
     private Vector3 targetPosition;
 
     private void Awake()
@@ -100,17 +100,27 @@ public class PlayerAnimationController : MonoBehaviour
 
     private IEnumerator MoveToPositionCoroutine(Vector3 targetPos, float speed)
     {
-        lastInputVector = targetPos ;
+        lastInputVector = targetPos;
         while (Vector3.Distance(transform.position, targetPos) > 0.1f)
         {
             Vector3 direction = (targetPos - transform.position).normalized;
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
+
+            if(playerController.isColliding)
+            {
+                isMoving = false;
+                break;
+                //yield return null;
+            }
+
             SetMoveDirection(new Vector2(direction.x, direction.y));
             yield return null;
         }
         SetMoveDirection(Vector2.zero);
         moveCoroutine = null;
         playerController.currentTargetClick.SetActive(false);
+
+        playerController.ColliderEnd();
     }
 
     /*

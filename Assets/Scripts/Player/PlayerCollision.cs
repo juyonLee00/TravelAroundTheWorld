@@ -5,35 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collider)
+    private PlayerController playerController;
+
+    private void Awake()
     {
-        /*
-         * 현재 씬의 상태인 SceneType 가져오기
-        
-        SceneType.Scene curSceneType = Managers.Scene.GetSceneType();
-
-        if(curSceneType == SceneType.Scene.Tutorial)
-        {
-            //GetDialogue();
-        }
-
-        else if(curSceneType == SceneType.Scene.Ch1)
-        {
-
-        }
-
-        else if(curSceneType == SceneType.Scene.Ch2)
-        {
-
-        }
-
-
-        //SceneType == Unknown 
-        else
-        {
-            //씬매니저로 현재 씬의 이름 찾아서 해당 씬 리로드
-        }
-        */
-
+        playerController = GetComponent<PlayerController>();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 충돌이 발생하면 플레이어 움직임을 멈춤
+        playerController.ColliderStart();
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // 충돌이 끝나면 플레이어 움직임을 재개
+        playerController.ColliderEnd();
+    }
+
 }
