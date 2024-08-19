@@ -223,6 +223,43 @@ public class PlayerManager : MonoBehaviour
         currentData.unlockedIllustrationIds = new List<int>();
         currentData.unlockedEndingIds = new List<int>();
     }
+
+    //씬 전환 후 자동저장(카페 작업 후 자동저장)
+    //ChN에서도 되도록 수정 필요
+    public void SaveAutoDataAfterCafeScene()
+    {
+        currentData.saveTime = DateTime.Now;
+        currentData.isAutoSave = true;
+
+        //씬 종류에 따라 다른 매니저 가져오도록 설정
+        currentData.mapLocation = GameObject.FindObjectOfType<Ch1MapManager>().currentState;
+        currentData.playerPosition = GameObject.FindObjectOfType<Ch1MapManager>().playerPosition;
+
+        currentData.currentSceneName = SceneManagerEx.Instance.GetCurrentSceneName();
+
+        currentData.currentDay = DayNightCycleManager.Instance.GetCurrentDay();
+        currentData.currentTimeofDay = DayNightCycleManager.Instance.GetNowDayTime();
+
+        //다른 데이터는 작업 과정 중 할당되므로 작업할 필요 없음.
+
+    }
+
+
+    //다이어리 사용해서 저장
+    public void SavePlayerDataWithDiary()
+    {
+        currentData.saveTime = DateTime.Now;
+        currentData.isAutoSave = false;
+
+        //씬 종류에 따라 다른 매니저 가져오도록 설정
+        currentData.mapLocation = GameObject.FindObjectOfType<Ch0MapManager>().currentState;
+        currentData.playerPosition = GameObject.FindObjectOfType<Ch0MapManager>().playerPosition;
+
+        currentData.currentSceneName = SceneManagerEx.Instance.GetCurrentSceneName();
+
+        currentData.currentDay = DayNightCycleManager.Instance.GetCurrentDay();
+        currentData.currentTimeofDay = DayNightCycleManager.Instance.GetNowDayTime();
+    }
     
 
 
