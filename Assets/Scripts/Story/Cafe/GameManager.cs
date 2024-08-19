@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
     //public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("TeaSet");
-    public bool buyMilk = false;
+    public bool buyMilk = true;
     public bool buyTeaSet = false;
 
     public int deliveryNum;

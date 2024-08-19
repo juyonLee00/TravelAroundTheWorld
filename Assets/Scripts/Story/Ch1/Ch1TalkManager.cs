@@ -321,27 +321,26 @@ public class Ch1TalkManager : MonoBehaviour
         {
             // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 8, 3);
+            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 8, 3);
         }
-        /*else if (index == 12)
+        else if (index == 12)
         {
             // 에스프레소 1잔 직접 주문 처리
             Debug.Log("에스프레소 1잔 직접 주문");
 
             // 리스트 초기화 및 에스프레소 1잔만 추가
-            List<CafeOrder> orders = new List<CafeOrder>
-        {
-            new CafeOrder("Espresso")  // 직접 주문하는 에스프레소 1잔
-        };
+            List<CafeOrder> orders = new List<CafeOrder>();
+            orders.Add(new CafeOrder("Espresso"));  // 직접 주문하는 에스프레소 1잔
 
             // 주문 리스트를 전달하여 씬 전환 처리
             SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 13, orders);
-        }*/
+        }
         else if (index == 12)
         {
             // 랜덤 주문 2건 처리
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 13, 2);
         }
+        
         else if (index == 17)
         {
             // 랜덤 주문 1건 처리
@@ -354,8 +353,9 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 69)
         {
+            Debug.Log("배달 랜덤 룸서비스 주문 4건");
             // 배달 주문 4건 처리
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 70, 4);
+            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 70, 4);
         }
         else if (index == 70)
         {
@@ -374,8 +374,9 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 138)
         {
+            Debug.Log("배달 랜덤 룸서비스 주문 3건");
             // 배달 주문 3건 처리
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 140, 3);
+            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 140, 3);
         }
         else if (index == 149)
         {
@@ -384,8 +385,9 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 263)
         {
+            Debug.Log("배달 랜덤 룸서비스 주문 3건");
             // 배달 주문 3건 처리
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 264, 3);
+            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 264, 3);
         }
         else if (index == 290)
         {
@@ -399,8 +401,9 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 350)
         {
+            Debug.Log("배달 랜덤 룸서비스 주문 3건");
             // 배달 주문 3건 처리
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 352, 3);
+            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 352, 3);
         }
         else if (index == 393)
         {
