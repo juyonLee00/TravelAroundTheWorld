@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public GameObject targetClickPrefab;
     public GameObject currentTargetClick;
 
+    public Animator currentTargetClickAnimator;
+
     public bool isColliding = false;
 
     private void Awake()
@@ -30,6 +32,8 @@ public class PlayerController : MonoBehaviour
         currentTargetClick = Instantiate(targetClickPrefab);
         currentTargetClick.SetActive(false);
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        currentTargetClickAnimator = currentTargetClick.GetComponent<Animator>();
+        currentTargetClickAnimator.SetBool("isTargeted", true);
     }
 
     void Update()
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
             if (currentTargetClick != null && currentTargetClick.activeSelf)
             {
                 currentTargetClick.SetActive(false);
+                currentTargetClickAnimator.SetBool("isTargeted", true);
             }
         }
 
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour
             {
                 currentTargetClick.transform.position = worldPos;
                 currentTargetClick.SetActive(true);
+                currentTargetClickAnimator.SetBool("isTargeted", true);
             }
 
             playerAnimationController.MoveToPosition(worldPos, speed * 0.5f);
@@ -131,6 +137,7 @@ public class PlayerController : MonoBehaviour
         playerAnimationController.SetMoveDirection(Vector2.zero);
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         currentTargetClick.SetActive(false);
+        currentTargetClickAnimator.SetBool("isTargeted", false);
     }
 
     public void StartMove()
