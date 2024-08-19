@@ -60,7 +60,7 @@ public class CafeMakeController : MonoBehaviour
     {
         Debug.Log("Current ingredients: " + string.Join(", ", currentIngredients)); // 리스트의 현재 상태를 출력
 
-        if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Shot"))
+        if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Shot"))
         {
             if (currentIngredients.Contains("Water"))
             {
@@ -85,7 +85,7 @@ public class CafeMakeController : MonoBehaviour
             }
             SoundManager.Instance.PlaySFX("mixing liquids");
         }
-        else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
+        else if ((currentIngredients.Contains("IceCup")|| currentIngredients.Contains("MakeIceCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
             IceAmericano.SetActive(true);
             Debug.Log("IceAmericano is maded");
@@ -93,7 +93,7 @@ public class CafeMakeController : MonoBehaviour
             currentIngredients.Clear();
             SoundManager.Instance.PlaySFX("mixing with ice");
         }
-        else if (currentIngredients.Contains("IceCup") && currentIngredients.Contains("Milk") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
+        else if ((currentIngredients.Contains("IceCup") || currentIngredients.Contains("MakeIceCup")) && currentIngredients.Contains("Milk") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
             IceLatte.SetActive(true);
             Debug.Log("IceLatte is maded");
@@ -101,7 +101,7 @@ public class CafeMakeController : MonoBehaviour
             currentIngredients.Clear();
             SoundManager.Instance.PlaySFX("mixing with ice");
         }
-        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
+        else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
         {
             HibiscusTea.SetActive(true);
             Debug.Log("HibiscusTea is maded");
@@ -109,7 +109,7 @@ public class CafeMakeController : MonoBehaviour
             currentIngredients.Clear();
             SoundManager.Instance.PlaySFX("mixing liquids");
         }
-        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
+        else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
         {
             RooibosTea.SetActive(true);
             Debug.Log("RooibosTea is maded");
@@ -117,7 +117,7 @@ public class CafeMakeController : MonoBehaviour
             currentIngredients.Clear();
             SoundManager.Instance.PlaySFX("mixing liquids");
         }
-        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
+        else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
         {
             GreenTea.SetActive(true);
             Debug.Log("GreenTea is maded");
@@ -125,7 +125,7 @@ public class CafeMakeController : MonoBehaviour
             currentIngredients.Clear();
             SoundManager.Instance.PlaySFX("mixing liquids");
         }
-        else if (currentIngredients.Contains("HotCup") && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
+        else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
         {
             ChamomileTea.SetActive(true);
             Debug.Log("Chamomile is maded");
