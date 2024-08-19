@@ -23,7 +23,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private List<CafeOrder> cafeOrders = new List<CafeOrder>();
 
-    private List<CafeOrder> toCafeOrders = new List<CafeOrder>():
+    private List<CafeOrder> toCafeOrders = new List<CafeOrder>();
 
     private int randomMenuNum;
 
