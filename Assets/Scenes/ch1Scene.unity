@@ -736,7 +736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227026104375388555, guid: 21b7ee334206240d5af0319da9194c27, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -791,7 +791,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 392323866026887842, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 868960147367000956, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -835,15 +835,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2489596770667662064, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3367544872969588294, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5109749527770368773, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5109749527770368773, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_UsedByEffector
@@ -855,11 +855,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036333569402987933, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9046739428528738836, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7455873232877147270, guid: 91702850d53a4a744b3c3cafa9180f38, type: 3}

@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
     public GameObject Milk;
     public GameObject TeaInventory;
 
-    //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
-    //public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("TeaSet");
-    public bool buyMilk = false;
-    public bool buyTeaSet = false;
+    public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
+    public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("teaSet");
+    //public bool buyMilk = true;
+    //public bool buyTeaSet = false;
 
     public int deliveryNum;
 

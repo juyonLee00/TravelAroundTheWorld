@@ -5,10 +5,10 @@ using UnityEngine;
 public class OrderController : MonoBehaviour
 {
     public int Day = PlayerManager.Instance.GetDay();
-    //public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("Milk");
+    //public int Day = 2;
+    public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
 
-    //public int Day;
-    public bool buyMilk;
+    //public bool buyMilk = true;
 
     public GameObject orderEspressoPrefab;
     public GameObject orderHotAmericanoPrefab;
@@ -37,7 +37,7 @@ public class OrderController : MonoBehaviour
         {
             GenerateOrder(randomNum);
             DisplayOrders();
-        }          
+        }
     }
 
     public void GenerateOrder(int randomNum)
