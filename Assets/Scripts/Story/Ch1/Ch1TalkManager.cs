@@ -347,8 +347,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 21)
         {
-            // 랜덤 주문 1건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 22, 1);
+            // 배달 주문 1건 처리
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 22, 1);
         }
         else if (index == 69)
         {
@@ -367,8 +367,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 138)
         {
-            // 랜덤 주문 3건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 140, 3);
+            // 배달 주문 3건 처리
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 140, 3);
         }
         else if (index == 149)
         {
@@ -377,8 +377,8 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 263)
         {
-            // 랜덤 주문 3건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 264, 3);
+            // 배달 주문 3건 처리
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 264, 3);
         }
         else if (index == 290)
         {
