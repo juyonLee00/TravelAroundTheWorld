@@ -14,10 +14,10 @@ public class ClickOrderList : MonoBehaviour
     private float speed = 1500.0f; // 이동 속도
     // 
 
-    private Vector3 RSHide = new Vector3 (-467.77f, 257.5f, 0);
-    private Vector3 RSShow = new Vector3(313.92f, 257.75f, 0);
-    private Vector3 BatHide = new Vector3(815.34f, -588.6f, 0);
-    private Vector3 BatShow = new Vector3(815.34f, 144.44f, 0);
+    private Vector3 RSHide = new Vector3 (-1000, 550f, 0);
+    private Vector3 RSShow = new Vector3(650, 550, 0);
+    private Vector3 BatHide = new Vector3(1700, -1335, 0);
+    private Vector3 BatShow = new Vector3(1700, 315, 0);
     private Vector3 targetPositionRoomService;
     
     private bool shouldMoveRoomService = false; // 이동을 시작할지 여부
