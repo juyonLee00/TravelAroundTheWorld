@@ -85,6 +85,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         ch1ProDialogue = new List<Ch1ProDialogue>();
         LoadDialogueFromCSV();
         InitializeCharacterImages(); 
@@ -97,21 +98,24 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (isTransition)
         {
-            player.transform.position = new Vector3(0, 0, 0);
+            ActivateTalk("카페", currentDialogueIndex);
         }
 
+        // 플레이어가 로드된 경우
         if (PlayerManager.Instance.GetIsLoaded())
         {
             currentDialogueIndex = PlayerManager.Instance.GetDialogueIdx();
-            //Index만 설정하면 되는지는 잘 모르겠어서 이렇게 남겨둡니다
-            //PlayerManager.Instance.SetIsLoaded();
-            //DayNightCycleManager.Instance.LoadSaveData();
-            //로드되었을 경우 플레이어가 리젠될 위치 정보를 선언하는 변수가 필요합니다
-            //
+        }
+
+        // currentDialogueIndex가 0일 경우에만 초기화
+        if (currentDialogueIndex == 0)
+        {
+            ActivateTalk("객실", 0);
         }
         else
         {
-            ActivateTalk("객실");
+            // 이미 설정된 인덱스가 있는 경우 그 인덱스부터 대화 시작
+            ActivateTalk("카페", currentDialogueIndex);
         }
     }
 
@@ -311,27 +315,44 @@ public class Ch1TalkManager : MonoBehaviour
 
     private void HandleDialogueProgression(int index)
     {
+        Debug.Log($"HandleDialogueProgression called with index: {index}");
+
         if (index == 7)
         {
             // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 9, 3);
+            Debug.Log("배달 랜덤 룸서비스 주문 3건");
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 8, 3);
         }
         else if (index == 12)
         {
             // 에스프레소 1잔 직접 주문 처리
+            Debug.Log("에스프레소 1잔 직접 주문");
+
+            // 리스트 초기화 및 에스프레소 1잔만 추가
             List<CafeOrder> orders = new List<CafeOrder>
         {
             new CafeOrder("Espresso")  // 직접 주문하는 에스프레소 1잔
         };
 
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 14, orders);
-
+            // 주문 리스트를 전달하여 씬 전환 처리
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 13, orders);
+        }
+        else if (index == 13)
+        {
+            // 에스프레소 주문 후 기본 대화 진행
+            Debug.Log($"Continuing with default dialogue progression at index {index}.");
+            PrintCh1ProDialogue(index);
+        }
+        else if (index == 14)
+        {
             // 랜덤 주문 2건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 14, 2);
+            Debug.Log("랜덤 주문 2건");
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 15, 2);
         }
         else
         {
             // 기본 대화 진행
+            Debug.Log($"Continuing with default dialogue progression at index {index}.");
             PrintCh1ProDialogue(index);
         }
     }
@@ -459,6 +480,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     public void PrintCh1ProDialogue(int index)
     {
+        Debug.Log($"PrintCh1ProDialogue called with index: {index}");
         if (index >= ch1ProDialogue.Count)
         {
             narration.SetActive(false);
@@ -906,13 +928,15 @@ public class Ch1TalkManager : MonoBehaviour
         }*/
     }
 
-    public void ActivateTalk(string locationName)
+    public void ActivateTalk(string locationName, int curDialogueIdx)
     {
         this.gameObject.SetActive(true);
         isActivated = true;
 
         // locationName에 따라 인덱스 조정하여 특정 대화를 시작할 수 있도록 수정
         currentDialogueIndex = ch1ProDialogue.FindIndex(dialogue => dialogue.location == locationName);
+
+        currentDialogueIndex = curDialogueIdx;
 
         if (currentDialogueIndex >= 0)
         {
