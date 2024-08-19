@@ -30,21 +30,21 @@ public class MakeOrderList : MonoBehaviour
     }
     public void UpdateOrderList()
     {
-        int day = PlayerManager.Instance.GetDay();
-        if (day < 2)
+        int day = DayNightCycleManager.Instance.GetCurrentDay();
+        if(day < 1)
         {
             MakeFull(OrderStruct.RoomServiceOrder_after_tea[1]);
         }
         else if(day < 4)
         {
-            MakeFull(OrderStruct.RoomServiceOrder_before[day-2]);
+            MakeFull(OrderStruct.RoomServiceOrder_before[day-1]);
         }else if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
         {
-            MakeFull(OrderStruct.RoomServiceOrder_after_milk[day - 5]);
+            MakeFull(OrderStruct.RoomServiceOrder_after_milk[day - 4]);
         }
         else
         {
-            MakeFull(OrderStruct.RoomServiceOrder_after_tea[day - 5]);
+            MakeFull(OrderStruct.RoomServiceOrder_after_tea[day - 4]);
         }
     }
 
