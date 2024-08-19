@@ -20,6 +20,13 @@ public struct PosData
     public int height;
 }
 
+public struct StartSceneImgData
+{
+    public Sprite backgroundImgData;
+    public Sprite titleTextImgData;
+    public Sprite btnGroupImgData;
+}
+
 public class StartBtnGroup : MonoBehaviour
 {
     public GameObject startSceneBtnPrefab;
@@ -34,20 +41,35 @@ public class StartBtnGroup : MonoBehaviour
 
     private List<PosData> btnPosList;
 
+    public Image backgroundImg;
+    public Image titleTextImg;
+    public Image btnGroupImg;
+
+    public List<StartSceneImgData> startSceneImgDatas;
+
+    public Sprite backgroundImgNoon;
+    public Sprite backgroundImgNight;
+    public Sprite titleTextImgNoon;
+    public Sprite titleTextImgNight;
+    public Sprite btnGroupImgNoon;
+    public Sprite btnGroupImgNight;
+
     private int yPos;
 
     private void Awake()
     {
         btnDataList = new List<BtnDataSet>();
         btnPosList = new List<PosData>();
+        startSceneImgDatas = new List<StartSceneImgData>();
     }
 
     private void Start()
     {
         //처음에 더미데이터 생성되는 문제 해결해야 함
         SaveDataManager.Instance.DeleteSave(0);
-        SoundManager.Instance.PlayMusic("main theme", loop: true); 
+        SoundManager.Instance.PlayMusic("main theme", loop: true);
 
+        SetImgData();
         SetUIData();
         SetBtnData();
         SetBtnPosData();
@@ -55,10 +77,57 @@ public class StartBtnGroup : MonoBehaviour
         CreateStartBtnGroup();
     }
 
-    private void Update()
+    void SetImgData()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-            UIManager.Instance.DeactivatedUI("SaveData");
+        StartSceneImgData noonImg = new StartSceneImgData
+        {
+            backgroundImgData = backgroundImgNoon,
+            titleTextImgData = titleTextImgNoon,
+            btnGroupImgData = btnGroupImgNoon
+        };
+
+        StartSceneImgData nightImg = new StartSceneImgData
+        {
+            backgroundImgData = backgroundImgNight,
+            titleTextImgData = titleTextImgNight,
+            btnGroupImgData = btnGroupImgNight
+        };
+
+        startSceneImgDatas.Add(noonImg);
+        startSceneImgDatas.Add(nightImg);
+
+        int imgIdx = 0;
+
+        if(SaveDataManager.Instance.HasSaveData())
+        {
+            //가장 최근에 저장한 데이터값 불러오기
+            bool isDayTime = SaveDataManager.Instance.LoadMostRecentSave().currentTimeofDay;
+
+            //낮
+            if(isDayTime)
+            {
+                UpdateImgData(imgIdx);
+            }
+
+            //밤
+            else
+            {
+                imgIdx = 1;
+                UpdateImgData(imgIdx);
+            }
+        }
+
+        else
+        {
+            UpdateImgData(imgIdx);
+        }
+    }
+
+    void UpdateImgData(int idx)
+    {
+        backgroundImg.sprite = startSceneImgDatas[idx].backgroundImgData;
+        titleTextImg.sprite = startSceneImgDatas[idx].titleTextImgData;
+        btnGroupImg.sprite = startSceneImgDatas[idx].btnGroupImgData;
     }
 
     void SetUIData()
