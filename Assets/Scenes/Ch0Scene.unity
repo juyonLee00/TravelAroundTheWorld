@@ -667,6 +667,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 4661832729348184430, guid: 388878d108656bd4bbc46dd0e43e4eb8, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932902786105893660, guid: 388878d108656bd4bbc46dd0e43e4eb8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1128,6 +1132,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 129286535322354632, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 184361926744842394, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1143,6 +1151,30 @@ PrefabInstance:
     - target: {fileID: 914306381832163576, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239997463840566445, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239997463840566445, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239997463840566445, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275718703379982050, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275718703379982050, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275718703379982050, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1352974223864012263, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_Sprite
@@ -1304,6 +1336,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 4833923085081613163, guid: 36a6b807eeb69624db77087a36099605, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5166329304400964811, guid: 36a6b807eeb69624db77087a36099605, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1429,6 +1465,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 4661832729348184430, guid: 388878d108656bd4bbc46dd0e43e4eb8, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932902786105893660, guid: 388878d108656bd4bbc46dd0e43e4eb8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1942,6 +1982,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2434965891464623294, guid: f95802473fb4d88499e59b3189c49389, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434965891464623294, guid: f95802473fb4d88499e59b3189c49389, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434965891464623294, guid: f95802473fb4d88499e59b3189c49389, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 5703533251994554062, guid: f95802473fb4d88499e59b3189c49389, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1958,6 +2010,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 5712578817223039506, guid: f95802473fb4d88499e59b3189c49389, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6919274649317267227, guid: f95802473fb4d88499e59b3189c49389, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2063,6 +2119,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335121949}
+    - target: {fileID: 4581547585666358798, guid: 2d3a0eb88cedf774797d2e77e7991b13, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5860374810649201683, guid: 2d3a0eb88cedf774797d2e77e7991b13, type: 3}
       propertyPath: m_fontAsset
       value: 
