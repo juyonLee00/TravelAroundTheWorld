@@ -91,7 +91,7 @@ public class Ch1TalkManager : MonoBehaviour
         InitializeCharacterImages(); 
         mapManager = map.GetComponent<Ch1MapManager>();
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
-        player.SetActive(false);
+        player.SetActive(true);
     }
 
     void Start()
@@ -111,6 +111,7 @@ public class Ch1TalkManager : MonoBehaviour
         if (currentDialogueIndex == 0)
         {
             ActivateTalk("객실", 0);
+            player.SetActive(false);
         }
         else
         {
@@ -347,13 +348,18 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 21)
         {
-            // 배달 주문 1건 처리
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 22, 1);
+            // 랜덤 주문 1건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 22, 1);
         }
         else if (index == 69)
         {
-            // 랜덤 주문 3건 처리
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 71, 3);
+            // 배달 주문 4건 처리
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 70, 4);
+        }
+        else if (index == 70)
+        {
+            // 랜덤 주문 1건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 71, 1);
         }
         else if (index == 83)
         {
