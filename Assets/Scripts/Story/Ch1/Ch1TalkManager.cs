@@ -317,8 +317,9 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (index == 7)
         {
-            // 배달 랜덤 룸서비스 주문 3건
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 8, 3);
+            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
+            Debug.Log("배달 랜덤 룸서비스 주문 3건");
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 8, 3);
         }
         /*else if (index == 12)
         {
