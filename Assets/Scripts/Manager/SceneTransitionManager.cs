@@ -23,6 +23,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     private List<CafeOrder> cafeOrders = new List<CafeOrder>();
 
+    private List<CafeOrder> toCafeOrders = new List<CafeOrder>();
+
     private int randomMenuNum;
 
     private int randomMenuTransitionNum;
@@ -47,12 +49,12 @@ public class SceneTransitionManager : MonoBehaviour
     {
         return destScene;
     }
-    /*
+
     public string GetCafeOrders()
     {
-        return cafeOrders[0].MenuItem;
+        return toCafeOrders[0].MenuItem;
     }
-    */
+ 
     //직접 와서 주문 받는 형식(주문자가 정해져 있음)
     public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, List<CafeOrder> orders)
     {
@@ -60,6 +62,7 @@ public class SceneTransitionManager : MonoBehaviour
         targetScene = fromScene;
         destScene = toScene;
         //cafeOrders = new List<CafeOrder>(orders);
+        toCafeOrders = new List<CafeOrder>(orders);
         cafeOrders = new List<CafeOrder>();
 
         StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, orders));
