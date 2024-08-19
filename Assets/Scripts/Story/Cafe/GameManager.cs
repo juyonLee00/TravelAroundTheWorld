@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public bool buyMilk = false;
     public bool buyTeaSet = false;
 
-    public int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+    public int deliveryNum;
 
     public OrderController orderController;
 
@@ -37,9 +37,11 @@ public class GameManager : MonoBehaviour
         {
             TeaInventory.SetActive(true);
         }
+        deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
 
         if (deliveryNum != null && deliveryNum > 0)
         {
+            Debug.Log("deliveryNum = " + deliveryNum);
             Beverage.SetActive(false);
             Delivery.SetActive(true);
         }
