@@ -78,6 +78,8 @@ public class SceneTransitionManager : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        cafeOrders = new List<CafeOrder>();
+
         yield return TransitionToScene(fromScene);
     }
 
@@ -130,6 +132,8 @@ public class SceneTransitionManager : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        randomMenuTransitionNum = 0;
+
         yield return TransitionToScene(fromScene);
 
     }
@@ -167,6 +171,8 @@ public class SceneTransitionManager : MonoBehaviour
         yield return WaitForCondition(() => IsSpecificDeliveryConditionMet(deliveryNum));
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        cafeDeliveryTransitionNum = 0;
 
         yield return TransitionToScene(fromScene);
 
@@ -334,7 +340,6 @@ public class SceneTransitionManager : MonoBehaviour
     {
         return randomMenuTransitionNum;
     }
-
 
     //
     private void OnDialogueIndexUpdated(int fromSceneIdx, int returnIdx)
