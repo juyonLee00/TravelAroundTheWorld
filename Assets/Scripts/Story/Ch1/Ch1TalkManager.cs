@@ -117,6 +117,7 @@ public class Ch1TalkManager : MonoBehaviour
         {
             // 이미 설정된 인덱스가 있는 경우 그 인덱스부터 대화 시작
             ActivateTalk("카페", currentDialogueIndex);
+            player.SetActive(false);
         }
     }
 
