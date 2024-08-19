@@ -317,8 +317,7 @@ public class Ch1TalkManager : MonoBehaviour
     {
         if (index == 7)
         {
-            // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
-            Debug.Log("배달 랜덤 룸서비스 주문 3건");
+            // 배달 랜덤 룸서비스 주문 3건
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 8, 3);
         }
         /*else if (index == 12)
@@ -338,20 +337,67 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 12)
         {
             // 랜덤 주문 2건 처리
-            Debug.Log("랜덤 주문 2건");
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 13, 2);
         }
         else if (index == 17)
         {
             // 랜덤 주문 1건 처리
-            Debug.Log("랜덤 주문 1건");
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 18, 1);
         }
         else if (index == 21)
         {
             // 랜덤 주문 1건 처리
-            Debug.Log("랜덤 주문 1건");
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 22, 1);
+        }
+        else if (index == 69)
+        {
+            // 랜덤 주문 5건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 71, 5);
+        }
+        else if (index == 83)
+        {
+            // 랜덤 주문 1건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 84, 1);
+        }
+        else if (index == 99)
+        {
+            // 랜덤 주문 2건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 100, 2);
+        }
+        else if (index == 138)
+        {
+            // 랜덤 주문 5건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 140, 5);
+        }
+        else if (index == 149)
+        {
+            // 랜덤 주문 2건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 150, 2);
+        }
+        else if (index == 263)
+        {
+            // 랜덤 주문 3건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 264, 3);
+        }
+        else if (index == 290)
+        {
+            // 랜덤 주문 4건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 291, 4);
+        }
+        else if (index == 316)
+        {
+            // 랜덤 주문 1건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 317, 1);
+        }
+        else if (index == 350)
+        {
+            // 랜덤 주문 5건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 352, 5);
+        }
+        else if (index == 393)
+        {
+            // 랜덤 주문 4건 처리
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 395, 4);
         }
         else
         {
