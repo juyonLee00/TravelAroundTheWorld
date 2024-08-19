@@ -46,20 +46,22 @@ public class OrderStruct
 {
     static List<RoomService> day2 = new List<RoomService>() 
     { 
-        new RoomService(302, new List<OrderDetail> { new OrderDetail("에스프레소", 1), new OrderDetail("아이스 아메리카노", 1) }),
-        new RoomService(201, new List<OrderDetail> { new OrderDetail("에스프레소", 1)})
+        new RoomService(302, new List<OrderDetail> { new OrderDetail("에스프레소", 1) }),
+        new RoomService(201, new List<OrderDetail> { new OrderDetail("에스프레소", 1)}),
+        new RoomService(201, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)})
     };
     static List<RoomService> day3 = new List<RoomService>()
     {
         new RoomService(201, new List<OrderDetail> { new OrderDetail("에스프레소", 1)}),
         new RoomService(101, new List<OrderDetail> { new OrderDetail("아메리카노", 1)}),
-        new RoomService(203, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)})
-        
+        new RoomService(203, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)}),
+        new RoomService(302, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)})
+
     };
     static List<RoomService> day4 = new List<RoomService>()
     {
         new RoomService(201, new List<OrderDetail> { new OrderDetail("에스프레소", 1)}),
-        new RoomService(103, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 2)}),
+        new RoomService(103, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)}),
         new RoomService(102, new List<OrderDetail> { new OrderDetail("아메리카노", 1)})
 
     };
@@ -73,34 +75,40 @@ public class OrderStruct
     };
     static List<RoomService> day6_milk = new List<RoomService>()
     {
-        new RoomService(202, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1), new OrderDetail("아이스 라떼", 1) }),
+        new RoomService(202, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1) }),
         new RoomService(103, new List<OrderDetail> { new OrderDetail("라떼", 1)}),
         new RoomService(301, new List<OrderDetail> { new OrderDetail("아이스 라떼", 1)})
 
     };
     static List<RoomService> day7_milk = new List<RoomService>()
     {
-        new RoomService(202, new List<OrderDetail> { new OrderDetail("아메리카노", 1), new OrderDetail("에스프레소", 1) }),
+        new RoomService(202, new List<OrderDetail> { new OrderDetail("아메리카노", 1) }),
         new RoomService(103, new List<OrderDetail> { new OrderDetail("아메리카노", 1)}),
-        new RoomService(301, new List<OrderDetail> { new OrderDetail("아이스 라떼", 1)})
+        new RoomService(301, new List<OrderDetail> { new OrderDetail("아이스 라떼", 1)}),
+        new RoomService(302, new List<OrderDetail> { new OrderDetail("아이스 라떼", 1)}),
+        new RoomService(201, new List<OrderDetail> { new OrderDetail("에스프레소", 1)})
 
     };
 
     static List<RoomService> day5_tea = new List<RoomService>()
     {
         new RoomService(201, new List<OrderDetail> { new OrderDetail("케모마일 티", 1)}),
-        new RoomService(203, new List<OrderDetail> { new OrderDetail("녹차", 1), new OrderDetail("히비스커스 티", 1)})
+        new RoomService(203, new List<OrderDetail> { new OrderDetail("녹차", 1) }),
+        new RoomService(103, new List<OrderDetail> { new OrderDetail("히비스커스 티", 1)})
     };
     static List<RoomService> day6_tea = new List<RoomService>()
     {
         new RoomService(202, new List<OrderDetail> { new OrderDetail("녹차", 1) }),
-        new RoomService(103, new List<OrderDetail> { new OrderDetail("루이보스 티", 2)}),
-        new RoomService(301, new List<OrderDetail> { new OrderDetail("케모마일 티", 1), new OrderDetail("히비스커스 티", 1)})
+        new RoomService(103, new List<OrderDetail> { new OrderDetail("루이보스 티", 1)}),
+        new RoomService(301, new List<OrderDetail> { new OrderDetail("케모마일 티", 1) })
     };
     static List<RoomService> day7_tea = new List<RoomService>()
     {
-        new RoomService(201, new List<OrderDetail> { new OrderDetail("케모마일 티", 1), new OrderDetail("히비스커스 티", 1)}),
-        new RoomService(103, new List<OrderDetail> { new OrderDetail("히비스커스 티", 1)})
+        new RoomService(201, new List<OrderDetail> { new OrderDetail("히비스커스 티", 1)}),
+        new RoomService(103, new List<OrderDetail> { new OrderDetail("히비스커스 티", 1)}),
+        new RoomService(203, new List<OrderDetail> { new OrderDetail("히비스커스 티", 1)}),
+        new RoomService(301, new List<OrderDetail> { new OrderDetail("케모마일 티", 1) }),
+        new RoomService(101, new List<OrderDetail> { new OrderDetail("루이보스 티", 1)})
     };
 
     public static List<List<RoomService>> RoomServiceOrder_before = new List<List<RoomService>> { day2, day3, day4 };

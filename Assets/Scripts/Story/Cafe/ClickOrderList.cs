@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class ClickOrderList : MonoBehaviour
 {
@@ -11,13 +13,15 @@ public class ClickOrderList : MonoBehaviour
     public GameObject RoomService;
     public GameObject Bat;
 
-    private float speed = 1500.0f; // 이동 속도
+    private float speed = 2300; // 이동 속도
     // 
 
-    private Vector3 RSHide = new Vector3 (-467.77f, 257.5f, 0);
-    private Vector3 RSShow = new Vector3(313.92f, 257.75f, 0);
-    private Vector3 BatHide = new Vector3(815.34f, -588.6f, 0);
-    private Vector3 BatShow = new Vector3(815.34f, 144.44f, 0);
+    private Vector3 RSHide = new Vector3 (-2000, 0, 0);
+    private Vector3 RSShow = new Vector3(-300, 0, 0);
+    private Vector3 BatHide = new Vector3(749, -2100, 0);
+    private Vector3 BatShow = new Vector3(749, -237.5f, 0);
+
+
     private Vector3 targetPositionRoomService;
     
     private bool shouldMoveRoomService = false; // 이동을 시작할지 여부
@@ -50,15 +54,15 @@ public class ClickOrderList : MonoBehaviour
             
 
             // 목표 위치에 도달했는지 확인
-            if (Vector3.Distance(RoomService.transform.position, targetPositionRoomService) < 0.01f)
+            if (Vector3.Distance(RoomService.transform.localPosition, targetPositionRoomService) < 0.01f)
             {
-                RoomService.transform.position = targetPositionRoomService; // 목표 위치에 도달 시 위치 고정
+                RoomService.transform.localPosition = targetPositionRoomService; // 목표 위치에 도달 시 위치 고정
                 shouldMoveRoomService = false; // 이동 완료
             }
             else
             {
                 float fractionOfJourney = distCovered / journeyLengthRoomService;
-                RoomService.transform.position = Vector3.Lerp(startPositionRoomService, targetPositionRoomService, fractionOfJourney);
+                RoomService.transform.localPosition = Vector3.Lerp(startPositionRoomService, targetPositionRoomService, fractionOfJourney);
             }
 
         }
@@ -68,34 +72,45 @@ public class ClickOrderList : MonoBehaviour
 
             
 
-            if(Vector3.Distance(Bat.transform.position, targetPositionBat) < 0.01f)
+            if(Vector3.Distance(Bat.transform.localPosition, targetPositionBat) < 0.01f)
             {
-                Bat.transform.position = targetPositionBat;
+                Bat.transform.localPosition = targetPositionBat;
                 shouldMoveBat = false;
             }
             else
             {
                 float fractionOfJourney1 = distCovered1 / journeyLengthBat;
-                Bat.transform.position = Vector3.Lerp(startPositionBat, targetPositionBat, fractionOfJourney1);
+                Bat.transform.localPosition = Vector3.Lerp(startPositionBat, targetPositionBat, fractionOfJourney1);
             }
         }
     }
 
     public void ClickCrafting() // 제작하기 버튼 눌렀을때
     {
-        SoundManager.Instance.PlaySFX("click sound");
-        List<object> list = new List<object> ();
-        int c = transform.childCount;
-        for (int i = 1; i < transform.childCount-1; i++)
-        {
-            string menu = transform.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>().text;
-            list.Add (menu);
-            string quantityText = transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>().text;
-            int quantity = int.Parse(quantityText[quantityText.Length - 1].ToString());
-            list.Add (quantity);
-        }
-        // list에 주문정보 있음.
         
+        SoundManager.Instance.PlaySFX("click sound");
+        // 한글 메뉴
+        String menu = transform.parent.parent.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text;
+        
+        // 영어 메뉴 찾는 과정
+        foreach (menu i in OrderStruct.info)
+        {
+            if (i.menu_kr == menu)
+            {
+                menu = i.menu_name;
+                break;
+            }
+        }
+        Button button = GameObject.FindWithTag("X").GetComponent<Button>();
+        button.onClick.Invoke();
+        Invoke("DestroyOrder", 1f);
+        
+        //menu에 음료 이름 들어가있고 한글 혹은 영어 중 편하신걸로 하시면 될 것 같아요
+        
+    }
+    public void DestroyOrder()
+    {
+        Destroy(transform.parent.parent.gameObject);
     }
     public void ClickOrder()
     {
@@ -115,12 +130,12 @@ public class ClickOrderList : MonoBehaviour
         targetPositionBat = BatShow;
 
         shouldMoveRoomService = true; // 이동 시작
-        startPositionRoomService = RoomService.transform.position; // 시작 위치 초기화
+        startPositionRoomService = RoomService.transform.localPosition; // 시작 위치 초기화
         startTimeRoomService = Time.time; // 이동 시작 시간 초기화
         journeyLengthRoomService = Vector3.Distance(startPositionRoomService, targetPositionRoomService); // 거리 계산
 
         shouldMoveBat = true;
-        startPositionBat = Bat.transform.position;
+        startPositionBat = Bat.transform.localPosition;
         startTimeBat = Time.time;
         journeyLengthBat = Vector3.Distance(startPositionBat, targetPositionBat);
 
@@ -129,17 +144,18 @@ public class ClickOrderList : MonoBehaviour
 
     public void Hide()
     {
+        Debug.Log("Hide");
         SoundManager.Instance.PlaySFX("click sound");
         targetPositionRoomService = RSHide;
         targetPositionBat = BatHide;
 
         shouldMoveRoomService = true; // 이동 시작
-        startPositionRoomService = RoomService.transform.position; // 시작 위치 초기화
+        startPositionRoomService = RoomService.transform.localPosition; // 시작 위치 초기화
         startTimeRoomService = Time.time; // 이동 시작 시간 초기화
         journeyLengthRoomService = Vector3.Distance(startPositionRoomService, targetPositionRoomService); // 거리 계산
 
         shouldMoveBat = true;
-        startPositionBat = Bat.transform.position;
+        startPositionBat = Bat.transform.localPosition;
         startTimeBat = Time.time;
         journeyLengthBat = Vector3.Distance(startPositionBat, targetPositionBat);
     }
