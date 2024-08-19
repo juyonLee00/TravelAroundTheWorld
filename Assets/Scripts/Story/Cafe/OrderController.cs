@@ -5,10 +5,7 @@ using UnityEngine;
 public class OrderController : MonoBehaviour
 {
     public int Day = PlayerManager.Instance.GetDay();
-    //public int Day = 2;
     public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
-
-    //public bool buyMilk = true;
 
     public GameObject orderEspressoPrefab;
     public GameObject orderHotAmericanoPrefab;
@@ -22,8 +19,8 @@ public class OrderController : MonoBehaviour
 
     public Transform orderListParent;
 
-    public Vector3 startPosition = new Vector3(1.5f, 0f, -2f);
-    public Vector3 offset = new Vector3(-1.6f, 0, 0);
+    public Vector3 startPosition = new Vector3(2f, 0f, -2f);
+    public Vector3 offset = new Vector3(-1.35f, 0, 0);
 
     private List<string> generatedOrders = new List<string>();
 
@@ -32,7 +29,6 @@ public class OrderController : MonoBehaviour
 
         int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
         Debug.Log("randomNum = " + randomNum);
-        //int randomNum = 3;
         if (randomNum > 0)
         {
             GenerateOrder(randomNum);
