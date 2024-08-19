@@ -315,15 +315,13 @@ public class Ch1TalkManager : MonoBehaviour
 
     private void HandleDialogueProgression(int index)
     {
-        Debug.Log($"HandleDialogueProgression called with index: {index}");
-
         if (index == 7)
         {
             // 인덱스 7: 배달 랜덤 룸서비스 주문 3건 처리 후 ch1Scene으로 복귀
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
             SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 8, 3);
         }
-        else if (index == 12)
+        /*else if (index == 12)
         {
             // 에스프레소 1잔 직접 주문 처리
             Debug.Log("에스프레소 1잔 직접 주문");
@@ -336,23 +334,28 @@ public class Ch1TalkManager : MonoBehaviour
 
             // 주문 리스트를 전달하여 씬 전환 처리
             SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 13, orders);
-        }
-        else if (index == 13)
-        {
-            // 에스프레소 주문 후 기본 대화 진행
-            Debug.Log($"Continuing with default dialogue progression at index {index}.");
-            PrintCh1ProDialogue(index);
-        }
-        else if (index == 14)
+        }*/
+        else if (index == 12)
         {
             // 랜덤 주문 2건 처리
             Debug.Log("랜덤 주문 2건");
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("CafeScene", "CafeScene", 15, 2);
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 13, 2);
+        }
+        else if (index == 17)
+        {
+            // 랜덤 주문 1건 처리
+            Debug.Log("랜덤 주문 1건");
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 18, 1);
+        }
+        else if (index == 21)
+        {
+            // 랜덤 주문 1건 처리
+            Debug.Log("랜덤 주문 1건");
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 22, 1);
         }
         else
         {
             // 기본 대화 진행
-            Debug.Log($"Continuing with default dialogue progression at index {index}.");
             PrintCh1ProDialogue(index);
         }
     }
@@ -581,7 +584,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }        
-        else if ((index == 23 || index == 101 || index == 187 || index == 318 || index == 386 || index == 420 || index == 489 | index == 510) && mapManager.currentState == MapState.Cafe) // 카페 일 끝나고 이동 가능하게 전환
+        else if (index == 23 || index == 101 || index == 187 || index == 318 || index == 386 || index == 420 || index == 489 | index == 510) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             playerController.StartMove();
