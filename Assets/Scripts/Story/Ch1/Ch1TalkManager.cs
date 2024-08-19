@@ -399,7 +399,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 350)
         {
             // 배달 주문 3건 처리
-            SceneTransitionManager.Instance.player.SetActive(true); ("ch1Scene", "CafeScene", 352, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 352, 3);
         }
         else if (index == 393)
         {
