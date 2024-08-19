@@ -25,6 +25,7 @@ public struct StartSceneImgData
     public Sprite backgroundImgData;
     public Sprite titleTextImgData;
     public Sprite btnGroupImgData;
+    public Sprite settingBtnImgData;
 }
 
 public class StartBtnGroup : MonoBehaviour
@@ -53,6 +54,8 @@ public class StartBtnGroup : MonoBehaviour
     public Sprite titleTextImgNight;
     public Sprite btnGroupImgNoon;
     public Sprite btnGroupImgNight;
+    public Sprite settingBtnImgNoon;
+    public Sprite settingBtnImgNight;
 
     private int yPos;
 
@@ -83,14 +86,16 @@ public class StartBtnGroup : MonoBehaviour
         {
             backgroundImgData = backgroundImgNoon,
             titleTextImgData = titleTextImgNoon,
-            btnGroupImgData = btnGroupImgNoon
+            btnGroupImgData = btnGroupImgNoon,
+            settingBtnImgData = settingBtnImgNoon
         };
 
         StartSceneImgData nightImg = new StartSceneImgData
         {
             backgroundImgData = backgroundImgNight,
             titleTextImgData = titleTextImgNight,
-            btnGroupImgData = btnGroupImgNight
+            btnGroupImgData = btnGroupImgNight,
+            settingBtnImgData = settingBtnImgNight
         };
 
         startSceneImgDatas.Add(noonImg);
@@ -128,6 +133,7 @@ public class StartBtnGroup : MonoBehaviour
         backgroundImg.sprite = startSceneImgDatas[idx].backgroundImgData;
         titleTextImg.sprite = startSceneImgDatas[idx].titleTextImgData;
         btnGroupImg.sprite = startSceneImgDatas[idx].btnGroupImgData;
+        settingBtnPrefab.GetComponent<Image>().sprite = startSceneImgDatas[idx].settingBtnImgData;
     }
 
     void SetUIData()
@@ -321,6 +327,7 @@ public class StartBtnGroup : MonoBehaviour
         Button btnComponent = btn.GetComponent<Button>();
 
         btnComponent.onClick.AddListener(() => UIManager.Instance.ToggleUI("Setting"));
+        btnComponent.onClick.AddListener(() => SoundManager.Instance.PlaySFX("click sound"));
 
     }
 
