@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MakeOrderList : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MakeOrderList : MonoBehaviour
     public GameObject List;
     public GameObject Bottom;
 
+    public Sprite test;
+
     GameObject formatInstance;
     GameObject topInstance;
     GameObject listInstance;
@@ -18,18 +21,25 @@ public class MakeOrderList : MonoBehaviour
 
     menu menuInfo = new menu();
 
-    public static List<OrderDetail> list = new List<OrderDetail>
-    {
-        new OrderDetail("아메리카노", 2),
-        new OrderDetail("녹차", 3),
-        new OrderDetail("라떼", 4)
-    };
-    public RoomService roomService = new RoomService(503, list);
     // Start is called before the first frame update
     void Start()
     {
-        MakeOne(roomService);
-        //MakeOne(roomService);
+        
+        MakeFull(OrderStruct.RoomServiceOrder_after_tea[1]);
+        /*
+        int day = DayNightCycleManager.Instance.GetCurrentDay();
+        if(day < 4)
+        {
+            MakeFull(OrderStruct.RoomServiceOrder_before[day-2]);
+        }else if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+        {
+            MakeFull(OrderStruct.RoomServiceOrder_after_milk[day - 5]);
+        }
+        else
+        {
+            MakeFull(OrderStruct.RoomServiceOrder_after_tea[day - 5]);
+        }
+        */
 
     }
 
@@ -61,8 +71,12 @@ public class MakeOrderList : MonoBehaviour
                     break;
                 }
             }
-            // 메뉴 이름
             listInstance = Instantiate(List);
+            // 메뉴 사진
+            //listInstance.transform.GetChild(0).GetComponent<Image>().sprite = test;
+            listInstance.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load($"CafeDrinks/{menuInfo.menu_image}", typeof(Sprite)) as Sprite;
+            // 메뉴 이름
+
             listInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = roomService.orders[i].menu;
             // 가격
@@ -81,5 +95,12 @@ public class MakeOrderList : MonoBehaviour
         bottomInstance = Instantiate(Bottom);
         bottomInstance.GetComponentInChildren<TextMeshProUGUI>().text = totalPrice + " 빈";
         bottomInstance.transform.SetParent(formatInstance.transform, false);
+    }
+    public void MakeFull(List<RoomService> roomServiceList)
+    {
+        foreach(RoomService roomService in roomServiceList)
+        {
+            MakeOne(roomService);
+        }
     }
 }
