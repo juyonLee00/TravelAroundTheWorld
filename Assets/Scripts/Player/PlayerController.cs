@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public GameObject targetClickPrefab;
     public GameObject currentTargetClick;
 
+    public bool isColliding = false;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!UIManager.Instance.IsUIActive() && canMove)
+        if (!UIManager.Instance.IsUIActive() && canMove && !isColliding)
         {
             Move();
         }
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue inputValue)
     {
-        if (canMove)
+        if (canMove && !isColliding)
         {
             inputVector = inputValue.Get<Vector2>();
             playerAnimationController.SetMoveDirection(inputVector);
@@ -49,6 +51,13 @@ public class PlayerController : MonoBehaviour
             {
                 currentTargetClick.SetActive(false);
             }
+        }
+
+        else if (isColliding)
+        {
+            // ?? ???? ?? ??? ???? ???? ??? ??? ?
+            isColliding = false;
+            StartMove();
         }
     }
 
@@ -93,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     void OnMouseMove()
     {
-        if (!UIManager.Instance.IsUIActive() && canMove)
+        if (!UIManager.Instance.IsUIActive() && canMove && !isColliding)
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
@@ -106,6 +115,12 @@ public class PlayerController : MonoBehaviour
             }
 
             playerAnimationController.MoveToPosition(worldPos, speed * 0.5f);
+        }
+        else if (isColliding)
+        {
+            // ?? ???? ?? ??? ???? ???? ??? ??? ?
+            isColliding = false;
+            StartMove();
         }
     }
 
@@ -122,4 +137,19 @@ public class PlayerController : MonoBehaviour
     {
         canMove = true;
     }
+
+
+    public void ColliderStart()
+    {
+        isColliding = true;
+        StopMove();
+    }
+
+    public void ColliderEnd()
+    {
+        isColliding = false;
+        StartMove();
+    }
+
+    
 }
