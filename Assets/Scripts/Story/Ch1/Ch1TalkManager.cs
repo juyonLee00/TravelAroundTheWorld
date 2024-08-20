@@ -91,7 +91,7 @@ public class Ch1TalkManager : MonoBehaviour
         InitializeCharacterImages(); 
         mapManager = map.GetComponent<Ch1MapManager>();
         playerController = player.GetComponent<PlayerController>(); // 플레이어 컨트롤러 참조 설정
-        player.SetActive(true);
+        player.SetActive(false);
     }
 
     void Start()
