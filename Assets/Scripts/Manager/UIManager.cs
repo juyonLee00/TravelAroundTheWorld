@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject saveDataPopupPrefab;
     public GameObject bedInteractionUIPrefab;
     public GameObject diaryInteractionUIPrefab;
+
     public GameObject staticUICanvasPrefab;
     public GameObject dynamicUICanvasPrefab;
 
@@ -23,6 +26,14 @@ public class UIManager : MonoBehaviour
     private Canvas canvas;
     private string currentActiveUI = null;
 
+    //제외할 씬 리스트
+    private readonly List<string> excludedScenes = new List<string>
+    {
+        "LoadingScene",
+        "StartScene",
+        "CafeScene",
+        "CafeTutorialScene"
+    };
 
     private void Awake()
     {
@@ -36,17 +47,61 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-        
-         canvas = FindObjectOfType<Canvas>();
-         
+    }
+
+    //씬 로드될 때 필요한 UI 추가되도록 업데이트
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!excludedScenes.Contains(scene.name))
+        {
+            SetupUIForScene();
+        }
     }
 
 
+    private void SetupUIForScene()
+    {
+        // StaticUICanvas를 찾음-수정 필요
+        canvas = GameObject.Find("StaticUICanvas")?.GetComponent<Canvas>();
+
+        if (canvas == null)
+        {
+            Debug.LogError("Can't Find StaticUICanvas");
+            return;
+        }
+
+        // 필요한 UI 프리팹들을 인스턴스화하고 비활성화
+        //해당 부분 관리 편하게 수정 필요
+        string[] uiNames = { "Inventory", "Setting", "Map", "Load", "SaveData", "SaveDataPopup", "Bed", "Diary" };
+
+        foreach (var uiName in uiNames)
+        {
+            InstantiateAndDeactivateUI(uiName);
+        }
+    }
+
+    private void InstantiateAndDeactivateUI(string uiName)
+    {
+        if (!uiInstances.ContainsKey(uiName))
+        {
+            GameObject uiPrefab = GetUIPrefab(uiName);
+
+            if (uiPrefab != null)
+            {
+                GameObject uiInstance = Instantiate(uiPrefab, canvas.transform, false);
+                uiInstances[uiName] = uiInstance;
+                uiInstance.SetActive(false); 
+            }
+        }
+    }
+
     public void ToggleUI(string uiName)
     {
-        //??? ?? ?? ?? ??? ?? ??
-        canvas = GameObject.Find("StaticUICanvas").gameObject.GetComponent<Canvas>();
+        //UI 동적처리 / 정적 처리 관련 수정 필요
+        EnsureUIIsInitialized(uiName);
+
 
         if (currentActiveUI == uiName)
         {
@@ -57,63 +112,59 @@ public class UIManager : MonoBehaviour
 
         DeactivateAllUI();
 
-        if (!uiInstances.ContainsKey(uiName))
-        {
-            GameObject uiPrefab = GetUIPrefab(uiName);
-
-            if(uiPrefab != null)
-            {
-                GameObject uiInstance = Instantiate(uiPrefab, canvas.transform, false);
-                uiInstances[uiName] = uiInstance;
-            }
-        }
-
-        if(uiInstances.ContainsKey(uiName))
+        if (uiInstances.ContainsKey(uiName) && uiInstances[uiName] != null)
         {
             uiInstances[uiName].SetActive(true);
             currentActiveUI = uiName;
+        }
+        else
+        {
+            Debug.LogWarning($"UI instance for {uiName} not found or has been destroyed.");
         }
     }
 
     public void DeactivatedUI(string uiName)
     {
-        uiInstances[uiName].SetActive(false);
-        currentActiveUI = null;
+        if (uiInstances.ContainsKey(uiName) && uiInstances[uiName] != null)
+        {
+            uiInstances[uiName].SetActive(false);
+            currentActiveUI = null;
+        }
     }
 
 
     private void DeactivateAllUI()
     {
-        foreach (var uiInstance in uiInstances.Values)
+         foreach (var key in uiInstances.Keys.ToList())
         {
-            uiInstance.SetActive(false);
-            currentActiveUI = null;
+            if (uiInstances[key] != null)
+            {
+                uiInstances[key].SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning($"UI instance for {key} has been destroyed and is being removed from the dictionary.");
+                uiInstances.Remove(key);
+            }
         }
+        
+        currentActiveUI = null;
     }
 
     private GameObject GetUIPrefab(string uiName)
     {
-        switch(uiName)
+        return uiName switch
         {
-            case "Inventory":
-                return inventoryUIPrefab;
-            case "Setting":
-                return settingUIPrefab;
-            case "Map":
-                return mapUIPrefab;
-            case "Load":
-                return loadUIPrefab;
-            case "SaveData":
-                return saveDataUIPrefab;
-            case "SaveDataPopup":
-                return saveDataPopupPrefab;
-            case "Bed":
-                return bedInteractionUIPrefab;
-            case "Diary":
-                return diaryInteractionUIPrefab;
-            default:
-                return null;
-        }
+            "Inventory" => inventoryUIPrefab,
+            "Setting" => settingUIPrefab,
+            "Map" => mapUIPrefab,
+            "Load" => loadUIPrefab,
+            "SaveData" => saveDataUIPrefab,
+            "SaveDataPopup" => saveDataPopupPrefab,
+            "Bed" => bedInteractionUIPrefab,
+            "Diary" => diaryInteractionUIPrefab,
+            _ => null,
+        };
     }
 
 
@@ -137,21 +188,38 @@ public class UIManager : MonoBehaviour
 
     public void ActiveUI(string uiName)
     {
-        if (!uiInstances.ContainsKey(uiName))
-        {
-            GameObject uiPrefab = GetUIPrefab(uiName);
+        EnsureUIIsInitialized(uiName);
 
-            if (uiPrefab != null)
-            {
-                GameObject uiInstance = Instantiate(uiPrefab, canvas.transform, false);
-                uiInstances[uiName] = uiInstance;
-            }
-        }
-
-        if (uiInstances.ContainsKey(uiName))
+        if (uiInstances.ContainsKey(uiName) && uiInstances[uiName] != null)
         {
             uiInstances[uiName].SetActive(true);
             currentActiveUI = uiName;
         }
     }
+
+    //canvas, UI 초기화 여부 확인 및 초기화
+    private void EnsureUIIsInitialized(string uiName)
+    {
+        if (canvas == null)
+        {
+            canvas = GameObject.Find("StaticUICanvas")?.GetComponent<Canvas>();
+        }
+
+        if (canvas == null)
+        {
+            Debug.LogError("Can't Find StaticUICanvas");
+            return;
+        }
+
+        if (!uiInstances.ContainsKey(uiName))
+        {
+            InstantiateAndDeactivateUI(uiName);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 }
