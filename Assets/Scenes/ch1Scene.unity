@@ -2221,6 +2221,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -122.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1019637180717670479, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019637180717670479, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019637180717670479, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 1098235882701449395, guid: 79d8fae37ea638345adffa0062d95829, type: 3}
       propertyPath: shopPrefab
       value: 
