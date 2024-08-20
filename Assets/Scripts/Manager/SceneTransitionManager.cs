@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class SceneTransitionManager : MonoBehaviour
@@ -28,6 +29,10 @@ public class SceneTransitionManager : MonoBehaviour
     private int randomMenuNum;
 
     private int randomMenuTransitionNum;
+
+    //수정 필요
+    private List<RoomService> checkDeliveryServiceList;
+    private List<RoomService> deliveryServiceList;
 
     private void Awake()
     {
@@ -169,7 +174,7 @@ public class SceneTransitionManager : MonoBehaviour
         yield return TransitionToScene(toScene);
 
         // 필요한 작업 수행
-        PerformPostTransitionTasks();
+        PerformPostTransitionTasksInDelivery();
 
         //해당 조건 수행될때까지 대기
         yield return WaitForCondition(() => IsSpecificDeliveryConditionMet(deliveryNum));
@@ -187,6 +192,70 @@ public class SceneTransitionManager : MonoBehaviour
     {
         return cafeDeliveryNum == deliveryNum;
     }
+
+    //배달 주문수 업데이트
+    public void UpdateCafeDelivery(int newNum, string menuItem, int roomNum)
+    {
+        if (IsOrderAlreadyProcessed(menuItem, roomNum))
+        {
+            Debug.Log($"Order for menu item: {menuItem} and room number: {roomNum} has already been processed.");
+            return;
+        }
+
+        if (deliveryServiceList != null)
+        {
+            // deliveryServiceList에서 해당 주문 찾기
+            RoomService roomService = deliveryServiceList.Find(service => service.roomNum == roomNum);
+            if (!roomService.Equals(default(RoomService)))
+            {
+                // 주문이 일치하는지 확인
+                OrderDetail matchingOrder = roomService.orders.Find(order => order.menu.Equals(menuItem, StringComparison.OrdinalIgnoreCase));
+                if (!matchingOrder.Equals(default(OrderDetail)))
+                {
+                    cafeDeliveryNum = newNum;
+                    Debug.Log($"Updated cafeDeliveryNum to {cafeDeliveryNum} for menu item: {menuItem} and room number: {roomNum}");
+
+                    // checkDeliveryServiceList에 해당 주문 추가
+                    AddOrderToCheckList(roomNum, menuItem);
+
+                    return;
+                }
+            }
+        }
+
+        Debug.Log($"No matching RoomService found for menu item: {menuItem} and room number: {roomNum}");
+    }
+
+
+
+    //주문 이미 처리되었는지 확인
+    private bool IsOrderAlreadyProcessed(string menuItem, int roomNum)
+    {
+        // checkDeliveryServiceList에서 해당 roomNum과 메뉴가 일치하는 항목이 있는지 확인
+        return checkDeliveryServiceList.Exists(service =>
+            service.roomNum == roomNum &&
+            service.orders.Exists(order => order.menu == menuItem));
+    }
+
+    // checkDeliveryServiceList에 주문 추가
+    private void AddOrderToCheckList(int roomNum, string menuItem)
+    {
+        // 이미 존재하는 RoomService를 찾기
+        RoomService existingService = checkDeliveryServiceList.Find(service => service.roomNum == roomNum);
+        if (!existingService.Equals(default(RoomService)))
+        {
+            // RoomService에 새로운 주문 추가
+            existingService.orders.Add(new OrderDetail(menuItem, 1));
+        }
+        else
+        {
+            // RoomService를 새로 생성하여 checkDeliveryServiceList에 추가
+            checkDeliveryServiceList.Add(new RoomService(roomNum, new List<OrderDetail> { new OrderDetail(menuItem, 1) }));
+        }
+
+        Debug.Log($"Added order for menu item: {menuItem} and room number: {roomNum} to checkDeliveryServiceList.");
+    }
+
 
 
     //스토리 진행 중 다른 씬으로 이동
@@ -240,7 +309,6 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     //TutorialScene에서 CafeTutorial 상호작용시 
-
     private IEnumerator WaitAndSetDialogueIndex()
     {
         // TalkManager가 초기화될 때까지 대기
@@ -317,12 +385,6 @@ public class SceneTransitionManager : MonoBehaviour
         toDialogueIdx = newIndex;
     }
 
-    //배달 주문수 업데이트
-    public void UpdateCafeDelivery(int newNum)
-    {
-        cafeDeliveryNum = newNum;
-    }
-
     //직접 주문수 업데이트
     public void UpdateCafeOrders(List<CafeOrder> newOrders)
     {
@@ -355,6 +417,52 @@ public class SceneTransitionManager : MonoBehaviour
     {
         // 로깅 작업 수행
         Debug.Log("Performing post-transition tasks...");
+    }
+
+    private void PerformPostTransitionTasksInDelivery()
+    {
+        SetDeliveryServiceList();
+    }
+
+    private void SetDeliveryServiceList()
+    {
+        int curDay = PlayerManager.Instance.GetDay();
+        checkDeliveryServiceList = new List<RoomService>();
+
+        switch(curDay)
+        {
+            case 2:
+                deliveryServiceList = OrderStruct.day2;
+                break;
+            case 3:
+                deliveryServiceList = OrderStruct.day3;
+                break;
+            case 4:
+                deliveryServiceList = OrderStruct.day4;
+                break;
+            case 5:
+                if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+                    deliveryServiceList = OrderStruct.day5_milk;
+                else if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+                    deliveryServiceList = OrderStruct.day5_tea;
+                break;
+            case 6:
+                if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+                    deliveryServiceList = OrderStruct.day6_milk;
+                else if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+                    deliveryServiceList = OrderStruct.day6_tea;
+                break;
+            case 7:
+                if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+                    deliveryServiceList = OrderStruct.day7_milk;
+                else if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+                    deliveryServiceList = OrderStruct.day7_tea;
+                break;
+            default:
+                Debug.Log($"CurrentDay {curDay} is not match. DeliveryServiceList is null");
+                deliveryServiceList = null;
+                break;
+        }
     }
 }
 
