@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+ 
+
 public class ChoiceBtn : MonoBehaviour
 {
     public GameObject choiseBtn;
@@ -75,11 +77,28 @@ public class ChoiceBtn : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX("click sound");
 
+        //수정 필요
         if (SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
         {
-            GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
-            DayNightCycleManager.Instance.ChangeOnlyDay();
-            PlayerManager.Instance.SetCurrentTimeofDay();
+            //TalkManager 찾는 코드
+            TalkManager talkManager = FindInactiveTalkManager();
+            if (talkManager != null)
+            {
+                Debug.Log("Found TalkManager, even if it was inactive.");
+                if (talkManager.isAllNPCActivated)
+                {
+                    GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
+                    DayNightCycleManager.Instance.ChangeOnlyDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+
+                else
+                    return;
+            }
+            else
+            {
+                Debug.Log("TalkManager not found.");
+            }
         }
 
         else
@@ -93,7 +112,16 @@ public class ChoiceBtn : MonoBehaviour
 
         Debug.Log(PlayerManager.Instance.GetDay());
         
+    }
 
+    TalkManager FindInactiveTalkManager()
+    {
+        // 씬 내의 모든 TalkManager 오브젝트를 포함한 리스트를 찾음
+        TalkManager[] allTalkManagers = Resources.FindObjectsOfTypeAll<TalkManager>();
+
+        // TalkManager가 존재하고, 활성화 상태가 아닌 오브젝트 중 하나를 반환
+        //1개만 있어서 이렇게 했지만 수정 필
+        return allTalkManagers[0];//.Where(tm => !tm.gameObject.activeInHierarchy).FirstOrDefault();
     }
 
     void DeactivateUI()

@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,15 +16,11 @@ public class UIManager : MonoBehaviour
     public GameObject bedInteractionUIPrefab;
     public GameObject diaryInteractionUIPrefab;
 
-    public GameObject staticUICanvasPrefab;
-    public GameObject dynamicUICanvasPrefab;
-
-
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
     private Canvas canvas;
     private string currentActiveUI = null;
 
-    //제외할 씬 리스트
+    // 제외할 씬 리스트
     private readonly List<string> excludedScenes = new List<string>
     {
         "LoadingScene",
@@ -48,32 +42,30 @@ public class UIManager : MonoBehaviour
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-
     }
 
-    //씬 로드될 때 필요한 UI 추가되도록 업데이트
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (!excludedScenes.Contains(scene.name))
         {
             SetupUIForScene();
         }
+        else
+        {
+            ClearUIInstances();
+        }
     }
-
 
     private void SetupUIForScene()
     {
-        // StaticUICanvas를 찾음-수정 필요
         canvas = GameObject.Find("StaticUICanvas")?.GetComponent<Canvas>();
 
         if (canvas == null)
         {
-            Debug.LogError("Can't Find StaticUICanvas");
+            Debug.LogError("StaticUICanvas를 찾을 수 없습니다.");
             return;
         }
 
-        // 필요한 UI 프리팹들을 인스턴스화하고 비활성화
-        //해당 부분 관리 편하게 수정 필요
         string[] uiNames = { "Inventory", "Setting", "Map", "Load", "SaveData", "SaveDataPopup", "Bed", "Diary" };
 
         foreach (var uiName in uiNames)
@@ -92,30 +84,28 @@ public class UIManager : MonoBehaviour
             {
                 GameObject uiInstance = Instantiate(uiPrefab, canvas.transform, false);
                 uiInstances[uiName] = uiInstance;
-                uiInstance.SetActive(false); 
+                uiInstance.SetActive(false);
             }
         }
     }
 
     public void ToggleUI(string uiName)
     {
-        //UI 동적처리 / 정적 처리 관련 수정 필요
         EnsureUIIsInitialized(uiName);
-
-
-        if (currentActiveUI == uiName)
-        {
-            DeactivateAllUI();
-            currentActiveUI = null;
-            return;
-        }
-
-        DeactivateAllUI();
 
         if (uiInstances.ContainsKey(uiName) && uiInstances[uiName] != null)
         {
-            uiInstances[uiName].SetActive(true);
-            currentActiveUI = uiName;
+            if (currentActiveUI == uiName)
+            {
+                DeactivateAllUI();
+                currentActiveUI = null;
+            }
+            else
+            {
+                DeactivateAllUI();
+                uiInstances[uiName].SetActive(true);
+                currentActiveUI = uiName;
+            }
         }
         else
         {
@@ -132,10 +122,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     private void DeactivateAllUI()
     {
-         foreach (var key in uiInstances.Keys.ToList())
+        foreach (var key in uiInstances.Keys.ToList())
         {
             if (uiInstances[key] != null)
             {
@@ -147,7 +136,7 @@ public class UIManager : MonoBehaviour
                 uiInstances.Remove(key);
             }
         }
-        
+
         currentActiveUI = null;
     }
 
@@ -166,7 +155,6 @@ public class UIManager : MonoBehaviour
             _ => null,
         };
     }
-
 
     public bool IsUIActive()
     {
@@ -197,29 +185,41 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //canvas, UI 초기화 여부 확인 및 초기화
+    // canvas, UI 초기화 여부 확인 및 초기화
     private void EnsureUIIsInitialized(string uiName)
     {
         if (canvas == null)
         {
             canvas = GameObject.Find("StaticUICanvas")?.GetComponent<Canvas>();
+            if (canvas == null)
+            {
+                Debug.LogError("StaticUICanvas를 찾을 수 없습니다.");
+                return;
+            }
         }
 
-        if (canvas == null)
-        {
-            Debug.LogError("Can't Find StaticUICanvas");
-            return;
-        }
-
-        if (!uiInstances.ContainsKey(uiName))
+        if (!uiInstances.ContainsKey(uiName) || uiInstances[uiName] == null)
         {
             InstantiateAndDeactivateUI(uiName);
         }
+    }
+
+    private void ClearUIInstances()
+    {
+        foreach (var uiInstance in uiInstances.Values)
+        {
+            if (uiInstance != null)
+            {
+                Destroy(uiInstance);
+            }
+        }
+
+        uiInstances.Clear();
+        currentActiveUI = null;
     }
 
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
 }
