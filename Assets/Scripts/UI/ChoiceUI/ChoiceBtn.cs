@@ -85,12 +85,13 @@ public class ChoiceBtn : MonoBehaviour
         else
         {
             DayNightCycleManager.Instance.ChangeDay();
-            PlayerManager.Instance.SetCurrentTimeofDay();
         }
 
         UIManager.Instance.DeactivatedUI("Bed");
         bedNarration.SetActive(false);
         //fadeOut
+
+        Debug.Log(PlayerManager.Instance.GetDay());
         
 
     }
