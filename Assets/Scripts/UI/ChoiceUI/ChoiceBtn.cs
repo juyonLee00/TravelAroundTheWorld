@@ -78,14 +78,20 @@ public class ChoiceBtn : MonoBehaviour
         if (SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
         {
             GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
-            
+            DayNightCycleManager.Instance.ChangeOnlyDay();
+            PlayerManager.Instance.SetCurrentTimeofDay();
+        }
+
+        else
+        {
+            DayNightCycleManager.Instance.ChangeDay();
+            PlayerManager.Instance.SetCurrentTimeofDay();
         }
 
         UIManager.Instance.DeactivatedUI("Bed");
         bedNarration.SetActive(false);
         //fadeOut
-        DayNightCycleManager.Instance.ChangeDay();
-        PlayerManager.Instance.SetCurrentTimeofDay();
+        
 
     }
 

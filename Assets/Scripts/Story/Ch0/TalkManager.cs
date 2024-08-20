@@ -586,7 +586,6 @@ public class TalkManager : MonoBehaviour
                     if (isAllNPCActivated)
                     {
                         
-
                         if (currentDialogueIndex == 129)
                         {
                             StartCoroutine(screenFader.FadeIn(trainRoom));
@@ -594,10 +593,13 @@ public class TalkManager : MonoBehaviour
                         else if (currentDialogueIndex >= 130 && currentDialogueIndex <= 132)
                         {
                             trainRoom.SetActive(true);
-                            if (currentDialogueIndex == 132)
+                            if(currentDialogueIndex == 130)
                             {
                                 DayNightCycleManager.Instance.ChangeDayTime();
                                 Debug.Log(DayNightCycleManager.Instance.GetNowDayTime());
+                            }
+                            if (currentDialogueIndex == 132)
+                            {
                                 StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene"));
                             }
                         }
