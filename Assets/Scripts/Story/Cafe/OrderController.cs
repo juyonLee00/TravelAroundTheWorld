@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OrderController : MonoBehaviour
 {
-    public int Day = PlayerManager.Instance.GetDay();
-    public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
+    private int Day = PlayerManager.Instance.GetDay();
+    private bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
 
     public GameObject orderEspressoPrefab;
     public GameObject orderHotAmericanoPrefab;
@@ -26,6 +26,7 @@ public class OrderController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Day = " + Day);
         int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
         Debug.Log("randomNum = " + randomNum);
         if (randomNum > 0)
