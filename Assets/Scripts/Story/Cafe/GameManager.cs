@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        buyMilk = false;
-        buyTeaSet = true;
         SoundManager.Instance.PlayMusic("CAFE", true);
 
         if (buyMilk)
