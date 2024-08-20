@@ -2456,9 +2456,9 @@ MonoBehaviour:
   IceLatte: {fileID: 1481395800}
   HotLatte: {fileID: 2102538842}
   HibiscusTea: {fileID: 618880262}
-  ChamomileTea: {fileID: 1677248608}
+  ChamomileTea: {fileID: 1295162179}
   RooibosTea: {fileID: 394076659}
-  GreenTea: {fileID: 1295162179}
+  GreenTea: {fileID: 1677248608}
   Shot: {fileID: 382342920}
   makeIceCup: {fileID: 1694037656}
   makeHotCup: {fileID: 1766387770}
@@ -5572,6 +5572,7 @@ MonoBehaviour:
   TeaInventory: {fileID: 168229481}
   buyMilk: 0
   buyTeaSet: 0
+  Day: 5
   deliveryNum: 0
   orderController: {fileID: 0}
 --- !u!4 &1960370859
@@ -5652,7 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d213481cad2a67e45a57714524f517a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Day: 2
+  Day: 5
   buyMilk: 0
   orderEspressoPrefab: {fileID: 3155596509432154914, guid: c0b06ccb987986844adc0dba32f1f077, type: 3}
   orderHotAmericanoPrefab: {fileID: 3743385587279340488, guid: dfd3060acd91cb943b96800d6305f29d, type: 3}

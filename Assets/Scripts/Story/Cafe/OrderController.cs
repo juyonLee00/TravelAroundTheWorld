@@ -26,7 +26,6 @@ public class OrderController : MonoBehaviour
 
     void Start()
     {
-
         int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
         Debug.Log("randomNum = " + randomNum);
         if (randomNum > 0)
