@@ -73,27 +73,19 @@ public class DayNightCycleManager : MonoBehaviour
             return;
         }
 
-        //챕터 1로 넘어갈 때
-        else if (fromScene == "Ch0Scene" && toScene == "LoadingScene" && curDay == 0 && !isNowDayTime)
-        {
-            ChangeDay();
-            SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
-            PlayerManager.Instance.SetSceneName("ch1Scene");
-
-        }
-
         //챕터에서 카페일을 할 때
         else if (fromScene == "LoadingScene" && toScene == "CafeScene")
         {
             // 변화 없음
         }
-        //카페일을 하고 카페 밖으로 나왔을 땐
-        else if (fromScene == "LoadingScene" && toScene == "ch1Scene" && isNowDayTime)
+        //카페일을 하고 카페 밖으로 나왔을 때
+        else if (fromScene == "LoadingScene" && toScene == "ch1Scene")
         {
             ChangeDayTime();
             //현재 인덱스 지점에 저장
             SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
         }
+
         else
         {
             Debug.LogWarning($"Unhandled scene transition from {fromScene} to {toScene}");
@@ -115,6 +107,12 @@ public class DayNightCycleManager : MonoBehaviour
     {
         isNowDayTime = !isNowDayTime;
         PlayerManager.Instance.SetCurrentTimeofDay();
+    }
+
+    public void ChangeOnlyDay()
+    {
+        curDay += 1;
+        PlayerManager.Instance.SetDay();
     }
 
     public int GetCurrentDay()
