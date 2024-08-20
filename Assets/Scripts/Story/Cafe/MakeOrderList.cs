@@ -30,7 +30,7 @@ public class MakeOrderList : MonoBehaviour
     }
     public void UpdateOrderList()
     {
-        int day = DayNightCycleManager.Instance.GetCurrentDay();
+        int day = PlayerManager.Instance.GetDay();
         if(day < 2)
         {
             MakeFull(OrderStruct.RoomServiceOrder_after_tea[1]);
