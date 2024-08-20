@@ -212,7 +212,7 @@ public class SceneTransitionManager : MonoBehaviour
                 OrderDetail matchingOrder = roomService.orders.Find(order => order.menu.Equals(menuItem, StringComparison.OrdinalIgnoreCase));
                 if (!matchingOrder.Equals(default(OrderDetail)))
                 {
-                    cafeDeliveryNum = newNum; // 업데이트
+                    cafeDeliveryNum = newNum;
                     Debug.Log($"Updated cafeDeliveryNum to {cafeDeliveryNum} for menu item: {menuItem} and room number: {roomNum}");
 
                     // checkDeliveryServiceList에 해당 주문 추가
