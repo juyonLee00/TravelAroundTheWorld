@@ -21,7 +21,7 @@ public class Shop : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerManager.Instance.SetPlayerData(0);
+        //PlayerManager.Instance.SetPlayerData(0);
         Transform parentTransform = transform.parent;
 
         if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
