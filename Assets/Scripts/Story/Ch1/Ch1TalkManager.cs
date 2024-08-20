@@ -368,9 +368,9 @@ public class Ch1TalkManager : MonoBehaviour
             orders.Add(new CafeOrder("HotAmericano"));
             SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 81, orders);
         }
-        else if (index == 91) // 랜덤 주문 1건
+        else if (index == 92) // 랜덤 주문 1건
         {
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 92, 1);
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 93, 1);
         }
         else if (index == 94) // 에스프레소 1잔 직접 주문
         {
@@ -398,9 +398,9 @@ public class Ch1TalkManager : MonoBehaviour
             orders.Add(new CafeOrder("Espresso"));
             SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 154, orders);
         }
-        else if (index == 161) // 랜덤 주문 3건
+        else if (index == 162) // 랜덤 주문 3건
         {
-            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 162, 3);
+            SceneTransitionManager.Instance.HandleRandomMenuTransition("ch1Scene", "CafeScene", 163, 3);
         }
         else if (index == 164) // 아아 1잔 직접 주문
         {
