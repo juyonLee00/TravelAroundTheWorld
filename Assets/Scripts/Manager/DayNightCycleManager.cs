@@ -38,16 +38,14 @@ public class DayNightCycleManager : MonoBehaviour
         {
             case "StartScene":
             case "Ch0Scene":
-                day = 0;
-                curDay = 0;
-                break;
-            case "Ch1Scene":
                 day = 1;
                 curDay = 1;
+                isDayTime = true;
+                isNowDayTime = true;
+                break;
+            case "Ch1Scene":
                 break;
         }
-        isDayTime = true;
-        isNowDayTime = true;
         
     }
 

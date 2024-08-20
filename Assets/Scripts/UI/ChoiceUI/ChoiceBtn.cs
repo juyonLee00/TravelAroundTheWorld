@@ -75,43 +75,26 @@ public class ChoiceBtn : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX("click sound");
 
-        if (DayNightCycleManager.Instance.GetCurrentDay() == 4)
-        {
-            //HappyEnding부분 작성
-        }
-
-        else if(SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
+        if (SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
         {
             GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
-            UIManager.Instance.DeactivatedUI("Bed");
-            bedNarration.SetActive(false);
+            
         }
 
-        else
-        {
-            UIManager.Instance.DeactivatedUI("Bed");
-            bedNarration.SetActive(false);
-            //Fadeout
-            DayNightCycleManager.Instance.ChangeDay();
-            PlayerManager.Instance.SetCurrentTimeofDay();
-        }
+        UIManager.Instance.DeactivatedUI("Bed");
+        bedNarration.SetActive(false);
+        //fadeOut
+        DayNightCycleManager.Instance.ChangeDay();
+        PlayerManager.Instance.SetCurrentTimeofDay();
 
     }
 
     void DeactivateUI()
     {
-        if (DayNightCycleManager.Instance.GetCurrentDay() == 4)
-        {
-            //BadEnding부분 작성
-        }
-
-        else
-        {
-            SoundManager.Instance.PlaySFX("click sound");
-            UIManager.Instance.DeactivatedUI("Bed");
-            bedNarration.SetActive(false);
-            player.GetComponent<PlayerController>().StartMove();
-        }
+        SoundManager.Instance.PlaySFX("click sound");
+        UIManager.Instance.DeactivatedUI("Bed");
+        bedNarration.SetActive(false);
+        player.GetComponent<PlayerController>().StartMove();
+     }
         
-    }
 }
