@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[System.Serializable]
+[SerializeField]
 public class PlayerData
 {
     //저장된 시간
