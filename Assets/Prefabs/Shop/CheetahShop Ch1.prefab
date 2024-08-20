@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 3309821066695781417}
   - component: {fileID: 7917974606508291420}
   - component: {fileID: 5372034432145707334}
-  - component: {fileID: 1098235882701449395}
+  - component: {fileID: 6274928101831584823}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -539,8 +539,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1098235882701449395}
-        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+      - m_Target: {fileID: 6274928101831584823}
+        m_TargetAssemblyTypeName: ShopFixedManager, Assembly-CSharp
         m_MethodName: HideShop
         m_Mode: 1
         m_Arguments:
@@ -551,7 +551,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1098235882701449395
+--- !u!114 &6274928101831584823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -560,13 +560,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 930634845845599704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c931212fd20444048ae21fa4292e191c, type: 3}
+  m_Script: {fileID: 11500000, guid: 571d45b7f1e8dad4baace8ad88ae73c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nomalShop: {fileID: 0}
   milkShop: {fileID: 0}
   teaSetShop: {fileID: 0}
-  selectedImageDisplay: {fileID: 0}
+  selectedImageDisplay: {fileID: 7342077030642720664}
 --- !u!1 &1825222938844690440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1378,6 @@ GameObject:
   - component: {fileID: 4703204674226700631}
   - component: {fileID: 2288352849407941429}
   - component: {fileID: 631758713087367985}
-  - component: {fileID: 5017655090643533271}
   m_Layer: 5
   m_Name: slot1-1
   m_TagString: Untagged
@@ -1525,51 +1524,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!61 &5017655090643533271
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5480335770423839937}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &5705231221562946786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,7 +1611,7 @@ GameObject:
   - component: {fileID: 1913546785222269898}
   - component: {fileID: 8288180937266625222}
   - component: {fileID: 4563056343719111290}
-  - component: {fileID: 7054122831285837007}
+  - component: {fileID: 6334537918789721186}
   m_Layer: 5
   m_Name: SpeechExit
   m_TagString: Untagged
@@ -1766,8 +1720,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7054122831285837007}
-        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+      - m_Target: {fileID: 6334537918789721186}
+        m_TargetAssemblyTypeName: ShopFixedManager, Assembly-CSharp
         m_MethodName: HideSpeech
         m_Mode: 1
         m_Arguments:
@@ -1778,7 +1732,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7054122831285837007
+--- !u!114 &6334537918789721186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1787,7 +1741,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5787441511491786143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c931212fd20444048ae21fa4292e191c, type: 3}
+  m_Script: {fileID: 11500000, guid: 571d45b7f1e8dad4baace8ad88ae73c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nomalShop: {fileID: 0}
@@ -1956,7 +1910,6 @@ GameObject:
   - component: {fileID: 8732947406236217512}
   - component: {fileID: 5926950834582650028}
   - component: {fileID: 4432870094817117298}
-  - component: {fileID: 5618677409470658857}
   m_Layer: 5
   m_Name: SlotContainer
   m_TagString: Untagged
@@ -2021,22 +1974,6 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 3
---- !u!114 &5618677409470658857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6233629297921938955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c931212fd20444048ae21fa4292e191c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nomalShop: {fileID: 0}
-  milkShop: {fileID: 0}
-  teaSetShop: {fileID: 0}
-  selectedImageDisplay: {fileID: 0}
 --- !u!1 &6253516374447829329
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,7 +2500,6 @@ GameObject:
   - component: {fileID: 7840776432181353360}
   - component: {fileID: 1305773054645084904}
   - component: {fileID: 3106883870117228675}
-  - component: {fileID: 8687058123001765216}
   m_Layer: 5
   m_Name: ShopBackground
   m_TagString: Untagged
@@ -2628,22 +2564,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8687058123001765216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7359152681385664145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c931212fd20444048ae21fa4292e191c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nomalShop: {fileID: 0}
-  milkShop: {fileID: 0}
-  teaSetShop: {fileID: 0}
-  selectedImageDisplay: {fileID: 0}
 --- !u!1 &7575683385440182354
 GameObject:
   m_ObjectHideFlags: 0
