@@ -369,17 +369,20 @@ public class CafeMakeController : MonoBehaviour
         Debug.Log("주문 제작 완료 수 = "+ newNum);
         SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
 
-        for (int i = 0; i < orderListParent.childCount; i++)
+        if (orderListParent.childCount == 5)
         {
-            Transform order = orderListParent.GetChild(i);
-            if (order.gameObject.activeInHierarchy)
+            for (int i = 0; i < orderListParent.childCount; i++)
             {
-                // 각 주문의 위치를 앞으로 이동
-                order.localPosition = new Vector3(
-                    order.localPosition.x + 1.35f, // 이동할 x 축의 거리
-                    order.localPosition.y,
-                    order.localPosition.z
-                );
+                Transform order = orderListParent.GetChild(i);
+                if (order.gameObject.activeInHierarchy)
+                {
+                    // 각 주문의 위치를 앞으로 이동
+                    order.localPosition = new Vector3(
+                        order.localPosition.x + 1.35f, // 이동할 x 축의 거리
+                        order.localPosition.y,
+                        order.localPosition.z
+                    );
+                }
             }
         }
     }

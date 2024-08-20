@@ -45,11 +45,11 @@ public class OrderController : MonoBehaviour
         {
             availableKeys.AddRange(new string[] { "preEspresso", "preHotAmericano", "preIceAmericano" });
         }
-        else if (Day >= 5 && buyMilk)
+        else if (buyMilk)
         {
             availableKeys.AddRange(new string[] { "milkEspresso", "milkHotAmericano", "milkIceAmericano", "HotLatte", "IceLatte" });
         }
-        else if (Day >= 5 && !buyMilk)
+        else if (!buyMilk)
         {
             availableKeys.AddRange(new string[] { "postEspresso", "postHotAmericano", "postIceAmericano", "GreenTea", "RooibosTea", "ChamomileTea", "HibiscusTea" });
         }
