@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
     public GameObject Milk;
     public GameObject TeaInventory;
 
-    public bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
-    public bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("teaSet");
+    private bool buyMilk = PlayerManager.Instance.IsBoughtCafeItem("milk");
+    private bool buyTeaSet = PlayerManager.Instance.IsBoughtCafeItem("teaSet");
 
-    public int Day = PlayerManager.Instance.GetDay();
+    private int Day = PlayerManager.Instance.GetDay();
 
     public int deliveryNum;
 
@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Day = " + Day);
         Debug.Log("buy Milk = " + buyMilk);
         if (Input.GetMouseButtonDown(0))
         {
