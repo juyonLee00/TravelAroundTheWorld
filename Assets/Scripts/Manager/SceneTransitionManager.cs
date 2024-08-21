@@ -30,10 +30,6 @@ public class SceneTransitionManager : MonoBehaviour
 
     private int randomMenuTransitionNum;
 
-    //수정 필요
-    private List<RoomService> checkDeliveryServiceList;
-    private List<RoomService> deliveryServiceList;
-
     private void Awake()
     {
         if (Instance == null)
