@@ -49,7 +49,7 @@ public class ShopFixedManager : MonoBehaviour
         SoundManager.Instance.PlaySFX("click sound");
         Debug.Log("우유 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("milk"));
         Debug.Log("티세트 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("teaSet"));
-        if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+        if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
         {
             if (talkManager != null)
             {
@@ -70,7 +70,7 @@ public class ShopFixedManager : MonoBehaviour
         SoundManager.Instance.PlaySFX("click sound");
         Debug.Log("우유 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("milk"));
         Debug.Log("티세트 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("teaSet"));
-        if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+        if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
         {
             if (talkManager != null)
             {
