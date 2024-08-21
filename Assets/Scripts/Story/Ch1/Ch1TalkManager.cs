@@ -197,80 +197,15 @@ public class Ch1TalkManager : MonoBehaviour
                 Npc_MrHam.SetActive(false);
                 Npc_Rusk.SetActive(false);
                 Npc_Violet.SetActive(false);
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 29) // 2->3
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex = 71;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 111) // 3->4
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex = 142;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 220) //4->5
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex = 271;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 334) //5->6
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex = 361;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 404) //6->7
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex = 406;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 452) // 치타 상점 끝나고 객실로, 7->8
-            {
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex++;
-                PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
+            }                        
             else if (mapManager.currentState == MapState.Cafe &&  currentDialogueIndex == 461) // 엔딩 분기점
             {
                 currentDialogueIndex = 498;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 511)
+            else if (currentDialogueIndex == 511)
             {
+                mapManager.currentState = MapState.TrainRoom3;
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
@@ -278,17 +213,16 @@ public class Ch1TalkManager : MonoBehaviour
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
-            else if (mapManager.currentState == MapState.TrainRoom3 && currentDialogueIndex == 531) // 8 마지막 부분
+            else if (currentDialogueIndex == 517)
             {
+                mapManager.currentState = MapState.Cafe;
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
-                trainRoom.SetActive(true);
+                cafe.SetActive(true);
                 currentDialogueIndex++;
                 PrintCh1ProDialogue(currentDialogueIndex);
-                DayNightCycleManager.Instance.ChangeDay();
-                PlayerManager.Instance.SetCurrentTimeofDay();
-            }
+            }            
             // 객실에 도착하면 스토리 다시 진행
             /*else if (mapManager.currentState == MapState.TrainRoom3 && (currentDialogueIndex == 29 || currentDialogueIndex == 101))
             {
@@ -718,7 +652,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }        
-        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445 || index == 517 | index == 531) // 카페 일 끝나고 이동 가능하게 전환
+        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445 || index == 531) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             playerController.StartMove();

@@ -77,7 +77,6 @@ public class ChoiceBtn : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX("click sound");
 
-        //수정 필요
         if (SceneManagerEx.Instance.GetCurrentSceneName() == "Ch0Scene")
         {
             //TalkManager 찾는 코드
@@ -91,7 +90,6 @@ public class ChoiceBtn : MonoBehaviour
                     DayNightCycleManager.Instance.ChangeOnlyDay();
                     PlayerManager.Instance.SetCurrentTimeofDay();
                 }
-
                 else
                     return;
             }
@@ -100,10 +98,94 @@ public class ChoiceBtn : MonoBehaviour
                 Debug.Log("TalkManager not found.");
             }
         }
-
         else
         {
-            DayNightCycleManager.Instance.ChangeDay();
+            Ch1TalkManager talkManager = Ch1TalkManager.Instance;
+
+            if (talkManager != null)
+            {
+                if (talkManager.currentDialogueIndex == 29) //2->3
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex = 71;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 111) //3->4
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex = 142;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 220) //4->5
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex = 271;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 334) //5->6
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex = 361;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 404) //6->7
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex = 406;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 452) // 치타 상점 끝나고 객실로, 7->8
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex++;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else if (talkManager.currentDialogueIndex == 531) // 마지막 부분
+                {
+                    talkManager.isWaitingForPlayer = false;
+                    talkManager.player.SetActive(false);
+                    talkManager.map.SetActive(false);
+                    talkManager.trainRoom.SetActive(true);
+                    talkManager.currentDialogueIndex++;
+                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
+                    DayNightCycleManager.Instance.ChangeDay();
+                    PlayerManager.Instance.SetCurrentTimeofDay();
+                }
+                else
+                {
+                    DayNightCycleManager.Instance.ChangeDay();
+                }
+            }
         }
 
         UIManager.Instance.DeactivatedUI("Bed");
@@ -111,7 +193,6 @@ public class ChoiceBtn : MonoBehaviour
         //fadeOut
 
         Debug.Log(PlayerManager.Instance.GetDay());
-        
     }
 
     TalkManager FindInactiveTalkManager()
