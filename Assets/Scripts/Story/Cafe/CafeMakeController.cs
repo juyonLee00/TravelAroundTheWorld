@@ -191,6 +191,10 @@ public class CafeMakeController : MonoBehaviour
             {
                 if (deliveryOrder == drinkName)
                 {
+                    if (orderListParent.childCount > 0)
+                    {
+                        Destroy(orderListParent.GetChild(0).gameObject);
+                    }
                     PlayerManager.Instance.EarnMoney(earnings);
                     drink.SetActive(false);
                     ProcessOrderCompletion();
@@ -221,6 +225,10 @@ public class CafeMakeController : MonoBehaviour
             updatedOrders.Add(new CafeOrder(drinkName));
             if (SceneTransitionManager.Instance.GetCafeOrders() == drinkName)
             {
+                if (orderListParent.childCount > 0)
+                {
+                    Destroy(orderListParent.GetChild(0).gameObject);
+                }
                 PlayerManager.Instance.EarnMoney(earnings);
                 drink.SetActive(false);
             }

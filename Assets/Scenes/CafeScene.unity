@@ -6019,6 +6019,8 @@ MonoBehaviour:
   orderListParent: {fileID: 220372535}
   startPosition: {x: 2, y: 0, z: -2}
   offset: {x: -1.35, y: 0, z: 0}
+  deliveryData: {fileID: 386252750}
+  deliveryOrder: 
 --- !u!224 &1999451406 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8694616222402024318, guid: d5a475d7b7042cd4b8faf0efd1a00282, type: 3}
