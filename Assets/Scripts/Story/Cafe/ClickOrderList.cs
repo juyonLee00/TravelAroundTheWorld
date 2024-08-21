@@ -36,10 +36,20 @@ public class ClickOrderList : MonoBehaviour
     private float startTimeBat; // 이동 시작 시간
     private float journeyLengthBat; // 시작 위치와 목표 위치 간의 거리
 
+    public DeliveryData deliveryData;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        deliveryData = FindObjectOfType<DeliveryData>();
+        if (deliveryData == null)
+        {
+            Debug.LogError("deliveryData is null!");
+        }
+        else
+        {
+            Debug.Log("deliveryData is properly assigned.");
+        }
     }
 
     // Update is called once per frame
@@ -90,7 +100,7 @@ public class ClickOrderList : MonoBehaviour
         
         SoundManager.Instance.PlaySFX("click sound");
         // 한글 메뉴
-        String menu = transform.parent.parent.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text;
+        string menu = transform.parent.parent.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text;
         
         // 영어 메뉴 찾는 과정
         foreach (menu i in OrderStruct.info)
@@ -101,9 +111,14 @@ public class ClickOrderList : MonoBehaviour
                 break;
             }
         }
+        deliveryData.deliveryOrder = menu;
+        Debug.Log("current order = " + deliveryData.deliveryOrder);
         Button button = GameObject.FindWithTag("X").GetComponent<Button>();
         button.onClick.Invoke();
         Invoke("DestroyOrder", 1f);
+       
+        GameObject.Find("BeverageP").transform.Find("Beverage").transform.gameObject.SetActive(true);
+        GameObject.Find("DeliveryP").transform.Find("Delivery").transform.gameObject.SetActive(false);
         
         //menu에 음료 이름 들어가있고 한글 혹은 영어 중 편하신걸로 하시면 될 것 같아요
         

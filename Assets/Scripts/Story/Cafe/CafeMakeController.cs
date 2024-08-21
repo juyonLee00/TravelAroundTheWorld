@@ -19,12 +19,10 @@ public class CafeMakeController : MonoBehaviour
     public GameObject makeIceCup;
     public GameObject makeHotCup;
 
-
+    public GameObject Delivery;
     public GameObject Beverage;
     public GameObject CafeMap;
     public List<string> currentIngredients = new List<string>();
-
-    private IngredientController ingredientController;
 
     List<CafeOrder> updatedOrders = new List<CafeOrder>();
 
@@ -32,10 +30,18 @@ public class CafeMakeController : MonoBehaviour
 
     private int newNum = 0;
 
+    public DeliveryData deliveryData;
+    public string deliveryOrder;
 
-    void Start()
+    private int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+    private int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+
+    void OnEnable()
     {
-        ingredientController = FindObjectOfType<IngredientController>();
+        deliveryOrder = deliveryData.deliveryOrder;
+        Debug.Log("deliveryNum = " + deliveryNum);
+        Debug.Log("delivery menu = " + deliveryData.deliveryOrder);
+
     }
 
     public void HandleMakeArea(GameObject ingredient)
@@ -137,8 +143,7 @@ public class CafeMakeController : MonoBehaviour
     }
     public void CheckOrder()
     {
-        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
-        int diliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+        
         if (randomNum > 0)
         {
             if (Espresso.activeSelf)
@@ -278,11 +283,108 @@ public class CafeMakeController : MonoBehaviour
             }
         }
         
-         else if (diliveryNum > 0)
+         else if (deliveryNum > 0)
          {
-
-         }
-
+            if (Espresso.activeSelf)
+            {
+                if (deliveryOrder == "Espresso")
+                {
+                    PlayerManager.Instance.EarnMoney(50);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }    
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                Espresso.SetActive(false);   
+            }
+            else if (HotAmericano.activeSelf)
+            {
+                if (deliveryOrder == "HotAmericano")
+                {
+                    PlayerManager.Instance.EarnMoney(150);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                HotAmericano.SetActive(false);
+            }
+            else if (IceAmericano.activeSelf)
+            {
+                if (deliveryOrder == "IceAmericano")
+                {
+                    PlayerManager.Instance.EarnMoney(150);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }                
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                IceAmericano.SetActive(false);
+            }
+            else if (HotLatte.activeSelf)
+            {
+                if (deliveryOrder == "HotLatte")
+                {
+                    PlayerManager.Instance.EarnMoney(180);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                HotLatte.SetActive(false);
+            }
+            else if (IceLatte.activeSelf)
+            {
+                if (deliveryOrder == "IceLatte")
+                {
+                    PlayerManager.Instance.EarnMoney(180);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                IceLatte.SetActive(false);
+            }
+            else if (GreenTea.activeSelf)
+            {
+                if (deliveryOrder == "GreenTea")
+                {
+                    PlayerManager.Instance.EarnMoney(110);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                GreenTea.SetActive(false);
+            }
+            else if (HibiscusTea.activeSelf)
+            {
+                if (deliveryOrder == "HibiscusTea")
+                {
+                    PlayerManager.Instance.EarnMoney(150);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                HibiscusTea.SetActive(false);
+            }
+            else if (RooibosTea.activeSelf)
+            {
+                if (deliveryOrder == "RooibosTea")
+                {
+                    PlayerManager.Instance.EarnMoney(160);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                RooibosTea.SetActive(false);
+            }
+            else if (ChamomileTea.activeSelf)
+            {
+                if (deliveryOrder == "ChamomileTea")
+                {
+                    PlayerManager.Instance.EarnMoney(120);
+                    ProcessOrderCompletion();
+                    BackToDelivery();
+                }
+                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
+                ChamomileTea.SetActive(false);
+            }
+        }
          else
          {
              if (Espresso.activeSelf)
@@ -367,23 +469,34 @@ public class CafeMakeController : MonoBehaviour
         currentIngredients.Clear();
         newNum++;
         Debug.Log("주문 제작 완료 수 = "+ newNum);
-        SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
-
-        if (orderListParent.childCount == 5)
+        if (randomNum > 0)
         {
-            for (int i = 0; i < orderListParent.childCount; i++)
+            SceneTransitionManager.Instance.UpdateRandomMenuDelivery(newNum);
+
+            if (orderListParent.childCount == 5)
             {
-                Transform order = orderListParent.GetChild(i);
-                if (order.gameObject.activeInHierarchy)
+                for (int i = 0; i < orderListParent.childCount; i++)
                 {
-                    // 각 주문의 위치를 앞으로 이동
-                    order.localPosition = new Vector3(
-                        order.localPosition.x + 1.35f, // 이동할 x 축의 거리
-                        order.localPosition.y,
-                        order.localPosition.z
-                    );
+                    Transform order = orderListParent.GetChild(i);
+                    if (order.gameObject.activeInHierarchy)
+                    {
+                        // 각 주문의 위치를 앞으로 이동
+                        order.localPosition = new Vector3(
+                            order.localPosition.x + 1.35f, // 이동할 x 축의 거리
+                            order.localPosition.y,
+                            order.localPosition.z
+                        );
+                    }
                 }
             }
         }
+        else
+            SceneTransitionManager.Instance.UpdateCafeDelivery(newNum);
+    }
+
+    public void BackToDelivery()
+    {
+        Beverage.SetActive(false);
+        Delivery.SetActive(true);
     }
 }

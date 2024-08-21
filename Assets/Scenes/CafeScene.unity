@@ -1100,13 +1100,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261378552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47000003, y: -2.2366009, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.830563, y: -0.57249963, z: -0.5452485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 867245057}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1292058375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &302512239
 GameObject:
@@ -1559,6 +1559,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   makeHotCup: {fileID: 0}
   makeIceCup: {fileID: 0}
+--- !u!1 &386252748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 386252749}
+  - component: {fileID: 386252750}
+  m_Layer: 0
+  m_Name: DeliveryData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &386252749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386252748}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -26.360563, y: -1.6641012, z: 0.5452485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386252750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386252748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4287c7cbf15a96f48a8a6601f55efdef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deliveryOrder: 
 --- !u!1 &394076659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,10 +2507,13 @@ MonoBehaviour:
   Shot: {fileID: 382342920}
   makeIceCup: {fileID: 1694037656}
   makeHotCup: {fileID: 1766387770}
+  Delivery: {fileID: 261378552}
   Beverage: {fileID: 1968746746}
   CafeMap: {fileID: 611514468}
   currentIngredients: []
   orderListParent: {fileID: 220372535}
+  deliveryData: {fileID: 386252750}
+  deliveryOrder: 
 --- !u!1 &611514468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2499,6 +2547,38 @@ Transform:
   - {fileID: 1838719985}
   - {fileID: 1667148862}
   - {fileID: 981216511}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &618241825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618241826}
+  m_Layer: 0
+  m_Name: BeverageP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &618241826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618241825}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -26.360563, y: -1.6641012, z: 0.5452485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1968746747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &618880262
@@ -3543,6 +3623,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5266258771475923411, guid: d5a475d7b7042cd4b8faf0efd1a00282, type: 3}
   m_PrefabInstance: {fileID: 1515894343}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1292058374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1292058375}
+  m_Layer: 0
+  m_Name: DeliveryP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1292058375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292058374}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -26.360563, y: -1.6641012, z: 0.5452485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 261378553}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1295162179
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,6 +4387,10 @@ PrefabInstance:
       propertyPath: RoomService
       value: 
       objectReference: {fileID: 1073400626}
+    - target: {fileID: 5005208077861149160, guid: d5a475d7b7042cd4b8faf0efd1a00282, type: 3}
+      propertyPath: deliveryData
+      value: 
+      objectReference: {fileID: 386252750}
     - target: {fileID: 5266258771475923411, guid: d5a475d7b7042cd4b8faf0efd1a00282, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5570,10 +5686,6 @@ MonoBehaviour:
   RecipeBook: {fileID: 343777029}
   Milk: {fileID: 440113884}
   TeaInventory: {fileID: 168229481}
-  buyMilk: 0
-  buyTeaSet: 0
-  Day: 0
-  deliveryNum: 0
   orderController: {fileID: 0}
 --- !u!4 &1960370859
 Transform:
@@ -5615,8 +5727,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968746746}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.360563, y: 1.6641012, z: -0.5452485}
   m_LocalScale: {x: 1.0074, y: 0.8903, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5639,7 +5751,7 @@ Transform:
   - {fileID: 317946070}
   - {fileID: 168229482}
   - {fileID: 471007995}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 618241826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968746748
 MonoBehaviour:
@@ -5653,8 +5765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d213481cad2a67e45a57714524f517a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Day: 0
-  buyMilk: 0
   orderEspressoPrefab: {fileID: 3155596509432154914, guid: c0b06ccb987986844adc0dba32f1f077, type: 3}
   orderHotAmericanoPrefab: {fileID: 3743385587279340488, guid: dfd3060acd91cb943b96800d6305f29d, type: 3}
   orderIceAmericanoPrefab: {fileID: 4593053589231473950, guid: c0589f30d7cc61a40a090002c7532b43, type: 3}
@@ -6103,10 +6213,11 @@ SceneRoots:
   - {fileID: 1794575299}
   - {fileID: 178083135}
   - {fileID: 611514469}
-  - {fileID: 261378553}
   - {fileID: 343777030}
   - {fileID: 1960370859}
-  - {fileID: 1968746747}
   - {fileID: 1482986103}
   - {fileID: 677478575}
   - {fileID: 93279692}
+  - {fileID: 618241826}
+  - {fileID: 1292058375}
+  - {fileID: 386252749}

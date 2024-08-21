@@ -24,7 +24,7 @@ public class OrderController : MonoBehaviour
 
     private List<string> generatedOrders = new List<string>();
 
-    void Start()
+    void OnEnable()
     {
         Debug.Log("Day = " + Day);
         int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
