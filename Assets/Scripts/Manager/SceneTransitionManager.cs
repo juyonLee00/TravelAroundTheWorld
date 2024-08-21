@@ -10,6 +10,7 @@ public class SceneTransitionManager : MonoBehaviour
     public static SceneTransitionManager Instance { get; private set; }
 
     public ScreenFader screenFader;
+    public bool isTransitioning { get; private set; } = false;
 
     public int toDialogueIdx;
 
@@ -290,7 +291,7 @@ public class SceneTransitionManager : MonoBehaviour
     //씬 전환
     IEnumerator TransitionToScene(string sceneName)
     {
-        // 씬 전환
+        isTransitioning = true; // 씬 전환 시작 시 isTransitioning을 true로 설정
         SceneManagerEx.Instance.SceanLoadQueue(sceneName);
 
         yield return new WaitUntil(() => !SceneManagerEx.Instance.IsLoading());
@@ -300,6 +301,7 @@ public class SceneTransitionManager : MonoBehaviour
             yield return null;
         }
 
+        isTransitioning = false; // 씬 전환이 완료되면 isTransitioning을 false로 설정
     }
 
     //스토리 확인시 스토리 대화 index 확인

@@ -130,9 +130,8 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Update()
     {
-        if (isShopActive)
+        if (isShopActive || SceneTransitionManager.Instance.isTransitioning) // 씬 전환 중에는 스페이스바 입력 무시
         {
-            // Shop UI가 활성화된 동안 Update 함수의 나머지 처리 무시
             return;
         }
 
