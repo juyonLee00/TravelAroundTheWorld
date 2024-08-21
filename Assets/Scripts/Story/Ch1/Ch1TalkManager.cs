@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Ch1TalkManager : MonoBehaviour
 {
@@ -534,6 +535,13 @@ public class Ch1TalkManager : MonoBehaviour
 
     public void PrintCh1ProDialogue(int index)
     {
+        if (index == 533)
+        {
+            // Transition to 'Ch2Scene'
+            SceneManager.LoadScene("Ch2Scene");
+            return; // Exit the method to prevent further processing
+        }
+
         Debug.Log($"PrintCh1ProDialogue called with index: {index}");
         if (index >= ch1ProDialogue.Count)
         {
@@ -635,7 +643,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445 || index == 533) // 카페 일 끝나고 이동 가능하게 전환
+        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             playerController.StartMove();
