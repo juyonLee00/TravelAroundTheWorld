@@ -76,7 +76,7 @@ public class OrderStruct
     public static List<RoomService> day6_milk = new List<RoomService>()
     {
         new RoomService(202, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1) }),
-        new RoomService(102, new List<OrderDetail> { new OrderDetail("라떼", 1)}),
+        new RoomService(102, new List<OrderDetail> { new OrderDetail("아이스 아메리카노", 1)}),
         new RoomService(301, new List<OrderDetail> { new OrderDetail("아이스 라떼", 1)})
 
     };
