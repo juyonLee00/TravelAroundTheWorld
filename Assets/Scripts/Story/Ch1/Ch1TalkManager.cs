@@ -620,7 +620,7 @@ public class Ch1TalkManager : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
-        if (index == 5 || index == 73 || index == 146 || index == 274 || index == 364 || index == 409 || index == 455 || index == 518) // 카페로 강제 이동 후 이동 가능하게 전환
+        if (index == 5 || index == 73 || index == 146 || index == 274 || index == 364 || index == 409 || index == 456 || index == 518) // 카페로 강제 이동 후 이동 가능하게 전환
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -738,7 +738,7 @@ public class Ch1TalkManager : MonoBehaviour
             dialogue.SetActive(false);
             Npc_Violet.SetActive(true);
         }*/
-        else if (index == 216 || index == 449) // 치타샵 ui 활성화
+        else if (index == 216 || index == 450) // 치타샵 ui 활성화
         {
             // Shop UI를 표시
             cheetahShopCh0.SetActive(true);
@@ -749,7 +749,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if ((index == 220 || index == 452) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
+        else if ((index == 220 || index == 453) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             playerController.StartMove();

@@ -161,7 +161,7 @@ public class ChoiceBtn : MonoBehaviour
                     DayNightCycleManager.Instance.ChangeDay();
                     PlayerManager.Instance.SetCurrentTimeofDay();
                 }
-                else if (talkManager.currentDialogueIndex == 452) // 치타 상점 끝나고 객실로, 7->8
+                else if (talkManager.currentDialogueIndex == 453) // 치타 상점 끝나고 객실로, 7->8
                 {
                     talkManager.isWaitingForPlayer = false;
                     talkManager.player.SetActive(false);
@@ -172,7 +172,7 @@ public class ChoiceBtn : MonoBehaviour
                     DayNightCycleManager.Instance.ChangeDay();
                     PlayerManager.Instance.SetCurrentTimeofDay();
                 }
-                else if (talkManager.currentDialogueIndex == 531) // 마지막 부분
+                else if (talkManager.currentDialogueIndex == 532) // 마지막 부분
                 {
                     talkManager.isWaitingForPlayer = false;
                     talkManager.player.SetActive(false);
