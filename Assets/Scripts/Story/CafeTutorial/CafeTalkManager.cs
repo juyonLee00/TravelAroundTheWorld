@@ -21,8 +21,6 @@ public class CafeTalkManager : MonoBehaviour
     public TextMeshProUGUI explainText;
 
     public GameObject CafeMap; //카페 기본 화면
-    public GameObject Money; //소지금
-    public TextMeshProUGUI moneyText;
     public GameObject MainCharacter; //주인공 초상화
     public GameObject CoffeePot; //커피머신
     public GameObject RecipeBook; // 레시피북
@@ -72,7 +70,6 @@ public class CafeTalkManager : MonoBehaviour
         {
             PrintProDialogue(currentDialogueIndex);
         }
-        moneyText.text = "0";
     }
 
     void Update()
@@ -231,13 +228,17 @@ public class CafeTalkManager : MonoBehaviour
                 cheetah.SetActive(true);
             else
                 cheetah.SetActive(false);
+            if(index == 34)
+            {
+                PlayerManager.Instance.PayMoney(500);
+            }
             narration.SetActive(false);
         }
         else if (index > 29 && index < 34)
         {
             if (index == 32)
             {
-                moneyText.text = "500";
+                PlayerManager.Instance.EarnMoney(500);
             }
             Beverage.SetActive(false);
             cheetah.SetActive(true);
