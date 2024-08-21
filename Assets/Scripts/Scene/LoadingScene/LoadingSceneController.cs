@@ -13,7 +13,8 @@ public class LoadingSceneController : MonoBehaviour
     {
         if (progressBar != null)
             progressBar.value = progress;
-        if (progressText != null)
-            progressText.text = (progress * 100).ToString("F2") + "%";
+        
+         if (progressText != null)
+            progressText.text = Mathf.Min(Mathf.FloorToInt(progress * 100), 100) + "%";
     }
 }

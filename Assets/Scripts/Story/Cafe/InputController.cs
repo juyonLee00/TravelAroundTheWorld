@@ -14,7 +14,6 @@ public class InputController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("Click Position: " + clickPosition);
 
             GameObject clickedObject = null;
 
@@ -22,7 +21,6 @@ public class InputController : MonoBehaviour
             if (hit.collider != null)
             {
                 clickedObject = hit.collider.gameObject;
-                Debug.Log("Clicked object: " + clickedObject.name);
             }
             if (clickedObject != null && clickedObject.name == "Done")
             {
