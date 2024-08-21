@@ -118,10 +118,10 @@ public class OrderStruct
     public static List<menu> info = new List<menu>
     {
         new menu("Espresso", "에스프레소",  50, "Drink_Esp"),
-        new menu("Americano", "아메리카노", 150, "Drink_HotAm"),
-        new menu("IcedAmericano", "아이스 아메리카노",  50, "Drink_IceAm"),
-        new menu("Latte", "라떼", 180, "Drink_hotLt"),
-        new menu("IcedLatte", "아이스 라떼", 180, "Drink_IceLt"),
+        new menu("HotAmericano", "아메리카노", 150, "Drink_HotAm"),
+        new menu("IceAmericano", "아이스 아메리카노",  50, "Drink_IceAm"),
+        new menu("HotLatte", "라떼", 180, "Drink_hotLt"),
+        new menu("IceLatte", "아이스 라떼", 180, "Drink_IceLt"),
         new menu("HibiscusTea", "히비스커스 티", 150, "Drink_Hb"),
         new menu("RooibosTea", "루이보스 티", 160, "Drink_Roo"),
         new menu("GreenTea", "녹차", 110, "Drink_GreenTea"),

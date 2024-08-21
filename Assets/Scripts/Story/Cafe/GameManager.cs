@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     private int Day = PlayerManager.Instance.GetDay();
 
-    public int deliveryNum;
 
     public OrderController orderController;
 
@@ -37,7 +36,8 @@ public class GameManager : MonoBehaviour
         {
             TeaInventory.SetActive(true);
         }
-        deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+
+        int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
 
         if (deliveryNum != null && deliveryNum > 0)
         {
