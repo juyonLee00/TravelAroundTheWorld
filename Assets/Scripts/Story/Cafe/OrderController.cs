@@ -24,16 +24,27 @@ public class OrderController : MonoBehaviour
 
     private List<string> generatedOrders = new List<string>();
 
+    public DeliveryData deliveryData;
+    public string deliveryOrder;
+
+    private int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
+    private int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
+
     void OnEnable()
     {
         Debug.Log("Day = " + Day);
-        int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
         Debug.Log("randomNum = " + randomNum);
+        deliveryOrder = deliveryData.deliveryOrder;
         if (randomNum > 0)
         {
             GenerateOrder(randomNum);
-            DisplayOrders();
+            DisplayRandomOrders();
         }
+        else
+        {
+            DisplayOrder();
+        }
+
     }
 
     public void GenerateOrder(int randomNum)
@@ -83,7 +94,7 @@ public class OrderController : MonoBehaviour
         }
     }
 
-    public void DisplayOrders()
+    public void DisplayRandomOrders()
     {
         Vector3 currentPosition = startPosition;
 
@@ -107,20 +118,39 @@ public class OrderController : MonoBehaviour
         }
     }
 
+    public void DisplayOrder()
+    {
+        string order = null;
+        if (deliveryNum > 0)
+            order = deliveryOrder;
+        else
+            order = SceneTransitionManager.Instance.GetCafeOrders();
+        GameObject orderPrefab = GetOrderPrefab(order);
+        if (orderPrefab != null)
+        {
+            GameObject newOrder = Instantiate(orderPrefab, orderListParent);
+            newOrder.transform.localPosition = startPosition;
+        }
+
+    }
+
     public GameObject GetOrderPrefab(string order)
     {
         switch (order)
         {
+            case "Espresso":
             case "preEspresso":
             case "milkEspresso":
             case "postEspresso":
                 return orderEspressoPrefab;
 
+            case "HotAmericano":
             case "preHotAmericano":
             case "milkHotAmericano":
             case "postHotAmericano":
                 return orderHotAmericanoPrefab;
 
+            case "IceAmericano":           
             case "preIceAmericano":
             case "milkIceAmericano":
             case "postIceAmericano":
