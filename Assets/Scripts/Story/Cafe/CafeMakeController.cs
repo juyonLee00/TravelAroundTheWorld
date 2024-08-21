@@ -153,7 +153,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("Espresso"))
                     {
                         PlayerManager.Instance.EarnMoney(50);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -168,7 +167,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("HotAmericano"))
                     {
                         PlayerManager.Instance.EarnMoney(150);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -183,7 +181,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("IceAmericano"))
                     {
                         PlayerManager.Instance.EarnMoney(150);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -198,7 +195,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("HotLatte"))
                     {
                         PlayerManager.Instance.EarnMoney(180);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -213,7 +209,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("IceLatte"))
                     {
                         PlayerManager.Instance.EarnMoney(180);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -228,7 +223,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("GreenTea"))
                     {
                         PlayerManager.Instance.EarnMoney(110);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -243,7 +237,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("HibiscusTea"))
                     {
                         PlayerManager.Instance.EarnMoney(150);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -258,7 +251,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("RooibosTea"))
                     {
                         PlayerManager.Instance.EarnMoney(160);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -273,7 +265,6 @@ public class CafeMakeController : MonoBehaviour
                     if (order.gameObject.activeInHierarchy && order.name.Contains("ChamomileTea"))
                     {
                         PlayerManager.Instance.EarnMoney(120);
-                        Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                         Destroy(order.gameObject);
                         ProcessOrderCompletion();
                         break;
@@ -293,7 +284,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }    
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 Espresso.SetActive(false);   
             }
             else if (HotAmericano.activeSelf)
@@ -304,7 +294,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 HotAmericano.SetActive(false);
             }
             else if (IceAmericano.activeSelf)
@@ -315,7 +304,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }                
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 IceAmericano.SetActive(false);
             }
             else if (HotLatte.activeSelf)
@@ -326,7 +314,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 HotLatte.SetActive(false);
             }
             else if (IceLatte.activeSelf)
@@ -337,7 +324,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 IceLatte.SetActive(false);
             }
             else if (GreenTea.activeSelf)
@@ -348,7 +334,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 GreenTea.SetActive(false);
             }
             else if (HibiscusTea.activeSelf)
@@ -359,7 +344,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 HibiscusTea.SetActive(false);
             }
             else if (RooibosTea.activeSelf)
@@ -370,7 +354,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 RooibosTea.SetActive(false);
             }
             else if (ChamomileTea.activeSelf)
@@ -381,7 +364,6 @@ public class CafeMakeController : MonoBehaviour
                     ProcessOrderCompletion();
                     BackToDelivery();
                 }
-                Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                 ChamomileTea.SetActive(false);
             }
         }
@@ -392,7 +374,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("Espresso"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "Espresso")
                      PlayerManager.Instance.EarnMoney(50);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  Espresso.SetActive(false);
              }
              else if (HotAmericano.activeSelf)
@@ -400,7 +381,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("HotAmericano"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "HotAmericano")
                      PlayerManager.Instance.EarnMoney(150);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  HotAmericano.SetActive(false);
              }
              else if (IceAmericano.activeSelf)
@@ -408,7 +388,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("IceAmericano"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "IceAmericano")
                      PlayerManager.Instance.EarnMoney(150);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  IceAmericano.SetActive(false);
              }
              else if (HotLatte.activeSelf)
@@ -416,7 +395,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("HotLatte"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "HotLatte")
                      PlayerManager.Instance.EarnMoney(180);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  HotLatte.SetActive(false);
              }
              else if (IceLatte.activeSelf)
@@ -424,7 +402,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("IceLatte"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "IceLatte")
                      PlayerManager.Instance.EarnMoney(180);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  IceLatte.SetActive(false);
              }
              else if (GreenTea.activeSelf)
@@ -432,7 +409,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("GreenTea"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "GreenTea")
                      PlayerManager.Instance.EarnMoney(110);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  GreenTea.SetActive(false);
              }
              else if (HibiscusTea.activeSelf)
@@ -440,7 +416,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("HibiscusTea"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "HibiscusTea")
                      PlayerManager.Instance.EarnMoney(150);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  HibiscusTea.SetActive(false);
              }
              else if (RooibosTea.activeSelf)
@@ -448,7 +423,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("RooibosTea"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "RooibosTea")
                      PlayerManager.Instance.EarnMoney(160);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  RooibosTea.SetActive(false);
              }
              else if (ChamomileTea.activeSelf)
@@ -456,7 +430,6 @@ public class CafeMakeController : MonoBehaviour
                  updatedOrders.Add(new CafeOrder("ChamomileTea"));
                  if (SceneTransitionManager.Instance.GetCafeOrders() == "ChamomileTea")
                      PlayerManager.Instance.EarnMoney(120);
-                 Debug.Log("player money = " + PlayerManager.Instance.GetMoney());
                  ChamomileTea.SetActive(false);
              }
          }

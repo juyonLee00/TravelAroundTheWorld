@@ -58,11 +58,6 @@ public class CafeTalkManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("currentDialogueIndex " + currentDialogueIndex);
-        if (CoffeePot == null)
-        {
-            Debug.LogError("CoffeePot is not assigned");
-        }
         ActiveTalk();
 
         SoundManager.Instance.PlayMusic("CAFE", true);
@@ -118,10 +113,6 @@ public class CafeTalkManager : MonoBehaviour
                 SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);
             }
-            else
-            {
-                Debug.Log("Hit something else");
-            }
         }
         else if (currentDialogueIndex == 41)
         {
@@ -147,7 +138,6 @@ public class CafeTalkManager : MonoBehaviour
 
     IEnumerator ActivateObjectAfterDelay(float delay, GameObject obj)
     {
-        Debug.Log("Activate 2f at index " + currentDialogueIndex);
         SoundManager.Instance.PlaySFX("coffee machine (espresso)");
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
@@ -314,7 +304,6 @@ public class CafeTalkManager : MonoBehaviour
             narrationText.text = currentDialogue.line;
             narrBack.SetActive(true);
         }
-        Debug.Log("current index: " + currentDialogueIndex + " && cheetah active: " + cheetah.activeSelf.ToString());
 
     }
 
