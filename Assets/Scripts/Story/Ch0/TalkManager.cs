@@ -472,9 +472,13 @@ public class TalkManager : MonoBehaviour
                         {
                             OnAnimationStart();
                             trainAnimator.SetTrigger("PlayTrainAnimation");
+                            SoundManager.Instance.PlaySFX("horn");
+                            SoundManager.Instance.PlaySFX("a train operation");
                         }
-                            
-                        
+                        if (currentDialogueIndex == 37)
+                        {
+                            SoundManager.Instance.StopSFX();
+                        }
                         if (currentDialogueIndex == 48)
                         {
                             OnAnimationStart();
