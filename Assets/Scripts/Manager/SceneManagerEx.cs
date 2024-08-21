@@ -13,8 +13,11 @@ public class SceneManagerEx : MonoBehaviour
     private Dictionary<string, GameObject> loadedManagers = new Dictionary<string, GameObject>(); 
 
     public float fadeDuration = 1f;
-    public float minLoadingTime = 40f;
+    public float minLoadingTime = 1f;
     private CanvasGroup fadeCanvasGroup;
+
+    //로딩시간
+    float loadingTime;
 
     // 현재 로딩 중인지를 나타내는 플래그
     private bool isLoading = false;
@@ -82,16 +85,18 @@ public class SceneManagerEx : MonoBehaviour
 
         yield return StartCoroutine(FadeIn());
 
+        //로딩 씬 비동기 로드
         AsyncOperation loadLoadingScene = SceneManager.LoadSceneAsync("LoadingScene");
         yield return new WaitUntil(() => loadLoadingScene.isDone);
 
         FindFadeCanvasGroup();
-
+        
         float loadingStartTime = Time.time;
 
+        //로딩 씬에서 다음 씬으로 로드
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        asyncOperation.allowSceneActivation = false;
 
+        asyncOperation.allowSceneActivation = false;
         LoadingSceneController loadingSceneController = FindObjectOfType<LoadingSceneController>();
 
         if(loadingSceneController == null)
@@ -102,10 +107,15 @@ public class SceneManagerEx : MonoBehaviour
 
         while (!asyncOperation.isDone)
         {
-            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+            loadingTime = Time.time - loadingStartTime;
+
+            //float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+            float progress = (loadingTime) / 3f;
             loadingSceneController.UpdateProgress(progress);
 
-            if (asyncOperation.progress >= 0.9f)
+            Debug.Log($"LoadingTime is {loadingTime} sec");
+
+            if (loadingTime > 3)//(asyncOperation.progress > 10)
             {
                 asyncOperation.allowSceneActivation = true;
             }
@@ -113,7 +123,7 @@ public class SceneManagerEx : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitUntil(() => asyncOperation.isDone);
+        //yield return new WaitUntil(() => asyncOperation.isDone);
 
 
         float loadingElapsedTime = Time.time - loadingStartTime;

@@ -447,11 +447,13 @@ public class Ch1TalkManager : MonoBehaviour
             ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
 
             // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 저장
-            if (!string.IsNullOrEmpty(quest))
+            /*if (!string.IsNullOrEmpty(quest))
             {
                 QuestManager.Instance.AddQuest(quest, questContent);
-            }
+            }*/
+            Debug.Log("LoadDialogueCSV List has Data");
         }
+        Debug.Log("daat_dialogue is full ");
     }
 
     // 이미지 가져오는 코드
