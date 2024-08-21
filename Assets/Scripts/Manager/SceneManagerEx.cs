@@ -110,12 +110,12 @@ public class SceneManagerEx : MonoBehaviour
             loadingTime = Time.time - loadingStartTime;
 
             //float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-            float progress = (loadingTime) / 3f;
+            float progress = (loadingTime) / 1.5f;
             loadingSceneController.UpdateProgress(progress);
 
             Debug.Log($"LoadingTime is {loadingTime} sec");
 
-            if (loadingTime > 3)//(asyncOperation.progress > 10)
+            if (loadingTime > 1.5)//(asyncOperation.progress > 10)
             {
                 asyncOperation.allowSceneActivation = true;
             }
