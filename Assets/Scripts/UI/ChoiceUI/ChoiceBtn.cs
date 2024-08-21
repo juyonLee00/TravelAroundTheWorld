@@ -91,7 +91,9 @@ public class ChoiceBtn : MonoBehaviour
                     PlayerManager.Instance.SetCurrentTimeofDay();
                 }
                 else
-                    return;
+                {
+                    GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
+                }
             }
             else
             {
