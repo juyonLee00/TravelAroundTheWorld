@@ -142,13 +142,6 @@ public class Ch1TalkManager : MonoBehaviour
             PrintCh1ProDialogue(currentDialogueIndex);
         }
 
-        // 게임 종료 처리
-        if (index == 533)
-        {
-            ExitGame();
-            return;
-        }
-
         if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
             if (isQuestActive)
@@ -1055,15 +1048,5 @@ public class Ch1TalkManager : MonoBehaviour
         dialogue.SetActive(false);
         DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
         isFadingOut = false; // 페이드아웃 종료
-    }
-
-    private void ExitGame()
-    {
-        // 게임 종료 처리
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        Application.Quit();
-        #endif
     }
 }
