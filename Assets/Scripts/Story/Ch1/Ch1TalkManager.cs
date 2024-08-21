@@ -184,7 +184,7 @@ public class Ch1TalkManager : MonoBehaviour
         if (isWaitingForPlayer && mapManager != null)
         {
             // 카페바에 도착하면 스토리 다시 진행
-            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && (currentDialogueIndex == 5 || currentDialogueIndex == 73 || currentDialogueIndex == 146 || currentDialogueIndex == 274 || currentDialogueIndex == 364 || currentDialogueIndex == 409 || currentDialogueIndex == 455 || currentDialogueIndex == 517))
+            if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && (currentDialogueIndex == 5 || currentDialogueIndex == 73 || currentDialogueIndex == 146 || currentDialogueIndex == 274 || currentDialogueIndex == 364 || currentDialogueIndex == 409 || currentDialogueIndex == 456 || currentDialogueIndex == 518))
             {
                 isWaitingForPlayer = false;
                 player.SetActive(false);
@@ -197,24 +197,10 @@ public class Ch1TalkManager : MonoBehaviour
                 Npc_Rusk.SetActive(false);
                 Npc_Violet.SetActive(false);
             }
-            else if (currentDialogueIndex == 511)
+            // 인덱스가 462인 경우 499로 이동
+            else if (currentDialogueIndex == 462)
             {
-                mapManager.currentState = MapState.TrainRoom3;
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                trainRoom.SetActive(true);
-                currentDialogueIndex++;
-                PrintCh1ProDialogue(currentDialogueIndex);
-            }
-            else if (currentDialogueIndex == 517)
-            {
-                mapManager.currentState = MapState.Cafe;
-                isWaitingForPlayer = false;
-                player.SetActive(false);
-                map.SetActive(false);
-                cafe.SetActive(true);
-                currentDialogueIndex++;
+                currentDialogueIndex = 499;
                 PrintCh1ProDialogue(currentDialogueIndex);
             }
             // 객실에 도착하면 스토리 다시 진행
@@ -247,7 +233,7 @@ public class Ch1TalkManager : MonoBehaviour
             }
 
             // 카페에서 일해야 되는데 다른 곳으로 가려고 하면 다시 카페로 플레이어 강제 이동
-            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 73 || currentDialogueIndex == 146 || currentDialogueIndex == 274 || currentDialogueIndex == 364 || currentDialogueIndex == 409 || currentDialogueIndex == 455))
+            if (mapManager.currentState != MapState.Cafe && (currentDialogueIndex == 5 || currentDialogueIndex == 73 || currentDialogueIndex == 146 || currentDialogueIndex == 274 || currentDialogueIndex == 364 || currentDialogueIndex == 409 || currentDialogueIndex == 456))
             {
                 player.transform.position = new Vector3(0, 0, 0);
                 narration.SetActive(true);
@@ -262,7 +248,7 @@ public class Ch1TalkManager : MonoBehaviour
         if (index == 7) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 8, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 8, 3);
         }
         else if (index == 12) // 에스프레소 1잔 직접 주문
         {
@@ -298,7 +284,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 75) // 룸서비스 랜덤 4건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 4건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 76, 4);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 76, 4);
         }
         else if (index == 78) // 랜덤 주문 1건
         {
@@ -328,7 +314,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 148) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 149, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 149, 3);
         }
         else if (index == 151) // 랜덤 주문 2건
         {
@@ -354,7 +340,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 276) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 277, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 277, 3);
         }
         else if (index == 279) // 아아 1잔 직접 주문
         {
@@ -380,7 +366,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 366) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 367, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 367, 3);
         }
         else if (index == 369) // 랜덤 주문 5건
         {
@@ -402,7 +388,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 411) // 룸서비스 랜덤 5건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 5건");
-            //SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 412, 5);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 412, 5);
         }
         else if (index == 414) // 랜덤 주문 4건
         {
@@ -555,7 +541,7 @@ public class Ch1TalkManager : MonoBehaviour
         }
 
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
-
+        
         string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
         string speakerKey = currentDialogue.speaker;
 
@@ -634,7 +620,7 @@ public class Ch1TalkManager : MonoBehaviour
             dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line); // 타이핑 효과 적용
         }
 
-        if (index == 5 || index == 73 || index == 146 || index == 274 || index == 364 || index == 409 || index == 455 || index == 517) // 카페로 강제 이동 후 이동 가능하게 전환
+        if (index == 5 || index == 73 || index == 146 || index == 274 || index == 364 || index == 409 || index == 455 || index == 518) // 카페로 강제 이동 후 이동 가능하게 전환
         {
             player.transform.position = new Vector3(0, 0, 0);
             mapManager.currentState = MapState.Cafe;
@@ -646,7 +632,7 @@ public class Ch1TalkManager : MonoBehaviour
             narration.SetActive(false);
             dialogue.SetActive(false);
         }
-        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445 || index == 531) // 카페 일 끝나고 이동 가능하게 전환
+        else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445 || index == 533) // 카페 일 끝나고 이동 가능하게 전환
         {
             isWaitingForPlayer = true;
             playerController.StartMove();
@@ -660,20 +646,14 @@ public class Ch1TalkManager : MonoBehaviour
             Npc_Rusk.SetActive(true);
             Npc_Violet.SetActive(true);
         }
-        else if (index == 461)
-        {
-            index = 498;
-            PrintCh1ProDialogue(index);
-            return; // 여기서 바로 498로 이동하기 때문에 나머지 로직을 수행하지 않도록 return
-        }
-        else if (index == 511)
+        else if (index == 512)
         {
             mapManager.currentState = MapState.TrainRoom3;
             cafe.SetActive(false);
             trainRoom.SetActive(true);
             PrintCh1ProDialogue(index);
         }
-        else if (currentDialogueIndex == 517)
+        else if (currentDialogueIndex == 518)
         {
             mapManager.currentState = MapState.Cafe;
             trainRoom.SetActive(true);
