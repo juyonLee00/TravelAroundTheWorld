@@ -9,6 +9,7 @@ public class TeaSetShopStart : MonoBehaviour
 {
     //public Image selectedImageDisplay;
     public GameObject newSpeech;
+    public GameObject buyAnithing;
     public GameObject selectedImageDisplay;
     public string fail;
     public string success;
@@ -53,6 +54,7 @@ public class TeaSetShopStart : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX("click sound");
         newSpeech.SetActive(true);
+        buyAnithing.SetActive(false);
         selectedImageDisplay.SetActive(true);
 
         // 버튼의 RectTransform 컴포넌트를 가져옵니다.
