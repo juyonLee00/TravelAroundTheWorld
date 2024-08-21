@@ -135,6 +135,20 @@ public class Ch1TalkManager : MonoBehaviour
             return;
         }
 
+        // 인덱스가 462인 경우 499로 이동
+        if (currentDialogueIndex == 462)
+        {
+            currentDialogueIndex = 499;
+            PrintCh1ProDialogue(currentDialogueIndex);
+        }
+
+        // 게임 종료 처리
+        if (index == 533)
+        {
+            ExitGame();
+            return;
+        }
+
         if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
         {
             if (isQuestActive)
@@ -196,13 +210,7 @@ public class Ch1TalkManager : MonoBehaviour
                 Npc_MrHam.SetActive(false);
                 Npc_Rusk.SetActive(false);
                 Npc_Violet.SetActive(false);
-            }
-            // 인덱스가 462인 경우 499로 이동
-            else if (currentDialogueIndex == 462)
-            {
-                currentDialogueIndex = 499;
-                PrintCh1ProDialogue(currentDialogueIndex);
-            }
+            }            
             // 객실에 도착하면 스토리 다시 진행
             /*else if (mapManager.currentState == MapState.TrainRoom3 && (currentDialogueIndex == 29 || currentDialogueIndex == 101))
             {
@@ -1047,5 +1055,15 @@ public class Ch1TalkManager : MonoBehaviour
         dialogue.SetActive(false);
         DeactivateTalk(); // FadeOut이 완료된 후 대화 비활성화
         isFadingOut = false; // 페이드아웃 종료
+    }
+
+    private void ExitGame()
+    {
+        // 게임 종료 처리
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
     }
 }
