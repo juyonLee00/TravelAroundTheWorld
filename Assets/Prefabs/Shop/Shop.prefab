@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cc26715b1b3924ab161887be56d7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj: {fileID: 0}
   nomal: {fileID: 8729241274096750049, guid: a1c6d55a2d9145f4e83acf44e4357c62, type: 3}
   milk: {fileID: 8729241274096750049, guid: 354d49437d7bfb245ab9deddd2ec8b49, type: 3}
   teaSet: {fileID: 8729241274096750049, guid: 8654ba3f68806714b9c90e08a98d0aa5, type: 3}

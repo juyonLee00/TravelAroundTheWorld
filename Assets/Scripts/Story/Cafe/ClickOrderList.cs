@@ -113,8 +113,8 @@ public class ClickOrderList : MonoBehaviour
         }
         deliveryData.deliveryOrder = menu;
         Debug.Log("current order = " + deliveryData.deliveryOrder);
-        Button button = GameObject.FindWithTag("X").GetComponent<Button>();
-        button.onClick.Invoke();
+        //Button button = GameObject.FindWithTag("X").GetComponent<Button>();
+        //button.onClick.Invoke();
         Invoke("DestroyOrder", 1f);
        
         GameObject.Find("BeverageP").transform.Find("Beverage").transform.gameObject.SetActive(true);

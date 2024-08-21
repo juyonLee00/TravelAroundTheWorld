@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class ShopFixedManager : MonoBehaviour
 {
-    public GameObject nomalShop; // 상점 UI 프리팹
-    public GameObject milkShop;
-    public GameObject teaSetShop;
     public GameObject selectedImageDisplay;
+
+    public GameObject newSpeech;
+    public GameObject buyAnithing;
+
 
     private Ch1TalkManager talkManager;
 
@@ -17,46 +18,86 @@ public class ShopFixedManager : MonoBehaviour
         talkManager = FindObjectOfType<Ch1TalkManager>();
     }
 
-    // 버튼 클릭 시 호출될 메서드
-    public void ShowShop()
-    {
-        Transform parentTransform = transform.parent;
-
-        if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
-        {
-            Instantiate(teaSetShop, parentTransform);
-            return;
-        }
-        else if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
-        {
-            Instantiate(milkShop, parentTransform);
-            return;
-        }
-        else
-        {
-            Instantiate(nomalShop, parentTransform);
-            return;
-        }
-    }
 
     // 상점 UI를 숨기는 메서드
     public void HideShop()
     {
         SoundManager.Instance.PlaySFX("click sound");
-        if (talkManager != null)
+        Debug.Log("우유 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("milk"));
+        Debug.Log("티세트 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("teaSet"));
+        if (PlayerManager.Instance.IsBoughtCafeItem("milk") || PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
         {
-            talkManager.OnShopClosed();
+            if (talkManager != null)
+            {
+                talkManager.OnShopClosed();
+            }
+            //Transform parentTransform = transform.parent;
+            Destroy(transform.parent.gameObject);
         }
-        //Transform parentTransform = transform.parent;
-        Destroy(transform.parent.gameObject);
+        else
+        {
+            buyAnithing.SetActive(true);
+            newSpeech.SetActive(false);
+            selectedImageDisplay.SetActive(false);
+        }
+        
+
+    }
+
+    public void HideShopMilk()
+    {
+        SoundManager.Instance.PlaySFX("click sound");
+        Debug.Log("우유 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("milk"));
+        Debug.Log("티세트 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("teaSet"));
+        if (PlayerManager.Instance.IsBoughtCafeItem("teaSet"))
+        {
+            if (talkManager != null)
+            {
+                talkManager.OnShopClosed();
+            }
+            //Transform parentTransform = transform.parent;
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            buyAnithing.SetActive(true);
+            newSpeech.SetActive(false);
+            selectedImageDisplay.SetActive(false);
+        }
+    }
+    public void HideShopTeaSet()
+    {
+        SoundManager.Instance.PlaySFX("click sound");
+        Debug.Log("우유 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("milk"));
+        Debug.Log("티세트 구매 여부 : " + PlayerManager.Instance.IsBoughtCafeItem("teaSet"));
+        if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
+        {
+            if (talkManager != null)
+            {
+                talkManager.OnShopClosed();
+            }
+            //Transform parentTransform = transform.parent;
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            buyAnithing.SetActive(true);
+            newSpeech.SetActive(false);
+            selectedImageDisplay.SetActive(false);
+        }
     }
 
     public void HideSpeech()
     {
-        SoundManager.Instance.PlaySFX("click sound");
+        
+
         transform.parent.gameObject.SetActive(false);
         selectedImageDisplay.SetActive(false);
+
+        
     }
+
+    
 
 }
 
