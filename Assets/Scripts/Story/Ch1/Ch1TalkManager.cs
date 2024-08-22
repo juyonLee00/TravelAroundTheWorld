@@ -645,6 +645,7 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if (index == 29 || index == 111 || index == 200 || index == 334 || index == 404 || index == 445) // 카페 일 끝나고 이동 가능하게 전환
         {
+            player.transform.position = new Vector3(2, -3.5f, 0);
             isWaitingForPlayer = true;
             playerController.StartMove();
             map.SetActive(true);
@@ -762,6 +763,7 @@ public class Ch1TalkManager : MonoBehaviour
         }
         else if ((index == 220 || index == 453) && mapManager.currentState == MapState.Balcony) // 이동 가능하게 전환
         {
+            player.transform.position = new Vector3(52, -1, 0);
             isWaitingForPlayer = true;
             playerController.StartMove();
             map.SetActive(true);
