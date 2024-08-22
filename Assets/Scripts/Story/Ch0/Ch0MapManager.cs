@@ -130,8 +130,6 @@ public class Ch0MapManager : MonoBehaviour
         {
             currentState = MapState.Null;
         }
-
-        //Debug.Log("Current State: " + currentState);
     }
 
     public void PlayMapMusic()
@@ -141,8 +139,10 @@ public class Ch0MapManager : MonoBehaviour
         switch (currentState)
         {
             case MapState.MechanicalRoom:
+                newMusic = "";
                 break;
             case MapState.EngineRoom:
+                newMusic = "";
                 break;
             case MapState.TrainRoom3:
                 newMusic = "a room";
@@ -163,11 +163,20 @@ public class Ch0MapManager : MonoBehaviour
                 newMusic = "amedicaloffice_001";
                 break;
             case MapState.Balcony:
+                newMusic = "";
                 break;
         }
 
-        // 현재 재생 중인 음악과 다른 음악이라면 새 음악을 재생
-        if (talkManager.currentMusic != newMusic)
+        // 새로운 음악이 없는 경우 이전 음악을 멈춤
+        if (string.IsNullOrEmpty(newMusic))
+        {
+            if (!string.IsNullOrEmpty(talkManager.currentMusic))
+            {
+                SoundManager.Instance.StopMusic();
+                talkManager.currentMusic = ""; // 현재 재생 중인 음악 이름을 초기화
+            }
+        }
+        else if (talkManager.currentMusic != newMusic)
         {
             SoundManager.Instance.PlayMusic(newMusic, loop: true);
             talkManager.currentMusic = newMusic; // 현재 재생 중인 음악 이름을 업데이트
