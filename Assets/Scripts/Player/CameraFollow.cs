@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Vector3 offset = new Vector3(0, 0, -10); // 카메라와 플레이어 사이의 거리 조정
-    public float smoothSpeed = 5f; // 카메라 이동의 부드러움 조정
+    public Vector3 offset = new Vector3(0, 0, -10);
+    public float smoothSpeed = 8f;
 
     private Transform cameraTransform;
+    private bool isFollowing = true;
+
+    public Camera mainCamera;
 
     void Start()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+
         // 메인 카메라를 찾아서 할당
-        cameraTransform = Camera.main.transform;
+        cameraTransform = mainCamera.transform;
     }
 
     void LateUpdate()
@@ -20,8 +28,13 @@ public class CameraFollow : MonoBehaviour
         if (cameraTransform != null)
         {
             Vector3 desiredPosition = transform.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, desiredPosition, smoothSpeed);
+            Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             cameraTransform.position = smoothedPosition;
         }
+    }
+
+    public void SetCameraFollow(bool follow)
+    {
+        isFollowing = follow;
     }
 }

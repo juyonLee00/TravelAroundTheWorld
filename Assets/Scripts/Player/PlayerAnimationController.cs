@@ -66,30 +66,6 @@ public class PlayerAnimationController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
-    /*
-    public void SetTargetPosition(Vector3 targetPos)
-    {
-        targetPosition = targetPos;
-        isMoving = true;
-
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        UpdateAnimatorParameters(direction);
-    }
-
-    public void MoveToPosition()
-    {
-        float step = moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        UpdateAnimatorParameters(direction);
-
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-        {
-            isMoving = false;
-            animator.SetBool("isMove", false);
-        }
-    }*/
 
     public void MoveToPosition(Vector3 targetPos, float speed)
     {
@@ -126,21 +102,6 @@ public class PlayerAnimationController : MonoBehaviour
         playerController.ColliderEnd();
     }
 
-    /*
-    private void UpdateAnimatorParameters(Vector3 direction)
-    {
-        if (direction.magnitude > 0)
-        {
-            animator.SetFloat("xDir", direction.x);
-            animator.SetFloat("yDir", direction.y);
-            animator.SetBool("isMove", true);
-        }
-        else
-        {
-            animator.SetBool("isMove", false);
-        }
-    }*/
-
     public void StopMovingCoroutine()
     {
         stopMoving = true;
@@ -153,6 +114,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void StopAllCoroutines()
     {
+        //추후 다른 코루틴 추가될 경우 대비
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
