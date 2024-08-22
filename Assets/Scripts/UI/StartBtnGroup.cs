@@ -23,7 +23,6 @@ public struct PosData
 public struct StartSceneImgData
 {
     public Sprite backgroundImgData;
-    public Sprite titleTextImgData;
     public Sprite btnGroupImgData;
     public Sprite settingBtnImgData;
 }
@@ -43,15 +42,12 @@ public class StartBtnGroup : MonoBehaviour
     private List<PosData> btnPosList;
 
     public Image backgroundImg;
-    public Image titleTextImg;
     public Image btnGroupImg;
 
     public List<StartSceneImgData> startSceneImgDatas;
 
     public Sprite backgroundImgNoon;
     public Sprite backgroundImgNight;
-    public Sprite titleTextImgNoon;
-    public Sprite titleTextImgNight;
     public Sprite btnGroupImgNoon;
     public Sprite btnGroupImgNight;
     public Sprite settingBtnImgNoon;
@@ -85,7 +81,6 @@ public class StartBtnGroup : MonoBehaviour
         StartSceneImgData noonImg = new StartSceneImgData
         {
             backgroundImgData = backgroundImgNoon,
-            titleTextImgData = titleTextImgNoon,
             btnGroupImgData = btnGroupImgNoon,
             settingBtnImgData = settingBtnImgNoon
         };
@@ -93,7 +88,6 @@ public class StartBtnGroup : MonoBehaviour
         StartSceneImgData nightImg = new StartSceneImgData
         {
             backgroundImgData = backgroundImgNight,
-            titleTextImgData = titleTextImgNight,
             btnGroupImgData = btnGroupImgNight,
             settingBtnImgData = settingBtnImgNight
         };
@@ -131,7 +125,6 @@ public class StartBtnGroup : MonoBehaviour
     void UpdateImgData(int idx)
     {
         backgroundImg.sprite = startSceneImgDatas[idx].backgroundImgData;
-        titleTextImg.sprite = startSceneImgDatas[idx].titleTextImgData;
         btnGroupImg.sprite = startSceneImgDatas[idx].btnGroupImgData;
         settingBtnPrefab.GetComponent<Image>().sprite = startSceneImgDatas[idx].settingBtnImgData;
     }
@@ -288,8 +281,8 @@ public class StartBtnGroup : MonoBehaviour
         
         else
         {
+            // 데이터가 없는 경우 처리
             Debug.LogWarning("No save data found.");
-            // 데이터가 없는 경우 처리: 예를 들어, 경고 메시지 출력
         }
     }
 
