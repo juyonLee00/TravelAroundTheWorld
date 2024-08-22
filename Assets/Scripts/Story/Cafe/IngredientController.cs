@@ -75,6 +75,7 @@ public class IngredientController : MonoBehaviour
         {
             Debug.Log(gameObject.name + " dropped on trashcan");
             trashController.HandleTrashCan(gameObject);
+            SoundManager.Instance.PlaySFX("trash");
         }
     }
 

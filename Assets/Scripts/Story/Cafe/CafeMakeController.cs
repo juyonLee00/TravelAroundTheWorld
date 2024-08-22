@@ -52,11 +52,20 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("Ingredient added : " + ingredient.name);
             if (ingredient.name == "Shot")
             {
+                SoundManager.Instance.PlaySFX("espresso");
                 Shot.SetActive(false);
             }
             if (ingredient.name == "Water" || ingredient.name =="Milk")
             {
                 SoundManager.Instance.PlaySFX("pouring water");
+            }
+            if (ingredient.name == "Ice")
+            {
+                SoundManager.Instance.PlaySFX("ice in a cup");
+            }
+            if (ingredient.name == "IceCup" || ingredient.name == "HotCup")
+            {
+                SoundManager.Instance.PlaySFX("cupsetdown");
             }
         }
     }
@@ -89,7 +98,6 @@ public class CafeMakeController : MonoBehaviour
                 makeHotCup.SetActive(false);
                 currentIngredients.Clear();
             }
-            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if ((currentIngredients.Contains("IceCup")|| currentIngredients.Contains("MakeIceCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
@@ -97,7 +105,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("IceAmericano is maded");
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing with ice");
         }
         else if ((currentIngredients.Contains("IceCup") || currentIngredients.Contains("MakeIceCup")) && currentIngredients.Contains("Milk") && currentIngredients.Contains("Ice") && currentIngredients.Contains("Shot"))
         {
@@ -105,7 +112,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("IceLatte is maded");
             makeIceCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing with ice");
         }
         else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("HibiscusLeaf"))
         {
@@ -113,7 +119,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("HibiscusTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("RooibosLeaf"))
         {
@@ -121,7 +126,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("RooibosTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("GreenTeaLeaf"))
         {
@@ -129,7 +133,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("GreenTea is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         else if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Water") && currentIngredients.Contains("ChamomileLeaf"))
         {
@@ -137,7 +140,6 @@ public class CafeMakeController : MonoBehaviour
             Debug.Log("Chamomile is maded");
             makeHotCup.SetActive(false);
             currentIngredients.Clear();
-            SoundManager.Instance.PlaySFX("mixing liquids");
         }
         Invoke("CheckOrder", 0.2f);
     }
