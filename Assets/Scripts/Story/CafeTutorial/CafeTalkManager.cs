@@ -109,6 +109,7 @@ public class CafeTalkManager : MonoBehaviour
             if (clickedObject == CoffeePot)
             {
                 Debug.Log("Hit CoffeePot at index " + currentDialogueIndex);
+                SoundManager.Instance.PlaySFX("click sound");
                 currentDialogueIndex++;
                 SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
                 PrintProDialogue(currentDialogueIndex);

@@ -68,8 +68,7 @@ public class GameManager : MonoBehaviour
             {
                 Beverage.SetActive(true);
                 CafeMap.SetActive(false);
-                orderController.GenerateOrder(3);
-
+                SoundManager.Instance.PlaySFX("click sound");
             }
             if (clickedObject !=   null && clickedObject.name == "RoomService")
             {
