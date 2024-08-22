@@ -203,7 +203,7 @@ public class ChoiceBtn : MonoBehaviour
         TalkManager[] allTalkManagers = Resources.FindObjectsOfTypeAll<TalkManager>();
 
         // TalkManager가 존재하고, 활성화 상태가 아닌 오브젝트 중 하나를 반환
-        //1개만 있어서 이렇게 했지만 수정 필
+        //1개만 있어서 이렇게 했지만 수정 필요
         return allTalkManagers[0];//.Where(tm => !tm.gameObject.activeInHierarchy).FirstOrDefault();
     }
 

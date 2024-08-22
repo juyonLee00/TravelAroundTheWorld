@@ -18,16 +18,16 @@ public class PlayerController : MonoBehaviour
 
     public Animator currentTargetClickAnimator;
 
+    public CameraFollow cameraFollow;
+
     public bool isColliding = false;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         playerAnimationController = gameObject.GetComponent<PlayerAnimationController>();
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
+
+        cameraFollow = FindObjectOfType<CameraFollow>();
 
         currentTargetClick = Instantiate(targetClickPrefab);
         currentTargetClick.SetActive(false);
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!UIManager.Instance.IsUIActive() && canMove && !isColliding)
+        if (!UIManager.Instance.IsUIActive() && canMove)// && !isColliding)
         {
             Move();
         }
@@ -58,12 +58,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        
         else if (isColliding)
         {
-            // ?? ???? ?? ??? ???? ???? ??? ??? ?
             isColliding = false;
             StartMove();
         }
+        
     }
 
     void Move()
@@ -76,6 +77,12 @@ public class PlayerController : MonoBehaviour
             Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
             rigid.MovePosition(rigid.position + moveVector);
         }
+
+        else if(inputVector == Vector2.zero)
+        {
+            playerAnimationController.SetMoveDirection(Vector2.zero);
+        }
+
     }
 
     void OnInventory()
@@ -110,7 +117,7 @@ public class PlayerController : MonoBehaviour
         if (!UIManager.Instance.IsUIActive() && canMove && !isColliding)
         {
             Vector3 mousePos = Input.mousePosition;
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+            Vector3 worldPos = cameraFollow.mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
 
             if (currentTargetClick != null)
@@ -119,12 +126,11 @@ public class PlayerController : MonoBehaviour
                 currentTargetClick.SetActive(true);
                 currentTargetClickAnimator.SetBool("isTargeted", true);
             }
-
-            playerAnimationController.MoveToPosition(worldPos, speed * 0.5f);
+            //클릭으로 이동할 때 마우스보다 움직임 빠른 이유 해결해야 함
+            playerAnimationController.MoveToPosition(worldPos, speed * 0.4f);
         }
         else if (isColliding)
         {
-            // ?? ???? ?? ??? ???? ???? ??? ??? ?
             isColliding = false;
             StartMove();
         }
@@ -150,14 +156,22 @@ public class PlayerController : MonoBehaviour
     public void ColliderStart()
     {
         isColliding = true;
-        StopMove();
-        //마우스 클릭으로 설정해놓은 MoveToPosition 함수 
+
+        if (cameraFollow != null)
+        {
+            cameraFollow.SetCameraFollow(false);
+        }
     }
 
     public void ColliderEnd()
     {
         isColliding = false;
         StartMove();
+
+        if (cameraFollow != null)
+        {
+            cameraFollow.SetCameraFollow(true);
+        }
     }
 
     

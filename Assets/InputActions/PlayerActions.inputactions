@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SkipDialogue",
-                    "type": "Button",
-                    "id": "7233f118-8161-4376-aa18-d14543d3d3fc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "MouseMove",
                     "type": "Button",
                     "id": "414e62ff-e08a-41f0-82e4-4fea55b67640",
@@ -212,28 +203,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Map",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee2d0966-e46a-4c0d-bbf4-77022dc78a09",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkipDialogue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e2a24a86-d7fd-4239-ae22-03286d00d454",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkipDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

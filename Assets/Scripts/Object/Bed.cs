@@ -24,9 +24,6 @@ public class Bed : MonoBehaviour
             bedNarration.SetActive(true);
             UIManager.Instance.ToggleUI("Bed");
             player.GetComponent<PlayerController>().StopMove();
-
-            playerAnimationController.StopAllCoroutines();
-            playerAnimationController.SetMoveDirection(Vector2.zero);
         }
     }
 
