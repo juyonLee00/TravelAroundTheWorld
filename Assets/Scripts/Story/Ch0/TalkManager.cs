@@ -162,7 +162,7 @@ public class TalkManager : MonoBehaviour
         }
     }
 
-    //애니메이션 시작될 때 호
+    //애니메이션 시작될 때 호출
     public void OnAnimationStart()
     {
         isAnimationPlaying = true;
