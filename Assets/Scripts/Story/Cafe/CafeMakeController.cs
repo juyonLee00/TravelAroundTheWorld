@@ -55,17 +55,22 @@ public class CafeMakeController : MonoBehaviour
                 SoundManager.Instance.PlaySFX("espresso");
                 Shot.SetActive(false);
             }
-            if (ingredient.name == "Water" || ingredient.name =="Milk")
+            else if (ingredient.name == "Water" || ingredient.name =="Milk")
             {
                 SoundManager.Instance.PlaySFX("pouring water");
             }
-            if (ingredient.name == "Ice")
+            else if (ingredient.name == "Ice")
             {
                 SoundManager.Instance.PlaySFX("ice in a cup");
             }
-            if (ingredient.name == "IceCup" || ingredient.name == "HotCup")
+            else if (ingredient.name == "IceCup" || ingredient.name == "HotCup")
             {
                 SoundManager.Instance.PlaySFX("cupsetdown");
+            }
+            else if (ingredient.name == "GreenTeaLeaf" || ingredient.name == "HibiscusLeaf" ||
+                ingredient.name == "RooibosLeaf"|| ingredient.name == "ChamomilLeaf")
+            {
+                SoundManager.Instance.PlaySFX("tea stir");
             }
         }
     }

@@ -13,6 +13,8 @@ public class ClickOrderList : MonoBehaviour
     public GameObject RoomService;
     public GameObject Bat;
 
+    public GameObject CafeMap;
+
     private float speed = 2300; // 이동 속도
     // 
 
@@ -41,6 +43,7 @@ public class ClickOrderList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CafeMap = GameObject.Find("CafeMap");
         deliveryData = FindObjectOfType<DeliveryData>();
         if (deliveryData == null)
         {
@@ -119,9 +122,10 @@ public class ClickOrderList : MonoBehaviour
        
         GameObject.Find("BeverageP").transform.Find("Beverage").transform.gameObject.SetActive(true);
         GameObject.Find("DeliveryP").transform.Find("Delivery").transform.gameObject.SetActive(false);
-        
+        CafeMap.SetActive(false);
+
         //menu에 음료 이름 들어가있고 한글 혹은 영어 중 편하신걸로 하시면 될 것 같아요
-        
+
     }
     public void DestroyOrder()
     {
