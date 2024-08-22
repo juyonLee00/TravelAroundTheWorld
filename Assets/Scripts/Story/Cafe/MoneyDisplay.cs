@@ -15,7 +15,7 @@ public class MoneyDisplay : MonoBehaviour
 
     public void UpdateMoneyDisplay()
     {
-        moneyText.text = "$" + currentMoney.ToString();
+        moneyText.text = currentMoney.ToString() + "빈";
     }
 
 }

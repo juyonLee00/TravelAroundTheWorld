@@ -66,18 +66,12 @@ public class MoveController : MonoBehaviour
                 break;
             case 47:
             case 48:
+            case 50:
                 newPosition = makePosition;
                 imageComponent.sprite = DownL;
                 break;
             case 49:
                 newPosition = donePosition;
-                imageComponent.sprite = DownL;
-                break;
-            case 50:
-                newPosition = new Vector2(-9999, -9999); // 화면 밖으로 이동
-                break;
-            case 51:
-                newPosition = makePosition;
                 imageComponent.sprite = DownL;
                 break;
             default:

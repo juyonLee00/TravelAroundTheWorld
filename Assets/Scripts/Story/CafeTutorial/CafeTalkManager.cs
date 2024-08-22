@@ -185,8 +185,10 @@ public class CafeTalkManager : MonoBehaviour
 
 
         // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
-        if (index >= 40 && index <= 51)
+        if (index >= 40 && index <= 50)
         {
+            if (index == 50)
+                Debug.Log("current dialogue = " + currentDialogue.line);
             dialogue.SetActive(false);
             explainBar.SetActive(true);
             explainText.text = currentDialogue.line;
@@ -209,7 +211,7 @@ public class CafeTalkManager : MonoBehaviour
             }
         }
 
-        if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 51)
+        if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 50)
         {
             Beverage.SetActive(false);
             CafeMap.SetActive(true);
@@ -222,6 +224,12 @@ public class CafeTalkManager : MonoBehaviour
             {
                 PlayerManager.Instance.PayMoney(500);
             }
+            if (index == 13 || index == 37)
+                SoundManager.Instance.PlaySFX("window open");
+            else if (index == 15 || index == 30)
+                SoundManager.Instance.PlaySFX("motorcycle");
+            else if (index == 14)
+                SoundManager.Instance.PlaySFX("wind");
             narration.SetActive(false);
         }
         else if (index > 29 && index < 34)
@@ -258,7 +266,7 @@ public class CafeTalkManager : MonoBehaviour
             narration.SetActive(false);
             narrBack.SetActive(false);
         }
-        else if (index > 42 && index < 51)
+        else if (index > 42 && index < 50)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(true);
@@ -269,7 +277,7 @@ public class CafeTalkManager : MonoBehaviour
             narration.SetActive(false);
             narrBack.SetActive(false);
         }
-        else if (index == 51)
+        else if (index == 50)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(true);
@@ -280,7 +288,7 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
             narrBack.SetActive(false);
-            SoundManager.Instance.PlaySFX("cupsetdown");
+            SoundManager.Instance.PlaySFX("complete bell");
         }
         else
         {

@@ -11,6 +11,7 @@ public class IngredientsController : MonoBehaviour
     private GameObject makeArea;
     private GameObject IceAmericano;
     private MakeController makeController;
+    private CafeTalkManager cafeTalkManager;
 
 
     void Start()
@@ -19,6 +20,7 @@ public class IngredientsController : MonoBehaviour
         makeArea = GameObject.Find("MakeArea");
         IceAmericano = GameObject.Find("IceAmericano");
         makeController = FindObjectOfType<MakeController>();
+        cafeTalkManager = FindObjectOfType<CafeTalkManager>();
     }
 
     void OnMouseDown()
@@ -50,11 +52,26 @@ public class IngredientsController : MonoBehaviour
             {
                 SoundManager.Instance.PlaySFX("pouring water");
             }
+            else if (gameObject.name == "IceCup")
+            {
+                if(cafeTalkManager.currentDialogueIndex == 45)
+                {
+                    transform.position = makePos;
+                    SoundManager.Instance.PlaySFX("cupsetdown");
+                    makeController.HandleIngredientDrop(gameObject);
+                    return;
+                }
+            }
+            else if (gameObject.name == "Ice")
+            {
+                SoundManager.Instance.PlaySFX("ice in a cup");
+            }
+            else if (gameObject.name == "Shot")
+            {
+                SoundManager.Instance.PlaySFX("espresso");
+            }
+            transform.position = defaultPos;
             makeController.HandleIngredientDrop(gameObject);
-        }
-        if (gameObject.name == "IceCup")
-        {
-            transform.position = makePos;
         }
         else
             transform.position = defaultPos;

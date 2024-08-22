@@ -1052,7 +1052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &532632305
 Transform:
   m_ObjectHideFlags: 0
@@ -2267,8 +2267,6 @@ MonoBehaviour:
   ingredientPosition: {x: 685, y: 200}
   makePosition: {x: 685, y: 0}
   donePosition: {x: 685, y: -300}
-  descCupPosition: {x: 264, y: 106}
-  descIngredientPosition: {x: 650, y: 460}
   DownL: {fileID: 0}
   Left: {fileID: 0}
   TopL: {fileID: 0}
@@ -3874,7 +3872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1807831710
 Transform:
   m_ObjectHideFlags: 0
@@ -4073,7 +4071,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 44c1cdaa58f574445afa85b67e12c3dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 785cf2d9b58dfa84cadb6d6d0bc7408b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
