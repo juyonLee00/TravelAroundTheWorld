@@ -82,6 +82,9 @@ public class TalkManager : MonoBehaviour
 
     public bool isTransition = false;
 
+    //스페이스바 키 보여주는 오브젝트
+    public GameObject pressKeyObject;
+
     void Awake()
     {
         Instance = this;
@@ -402,6 +405,16 @@ public class TalkManager : MonoBehaviour
         {
             case locationHome:
                 PlayMusic(locationHome);
+                if(currentDialogueIndex == 0)
+                {
+                    pressKeyObject.SetActive(true);
+                }
+
+                if(currentDialogueIndex == 1)
+                {
+                    pressKeyObject.SetActive(false);
+                }
+
                 if (currentDialogueIndex == 2)
                 {
                     StartCoroutine(screenFader.FadeIn(invitation));
