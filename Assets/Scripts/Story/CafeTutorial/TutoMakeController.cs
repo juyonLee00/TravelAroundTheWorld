@@ -6,6 +6,8 @@ public class MakeController : MonoBehaviour
 {
     private CafeTalkManager cafeTalkManager;
 
+    private List<string> currentIngredients = new List<string>();
+
     void Start()
     {
         cafeTalkManager = FindObjectOfType<CafeTalkManager>();
@@ -13,10 +15,11 @@ public class MakeController : MonoBehaviour
 
     public void HandleIngredientDrop(GameObject ingredient)
     {
-        Debug.Log(ingredient.name + " has  been dropped in the MakeArea at index " + cafeTalkManager.currentDialogueIndex);
-        if ((ingredient.name == "IceCup" && cafeTalkManager.currentDialogueIndex == 45) ||
-            ((ingredient.name == "Water" || ingredient.name == "Ice") && cafeTalkManager.currentDialogueIndex == 47) ||
-            (ingredient.name == "Shot" && cafeTalkManager.currentDialogueIndex == 48))
+        Debug.Log("Current ingredients: " + string.Join(", ", currentIngredients));
+        currentIngredients.Add(ingredient.name);
+        if ((currentIngredients.Contains("IceCup") && cafeTalkManager.currentDialogueIndex == 45) ||
+            (currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && cafeTalkManager.currentDialogueIndex == 47) ||
+            (currentIngredients.Contains("Shot") && cafeTalkManager.currentDialogueIndex == 48))
         {
             cafeTalkManager.currentDialogueIndex++;
             cafeTalkManager.PrintProDialogue(cafeTalkManager.currentDialogueIndex);
