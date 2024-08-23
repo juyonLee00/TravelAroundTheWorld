@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 8.0f;
+    private float speed = 6.0f;
     Vector2 inputVector;
     Rigidbody2D rigid;
     public bool canMove = true;
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
                 currentTargetClickAnimator.SetBool("isTargeted", true);
             }
             //클릭으로 이동할 때 마우스보다 움직임 빠른 이유 해결해야 함
-            playerAnimationController.MoveToPosition(worldPos, speed * 0.4f);
+            playerAnimationController.MoveToPosition(worldPos, speed * 0.5f);
         }
         else if (isColliding)
         {
