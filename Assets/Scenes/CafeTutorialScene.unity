@@ -2574,7 +2574,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1958363990}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 167617778825945758, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
       propertyPath: m_Color.b
@@ -2703,10 +2703,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1093445966190352868, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1023355312}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
 --- !u!1 &1271380865
 GameObject:
@@ -4134,3 +4131,4 @@ SceneRoots:
   - {fileID: 871403427}
   - {fileID: 852089173}
   - {fileID: 1271380869}
+  - {fileID: 1252119404}
