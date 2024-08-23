@@ -39,7 +39,6 @@ public class CafeTalkManager : MonoBehaviour
 
     public GameObject train;
     public GameObject cheetah;
-    public GameObject narrBack;
 
     private const string narrationSpeaker = "나레이션";
     private const string locationCafe = "카페";
@@ -244,7 +243,6 @@ public class CafeTalkManager : MonoBehaviour
         {
             Beverage.SetActive(false);
             CafeMap.SetActive(true);
-            narrBack.SetActive(false);
             if (index >= 18 && index <= 36)
                 cheetah.SetActive(true);
             else
@@ -271,7 +269,6 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(true);
             CafeMap.SetActive(true);
             narration.SetActive(false);
-            narrBack.SetActive(false);
         }
         else if (index > 39 && index < 42)
         { 
@@ -282,7 +279,6 @@ public class CafeTalkManager : MonoBehaviour
             Beverage.SetActive(true);
             cheetah.SetActive(false);
             narration.SetActive(false);
-            narrBack.SetActive(false);
         }
         else if (index == 42)
         {
@@ -293,7 +289,6 @@ public class CafeTalkManager : MonoBehaviour
             Beverage.SetActive(true);
             cheetah.SetActive(false);
             narration.SetActive(false);
-            narrBack.SetActive(false);
         }
         else if (index > 42 && index < 50)
         {
@@ -304,7 +299,6 @@ public class CafeTalkManager : MonoBehaviour
             Beverage.SetActive(true);
             cheetah.SetActive(false);
             narration.SetActive(false);
-            narrBack.SetActive(false);
         }
         else if (index == 50)
         {
@@ -316,7 +310,6 @@ public class CafeTalkManager : MonoBehaviour
             Beverage.SetActive(true);
             cheetah.SetActive(false);
             narration.SetActive(false);
-            narrBack.SetActive(false);
             SoundManager.Instance.PlaySFX("complete bell");
         }
         else
@@ -330,17 +323,15 @@ public class CafeTalkManager : MonoBehaviour
             Beverage.SetActive(true);
             cheetah.SetActive(false);
             narration.SetActive(false);
-            narrBack.SetActive(false);
         }
         if (currentDialogue.speaker == narrationSpeaker)
         {
             Beverage.SetActive(false);
-            CafeMap.SetActive(false);
+            CafeMap.SetActive(true);
             dialogue.SetActive(false);
             narration.SetActive(true);
             narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line);
-            //narrationText.text = currentDialogue.line;
-            narrBack.SetActive(true);
+            //narrationText.text = currentDialogue.line;\
         }
 
     }
