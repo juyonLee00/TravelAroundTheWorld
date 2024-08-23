@@ -15,6 +15,15 @@ public class IngredientController : MonoBehaviour
     public GameObject makeHotCup;
     public GameObject makeIceCup;
 
+    public GameObject Espresso;
+    public GameObject IceAmericano;
+    public GameObject HotAmericano;
+    public GameObject IceLatte;
+    public GameObject HotLatte;
+    public GameObject HibiscusTea;
+    public GameObject ChamomileTea;
+    public GameObject RooibosTea;
+    public GameObject GreenTea;
 
 
     void Start()
@@ -52,17 +61,27 @@ public class IngredientController : MonoBehaviour
     {
         if (makeArea != null && makeArea.GetComponent<Collider2D>().bounds.Contains(transform.position))
         {
-            Debug.Log(gameObject.name + " dropped on MakeArea");
-            cafeMakeController.HandleMakeArea(gameObject);
+            if (!Espresso.activeSelf && !IceAmericano.activeSelf && !HotAmericano.activeSelf && !IceLatte.activeSelf && !HotLatte.activeSelf &&
+                !GreenTea.activeSelf && !HibiscusTea.activeSelf && !ChamomileTea.activeSelf && !RooibosTea.activeSelf)
+            {
+                if (!makeHotCup.activeSelf && gameObject.name == "IceCup")
+                {
+                    makeIceCup.SetActive(true);
+                }
+                else if (!makeIceCup.activeSelf && gameObject.name == "HotCup")
+                {
+                    makeHotCup.SetActive(true);
+                }
+                Debug.Log(gameObject.name + " dropped on MakeArea");
+                if (!(makeHotCup.activeSelf && gameObject.name == "IceCup") &&
+                !(makeIceCup.activeSelf && gameObject.name == "HotCup"))
+                {
+                    Debug.Log(gameObject.name + " dropped on MakeArea");
+                    cafeMakeController.HandleMakeArea(gameObject);
+                }
+            }
         }
-        if (gameObject.name == "IceCup")
-        {
-            makeIceCup.SetActive(true);
-        }
-        else if (gameObject.name == "HotCup")
-        {
-            makeHotCup.SetActive(true);
-        }
+        
         transform.position = defaultPos;
     }
 
