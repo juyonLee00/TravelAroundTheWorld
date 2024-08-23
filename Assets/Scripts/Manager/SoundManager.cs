@@ -14,10 +14,12 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
+    private AudioSource dialogueSource;
     private Coroutine fadeCoroutine;
 
     private string currentMusicClipName;
     private string currentSFXClipName;
+    private string currentDialogueClipName;
 
     private void Awake()
     {
@@ -41,6 +43,9 @@ public class SoundManager : MonoBehaviour
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
 
+        dialogueSource = gameObject.AddComponent<AudioSource>(); // 대화용 오디오 소스 초기화
+        dialogueSource.loop = false;
+
         ApplyVolumeSettings();
     }
 
@@ -50,6 +55,7 @@ public class SoundManager : MonoBehaviour
         SetSFXVolume(sfxSource.volume);
     }
 
+    //배경음악 재생
     public void PlayMusic(string audioClipName, bool loop = true)
     {
         string resourcePath = $"Sounds/{audioClipName}";
@@ -77,21 +83,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeMusic(AudioClip newClip, bool loop)
-    {
-        if (musicSource.isPlaying)
-        {
-            yield return StartCoroutine(FadeOut(musicSource, fadeDuration));
-        }
-
-        musicSource.clip = newClip;
-        musicSource.loop = loop;
-        musicSource.Play();
-
-        yield return StartCoroutine(FadeIn(musicSource, fadeDuration));
-    }
-
-
+    //효과음 재생
     public void PlaySFX(string audioClipName)
     {
         string resourcePath = $"Sounds/{audioClipName}";
@@ -113,6 +105,46 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning($"No SFX found for audio clip in folder: {resourcePath}");
         }
+    }
+
+    //대화창 사운드 재생
+    public void PlayDialogueSound(string audioClipName)
+    {
+        string resourcePath = $"Sounds/{audioClipName}";
+        currentDialogueClipName = audioClipName;
+        StartCoroutine(LoadAndPlayDialogueSound(resourcePath));
+    }
+
+
+    private IEnumerator LoadAndPlayDialogueSound(string resourcePath)
+    {
+        ResourceRequest request = Resources.LoadAsync<AudioClip>(resourcePath);
+        yield return request;
+
+        AudioClip dialogueClip = request.asset as AudioClip;
+        if (dialogueClip != null)
+        {
+            dialogueSource.PlayOneShot(dialogueClip);
+        }
+        else
+        {
+            Debug.LogWarning($"No dialogue sound found for audio clip in folder: {resourcePath}");
+        }
+    }
+
+    //FadeIn 위한 코루틴 설정
+    private IEnumerator FadeMusic(AudioClip newClip, bool loop)
+    {
+        if (musicSource.isPlaying)
+        {
+            yield return StartCoroutine(FadeOut(musicSource, fadeDuration));
+        }
+
+        musicSource.clip = newClip;
+        musicSource.loop = loop;
+        musicSource.Play();
+
+        yield return StartCoroutine(FadeIn(musicSource, fadeDuration));
     }
 
     private IEnumerator FadeIn(AudioSource audioSource, float duration)
@@ -146,6 +178,7 @@ public class SoundManager : MonoBehaviour
         audioSource.Stop();
     }
 
+
     public void SetBGMVolume(float volume)
     {
         musicSource.volume = volume;
@@ -156,6 +189,8 @@ public class SoundManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         sfxSource.volume = volume;
+        dialogueSource.volume = volume;
+
         //오디오믹서 적용 후 수정 
         //audioMixer.SetFloat(sfxVolumeParameter, Mathf.Log10(volume) * 20);
     }
@@ -192,6 +227,12 @@ public class SoundManager : MonoBehaviour
     {
         sfxSource.Stop();
         currentSFXClipName = null; // 현재 재생 중인 SFX 클립 이름 초기화
+    }
+
+    public void StopDialogueSound()
+    {
+        dialogueSource.Stop();
+        currentDialogueClipName = null;
     }
 
     public void StopCurrentMusic()

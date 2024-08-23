@@ -60,6 +60,7 @@ public class Ch0TypeEffect : MonoBehaviour
     void EffectEnd()
     {
         isTyping = false;
+        SoundManager.Instance.StopDialogueSound();
         if (endCursor != null)
         {
             endCursor.SetActive(true);

@@ -49,6 +49,13 @@ public class CafeTalkManager : MonoBehaviour
 
     private Dictionary<string, Sprite> characterImages;
 
+    public ProDialogue currentDialogue;
+
+    public Ch0DialogueBar dialogueBar;
+    public Ch0DialogueBar narrationBar;
+    public Ch0DialogueBar openingBar;
+
+
     void Awake()
     {
         proDialogue = new List<ProDialogue>();
@@ -90,15 +97,35 @@ public class CafeTalkManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentDialogueIndex != 0 && currentDialogueIndex != 39 &&
+
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (!anyTyping)
+            {
+                if (currentDialogueIndex != 0 && currentDialogueIndex != 39 &&
                 currentDialogueIndex != 41 && currentDialogueIndex != 45 &&
                 currentDialogueIndex != 47 && currentDialogueIndex != 48 &&
                 currentDialogueIndex != 49)
-            {
-                currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
-                PrintProDialogue(currentDialogueIndex);
+                {
+                    currentDialogueIndex++;
+                    SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                    PrintProDialogue(currentDialogueIndex);
+                }
             }
+                
         }
     }
 
@@ -182,7 +209,7 @@ public class CafeTalkManager : MonoBehaviour
             return;
         }
 
-        ProDialogue currentDialogue = proDialogue[index];
+        currentDialogue = proDialogue[index];
 
 
         // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
@@ -198,8 +225,9 @@ public class CafeTalkManager : MonoBehaviour
         {
             explainBar.SetActive(false);
             dialogue.SetActive(true);
-            nameText.text = currentDialogue.speaker;
-            descriptionText.text = currentDialogue.line;
+            dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line);
+            //nameText.text = currentDialogue.speaker;
+            //descriptionText.text = currentDialogue.line;
             Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
 
             if (imageObj.GetComponent<SpriteRenderer>() != null)
@@ -310,7 +338,8 @@ public class CafeTalkManager : MonoBehaviour
             CafeMap.SetActive(false);
             dialogue.SetActive(false);
             narration.SetActive(true);
-            narrationText.text = currentDialogue.line;
+            narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line);
+            //narrationText.text = currentDialogue.line;
             narrBack.SetActive(true);
         }
 
