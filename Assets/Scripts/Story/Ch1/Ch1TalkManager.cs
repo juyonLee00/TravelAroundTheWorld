@@ -84,6 +84,8 @@ public class Ch1TalkManager : MonoBehaviour
 
     public bool isTransition = false;
 
+    public string speakerKey;
+
     void Awake()
     {
         Instance = this;
@@ -286,7 +288,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 75) // 룸서비스 랜덤 4건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 4건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 76, 4);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 77, 4);
         }
         else if (index == 78) // 랜덤 주문 1건
         {
@@ -316,7 +318,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 148) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 149, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 150, 3);
         }
         else if (index == 151) // 랜덤 주문 2건
         {
@@ -342,7 +344,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 276) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 277, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 278, 3);
         }
         else if (index == 279) // 아아 1잔 직접 주문
         {
@@ -368,7 +370,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 366) // 룸서비스 랜덤 3건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 3건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 367, 3);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 368, 3);
         }
         else if (index == 369) // 랜덤 주문 5건
         {
@@ -390,7 +392,7 @@ public class Ch1TalkManager : MonoBehaviour
         else if (index == 411) // 룸서비스 랜덤 5건
         {
             Debug.Log("배달 랜덤 룸서비스 주문 5건");
-            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 412, 5);
+            SceneTransitionManager.Instance.HandleDialogueTransition("ch1Scene", "CafeScene", 413, 5);
         }
         else if (index == 414) // 랜덤 주문 4건
         {
@@ -554,7 +556,7 @@ public class Ch1TalkManager : MonoBehaviour
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
         
         string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
-        string speakerKey = currentDialogue.speaker;
+        speakerKey = currentDialogue.speaker;
 
         // 인물과 표정을 포함한 최종 키 생성
         string finalKey = speakerKey + expressionKey;

@@ -106,7 +106,14 @@ public class ChoiceBtn : MonoBehaviour
 
             if (talkManager != null)
             {
-                if (talkManager.currentDialogueIndex == 29) //2->3
+                if (talkManager.currentDialogueIndex == 200)
+                {
+                    bedNarration.GetComponent<TextMeshProUGUI>().text = "상점을 이용하는 게 좋을 것 같다.";
+                    bedNarration.SetActive(true);
+                    UIManager.Instance.DeactivatedUI("Bed");
+                    return;
+                }
+                else if (talkManager.currentDialogueIndex == 29) //2->3
                 {
                     talkManager.isWaitingForPlayer = false;
                     talkManager.player.SetActive(false);
