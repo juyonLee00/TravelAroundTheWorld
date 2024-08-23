@@ -10,6 +10,8 @@ public class Shop : MonoBehaviour
     public GameObject teaSet;
 
     bool notactive = true;
+
+    //public GameObject playerManager;
     // Start is called before the first frame update
     void Start()
     { 
@@ -22,7 +24,6 @@ public class Shop : MonoBehaviour
     private void OnEnable()
     {
         SoundManager.Instance.PlayMusic("Acheetahshop", true);
-        //PlayerManager.Instance.SetPlayerData(0);
         Transform parentTransform = transform.parent;
 
         if (PlayerManager.Instance.IsBoughtCafeItem("milk"))
@@ -42,6 +43,6 @@ public class Shop : MonoBehaviour
     }
     private void OnDisable()
     {
-        
+        SoundManager.Instance.StopMusic();
     }
 }

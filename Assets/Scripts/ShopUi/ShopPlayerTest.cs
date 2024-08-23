@@ -9,7 +9,14 @@ public class ShopPlayerTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerManager.Instance.SetPlayerData(0);
+        SaveDataManager.Instance.DeleteSave(0);
+        SaveDataManager.Instance.SetActiveSlot(0);
+        PlayerManager.Instance.SetPlayerData(0);
+        //SaveDataManager.Instance.DeleteSave(0);
+
+        Debug.Log(SaveDataManager.Instance.HasSaveData());
+        //SaveDataManager.Instance
+        Debug.Log(PlayerManager.Instance.GetMoney());
     }
 
     // Update is called once per frame
