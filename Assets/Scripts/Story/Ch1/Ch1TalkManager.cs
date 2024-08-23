@@ -175,6 +175,8 @@ public class Ch1TalkManager : MonoBehaviour
 
             if (currentDialogueIndex == 4)
                 destPointObject.SetActive(true);
+            else
+                destPointObject.SetActive(false);
 
             // 타이핑 중이었으면 아래 코드는 실행하지 않음
             if (!anyTyping)
