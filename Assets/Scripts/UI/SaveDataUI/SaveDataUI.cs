@@ -35,7 +35,7 @@ public class SaveDataUI : MonoBehaviour
         defaultPos = Vector2.zero;
         titlePos = new Vector2(-315, 395);
         scrollPos = new Vector2(0, -25);
-        exitPos = new Vector2(-620, 400);
+        exitPos = new Vector2(494, 315);
     }
 
     public void CreateUIComponent(GameObject obj, Vector2 pos)
