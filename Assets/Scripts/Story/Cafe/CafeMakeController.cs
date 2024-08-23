@@ -36,6 +36,49 @@ public class CafeMakeController : MonoBehaviour
     private int randomNum = SceneTransitionManager.Instance.GetRandomMenuNum();
     private int deliveryNum = SceneTransitionManager.Instance.GetDeliveryNum();
 
+    private SpriteRenderer iceCupSpriteRenderer;
+    private SpriteRenderer hotCupSpriteRenderer;
+
+    public Sprite IceCup;
+    public Sprite IceCupWithIce;
+    public Sprite IceCupWithWater;
+    public Sprite IceCupWithWaterIce;
+    public Sprite IceCupWithShot;
+    public Sprite IceCupWithMilk;
+    public Sprite IceCupWithMilkIce;
+
+    public Sprite HotCup;
+    public Sprite HotCupWithWater;
+    public Sprite HotCupWithShot;
+    public Sprite HotCupWithMilk;
+    public Sprite HotCupWithGreen;
+    public Sprite HotCupWithHibiscus;
+    public Sprite HotCupWithChamomile;
+    public Sprite HotCupWithRooibos;
+
+    void Start()
+    {
+        iceCupSpriteRenderer = makeIceCup.GetComponent<SpriteRenderer>();
+        hotCupSpriteRenderer = makeHotCup.GetComponent<SpriteRenderer>();
+
+        IceCup = Resources.Load<Sprite>("CafeMaking/IceCup");
+        IceCupWithIce = Resources.Load<Sprite>("CafeMaking/IceCup+Ice");
+        IceCupWithWater = Resources.Load<Sprite>("CafeMaking/IceCup+Water");
+        IceCupWithWaterIce = Resources.Load<Sprite>("CafeMaking/IceCup+Water+Ice");
+        IceCupWithShot = Resources.Load<Sprite>("CafeMaking/IceCup+Shot");
+        IceCupWithMilk = Resources.Load<Sprite>("CafeMaking/IceCup+Milk");
+        IceCupWithMilkIce = Resources.Load<Sprite>("CafeMaking/IceCup+Milk+Ice");
+
+        HotCup = Resources.Load<Sprite>("CafeMaking/HotCup");
+        HotCupWithWater = Resources.Load<Sprite>("CafeMaking/HotCup+Water");
+        HotCupWithShot = Resources.Load<Sprite>("CafeMaking/HotCup+Shot");
+        HotCupWithMilk = Resources.Load<Sprite>("CafeMaking/IHotCup+Milk");
+        HotCupWithGreen = Resources.Load<Sprite>("CafeMaking/HotCup+Green");
+        HotCupWithHibiscus = Resources.Load<Sprite>("CafeMaking/HotCup+Hibiscus");
+        HotCupWithChamomile = Resources.Load<Sprite>("CafeMaking/HotCup+Chamonile");
+        HotCupWithRooibos = Resources.Load<Sprite>("CafeMaking/HotCup+Rooibos");
+    }
+
     void OnEnable()
     {
         deliveryOrder = deliveryData.deliveryOrder;
@@ -73,11 +116,59 @@ public class CafeMakeController : MonoBehaviour
                 SoundManager.Instance.PlaySFX("tea stir");
             }
         }
+        CupDisPlay();
     }
 
+    private void CupDisPlay()
+    {
+        if (currentIngredients.Contains("IceCup"))
+        {
+            iceCupSpriteRenderer.sprite = IceCup;
+            if (currentIngredients.Contains("Shot") && !(currentIngredients.Contains("Water") || currentIngredients.Contains("Ice") || currentIngredients.Contains("Milk")))
+            {
+                iceCupSpriteRenderer.sprite = IceCupWithShot;
+            }
+            else if (currentIngredients.Contains("Ice") && !currentIngredients.Contains("Water") && !currentIngredients.Contains("Milk"))
+                iceCupSpriteRenderer.sprite = IceCupWithIce;
+            else if (currentIngredients.Contains("Water"))
+            {
+                if (currentIngredients.Contains("Ice"))
+                    iceCupSpriteRenderer.sprite = IceCupWithWaterIce;
+                else
+                    iceCupSpriteRenderer.sprite = IceCupWithWater;
+            }
+            else if (currentIngredients.Contains("Milk"))
+            {
+                if (currentIngredients.Contains("Ice"))
+                    iceCupSpriteRenderer.sprite = IceCupWithMilkIce;
+                else
+                    iceCupSpriteRenderer.sprite = IceCupWithMilk;
+            }
+        }
+        else if (currentIngredients.Contains("HotCup"))
+        {
+            hotCupSpriteRenderer.sprite = HotCup;
+
+            if (currentIngredients.Contains("Water"))
+                hotCupSpriteRenderer.sprite = HotCupWithWater;
+            else if (currentIngredients.Contains("Milk"))
+                hotCupSpriteRenderer.sprite = HotCupWithMilk;
+            else if (currentIngredients.Contains("Shot"))
+                hotCupSpriteRenderer.sprite = HotCupWithShot;
+            else if (currentIngredients.Contains("GreenTeaLeaf"))
+                hotCupSpriteRenderer.sprite = HotCupWithGreen;
+            else if (currentIngredients.Contains("HibiscusLeaf"))
+                hotCupSpriteRenderer.sprite = HotCupWithHibiscus;
+            else if (currentIngredients.Contains("ChamomileLeaf"))
+                hotCupSpriteRenderer.sprite = HotCupWithChamomile;
+            else if (currentIngredients.Contains("RooibosLeaf"))
+                hotCupSpriteRenderer.sprite = HotCupWithRooibos;
+        }
+    }
 
         public void CheckRecipe()
     {
+
         Debug.Log("Current ingredients: " + string.Join(", ", currentIngredients)); // 리스트의 현재 상태를 출력
 
         if ((currentIngredients.Contains("HotCup") || currentIngredients.Contains("MakeHotCup")) && currentIngredients.Contains("Shot"))
