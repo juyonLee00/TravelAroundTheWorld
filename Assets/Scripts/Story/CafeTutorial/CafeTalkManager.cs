@@ -97,15 +97,35 @@ public class CafeTalkManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentDialogueIndex != 0 && currentDialogueIndex != 39 &&
+
+            bool anyTyping = false;
+
+            // 순서대로 확인
+            if (narration != null && narration.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                narration.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (dialogue != null && dialogue.GetComponentInChildren<Ch0DialogueBar>().IsTyping())
+            {
+                dialogue.GetComponentInChildren<Ch0DialogueBar>().CompleteTypingEffect();
+                anyTyping = true;
+            }
+
+            if (!anyTyping)
+            {
+                if (currentDialogueIndex != 0 && currentDialogueIndex != 39 &&
                 currentDialogueIndex != 41 && currentDialogueIndex != 45 &&
                 currentDialogueIndex != 47 && currentDialogueIndex != 48 &&
                 currentDialogueIndex != 49)
-            {
-                currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
-                PrintProDialogue(currentDialogueIndex);
+                {
+                    currentDialogueIndex++;
+                    SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                    PrintProDialogue(currentDialogueIndex);
+                }
             }
+                
         }
     }
 
