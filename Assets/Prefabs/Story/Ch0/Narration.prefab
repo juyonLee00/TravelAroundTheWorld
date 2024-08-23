@@ -48,7 +48,7 @@ Canvas:
   m_GameObject: {fileID: 8411330139462047332}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -281,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 6354632011011924063, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 150da097314b8ab45839e266a1e906b7, type: 2}
+      objectReference: {fileID: 11400000, guid: b3921606c6b4b3847840fd57267d6d52, type: 2}
     - target: {fileID: 6354632011011924063, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -308,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6354632011011924063, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488439897264753904, guid: 9a024d7f3011f4879b4aa43bede1e689, type: 3}
       propertyPath: m_Pivot.x
