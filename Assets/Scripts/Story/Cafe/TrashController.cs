@@ -56,6 +56,8 @@ public class TrashController : MonoBehaviour
         {
             trash.SetActive(false);
         }
+        else if (trash.name == "Shot")
+            trash.SetActive(false);
     }
 
     private void ResetSprite()

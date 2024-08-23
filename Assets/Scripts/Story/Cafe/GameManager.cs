@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
                 CafeMap.SetActive(false);
                 SoundManager.Instance.PlaySFX("click sound");
             }
+            /*
             if (clickedObject !=   null && clickedObject.name == "RoomService")
             {
                 Delivery.SetActive(true);
@@ -79,7 +80,9 @@ public class GameManager : MonoBehaviour
             {
                 RecipeBook.SetActive(true);
                 CafeMap.SetActive(false);
+                Beverage.SetActive(false);
             }
+            */
             if (clickedObject != null && clickedObject.name == "Extract")
             {
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
