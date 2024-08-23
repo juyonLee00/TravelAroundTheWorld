@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB300\uD654\uD558\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 150da097314b8ab45839e266a1e906b7, type: 2}
-  m_sharedMaterial: {fileID: 3618515533821841523, guid: 150da097314b8ab45839e266a1e906b7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b3921606c6b4b3847840fd57267d6d52, type: 2}
+  m_sharedMaterial: {fileID: -6232656244177144099, guid: b3921606c6b4b3847840fd57267d6d52, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 1.5
+  m_fontSizeBase: 1.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -266,7 +266,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 39.6, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8794377007748118748}
@@ -313,7 +313,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 0dd5432d070d55243a81bd3da00b5b55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af621bf9b7b6aab4886f2544f848d245, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -366,9 +366,10 @@ MonoBehaviour:
   interactionButton: {fileID: 7602197931878885884}
   locationName: "\uC758\uBB34\uC2E4"
   playerTransform: {fileID: 0}
-  interactionDistance: 2
+  interactionDistance: 1
   talkActived: 0
   talkManager: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!61 &8492902798634757816
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -398,21 +399,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.28435898, y: -2.4196439}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8, y: 2.7}
+    oldSize: {x: 20, y: 20}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 2.5}
+  m_Size: {x: 3.9748, y: 4.4246435}
   m_EdgeRadius: 0
 --- !u!1 &7602197931878885884
 GameObject:
@@ -451,8 +452,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 5.3, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: -1.7499995}
+  m_SizeDelta: {x: 9.5, y: 3.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &550476614145765585
 CanvasRenderer:
