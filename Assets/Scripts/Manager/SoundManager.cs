@@ -40,6 +40,14 @@ public class SoundManager : MonoBehaviour
         
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
+
+        ApplyVolumeSettings();
+    }
+
+    private void ApplyVolumeSettings()
+    {
+        SetBGMVolume(musicSource.volume);
+        SetSFXVolume(sfxSource.volume);
     }
 
     public void PlayMusic(string audioClipName, bool loop = true)
@@ -109,9 +117,8 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator FadeIn(AudioSource audioSource, float duration)
     {
-        audioSource.volume = 0;
-        float startVolume = audioSource.volume;
-        float endVolume = 1;
+        float startVolume = 0;
+        float endVolume = audioSource.volume;
 
         float elapsedTime = 0;
         while (elapsedTime < duration)
