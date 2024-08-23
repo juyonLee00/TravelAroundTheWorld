@@ -10,12 +10,14 @@ public class SoundManager : MonoBehaviour
     public AudioMixer audioMixer;
     public string bgmVolumeParameter = "BGMVolume";
     public string sfxVolumeParameter = "SFXVolume"; 
-    public float fadeDuration = 1.0f; 
+    private float fadeDuration = 0.02f; 
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
     private AudioSource dialogueSource;
     private Coroutine fadeCoroutine;
+
+    private float prevAudioVolume;
 
     private string currentMusicClipName;
     private string currentSFXClipName;
@@ -60,6 +62,7 @@ public class SoundManager : MonoBehaviour
     {
         string resourcePath = $"Sounds/{audioClipName}";
         currentMusicClipName = audioClipName;
+        prevAudioVolume = musicSource.volume;
         StartCoroutine(LoadAndPlayMusic(resourcePath, loop));
     }
 
@@ -67,15 +70,18 @@ public class SoundManager : MonoBehaviour
     {
         ResourceRequest request = Resources.LoadAsync<AudioClip>(resourcePath);
         yield return request;
-
+        Debug.Log("LoadAndPlay");
         AudioClip musicClip = request.asset as AudioClip;
         if (musicClip != null)
         {
             if (fadeCoroutine != null)
             {
+                Debug.Log("StopCoroutine");
                 StopCoroutine(fadeCoroutine);
             }
+            Debug.Log("StartCoroutine");
             fadeCoroutine = StartCoroutine(FadeMusic(musicClip, loop));
+            Debug.Log("EndCoroutine");
         }
         else
         {
@@ -137,9 +143,9 @@ public class SoundManager : MonoBehaviour
     {
         if (musicSource.isPlaying)
         {
+           //해당 코루틴이 켜지면 맵 이동시 사운드가 0이 된 상태로 유지되어서 수정 필요
             yield return StartCoroutine(FadeOut(musicSource, fadeDuration));
         }
-
         musicSource.clip = newClip;
         musicSource.loop = loop;
         musicSource.Play();
@@ -149,8 +155,9 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator FadeIn(AudioSource audioSource, float duration)
     {
+        Debug.Log("PlayMusic");
         float startVolume = 0;
-        float endVolume = audioSource.volume;
+        float endVolume = prevAudioVolume;
 
         float elapsedTime = 0;
         while (elapsedTime < duration)
@@ -160,6 +167,7 @@ public class SoundManager : MonoBehaviour
             yield return null;
         }
         audioSource.volume = endVolume;
+        Debug.Log(audioSource.volume);
     }
 
     private IEnumerator FadeOut(AudioSource audioSource, float duration)
@@ -182,6 +190,7 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         musicSource.volume = volume;
+        prevAudioVolume = volume;
         //오디오 믹서 적용 후 수정
         //audioMixer.SetFloat(bgmVolumeParameter, Mathf.Log10(volume) * 20);
     }
