@@ -84,6 +84,8 @@ public class Ch1TalkManager : MonoBehaviour
 
     public bool isTransition = false;
 
+    public string speakerKey;
+
     void Awake()
     {
         Instance = this;
@@ -554,7 +556,7 @@ public class Ch1TalkManager : MonoBehaviour
         Ch1ProDialogue currentDialogue = ch1ProDialogue[index];
         
         string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
-        string speakerKey = currentDialogue.speaker;
+        speakerKey = currentDialogue.speaker;
 
         // 인물과 표정을 포함한 최종 키 생성
         string finalKey = speakerKey + expressionKey;

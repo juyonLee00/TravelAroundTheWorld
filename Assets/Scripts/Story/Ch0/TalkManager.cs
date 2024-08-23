@@ -85,6 +85,8 @@ public class TalkManager : MonoBehaviour
     //스페이스바 키 보여주는 오브젝트
     public GameObject pressKeyObject;
 
+    public string speakerKey;
+
     void Awake()
     {
         Instance = this;
@@ -251,7 +253,7 @@ public class TalkManager : MonoBehaviour
         ProDialogue currentDialogue = proDialogue[index];
 
         string expressionKey = !string.IsNullOrEmpty(currentDialogue.expression) ? $"_{currentDialogue.expression}" : "";
-        string speakerKey = "";
+        speakerKey = "";
 
         //인물이 ???인 경우 장소에 따라 이미지 처리
         if (currentDialogue.speaker == unknownSpeaker)
