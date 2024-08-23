@@ -190,6 +190,7 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         musicSource.volume = volume;
+        prevAudioVolume = volume;
         //오디오 믹서 적용 후 수정
         //audioMixer.SetFloat(bgmVolumeParameter, Mathf.Log10(volume) * 20);
     }
