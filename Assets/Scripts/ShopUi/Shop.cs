@@ -21,6 +21,7 @@ public class Shop : MonoBehaviour
     }
     private void OnEnable()
     {
+        SoundManager.Instance.PlayMusic("Acheetahshop", true);
         //PlayerManager.Instance.SetPlayerData(0);
         Transform parentTransform = transform.parent;
 
@@ -38,5 +39,9 @@ public class Shop : MonoBehaviour
         {
             Instantiate(nomal, parentTransform);
         }
+    }
+    private void OnDisable()
+    {
+        
     }
 }

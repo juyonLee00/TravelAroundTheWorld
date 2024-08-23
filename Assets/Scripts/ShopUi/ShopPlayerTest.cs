@@ -9,7 +9,7 @@ public class ShopPlayerTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerManager.Instance.SetPlayerData(0);
+        //PlayerManager.Instance.SetPlayerData(0);
     }
 
     // Update is called once per frame
@@ -20,6 +20,6 @@ public class ShopPlayerTest : MonoBehaviour
 
     public void MakeMoney()
     {
-        PlayerManager.Instance.EarnMoney(500);
+        PlayerManager.Instance.EarnMoney(1000);
     }
 }
