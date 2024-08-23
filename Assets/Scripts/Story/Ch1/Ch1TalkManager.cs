@@ -54,6 +54,8 @@ public class Ch1TalkManager : MonoBehaviour
 
     public bool bedUsed = false; // 침대를 사용했는지 여부
 
+    public GameObject destPointObject;
+
     // 문자열 상수 선언
     private const string narrationSpeaker = "나레이션";
     private const string letterSpeaker = "편지지";
@@ -171,6 +173,11 @@ public class Ch1TalkManager : MonoBehaviour
                 anyTyping = true;
             }
 
+            if (currentDialogueIndex == 4)
+                destPointObject.SetActive(true);
+            else
+                destPointObject.SetActive(false);
+
             // 타이핑 중이었으면 아래 코드는 실행하지 않음
             if (!anyTyping)
             {
@@ -196,6 +203,7 @@ public class Ch1TalkManager : MonoBehaviour
             // 카페바에 도착하면 스토리 다시 진행
             if (mapManager.currentState == MapState.Cafe && mapManager.isInCafeBarZone && (currentDialogueIndex == 5 || currentDialogueIndex == 73 || currentDialogueIndex == 146 || currentDialogueIndex == 274 || currentDialogueIndex == 364 || currentDialogueIndex == 409 || currentDialogueIndex == 456 || currentDialogueIndex == 518))
             {
+                destPointObject.SetActive(false);
                 isWaitingForPlayer = false;
                 player.SetActive(false);
                 map.SetActive(false);
