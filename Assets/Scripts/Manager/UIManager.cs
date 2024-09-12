@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject saveDataPopupPrefab;
     public GameObject bedInteractionUIPrefab;
     public GameObject diaryInteractionUIPrefab;
+    public GameObject groupUIPrefab;
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
     private Canvas canvas;
@@ -66,7 +67,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        string[] uiNames = { "Inventory", "Setting", "Map", "Load", "SaveData", "SaveDataPopup", "Bed", "Diary" };
+        string[] uiNames = { "Inventory", "Setting", "Map", "Load", "SaveData", "SaveDataPopup", "Bed", "Diary", "Group" };
 
         foreach (var uiName in uiNames)
         {
@@ -152,6 +153,7 @@ public class UIManager : MonoBehaviour
             "SaveDataPopup" => saveDataPopupPrefab,
             "Bed" => bedInteractionUIPrefab,
             "Diary" => diaryInteractionUIPrefab,
+            "Group" => groupUIPrefab,
             _ => null,
         };
     }
@@ -221,5 +223,17 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    //현재 활성화된 UI를 확인 후 해당 UI를 종료하는 기능으로 수정 예정
+    public void CancleUIFunc()
+    {
+        if (SceneManagerEx.Instance.GetCurrentSceneName() != "StartScene")
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().StartMove();
+        }
+
+        SoundManager.Instance.PlaySFX("click sound");
+        UIManager.Instance.DeactivatedUI("SaveData");
     }
 }
