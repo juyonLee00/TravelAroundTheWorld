@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isColliding = false;
 
+    //필요한 오브젝트 세팅
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         currentTargetClickAnimator.SetBool("isTargeted", true);
     }
 
+    //Move관련 체크
     void Update()
     {
         if (!UIManager.Instance.IsUIActive() && canMove)// && !isColliding)
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //키보드 이동
     void OnMove(InputValue inputValue)
     {
         if (canMove && !isColliding)
@@ -67,51 +70,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void Move()
-    {
-        if (UIManager.Instance.IsUIActive())
-            inputVector = Vector2.zero;
-
-        if (inputVector != Vector2.zero)
-        {
-            Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
-            rigid.MovePosition(rigid.position + moveVector);
-        }
-
-        else if(inputVector == Vector2.zero)
-        {
-            playerAnimationController.SetMoveDirection(Vector2.zero);
-        }
-
-    }
-
-    void OnInventory()
-    {
-        if (canMove)
-        {
-            UIManager.Instance.ToggleUI("Inventory");
-        }
-    }
-
-    void OnSetting()
-    {
-        if (canMove)
-        {
-            UIManager.Instance.ToggleUI("Setting");
-        }
-    }
-
-    /*
-    void OnMap()
-    {
-        if (canMove)
-        {
-            UIManager.Instance.ToggleUI("Map");
-        }
-    }
-    */
-
-
+    //마우스 클릭시 이동
     void OnMouseMove()
     {
         if (!UIManager.Instance.IsUIActive() && canMove && !isColliding)
@@ -136,20 +95,65 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //이동 관련 처리
+    void Move()
+    {
+        if (UIManager.Instance.IsUIActive())
+            inputVector = Vector2.zero;
+
+        if (inputVector != Vector2.zero)
+        {
+            Vector2 moveVector = inputVector.normalized * speed * Time.deltaTime;
+            rigid.MovePosition(rigid.position + moveVector);
+        }
+
+        else if (inputVector == Vector2.zero)
+        {
+            playerAnimationController.SetMoveDirection(Vector2.zero);
+        }
+
+    }
+
+    //이동 중지
     public void StopMove()
     {
         canMove = false;
         inputVector = Vector2.zero;
         playerAnimationController.SetMoveDirection(Vector2.zero);
-        playerAnimationController.StopMovingCoroutine(); 
+        playerAnimationController.StopMovingCoroutine();
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         currentTargetClick.SetActive(false);
         currentTargetClickAnimator.SetBool("isTargeted", false);
     }
 
+    //이동 재개
     public void StartMove()
     {
         canMove = true;
+    }
+
+    void OnInteraction()
+    {
+
+    }
+
+    void InteractionWithObject()
+    {
+
+    }
+
+    void OnMouseClickObject()
+    {
+
+    }
+
+    void OnShowGroupUI()
+    {
+        //
+        if(canMove)
+        {
+            UIManager.Instance.ToggleUI("GroupUI");
+        }
     }
 
 
@@ -174,5 +178,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    /*
+세팅창 활성화
+void OnSetting()
+{
+    if (canMove)
+    {
+        UIManager.Instance.ToggleUI("Setting");
+    }
+}
+
+인벤토리창 활성화
+void OnInventory()
+{
+    if (canMove)
+    {
+        UIManager.Instance.ToggleUI("Inventory");
+    }
+}
+*/
+
+    /*
+    맵 활성화
+    void OnMap()
+    {
+        if (canMove)
+        {
+            UIManager.Instance.ToggleUI("Map");
+        }
+    }
+    */
+
 }
