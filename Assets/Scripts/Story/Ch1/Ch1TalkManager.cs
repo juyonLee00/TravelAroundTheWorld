@@ -72,7 +72,6 @@ public class Ch1TalkManager : MonoBehaviour
     public int currentDialogueIndex = 0; // 현재 대사 인덱스
     private bool isActivated = false; // TalkManager가 활성화되었는지 여부
 
-    public QuestManager questManager; // 퀘스트 매니저 참조
     public PlayerController playerController; // 플레이어 컨트롤러 참조
     public Ch1MapManager mapManager; // 맵 매니저 참조
 
@@ -457,12 +456,6 @@ public class Ch1TalkManager : MonoBehaviour
 
             ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
 
-            // 퀘스트가 존재하면 QuestManager를 통해 퀘스트 저장
-            /*if (!string.IsNullOrEmpty(quest))
-            {
-                QuestManager.Instance.AddQuest(quest, questContent);
-            }*/
-            Debug.Log("LoadDialogueCSV List has Data");
         }
         Debug.Log("daat_dialogue is full ");
     }
