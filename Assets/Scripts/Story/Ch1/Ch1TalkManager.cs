@@ -134,7 +134,7 @@ public class Ch1TalkManager : MonoBehaviour
 
     void Update()
     {
-        if (isShopActive || SceneTransitionManager.Instance.isTransitioning) // 씬 전환 중에는 스페이스바 입력 무시
+        if (isShopActive || SceneTransitionManager.Instance.isTransitioning) // 씬 전환 중에는 입력 무시
         {
             return;
         }
@@ -146,7 +146,7 @@ public class Ch1TalkManager : MonoBehaviour
             PrintCh1ProDialogue(currentDialogueIndex);
         }
 
-        if (isActivated && Input.GetKeyDown(KeyCode.Space) && !isWaitingForPlayer)
+        if (isActivated && Input.GetMouseButtonDown(0) && !isWaitingForPlayer)
         {
             if (isQuestActive)
             {
@@ -456,6 +456,7 @@ public class Ch1TalkManager : MonoBehaviour
 
             ch1ProDialogue.Add(new Ch1ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
 
+            Debug.Log("LoadDialogueCSV List has Data");
         }
         Debug.Log("daat_dialogue is full ");
     }

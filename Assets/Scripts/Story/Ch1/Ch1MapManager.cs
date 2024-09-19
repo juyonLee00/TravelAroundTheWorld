@@ -70,7 +70,7 @@ public class Ch1MapManager : MonoBehaviour
         cafeSubZones["CafeBar"] = new Bounds(cafeBarPosition, cafeBarSize);
     }
 
-    void UpdateMapState()
+    public void UpdateMapState()
     {
         if (playerPosition.x >= -88 && playerPosition.x <= -68 && playerPosition.y >= -5f && playerPosition.y <= 5f)
         {
