@@ -83,6 +83,9 @@ public class StoryTalkManager : MonoBehaviour
 
     public string speakerKey;
 
+    // DialogueTree 객체 추가
+    private DialogueTree dialogueTree;
+
     void Awake()
     {
         InitializeCharacterImages();
@@ -95,6 +98,12 @@ public class StoryTalkManager : MonoBehaviour
     {
         LoadDialogueFromCSV();  // CSV 데이터를 읽고 노드 생성
         LinkNodesFromCSV();     // 노드를 연결
+
+        // 루트 노드가 있는 경우 DialogueTree 초기화
+        if (dialogueNodes.ContainsKey(1))
+        {
+            dialogueTree = new DialogueTree(dialogueNodes[1]);
+        }
     }
 
     // CSV 데이터를 읽어와 StoryDialogueNode 생성
@@ -228,9 +237,9 @@ public class StoryTalkManager : MonoBehaviour
     // 대화를 진행하는 로직
     public void HandleDialogueProgression(int currentNodeId)
     {
-        if (dialogueNodes.ContainsKey(currentNodeId))
+        if (dialogueTree != null && dialogueTree.currentNode != null)
         {
-            StoryDialogueNode currentNode = dialogueNodes[currentNodeId];
+            StoryDialogueNode currentNode = dialogueTree.currentNode;
             StoryDialogue currentDialogue = currentNode.dialogue;
 
             // 나레이션인지, 일반 대사인지 확인하여 처리
@@ -256,8 +265,11 @@ public class StoryTalkManager : MonoBehaviour
             if (currentNode.children.Count > 0)
             {
                 // 다음 노드로 진행
-                StoryDialogueNode nextNode = currentNode.children[0];
-                HandleDialogueProgression(nextNode.nodeId); // 재귀 호출로 다음 대사 진행
+                dialogueTree.MoveToNextNode(); // 첫 번째 자식 노드로 이동
+            }
+            else
+            {
+                Debug.LogWarning("No more dialogues to progress.");
             }
         }
     }

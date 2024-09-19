@@ -619,7 +619,7 @@ public class TalkManager : MonoBehaviour
                             }
                             if (currentDialogueIndex == 132)
                             {
-                                StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene"));
+                                StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene 1"));
                             }
                         }
                     }
