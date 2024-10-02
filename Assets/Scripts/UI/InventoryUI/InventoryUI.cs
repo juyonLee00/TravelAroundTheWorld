@@ -40,7 +40,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         SetInitData();
-        CreateUIComponent(BlurredImgPrefab, blurredImgPos);
+        //CreateUIComponent(BlurredImgPrefab, blurredImgPos);
         CreateUIComponent(inventoryBackgroundPrefab, inventoryBackgroundImgPos);
 
         CreateItemSlots();
