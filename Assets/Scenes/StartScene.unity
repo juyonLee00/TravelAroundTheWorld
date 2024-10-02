@@ -879,7 +879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
       propertyPath: managersToLoad.Array.size
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
       propertyPath: managersToLoad.Array.data[7]
