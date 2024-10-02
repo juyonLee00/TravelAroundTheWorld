@@ -15,7 +15,10 @@ public class UIManager : MonoBehaviour
     public GameObject saveDataUIPrefab;
     public GameObject saveDataPopupPrefab;
     public GameObject bedInteractionUIPrefab;
-    public GameObject diaryInteractionUIPrefab;
+    public GameObject diaryUIPrefab;
+    public GameObject groupUIPrefab;
+    public GameObject questionGroupUIPrefab;
+    //public GameObject saveUIPrefab;
 
     private Dictionary<string, GameObject> uiInstances = new Dictionary<string, GameObject>();
     private Canvas staticUICanvas;
@@ -79,8 +82,9 @@ public class UIManager : MonoBehaviour
 
         //Static : 고정된 데이터
         //Dynamic : 플레이어에 연관된 데이터
-        string[] staticUINames = { "Setting", "SaveData", "SaveDataPopup" };
-        string[] dynamicUINames = { "Inventory", "Map", "Load", "Bed", "Diary" };
+        string[] staticUINames = {};
+        string[] dynamicUINames = {"Group","Inventory", "Map", "Load", "Bed", "Diary", "Setting", "SaveData", "SaveDataPopup", "QuestionGroup"};
+
 
         //Static Canvas에 필요한 UI 생성
         foreach (var uiName in staticUINames)
@@ -127,7 +131,7 @@ public class UIManager : MonoBehaviour
             else
             {
                 // 기존 UI 비활성화
-                if (activeUIStack.Count > 0)
+                /*if (activeUIStack.Count > 0)
                 {
                     string lastActiveUI = activeUIStack.Pop();
                     if (uiInstances.ContainsKey(lastActiveUI) && uiInstances[lastActiveUI] != null)
@@ -135,7 +139,7 @@ public class UIManager : MonoBehaviour
                         uiInstances[lastActiveUI].SetActive(false);
                     }
                 }
-
+                */
                 // 새 UI 활성화
                 uiInstances[uiName].SetActive(true);
                 activeUIStack.Push(uiName);
@@ -213,7 +217,9 @@ public class UIManager : MonoBehaviour
             "SaveData" => saveDataUIPrefab,
             "SaveDataPopup" => saveDataPopupPrefab,
             "Bed" => bedInteractionUIPrefab,
-            "Diary" => diaryInteractionUIPrefab,
+            "Diary" => diaryUIPrefab,
+            "Group" => groupUIPrefab,
+            "QuestionGroup" => questionGroupUIPrefab,
             _ => null,
         };
     }
@@ -306,7 +312,7 @@ public class UIManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    //UI 생,
+    //UI 생성
     public void CreateUIComponent(GameObject obj, Vector2 pos, GameObject parentObj)
     {
         GameObject placedObj = Instantiate(obj);
@@ -327,13 +333,25 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void CreateUIComponent(GameObject obj, Vector2 pos, bool isActivated)
+    public void CreateUIComponent(GameObject obj, Vector2 pos, bool isActivated, GameObject parentObj)
     {
         GameObject placedObj = Instantiate(obj);
-        placedObj.transform.SetParent(gameObject.transform, false);
+        placedObj.transform.SetParent(parentObj.transform, false);
 
         RectTransform rectTransform = placedObj.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = pos;
         placedObj.SetActive(isActivated);
+    }
+
+    public GameObject CreateUIComponentWithScale(GameObject obj, GameObject parentObj, Vector2 scaleData)
+    {
+        GameObject placedObj = Instantiate(obj);
+        placedObj.transform.SetParent(parentObj.transform, false);
+
+        RectTransform rectTransform = placedObj.GetComponent<RectTransform>();
+        rectTransform.localScale = scaleData;
+        placedObj.SetActive(false);
+
+        return placedObj;
     }
 }

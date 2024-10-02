@@ -114,18 +114,17 @@ public class GroupUI : MonoBehaviour
 
     void InventoryFunc()
     {
-        Debug.Log("Inventory UI");
         UIManager.Instance.ToggleUI("Inventory");
     }
 
     void DiaryFunc()
     {
-        //UIManager.Instance.ToggleUI("Diary");
+        UIManager.Instance.ToggleUI("Diary");
     }
 
     void QuestFunc()
     {
-        //UIManager.Instance.ToggleUI("Quest");
+        UIManager.Instance.ToggleUI("QuestionGroup");
     }
 
     void CharacterFunc()
@@ -135,7 +134,6 @@ public class GroupUI : MonoBehaviour
 
     void SettingFunc()
     {
-        Debug.Log("Setting UI");
         UIManager.Instance.ToggleUI("Setting");
     }
 }
