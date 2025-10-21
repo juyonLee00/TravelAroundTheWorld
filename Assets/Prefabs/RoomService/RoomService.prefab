@@ -147,6 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomService: {fileID: 2773904707884386750}
   Bat: {fileID: 1692889138056139523}
+  CafeMap: {fileID: 0}
+  deliveryData: {fileID: 0}
 --- !u!1 &498379262680886937
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +215,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 98cb36c722939554ca397d9142ec53fb, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -290,7 +292,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: a857a8be481d780498d90692cf4f0613, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -416,7 +418,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 04dfa6c1cb52d8948b882e79a352eaae, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -572,6 +574,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomService: {fileID: 2773904707884386750}
   Bat: {fileID: 1692889138056139523}
+  CafeMap: {fileID: 0}
+  deliveryData: {fileID: 0}
 --- !u!1 &1692889138056139523
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +814,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 17828ec6e2374184c8d26946309900c8, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1172,7 +1176,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: f46b558d47b818a478a4ff227e3847ae, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
