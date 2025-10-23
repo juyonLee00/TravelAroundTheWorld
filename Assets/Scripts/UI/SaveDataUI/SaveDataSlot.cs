@@ -98,7 +98,7 @@ public class SaveDataSlot : MonoBehaviour
 
             else
             {
-                PlayerManager.Instance.SetPlayerData(slotIdx);
+                PlayerManager.Instance.SetGameSaveData(slotIdx);
                 PlayerManager.Instance.SetIsLoaded();
                 SceneManagerEx.Instance.SceanLoadQueue(PlayerManager.Instance.GetSceneName());
             }

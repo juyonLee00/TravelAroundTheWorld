@@ -11,7 +11,7 @@ public class ShopPlayerTest : MonoBehaviour
     {
         SaveDataManager.Instance.DeleteSave(0);
         SaveDataManager.Instance.SetActiveSlot(0);
-        PlayerManager.Instance.SetPlayerData(0);
+        PlayerManager.Instance.SetGameSaveData(0);
         //SaveDataManager.Instance.DeleteSave(0);
 
         Debug.Log(SaveDataManager.Instance.HasSaveData());

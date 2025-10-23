@@ -6,10 +6,11 @@ using System;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    public PlayerData currentData;
 
-    public string isAutoSaveTrue = "자동";
-    public string isAutoSaveFalse = "수동";
+    [NonSerialized]
+    private GameSaveData currentData;
+    public const string isAutoSaveTrue = "자동";
+    public const string isAutoSaveFalse = "수동";
 
     //저장된 데이터가 로드되었는지 설정
     private bool isLoaded = false;
@@ -22,7 +23,6 @@ public class PlayerManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
         else
         {
@@ -30,17 +30,29 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerData(int idx)
+    public void SetGameSaveData(int idx)
     {
         if (SaveDataManager.Instance.HasSaveData())
         {
-            playingSaveDataIdx = idx;
-            isLoaded = true;
+            GameSaveData loadedData = SaveDataManager.Instance.LoadGame(idx);
+            if (loadedData != null)
+            {
+                currentData = loadedData;
+                playingSaveDataIdx = idx;
+                isLoaded = true;
+            }
+            else
+            {
+                currentData = new GameSaveData();
+                InitializeGameSaveData();
+                isLoaded = false;
+            }
+
         }
         else
         {
-            currentData = new PlayerData();
-            InitializePlayerData();
+            currentData = new GameSaveData();
+            InitializeGameSaveData();
             //Debug.LogError("Failed to load save data.");
         }
         SaveDataManager.Instance.SetActiveSlot(idx);
@@ -150,7 +162,6 @@ public class PlayerManager : MonoBehaviour
     {
         currentData.currentTimeofDay = DayNightCycleManager.Instance.GetNowDayTime();
     }
-
     public void AddCafeItem(string name)
     {
         currentData.unlockedCafeItems.Add(name);
@@ -162,12 +173,12 @@ public class PlayerManager : MonoBehaviour
     }
 
     //inventory형식 수정 예정-아이템 형식 미정
-    public void AddInventoryItem(GameObject inventoryItem)
+    public void AddInventoryItem(string inventoryItem)
     {
         currentData.inventoryItem.Add(inventoryItem);
     }
 
-    public void DeleteInventoryItem(GameObject inventoryItem)
+    public void DeleteInventoryItem(string inventoryItem)
     {
         currentData.inventoryItem.Remove(inventoryItem);
     }
@@ -206,7 +217,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     
-    private void InitializePlayerData()
+    private void InitializeGameSaveData()
     {
         currentData.saveTime = DateTime.Now;
         currentData.isAutoSave = false;
@@ -218,7 +229,7 @@ public class PlayerManager : MonoBehaviour
         currentData.money = 0;
         currentData.dialogueIdx = 0;
         currentData.unlockedCafeItems = new List<string>();
-        currentData.inventoryItem = new List<GameObject>();
+        currentData.inventoryItem = new List<string>();
         currentData.completedMainQuestIds = new List<string>();
         currentData.completedSubQuestIds = new List<string>();
         currentData.unlockedIllustrationIds = new List<int>();
@@ -247,7 +258,7 @@ public class PlayerManager : MonoBehaviour
 
 
     //다이어리 사용해서 저장
-    public void SavePlayerDataWithDiary()
+    public void SaveGameSaveDataWithDiary()
     {
         currentData.saveTime = DateTime.Now;
         currentData.isAutoSave = false;
@@ -261,7 +272,27 @@ public class PlayerManager : MonoBehaviour
         currentData.currentDay = DayNightCycleManager.Instance.GetCurrentDay();
         currentData.currentTimeofDay = DayNightCycleManager.Instance.GetNowDayTime();
     }
-    
+
+
+    public GameSaveData GetCurrentGameSaveData()
+    {
+        if (currentData == null)
+        {
+            Debug.LogError("SaveData is not initialized");
+            return null;
+        }
+        return currentData;
+    }
+
+    public void SetCurrentGameSaveData(GameSaveData newData)
+    {
+        if(newData == null)
+        {
+            Debug.LogError("NewData can't find");
+            return;
+        }
+        currentData = newData;
+    }
 
 
 }

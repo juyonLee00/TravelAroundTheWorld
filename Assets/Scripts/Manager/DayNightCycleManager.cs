@@ -83,7 +83,7 @@ public class DayNightCycleManager : MonoBehaviour
         {
             ChangeDayTime();
             //현재 인덱스 지점에 저장
-            SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
+            SaveDataManager.Instance.SaveGame(PlayerManager.Instance.GetCurrentGameSaveData());
         }
 
         else

@@ -213,7 +213,7 @@ public class StartBtnGroup : MonoBehaviour
     {
         int btnDataNum = btnDataList.Count;
 
-        for(int i=0; i<btnDataNum; i++)
+        for (int i = 0; i < btnDataNum; i++)
         {
             GameObject btn = Instantiate(startSceneBtnPrefab);
             btn.transform.SetParent(gameObject.transform, false);
@@ -226,7 +226,7 @@ public class StartBtnGroup : MonoBehaviour
             rectTransform.sizeDelta = btnSize;
 
             TextMeshProUGUI btnTxt = btn.GetComponentInChildren<TextMeshProUGUI>();
-            
+
             Button btnComponent = btn.GetComponent<Button>();
 
             btn.name = btnDataList[i].btnName;
@@ -236,7 +236,6 @@ public class StartBtnGroup : MonoBehaviour
         }
 
         CreateSettingBtn();
-
     }
 
     void GameStartFunc()
@@ -254,7 +253,7 @@ public class StartBtnGroup : MonoBehaviour
         }
 
         SaveDataManager.Instance.SetActiveSlot(slotIndex);
-        PlayerManager.Instance.SetPlayerData(slotIndex);
+        PlayerManager.Instance.SetGameSaveData(slotIndex);
         SceneManagerEx.Instance.SceanLoadQueue("Ch0Scene");
     }
 
@@ -264,12 +263,12 @@ public class StartBtnGroup : MonoBehaviour
 
         if (SaveDataManager.Instance.HasSaveData())
         {
-            PlayerData recentData = SaveDataManager.Instance.LoadMostRecentSave();
+            GameSaveData recentData = SaveDataManager.Instance.LoadMostRecentSave();
 
             if (recentData != null)
             {
                 // 불러온 데이터를 PlayerManager에 설정
-                PlayerManager.Instance.currentData = recentData;
+                PlayerManager.Instance.SetCurrentGameSaveData(recentData);
                 PlayerManager.Instance.SetIsLoaded();
 
                 // 게임 시작 씬으로 이동
