@@ -25,14 +25,17 @@ public class SceneManagerEx : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Make Managers?");
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeManagers();
+            Debug.Log("Make Manager");
         }
         else
         {
+            Debug.Log("Dont make manager");
             Destroy(gameObject);
         }
 
@@ -204,7 +207,7 @@ public class SceneManagerEx : MonoBehaviour
     public void Clear()
     {
         Resources.UnloadUnusedAssets();
-        System.GC.Collect();
+        //System.GC.Collect();
     }
 
     public string GetCurrentSceneName()

@@ -13,20 +13,20 @@ public class SaveBtn : MonoBehaviour
 
     void SetBtnEvent()
     {
-        saveBtnEvent = SavePlayerDataFunc;
+        saveBtnEvent = SaveGameSaveDataFunc;
         Button btn = gameObject.GetComponent<Button>();
         btn.onClick.AddListener(saveBtnEvent);
     }
 
-    public void SavePlayerDataFunc()
+    public void SaveGameSaveDataFunc()
     {
-        Debug.Log("Save PlayerData");
+        Debug.Log("Save Data");
 
-        SaveDataManager.Instance.SaveGame(PlayerManager.Instance.currentData);
+        SaveDataManager.Instance.SaveGame(PlayerManager.Instance.GetCurrentGameSaveData());
     }
 
     private void TestGetSaveData()
     {
-        PlayerManager.Instance.SetPlayerData(0);
+        PlayerManager.Instance.SetGameSaveData(0);
     }
 }

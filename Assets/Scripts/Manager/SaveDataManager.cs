@@ -32,7 +32,7 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    public void SaveGame(PlayerData playerData)
+    public void SaveGame(GameSaveData gameSaveData)
     {
         if (activeSlotIndex == -1)
         {
@@ -46,13 +46,13 @@ public class SaveDataManager : MonoBehaviour
         using (FileStream fs = new FileStream(filePath, FileMode.Create))
         {
             BinaryWriter writer = new BinaryWriter(fs);
-            writer.Write(JsonUtility.ToJson(playerData));
+            writer.Write(JsonUtility.ToJson(gameSaveData));
         }
 
         Debug.Log($"Game saved to slot {activeSlotIndex}: {filePath}");
     }
 
-    public PlayerData LoadGame(int slotIndex)
+    public GameSaveData LoadGame(int slotIndex)
     {
         string filePath = GetSaveFilePath(slotIndex);
 
@@ -62,7 +62,7 @@ public class SaveDataManager : MonoBehaviour
             {
                 BinaryReader reader = new BinaryReader(fs);
                 string jsonData = reader.ReadString();
-                PlayerData loadedData = JsonUtility.FromJson<PlayerData>(jsonData);
+                GameSaveData loadedData = JsonUtility.FromJson<GameSaveData>(jsonData);
                 Debug.Log($"Game loaded from slot {slotIndex}: {filePath}");
 
                 activeSlotIndex = slotIndex; // 불러온 슬롯을 활성화된 슬롯으로 설정
@@ -98,7 +98,7 @@ public class SaveDataManager : MonoBehaviour
     }
 
     //가장 최근에 저장한 데이터로 수정
-    public PlayerData LoadMostRecentSave()
+    public GameSaveData LoadMostRecentSave()
     {
         List<int> availableSlots = GetAvailableSaveSlots();
         if (availableSlots.Count == 0)
@@ -121,7 +121,7 @@ public class SaveDataManager : MonoBehaviour
                 {
                     BinaryReader reader = new BinaryReader(fs);
                     string jsonData = reader.ReadString();
-                    PlayerData tempData = JsonUtility.FromJson<PlayerData>(jsonData);
+                    GameSaveData tempData = JsonUtility.FromJson<GameSaveData>(jsonData);
 
                     if (tempData.saveTime > mostRecentSaveTime)
                     {
@@ -139,7 +139,7 @@ public class SaveDataManager : MonoBehaviour
             {
                 BinaryReader reader = new BinaryReader(fs);
                 string jsonData = reader.ReadString();
-                PlayerData mostRecentData = JsonUtility.FromJson<PlayerData>(jsonData);
+                GameSaveData mostRecentData = JsonUtility.FromJson<GameSaveData>(jsonData);
                 Debug.Log($"Most recent save loaded from: {mostRecentFilePath}");
                 return mostRecentData;
             }

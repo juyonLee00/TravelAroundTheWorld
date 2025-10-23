@@ -319,9 +319,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2094043420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -960, y: 540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &657890942
@@ -589,9 +589,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2094043420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 150}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 510, y: 150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1278366055
@@ -664,9 +664,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2094043420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 381, y: -200}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -579, y: 340}
   m_SizeDelta: {x: 1100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1455808167
@@ -881,6 +881,22 @@ PrefabInstance:
       propertyPath: managersToLoad.Array.size
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: managersToLoad.Array.data[3]
+      value: 
+      objectReference: {fileID: 3586491182391941495, guid: 887c5767785034a89a74c454b1fdf6a5, type: 3}
+    - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: managersToLoad.Array.data[4]
+      value: 
+      objectReference: {fileID: 1671345607515437738, guid: c77d0af910983ee41961113e720b000b, type: 3}
+    - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: managersToLoad.Array.data[5]
+      value: 
+      objectReference: {fileID: 5679241677683194524, guid: 13cf34b613dec4eac8da014faccf29e2, type: 3}
+    - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
+      propertyPath: managersToLoad.Array.data[6]
+      value: 
+      objectReference: {fileID: 6664102430098341053, guid: e3b6a6092c49e4aab9297581883585fc, type: 3}
     - target: {fileID: 8357470372417312622, guid: 33d005b158b8642baa4f33aa1f3e508b, type: 3}
       propertyPath: managersToLoad.Array.data[7]
       value: 

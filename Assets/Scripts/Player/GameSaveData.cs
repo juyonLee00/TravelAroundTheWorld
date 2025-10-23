@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[SerializeField]
-public class PlayerData
+[System.Serializable]
+public class GameSaveData
 {
     //저장된 시간
     public DateTime saveTime;
@@ -27,7 +26,7 @@ public class PlayerData
     //해금한 카페 아이템 종류
     public List<string> unlockedCafeItems;
     //인벤토리 아이템
-    public List<GameObject> inventoryItem;
+    public List<string> inventoryItem;
     //해결한 메인 퀘스트 
     public List<string> completedMainQuestIds;
     //해결한 서브 퀘스트 
