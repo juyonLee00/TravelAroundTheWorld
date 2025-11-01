@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
- 
+
 
 public class ChoiceBtn : MonoBehaviour
 {
@@ -87,8 +87,9 @@ public class ChoiceBtn : MonoBehaviour
                 if (talkManager.isAllNPCActivated)
                 {
                     GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
-                    DayNightCycleManager.Instance.ChangeOnlyDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+
+                    talkManager.SetDialogueIndex(129, false);
+                    talkManager.ActivateTalk("객실");
                 }
                 else
                 {
@@ -220,6 +221,6 @@ public class ChoiceBtn : MonoBehaviour
         UIManager.Instance.DeactivatedUI("Bed");
         bedNarration.SetActive(false);
         player.GetComponent<PlayerController>().StartMove();
-     }
+    }
         
 }

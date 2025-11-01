@@ -181,12 +181,13 @@ public class UIManager : MonoBehaviour
         if (uiInstances.ContainsKey(uiName) && uiInstances[uiName] != null)
         {
             uiInstances[uiName].SetActive(false);
+            activeUIStack.Pop();
         }
     }
 
 
     //모든 UI 비활성화
-    private void DeactivateAllUI()
+    public void DeactivateAllUI()
     {
         foreach (var key in uiInstances.Keys.ToList())
         {
@@ -200,6 +201,7 @@ public class UIManager : MonoBehaviour
                 uiInstances.Remove(key);
             }
         }
+        activeUIStack.Clear();
 
         currentActiveUI = null;
     }
@@ -270,7 +272,7 @@ public class UIManager : MonoBehaviour
 
             if (staticUICanvas == null || dynamicUICanvas == null)
             {
-                Debug.LogError("StaticUICanvas 또는 DynamicUICanvas를 찾을 수 없습니다.");
+                Debug.LogError("UIManager can't find StaticUICanvas or DynamicUICanvas");
                 return;
             }
         }

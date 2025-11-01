@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/CafeTutorialScene.unity
     guid: ba730a91340b4644991f4acc5af1a102
   - enabled: 1
-    path: Assets/Scenes/ch1Scene.unity
-    guid: d68cac1b68111452b88f4d46e11f0e39
+    path: Assets/Scenes/ch1Scene 1.unity
+    guid: f6f4fab3b3c0b2540aefd811aa6c84d9
   - enabled: 1
     path: Assets/Scenes/CafeScene.unity
     guid: 6e15d44b9f32147b8a7c9166fcedd5aa

@@ -54,7 +54,7 @@ public class IngredientsController : MonoBehaviour
             }
             else if (gameObject.name == "IceCup")
             {
-                if(cafeTalkManager.currentDialogueIndex == 45)
+                if(cafeTalkManager.currentNode.nodeId == 45)
                 {
                     transform.position = makePos;
                     SoundManager.Instance.PlaySFX("cupsetdown");

@@ -17,12 +17,13 @@ public class MakeController : MonoBehaviour
     {
         Debug.Log("Current ingredients: " + string.Join(", ", currentIngredients));
         currentIngredients.Add(ingredient.name);
-        if ((currentIngredients.Contains("IceCup") && cafeTalkManager.currentDialogueIndex == 45) ||
-            (currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && cafeTalkManager.currentDialogueIndex == 47) ||
-            (currentIngredients.Contains("Shot") && cafeTalkManager.currentDialogueIndex == 48))
+        if ((currentIngredients.Contains("IceCup") && cafeTalkManager.currentNode.nodeId == 45) ||
+            (currentIngredients.Contains("Water") && currentIngredients.Contains("Ice") && cafeTalkManager.currentNode.nodeId == 47) ||
+            (currentIngredients.Contains("Shot") && cafeTalkManager.currentNode.nodeId == 48))
         {
-            cafeTalkManager.currentDialogueIndex++;
-            cafeTalkManager.PrintProDialogue(cafeTalkManager.currentDialogueIndex);
+            //cafeTalkManager.currentDialogueIndex++;
+            cafeTalkManager.currentNode = cafeTalkManager.currentNode.nextNodes[0];
+            cafeTalkManager.PrintNode(cafeTalkManager.currentNode);
         }
     }
 }
