@@ -16,7 +16,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private string destScene;
 
-    private int returnDialogueIndex;
+    public int returnNodeId;
     private string targetScene;
 
     private int cafeDeliveryNum;
@@ -56,18 +56,17 @@ public class SceneTransitionManager : MonoBehaviour
     {
         return toCafeOrders[0].MenuItem;
     }
- 
+
     //직접 와서 주문 받는 형식(주문자가 정해져 있음)
-    public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, List<CafeOrder> orders)
+    public void HandleDialogueTransition(string fromScene, string toScene, int returnId, List<CafeOrder> orders)
     {
-        returnDialogueIndex = returnIdx;
+        returnNodeId = returnId;
         targetScene = fromScene;
         destScene = toScene;
-        //cafeOrders = new List<CafeOrder>(orders);
         toCafeOrders = new List<CafeOrder>(orders);
         cafeOrders = new List<CafeOrder>();
 
-        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, orders));
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnId, orders));
     }
 
     //직접 와서 주문받는 형식 
@@ -112,15 +111,15 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     //랜덤메뉴 설정
-    public void HandleRandomMenuTransition(string fromScene, string toScene, int returnIdx, int randomNum)
+    public void HandleRandomMenuTransition(string fromScene, string toScene, int returnId, int randomNum)
     {
         Debug.Log(randomMenuTransitionNum);
-        returnDialogueIndex = returnIdx;
+        returnNodeId = returnId;
         targetScene = fromScene;
         destScene = toScene;
         randomMenuNum = 0;
         randomMenuTransitionNum = randomNum;
-        StartCoroutine(HandleRandomMenuSceneTransition(fromScene, toScene, returnIdx, randomNum));
+        StartCoroutine(HandleRandomMenuSceneTransition(fromScene, toScene, returnId, randomNum));
         
     }
 
@@ -154,14 +153,14 @@ public class SceneTransitionManager : MonoBehaviour
 
 
     //배달 랜덤 메뉴 설정
-    public void HandleDialogueTransition(string fromScene, string toScene, int returnIdx, int deliveryNum)
+    public void HandleDialogueTransition(string fromScene, string toScene, int returnId, int deliveryNum)
     {
-        returnDialogueIndex = returnIdx;
+        returnNodeId = returnId;
         targetScene = fromScene;
         destScene = toScene;
         cafeDeliveryTransitionNum = deliveryNum;
         cafeDeliveryNum = 0;
-        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnIdx, deliveryNum));
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, returnId, deliveryNum));
     }
 
     //배달 랜덤 메뉴 설정
@@ -197,11 +196,11 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     //스토리 진행 중 다른 씬으로 이동
-    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnIdx)
+    public void HandleDialogueTransition(string fromScene, string toScene, int fromSceneIdx, int toSceneIdx, int returnId)
     {
-        returnDialogueIndex = returnIdx; 
+        returnNodeId = returnId; 
         targetScene = fromScene;
-        StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnIdx));
+        StartCoroutine(HandleSceneTransition(fromScene, toScene, fromSceneIdx, toSceneIdx, returnId));
     }
 
     //스토리 진행 중 다른 씬으로 이동
@@ -230,7 +229,7 @@ public class SceneTransitionManager : MonoBehaviour
             if (scene.name == targetScene)
             {
                 // 씬 로드 후 TalkManager 인스턴스를 찾고 인덱스 설정
-                StartCoroutine(WaitAndSetDialogueIndex());
+                StartCoroutine(WaitAndSetDialogueNodes());
                 SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 등록 해제
             }
         }
@@ -240,14 +239,14 @@ public class SceneTransitionManager : MonoBehaviour
             if (scene.name == targetScene)
             {
                 // 씬 로드 후 ChNTalkManager 인스턴스를 찾고 인덱스 설정
-                StartCoroutine(WaitAndSetStoryDialogueIndex());
+                StartCoroutine(WaitAndSetStoryNodes());
                 SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 등록 해제
             }
         }
     }
 
     //TutorialScene에서 CafeTutorial 상호작용시 
-    private IEnumerator WaitAndSetDialogueIndex()
+    private IEnumerator WaitAndSetDialogueNodes()
     {
         // TalkManager가 초기화될 때까지 대기
         TalkManager talkManager = null;
@@ -262,12 +261,12 @@ public class SceneTransitionManager : MonoBehaviour
         }
 
         // TalkManager의 currentDialogueIndex 설정
-        Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnDialogueIndex}.");
-        TalkManager.Instance.SetDialogueIndex(returnDialogueIndex, true);
-        Debug.Log($"Dialogue index set to {returnDialogueIndex} in {targetScene}.");
+        Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnNodeId}.");
+        TalkManager.Instance.SetDialogueIndex(returnNodeId, true);
+        Debug.Log($"Dialogue index set to {returnNodeId} in {targetScene}.");
     }
 
-    private IEnumerator WaitAndSetStoryDialogueIndex()
+    private IEnumerator WaitAndSetStoryNodes()
     {
         // TalkManager가 초기화될 때까지 대기
         Ch1TalkManager ch1TalkManager = null;
@@ -276,15 +275,15 @@ public class SceneTransitionManager : MonoBehaviour
             ch1TalkManager = FindObjectOfType<Ch1TalkManager>();
             if (ch1TalkManager != null)
             {
-                Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnDialogueIndex}.");
+                Debug.Log($"Found TalkManager in {targetScene}, setting dialogue index to {returnNodeId}.");
                 break;
             }
             yield return null;
         }
 
-        Debug.Log($"Setting dialogue index to {returnDialogueIndex}");
-        Ch1TalkManager.Instance.SetDialogueIndex(returnDialogueIndex, true);
-        Debug.Log($"Dialogue index set to {returnDialogueIndex} in {targetScene}.");
+        Debug.Log($"Setting dialogue index to {returnNodeId}");
+        Ch1TalkManager.Instance.SetDialogueIndex(returnNodeId, true);
+        Debug.Log($"Dialogue index set to {returnNodeId} in {targetScene}.");
     }
 
 

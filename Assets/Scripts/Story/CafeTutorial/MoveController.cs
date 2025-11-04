@@ -44,7 +44,7 @@ public class MoveController : MonoBehaviour
         Vector2 newPosition = Vector2.zero;
         Vector2 descNewPosition = new Vector2(0, 25);
         
-        switch (cafeTalkManager.currentDialogueIndex)
+        switch (cafeTalkManager.currentNode.nodeId)
         {
             case 40:
             case 41:

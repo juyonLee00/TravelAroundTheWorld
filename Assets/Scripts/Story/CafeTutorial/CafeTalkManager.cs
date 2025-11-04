@@ -6,7 +6,9 @@ using TMPro;
 
 public class CafeTalkManager : MonoBehaviour
 {
-    private List<ProDialogue> proDialogue;
+    public List<DialogueNode> dialogueNodes;
+    private Dictionary<int, DialogueNode> nodeById;
+    public DialogueNode currentNode;
 
     public GameObject narration;
     public TextMeshProUGUI narrationText;
@@ -42,13 +44,9 @@ public class CafeTalkManager : MonoBehaviour
 
     private const string narrationSpeaker = "나레이션";
     private const string locationCafe = "카페";
-
-    public int currentDialogueIndex = 0;
     private bool isActivated = false;
 
     private Dictionary<string, Sprite> characterImages;
-
-    public ProDialogue currentDialogue;
 
     public Ch0DialogueBar dialogueBar;
     public Ch0DialogueBar narrationBar;
@@ -57,7 +55,6 @@ public class CafeTalkManager : MonoBehaviour
 
     void Awake()
     {
-        proDialogue = new List<ProDialogue>();
         LoadDialogueFromCSV();
         InitializeCharacterImages();
     }
@@ -67,10 +64,8 @@ public class CafeTalkManager : MonoBehaviour
         ActiveTalk();
 
         SoundManager.Instance.PlayMusic("CAFE", true);
-        if (isActivated && currentDialogueIndex == 0)
-        {
-            PrintProDialogue(currentDialogueIndex);
-        }
+        currentNode = dialogueNodes[0];
+            PrintNode(currentNode);
     }
 
     void Update()
@@ -114,14 +109,19 @@ public class CafeTalkManager : MonoBehaviour
 
             if (!anyTyping)
             {
-                if (currentDialogueIndex != 0 && currentDialogueIndex != 39 &&
-                currentDialogueIndex != 41 && currentDialogueIndex != 45 &&
-                currentDialogueIndex != 47 && currentDialogueIndex != 48 &&
-                currentDialogueIndex != 49)
+                if (currentNode.nodeId != 0 && currentNode.nodeId != 39 &&
+                currentNode.nodeId != 41 && currentNode.nodeId != 45 &&
+                currentNode.nodeId != 47 && currentNode.nodeId != 48 &&
+                currentNode.nodeId != 49)
                 {
-                    currentDialogueIndex++;
-                    SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
-                    PrintProDialogue(currentDialogueIndex);
+                    if (currentNode.nextNodes == null || currentNode.nextNodes.Count == 0)
+                    {
+                        Debug.LogWarning($"Node {currentNode.nodeId} has no nextNodes. Dialogue ends.");
+                        return;
+                    }
+                    currentNode = currentNode.nextNodes[0];
+                    SceneTransitionManager.Instance.UpdateDialogueIndex(currentNode.nodeId);
+                    PrintNode(currentNode);
                 }
             }
                 
@@ -130,36 +130,36 @@ public class CafeTalkManager : MonoBehaviour
 
     void ProcessClick(GameObject clickedObject)
     {
-        if (currentDialogueIndex == 0 || currentDialogueIndex == 39)
+        if (currentNode.nodeId == 0 || currentNode.nodeId == 39)
         {
             if (clickedObject == CoffeePot)
             {
-                Debug.Log("Hit CoffeePot at index " + currentDialogueIndex);
+                Debug.Log("Hit CoffeePot at index " + currentNode.nodeId);
                 SoundManager.Instance.PlaySFX("click sound");
-                currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
-                PrintProDialogue(currentDialogueIndex);
+                currentNode = currentNode.nextNodes[0];
+                SceneTransitionManager.Instance.UpdateDialogueIndex(currentNode.nodeId);
+                PrintNode(currentNode);
             }
         }
-        else if (currentDialogueIndex == 41)
+        else if (currentNode.nodeId == 41)
         {
             if (clickedObject == Extract)
             {
-                Debug.Log("Hit Extract at index " + currentDialogueIndex);
+                Debug.Log("Hit Extract at index " + currentNode.nodeId);
                 StartCoroutine(ActivateObjectAfterDelay(2f, Shot));
-                currentDialogueIndex++;
-                SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+                currentNode = currentNode.nextNodes[0];
+                SceneTransitionManager.Instance.UpdateDialogueIndex(currentNode.nodeId);
                 SoundManager.Instance.PlaySFX("grinding coffee");
-                PrintProDialogue(currentDialogueIndex);
+                PrintNode(currentNode);
             }
         }
-        else if (currentDialogueIndex == 49)
+        else if (currentNode.nodeId == 49)
         {
-            Debug.Log("Hit Done at index " + currentDialogueIndex);
-            currentDialogueIndex++;
-            SceneTransitionManager.Instance.UpdateDialogueIndex(currentDialogueIndex);
+            Debug.Log("Hit Done at index " + currentNode.nodeId);
+            currentNode = currentNode.nextNodes[0];
+            SceneTransitionManager.Instance.UpdateDialogueIndex(currentNode.nodeId);
             SoundManager.Instance.PlaySFX("mixing with ice");
-            PrintProDialogue(currentDialogueIndex);
+            PrintNode(currentNode);
         }
     }
 
@@ -172,24 +172,32 @@ public class CafeTalkManager : MonoBehaviour
 
     void LoadDialogueFromCSV()
     {
-        List<Dictionary<string, object>> data_Dialog = Ch0CSVReader.Read("Travel Around The World - CafeTutorial");
+        dialogueNodes = new List<DialogueNode>();
+        nodeById = new Dictionary<int, DialogueNode>();
 
-        foreach (var row in data_Dialog)
+        List<Dictionary<string, object>> datas = Ch0CSVReader.Read("Travel Around The World - CafeTutorial");
+
+        for (int i = 0; i < datas.Count; i++)
         {
-            string dayString = row["일자"].ToString();
+            var data = datas[i];
+            string dayString = data["일자"].ToString();
             int day = int.Parse(System.Text.RegularExpressions.Regex.Match(dayString, @"\d+").Value);
-            string location = row["장소"].ToString();
-            string speaker = row["인물"].ToString();
-            string line = row["대사"].ToString();
-            string screenEffect = row["화면 연출"].ToString();
-            string backgroundMusic = row["배경음악"].ToString();
-            string expression = row["표정"].ToString();
-            string note = row["비고"].ToString();
-            string quest = row["퀘스트"].ToString();
-            string questContent = row["퀘스트 내용"].ToString();
+            string location = data["장소"].ToString();
+            string speaker = data["인물"].ToString();
+            string line = data["대사"].ToString();
+            string screenEffect = data["화면 연출"].ToString();
+            string backgroundMusic = data["배경음악"].ToString();
+            string expression = data["표정"].ToString();
+            string note = data["비고"].ToString();
+            string quest = data["퀘스트"].ToString();
+            string questContent = data["퀘스트 내용"].ToString();
 
-            proDialogue.Add(new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent));
+            ProDialogue pro = new ProDialogue(day, location, speaker, line, screenEffect, backgroundMusic, expression, note, quest, questContent);
+
+            dialogueNodes.Add(new DialogueNode(pro, i));
         }
+        for (int i = 0; i < dialogueNodes.Count - 1; i++)
+            dialogueNodes[i].AddNext(dialogueNodes[i + 1]);
     }
     
     void InitializeCharacterImages()
@@ -201,33 +209,30 @@ public class CafeTalkManager : MonoBehaviour
         characterImages["???"] = Resources.Load<Sprite>("NpcImage/Fire");
     }
 
-    public void PrintProDialogue(int index)
+    public void PrintNode(DialogueNode node)
     {
-        if (index >= proDialogue.Count)
-        {
-            return;
-        }
+        if (node == null) return;
 
-        currentDialogue = proDialogue[index];
+        currentNode = node;
+        ProDialogue data = node.data;
 
+        int id = node.nodeId;
 
         // Explain Bar를 보여주는 경우와 텍스트를 설정하는 부분
-        if (index >= 40 && index <= 50)
+        if (id >= 40 && id <= 50)
         {
-            if (index == 50)
-                Debug.Log("current dialogue = " + currentDialogue.line);
+            if (id == 50)
+                Debug.Log("current dialogue = " + data.line);
             dialogue.SetActive(false);
             explainBar.SetActive(true);
-            explainText.text = currentDialogue.line;
+            explainText.text = data.line;
         }
         else
         {
             explainBar.SetActive(false);
             dialogue.SetActive(true);
-            dialogueBar.SetDialogue(currentDialogue.speaker, currentDialogue.line);
-            //nameText.text = currentDialogue.speaker;
-            //descriptionText.text = currentDialogue.line;
-            Sprite characterSprite = characterImages.ContainsKey(currentDialogue.speaker) ? characterImages[currentDialogue.speaker] : Resources.Load<Sprite>("NpcImage/Default");
+            dialogueBar.SetDialogue(data.speaker, data.line);
+            Sprite characterSprite = characterImages.ContainsKey(data.speaker) ? characterImages[data.speaker] : Resources.Load<Sprite>("NpcImage/Default");
 
             if (imageObj.GetComponent<SpriteRenderer>() != null)
             {
@@ -239,29 +244,29 @@ public class CafeTalkManager : MonoBehaviour
             }
         }
 
-        if (index < 1 || (index > 5 && index <= 29) || (index >= 34 && index <= 39) || index > 50)
+        if (id < 1 || (id > 5 && id <= 29) || (id >= 34 && id <= 39) || id > 50)
         {
             Beverage.SetActive(false);
             CafeMap.SetActive(true);
-            if (index >= 18 && index <= 36)
+            if (id >= 18 && id <= 36)
                 cheetah.SetActive(true);
             else
                 cheetah.SetActive(false);
-            if(index == 34)
+            if(id == 34)
             {
                 PlayerManager.Instance.PayMoney(500);
             }
-            if (index == 13 || index == 37)
+            if (id == 13 || id == 37)
                 SoundManager.Instance.PlaySFX("window open");
-            else if (index == 15 || index == 30)
+            else if (id == 15 || id == 30)
                 SoundManager.Instance.PlaySFX("motorcycle");
-            else if (index == 14)
+            else if (id == 14)
                 SoundManager.Instance.PlaySFX("wind");
             narration.SetActive(false);
         }
-        else if (index > 29 && index < 34)
+        else if (id > 29 && id < 34)
         {
-            if (index == 32)
+            if (id == 32)
             {
                 PlayerManager.Instance.EarnMoney(500);
             }
@@ -270,7 +275,7 @@ public class CafeTalkManager : MonoBehaviour
             CafeMap.SetActive(true);
             narration.SetActive(false);
         }
-        else if (index > 39 && index < 42)
+        else if (id > 39 && id < 42)
         { 
             Ingredients.SetActive(true);
             Shot.SetActive(false);
@@ -280,7 +285,7 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
         }
-        else if (index == 42)
+        else if (id == 42)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(false);
@@ -290,7 +295,7 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
         }
-        else if (index > 42 && index < 50)
+        else if (id > 42 && id < 50)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(true);
@@ -300,7 +305,7 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
         }
-        else if (index == 50)
+        else if (id == 50)
         {
             Ingredients.SetActive(true);
             Shot.SetActive(true);
@@ -324,14 +329,13 @@ public class CafeTalkManager : MonoBehaviour
             cheetah.SetActive(false);
             narration.SetActive(false);
         }
-        if (currentDialogue.speaker == narrationSpeaker)
+        if (data.speaker == narrationSpeaker)
         {
             Beverage.SetActive(false);
             CafeMap.SetActive(true);
             dialogue.SetActive(false);
             narration.SetActive(true);
-            narrationBar.SetDialogue(currentDialogue.speaker, currentDialogue.line);
-            //narrationText.text = currentDialogue.line;\
+            narrationBar.SetDialogue(data.speaker, data.line);
         }
 
     }

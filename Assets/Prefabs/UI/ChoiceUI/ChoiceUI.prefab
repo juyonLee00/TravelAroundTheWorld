@@ -49,3 +49,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choiseBtn: {fileID: 265864511389449470, guid: 6b23832e8ca43475b8073254cfa154e9, type: 3}
+  bedNarration: {fileID: 0}
+  ch1NpcScript: {fileID: 2942566707588595447, guid: 3fdd5487c4b254d4693ec18a811c6218, type: 3}

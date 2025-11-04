@@ -1251,6 +1251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83702e3c6a4d8243affc2eaf9b66b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueNodes: []
+  currentNode:
+    nextNodes: []
+    nodeId: 0
+    isChoiceNode: 0
   narration: {fileID: 745860855}
   narrationText: {fileID: 745860856}
   dialogue: {fileID: 237924010}
@@ -1277,7 +1282,6 @@ MonoBehaviour:
   Done: {fileID: 2071853490}
   train: {fileID: 74985549}
   cheetah: {fileID: 1307080388}
-  currentDialogueIndex: 0
   dialogueBar: {fileID: 1668691246}
   narrationBar: {fileID: 745860857}
   openingBar: {fileID: 0}

@@ -106,7 +106,7 @@ public class Ch0DialogueBar : MonoBehaviour
         else if(sceneName == "CafeTutorialScene")
         {
             CafeTalkManager talkManager = GameObject.FindAnyObjectByType<CafeTalkManager>();
-            speakerKey = talkManager.currentDialogue.speaker;
+            speakerKey = talkManager.currentNode.data.speaker;
         }
 
         Debug.Log($"SpeakerKey : {speakerKey}");

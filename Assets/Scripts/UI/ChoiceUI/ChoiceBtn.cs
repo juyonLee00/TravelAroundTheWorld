@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
- 
+
 
 public class ChoiceBtn : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class ChoiceBtn : MonoBehaviour
     private string noData;
 
     public GameObject bedNarration;
+
+    public Ch1NpcScript ch1NpcScript;
 
     private void Awake()
     {
@@ -87,8 +89,9 @@ public class ChoiceBtn : MonoBehaviour
                 if (talkManager.isAllNPCActivated)
                 {
                     GameObject.Find("MapTutorial").GetComponent<MapTurorial>().isSleeping = true;
-                    DayNightCycleManager.Instance.ChangeOnlyDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+
+                    talkManager.SetDialogueIndex(129, false);
+                    talkManager.ActivateTalk("객실");
                 }
                 else
                 {
@@ -106,89 +109,57 @@ public class ChoiceBtn : MonoBehaviour
 
             if (talkManager != null)
             {
-                if (talkManager.currentDialogueIndex == 200)
+                if (talkManager.currentNode.nodeId == 200)//(talkManager.currentDialogueIndex == 200)
                 {
                     bedNarration.GetComponent<TextMeshProUGUI>().text = "상점을 이용하는 게 좋을 것 같다.";
                     bedNarration.SetActive(true);
                     UIManager.Instance.DeactivatedUI("Bed");
                     return;
                 }
-                else if (talkManager.currentDialogueIndex == 29) //2->3
+                else if (talkManager.currentNode.nodeId == 32)//(talkManager.currentDialogueIndex == 29) //2->3
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex = 71;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.ChangedayInTrainRoom();
+                    talkManager.PrintNode(ch1NpcScript.JumpToAnotherNode(74));
+                    //talkManager.currentDialogueIndex = 71;
+                    //talkManager.PrintProDialogue(talkManager.currentDialogueIndex);
+
                 }
-                else if (talkManager.currentDialogueIndex == 111) //3->4
+                else if (talkManager.currentNode.nodeId == 117) //3->4
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex = 142;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.ChangedayInTrainRoom();
+                    talkManager.PrintNode(ch1NpcScript.JumpToAnotherNode(148));
+                    //talkManager.currentDialogueIndex = 142;
+                    //talkManager.PrintProDialogue(talkManager.currentDialogueIndex);
+
                 }
-                else if (talkManager.currentDialogueIndex == 220) //4->5
+                else if (talkManager.currentNode.nodeId == 226) //4->5
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex = 271;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.ChangedayInTrainRoom();
+                    talkManager.PrintNode(ch1NpcScript.JumpToAnotherNode(277));
+                    //talkManager.currentDialogueIndex = 271;
+                    //talkManager.PrintProDialogue(talkManager.currentDialogueIndex);
                 }
-                else if (talkManager.currentDialogueIndex == 334) //5->6
+                else if (talkManager.currentNode.nodeId == 341) //5->6
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex = 361;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.ChangedayInTrainRoom();
+                    talkManager.PrintNode(ch1NpcScript.JumpToAnotherNode(361));
+                    //talkManager.currentDialogueIndex = 361;
+                    //talkManager.PrintProDialogue(talkManager.currentDialogueIndex);
                 }
-                else if (talkManager.currentDialogueIndex == 404) //6->7
+                else if (talkManager.currentNode.nodeId == 404) //6->7
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex = 406;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.ChangedayInTrainRoom();
+                    talkManager.PrintNode(ch1NpcScript.JumpToAnotherNode(406));
+                    //talkManager.currentDialogueIndex = 406;
+                    //talkManager.PrintProDialogue(talkManager.currentDialogueIndex);
                 }
-                else if (talkManager.currentDialogueIndex == 453) // 치타 상점 끝나고 객실로, 7->8
+                else if (talkManager.currentNode.nodeId == 453) // 치타 상점 끝나고 객실로, 7->8
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex++;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.SleepToNextDay();
                 }
-                else if (talkManager.currentDialogueIndex == 532) // 마지막 부분
+                else if (talkManager.currentNode.nodeId == 532) // 마지막 부분
                 {
-                    talkManager.isWaitingForPlayer = false;
-                    talkManager.player.SetActive(false);
-                    talkManager.map.SetActive(false);
-                    talkManager.trainRoom.SetActive(true);
-                    talkManager.currentDialogueIndex++;
-                    talkManager.PrintCh1ProDialogue(talkManager.currentDialogueIndex);
-                    DayNightCycleManager.Instance.ChangeDay();
-                    PlayerManager.Instance.SetCurrentTimeofDay();
+                    ch1NpcScript.SleepToNextDay();
                 }
                 else
                 {
@@ -220,6 +191,6 @@ public class ChoiceBtn : MonoBehaviour
         UIManager.Instance.DeactivatedUI("Bed");
         bedNarration.SetActive(false);
         player.GetComponent<PlayerController>().StartMove();
-     }
+    }
         
 }

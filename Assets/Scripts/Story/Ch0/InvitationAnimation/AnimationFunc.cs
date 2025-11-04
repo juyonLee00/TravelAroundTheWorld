@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class AnimationFunc : MonoBehaviour
@@ -10,7 +11,14 @@ public class AnimationFunc : MonoBehaviour
     {
         talkManager.isAnimationPlaying = false;
 
-        talkManager.currentDialogueIndex += 1;
+        if (talkManager.currentNode != null && talkManager.currentNode.nextNodes.Count > 0)
+        {
+            talkManager.currentNode = talkManager.currentNode.nextNodes[0];
+        }
+        else
+        {
+            UnityEngine.Debug.LogWarning("No next dialogue node found");
+        }
         SoundManager.Instance.PlaySFX("twinkle");
         talkManager.invitationText.gameObject.SetActive(true);
     }
