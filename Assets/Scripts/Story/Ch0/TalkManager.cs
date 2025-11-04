@@ -698,7 +698,7 @@ public class TalkManager : MonoBehaviour
                             }
                             if (nodeId == 132)
                             {
-                                StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene 1"));
+                                StartCoroutine(FadeOutAndLoadScene(trainRoom, "ch1Scene"));
                             }
                         }
                     }

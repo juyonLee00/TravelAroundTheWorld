@@ -16,7 +16,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private string destScene;
 
-    private int returnNodeId;
+    public int returnNodeId;
     private string targetScene;
 
     private int cafeDeliveryNum;
