@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 6a687806c21f64e418566e95ba5119b4, type: 2}
+  bgmMixerGroup: {fileID: 3782577474419909011, guid: 6a687806c21f64e418566e95ba5119b4, type: 2}
+  sfxMixerGroup: {fileID: 2372519322389129614, guid: 6a687806c21f64e418566e95ba5119b4, type: 2}
   bgmVolumeParameter: BGMVolume
   sfxVolumeParameter: SFXVolume
-  fadeDuration: 1
