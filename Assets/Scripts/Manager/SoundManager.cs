@@ -8,9 +8,13 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Settings")]
     public AudioMixer audioMixer;
+
+    public AudioMixerGroup bgmMixerGroup;
+    public AudioMixerGroup sfxMixerGroup;
     public string bgmVolumeParameter = "BGMVolume";
     public string sfxVolumeParameter = "SFXVolume"; 
-    private float fadeDuration = 0.02f; 
+
+    private float fadeDuration = 0.5f; 
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
@@ -41,9 +45,11 @@ public class SoundManager : MonoBehaviour
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
+        musicSource.outputAudioMixerGroup = bgmMixerGroup;
         
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
+        sfxSource.outputAudioMixerGroup = sfxMixerGroup;
 
         dialogueSource = gameObject.AddComponent<AudioSource>(); // 대화용 오디오 소스 초기화
         dialogueSource.loop = false;
@@ -143,7 +149,6 @@ public class SoundManager : MonoBehaviour
     {
         if (musicSource.isPlaying)
         {
-           //해당 코루틴이 켜지면 맵 이동시 사운드가 0이 된 상태로 유지되어서 수정 필요
             yield return StartCoroutine(FadeOut(musicSource, fadeDuration));
         }
         musicSource.clip = newClip;
@@ -189,28 +194,16 @@ public class SoundManager : MonoBehaviour
 
     public void SetBGMVolume(float volume)
     {
-        musicSource.volume = volume;
-        prevAudioVolume = volume;
-        //오디오 믹서 적용 후 수정
-        //audioMixer.SetFloat(bgmVolumeParameter, Mathf.Log10(volume) * 20);
+        float db = volume <= 0.0001f ? -80f : Mathf.Log10(volume) * 20;
+        audioMixer.SetFloat(bgmVolumeParameter, db);
     }
 
     public void SetSFXVolume(float volume)
     {
-        sfxSource.volume = volume;
-        dialogueSource.volume = volume;
-
-        //오디오믹서 적용 후 수정 
-        //audioMixer.SetFloat(sfxVolumeParameter, Mathf.Log10(volume) * 20);
+        float db = volume <= 0.0001f ? -80f : Mathf.Log10(volume) * 20;
+        audioMixer.SetFloat(sfxVolumeParameter, db);
     }
-
-    //전체 마스터볼륨 조절
-    /*
-    public void Mute(bool mute)
-    {
-        audioMixer.SetFloat(volumeParameter, mute ? -80 : 0);
-    }
-    */
+    
 
     public void StopAllSounds()
     {
@@ -235,7 +228,7 @@ public class SoundManager : MonoBehaviour
     public void StopSFX()
     {
         sfxSource.Stop();
-        currentSFXClipName = null; // 현재 재생 중인 SFX 클립 이름 초기화
+        currentSFXClipName = null;
     }
 
     public void StopDialogueSound()
